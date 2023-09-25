@@ -43,8 +43,6 @@ const PostUpload = ({ userLocation }) => {
     e.preventDefault();
     try {
       let getUploadFileURL = "";
-      let uploadSnapshot = "";
-
       if (uploadImageFileURL !== "") {
         // 이미지 url 이 있다면 이미지가 있다는 뜻이니까
         console.log("hello world!");
@@ -106,6 +104,7 @@ const PostUpload = ({ userLocation }) => {
         <PostUploadStyle.PostUploadImageBox>
           <PostUploadStyle.ImgFileSelectLabel htmlFor="imageUploadInput">
             이미지 추가하기
+            <span class="material-symbols-outlined ">add_circle</span>
           </PostUploadStyle.ImgFileSelectLabel>
           <PostUploadStyle.ImgFileSelectInput
             id="imageUploadInput"

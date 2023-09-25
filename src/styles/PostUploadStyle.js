@@ -51,8 +51,8 @@ export const ImgFileSelectLabel = styled.label`
   display: flex;
   align-items: center;
   cursor: pointer;
-  &:hover {
-    color: mediumorchid;
+  span:nth-of-type(1) {
+    color: blue;
   }
 `;
 // 게시글에 올릴 정보를 모두 작성하고 클릭하는 완료 버튼
