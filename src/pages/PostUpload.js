@@ -102,17 +102,16 @@ const PostUpload = ({ userLocation }) => {
     <PostUploadStyle.PostUploadBack>
       <PostUploadStyle.PostUploadForm onSubmit={onsubmitButtonClick}>
         <PostUploadStyle.PostUploadImageBox>
-          <PostUploadStyle.ImgFileSelectLabel htmlFor="imageUploadInput">
+          <PostUploadStyle.ImgFileSelectTitle>
             이미지 추가하기
-            <span class="material-symbols-outlined ">add_circle</span>
-          </PostUploadStyle.ImgFileSelectLabel>
+          </PostUploadStyle.ImgFileSelectTitle>
           <PostUploadStyle.ImgFileSelectInput
             id="imageUploadInput"
             type="file"
             accept="image/*"
             onChange={onchangeImageUpload}
           />
-          {uploadImageFileURL && (
+          {uploadImageFileURL ? (
             <PostUploadStyle.UploadImgBox>
               <PostUploadStyle.UploadImg
                 src={uploadImageFileURL}
@@ -125,6 +124,10 @@ const PostUpload = ({ userLocation }) => {
                 &#215;
               </PostUploadStyle.UploadImgDeleteBtn>
             </PostUploadStyle.UploadImgBox>
+          ) : (
+            <PostUploadStyle.UploadEmptyImg htmlFor="imageUploadInput">
+              <span class="material-symbols-outlined">create_new_folder</span>
+            </PostUploadStyle.UploadEmptyImg>
           )}
         </PostUploadStyle.PostUploadImageBox>
         <PostUploadStyle.PostUploadCategoryBox>

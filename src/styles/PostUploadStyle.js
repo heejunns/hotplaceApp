@@ -46,14 +46,10 @@ export const ImgFileSelectInput = styled.input`
   display: none;
 `;
 // 이미지 업로드 버튼 label
-export const ImgFileSelectLabel = styled.label`
+export const ImgFileSelectTitle = styled.span`
   font-size: 20px;
-  display: flex;
-  align-items: center;
+
   cursor: pointer;
-  span:nth-of-type(1) {
-    color: blue;
-  }
 `;
 // 게시글에 올릴 정보를 모두 작성하고 클릭하는 완료 버튼
 export const SubmitBtn = styled.input`
@@ -85,6 +81,13 @@ export const UploadImgBox = styled.div`
   width: 100px;
   height: 100px;
   position: relative;
+`;
+// 업로드 이미지가 없을때
+export const UploadEmptyImg = styled.label`
+  span:nth-of-type(1) {
+    font-size: 100px;
+    color: mediumorchid;
+  }
 `;
 // 업로드 이미지
 export const UploadImg = styled.img`
