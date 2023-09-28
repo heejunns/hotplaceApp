@@ -2,6 +2,10 @@
 
 ### 🔗  웹사이트 링크 : [https://hotplace-10bcb.web.app](https://hotplace-10bcb.web.app/#/)
 
+### 사용한 기술
+
+html, css, styled-components, react, react-router react-spinners, uuid, firebase
+
 ### 💁‍♂️  왜 만들었는가?
 
 동네의 카페, 음식점, 마트 등을 한 번에 찾아볼 수 있고 사장님들도 본인의 매장을 홍보할 수 있는 애플리케이션이 있으면 좋겠다는 생각에 개발하였습니다.

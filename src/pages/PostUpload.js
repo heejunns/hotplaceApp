@@ -25,7 +25,6 @@ const PostUpload = ({ userLocation }) => {
       target: { value },
     } = event;
     if (value.length > 100) {
-      alert("10자 이상 입력 금지!");
       return;
     }
     setInputText(value);
@@ -135,7 +134,12 @@ const PostUpload = ({ userLocation }) => {
             카테고리 선택
           </PostUploadStyle.CategoryTitle>
           <PostUploadStyle.CategoryMenu>
-            <label htmlFor="cafe">
+            <PostUploadStyle.CategoryBtn
+              htmlFor="cafe"
+              userSelectCategory={
+                userSelectCategory === "cafe" ? "mediumorchid" : ""
+              }
+            >
               카페
               <PostUploadStyle.InputCategory
                 id="cafe"
@@ -143,8 +147,13 @@ const PostUpload = ({ userLocation }) => {
                 name="cafe"
                 onChange={onchangeUserSelectCategory}
               />
-            </label>
-            <label htmlFor="food">
+            </PostUploadStyle.CategoryBtn>
+            <PostUploadStyle.CategoryBtn
+              htmlFor="food"
+              userSelectCategory={
+                userSelectCategory === "food" ? "mediumorchid" : ""
+              }
+            >
               음식
               <PostUploadStyle.InputCategory
                 id="food"
@@ -152,8 +161,13 @@ const PostUpload = ({ userLocation }) => {
                 name="cafe"
                 onChange={onchangeUserSelectCategory}
               />
-            </label>
-            <label htmlFor="mart">
+            </PostUploadStyle.CategoryBtn>
+            <PostUploadStyle.CategoryBtn
+              htmlFor="mart"
+              userSelectCategory={
+                userSelectCategory === "mart" ? "mediumorchid" : ""
+              }
+            >
               마트
               <PostUploadStyle.InputCategory
                 id="mart"
@@ -161,7 +175,7 @@ const PostUpload = ({ userLocation }) => {
                 name="cafe"
                 onChange={onchangeUserSelectCategory}
               />
-            </label>
+            </PostUploadStyle.CategoryBtn>
           </PostUploadStyle.CategoryMenu>
         </PostUploadStyle.PostUploadCategoryBox>
         <PostUploadStyle.PostUploadInputTextBox>
@@ -175,23 +189,36 @@ const PostUpload = ({ userLocation }) => {
               </PostUploadStyle.InputTextNumberLimit>{" "}
               / 100
             </span>
+            {inputText.length === 100 && (
+              <PostUploadStyle.InputTextLimitText>
+                100 글자를 초과해서 입력 할 수 없습니다
+              </PostUploadStyle.InputTextLimitText>
+            )}
           </PostUploadStyle.PostUploadInputTextBoxTitleBox>
 
           <PostUploadStyle.InputPostText
             type="text"
             value={inputText}
             onChange={onchangeInputText}
-            placeholder="올리고 싶은 글을 작성해주세요."
+            placeholder="업로드 하고 싶은 글을 작성 해주세요."
           />
         </PostUploadStyle.PostUploadInputTextBox>
         <PostUploadStyle.PostUploadMapBox>
           <PostUploadStyle.MapBoxTitle>
             장소 지정하기
           </PostUploadStyle.MapBoxTitle>
-          <PostUploadStyle.MapBtn type="button" onClick={onclickMapButton}>
-            장소 지정
-          </PostUploadStyle.MapBtn>
-          {mapStatus && <Map setUserMarkerLocation={setUserMarkerLocation} />}
+          <PostUploadStyle.MapBox>
+            {mapStatus ? (
+              <Map setUserMarkerLocation={setUserMarkerLocation} />
+            ) : (
+              <span
+                class="material-symbols-outlined"
+                onClick={onclickMapButton}
+              >
+                add_location_alt
+              </span>
+            )}
+          </PostUploadStyle.MapBox>
         </PostUploadStyle.PostUploadMapBox>
 
         <PostUploadStyle.PostUploadSubmitBox>

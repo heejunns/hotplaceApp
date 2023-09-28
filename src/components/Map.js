@@ -1,52 +1,7 @@
 import React, { memo, useCallback, useEffect, useState } from "react";
 import styled from "styled-components";
-
-// 맵 레이아웃 스타일 태그
-const MapLayout = styled.div`
-  width: 100%;
-  border: 3px solid mediumorchid;
-  margin-top: 0.5rem;
-  display: flex;
-  flex-direction: column;
-  justify-content: space-evenly;
-  align-items: center;
-  padding: 0.5rem;
-  height: 85%;
-`;
-// 맵 이미지 스타일 태그
-const MapImage = styled.div`
-  color: mediumorchid;
-  width: 100%;
-  height: 10rem;
-  border-radius: 5px;
-  @media screen and (min-width: 390px) and (min-height: 844px) {
-    height: 15rem;
-  }
-  @media screen and (min-width: 768px) and (min-height: 1024px) {
-    height: 18rem;
-  }
-`;
-// 마커 버튼 레이아웃 스타일 태그
-const ButtonLayout = styled.div`
-  width: 50%;
-  display: flex;
-  justify-content: center;
-`;
-// 마커 버튼 스타일 태그
-const ButtonMarker = styled.button`
-  border-radius: 10px;
-  border: 3px solid mediumorchid;
-  background: white;
-  padding: 0.3rem;
-  font-size: 1rem;
-  @media screen and (min-width: 768px) and (min-height: 1024px) {
-    font-size: 1.3rem;
-  }
-  @media screen and (min-width: 800px) {
-    font-size: 1.5rem;
-  }
-`;
-
+import FadeLoader from "react-spinners/FadeLoader";
+import * as MapStyle from "../styles/MapStyle";
 const Map = ({ setUserMarkerLocation }) => {
   const [marker, setMarker] = useState(""); // 마커 버튼을 클릭하면 호출 될 함수를 저장할 state
   const getLocation = useCallback(
@@ -131,6 +86,8 @@ const Map = ({ setUserMarkerLocation }) => {
   );
 
   useEffect(() => {
+    console.log("네비게이터", navigator.geolocation);
+
     if (navigator.geolocation) {
       // 위치가 있다면
       navigator.geolocation.getCurrentPosition(getLocation);
@@ -139,14 +96,14 @@ const Map = ({ setUserMarkerLocation }) => {
 
   console.log(marker);
   return (
-    <MapLayout>
-      <MapImage id="map">맵 불러오는 중</MapImage>
-      <ButtonLayout>
-        <ButtonMarker type="button" onClick={() => marker("MARKER")}>
+    <>
+      <MapStyle.MapImage id="map">맵 불러오는 중</MapStyle.MapImage>
+      <MapStyle.ButtonBox>
+        <MapStyle.ButtonMarker type="button" onClick={() => marker("MARKER")}>
           마커하기
-        </ButtonMarker>
-      </ButtonLayout>
-    </MapLayout>
+        </MapStyle.ButtonMarker>
+      </MapStyle.ButtonBox>
+    </>
   );
 };
 
