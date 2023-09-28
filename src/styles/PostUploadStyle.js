@@ -37,10 +37,14 @@ export const InputPostText = styled.textarea`
   margin-top: 10px;
   background: transparent;
   border-style: none;
-  border: 1px solid blue;
+  border: 3px solid mediumorchid;
+  border-radius: 10px;
+  padding: 10px;
 `;
 // 카테고리 선택 input
-export const InputCategory = styled.input``;
+export const InputCategory = styled.input`
+  display: none;
+`;
 // 이미지 업로드 버튼 input
 export const ImgFileSelectInput = styled.input`
   display: none;
@@ -62,18 +66,7 @@ export const SubmitBtn = styled.input`
   border: 3px solid mediumorchid;
   background-color: transparent;
 `;
-// 작성하는 글의 매장 위치를 기록하기 위한 카카오 맵을 불러오는 위치 지정하기 버튼 스타일 태그
-export const MapBtn = styled.button`
-  width: 100px;
-  height: 30px;
-  margin-top: 10px;
-  display: flex;
-  justify-content: center;
-  align-items: center;
-  border-radius: 10px;
-  border: 3px solid mediumorchid;
-  background-color: transparent;
-`;
+
 // 업로드 이미지 박스
 export const UploadImgBox = styled.div`
   margin: 0.3rem 0 0 1rem;
@@ -123,7 +116,7 @@ export const PostUploadImageBox = styled.div`
 export const PostUploadCategoryBox = styled.div`
   display: flex;
   flex-direction: column;
-  height: 150px;
+  height: 80px;
   border-bottom: 1px solid grey;
   margin-bottom: 10px;
 `;
@@ -135,6 +128,22 @@ export const CategoryTitle = styled.span`
 export const CategoryMenu = styled.div`
   display: flex;
   margin-top: 10px;
+  width: 30%;
+  justify-content: space-between;
+`;
+
+export const CategoryBtn = styled.label`
+  width: 80px;
+  height: 30px;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  border-radius: 10px;
+  border: 1px solid mediumorchid;
+  font-weight: 800;
+  background-color: ${(props) =>
+    props.userSelectCategory !== "" ? props.userSelectCategory : "white"};
+  color: ${(props) => (props.userSelectCategory !== "" ? "white" : "black")};
 `;
 
 export const PostUploadInputTextBox = styled.div`
@@ -174,4 +183,30 @@ export const PostUploadInputTextBoxTitleBox = styled.div`
   align-items: center;
 `;
 
-export const InputTextNumberLimit = styled.span``;
+export const InputTextNumberLimit = styled.span`
+  color: mediumorchid;
+`;
+
+export const InputTextLimitText = styled.span`
+  margin-left: 10px;
+  color: red;
+  font-size: 15px;
+`;
+
+// 맵 레이아웃 스타일 태그
+export const MapBox = styled.div`
+  width: 100%;
+  height: 500px;
+  border: 3px solid mediumorchid;
+  margin-top: 10px;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  padding: 10px;
+  border-radius: 10px;
+  span:nth-of-type(1) {
+    font-size: 100px;
+    color: mediumorchid;
+  }
+`;
