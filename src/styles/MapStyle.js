@@ -4,32 +4,33 @@ import styled from "styled-components";
 export const MapImage = styled.div`
   color: mediumorchid;
   width: 100%;
-  height: 10rem;
-  border-radius: 5px;
-  @media screen and (min-width: 390px) and (min-height: 844px) {
-    height: 15rem;
-  }
-  @media screen and (min-width: 768px) and (min-height: 1024px) {
-    height: 18rem;
-  }
+  height: 100%;
+  border-radius: 10px;
+  display: flex;
+  justify-content: center;
+  align-items: center;
 `;
 // 마커 버튼 레이아웃 스타일 태그
 export const MarkerBtnBox = styled.div`
-  width: 50%;
+  margin-top: 10px;
+  width: 100%;
   display: flex;
   justify-content: center;
 `;
 // 마커 버튼 스타일 태그
-export const ButtonMarker = styled.button`
+export const MarkerBtn = styled.button`
   border-radius: 10px;
   border: 3px solid mediumorchid;
   background: white;
-  padding: 0.3rem;
-  font-size: 1rem;
-  @media screen and (min-width: 768px) and (min-height: 1024px) {
-    font-size: 1.3rem;
+  padding: 10px;
+  font-size: 20px;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  & > span {
+    font-size: 30px;
   }
-  @media screen and (min-width: 800px) {
-    font-size: 1.5rem;
+  &:hover {
+    border: 3px solid purple;
   }
 `;

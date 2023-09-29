@@ -1,6 +1,5 @@
 import React, { memo, useCallback, useEffect, useState } from "react";
-import styled from "styled-components";
-import FadeLoader from "react-spinners/FadeLoader";
+
 import * as MapStyle from "../styles/MapStyle";
 const Map = ({ setUserMarkerLocation }) => {
   const [marker, setMarker] = useState(""); // 마커 버튼을 클릭하면 호출 될 함수를 저장할 state
@@ -18,7 +17,6 @@ const Map = ({ setUserMarkerLocation }) => {
 
       // 지도를 생성합니다
       const map = new window.kakao.maps.Map(mapContainer, mapOption);
-      console.log("지도 만듬!");
       const options = {
         // Drawing Manager를 생성할 때 사용할 옵션입니다
         map: map, // Drawing Manager로 그리기 요소를 그릴 map 객체입니다
@@ -53,13 +51,13 @@ const Map = ({ setUserMarkerLocation }) => {
           manager.select(window.kakao.maps.drawing.OverlayType[type]);
         };
       });
-      manager.addListener("remove", function (e) {
+      manager.addListener("remove", () => {
         // 마커를 삭제하면 이벤트 발생
         const data = manager.getData();
         console.log("삭제", data);
-        if (data.marker.length !== 0) {
-          //불러온 데이터의 marker 에 데이터가 있다면
-          setUserMarkerLocation([data.marker[0].y, data.marker[0].x]); // 마커를 지정한 좌표를 state 로 업데이트
+        if (data.marker.length > 0) {
+          // 불러온 데이터의 marker 에 데이터가 있다면
+          setUserMarkerLocation([data.marker[0].y, data.marker[0].x]); // 마커로 지정한 좌표를 state 로 업데이트
           return;
         } else if (data.marker.length === 0) {
           // 마커를 삭제하고 완료 버튼을 클릭하면 마커의 좌표를 저장하는 state 초기화
@@ -68,18 +66,19 @@ const Map = ({ setUserMarkerLocation }) => {
         }
       });
 
-      manager.addListener("drawend", function (d) {
+      manager.addListener("drawend", () => {
         // 마커를 생성하면 이벤트 발생
         const data = manager.getData();
-        if (data.marker.length !== 0) {
+        if (data.marker.length > 0) {
           //불러온 데이터의 marker 에 데이터가 있다면
           setUserMarkerLocation([data.marker[0].y, data.marker[0].x]); // 마커를 지정한 좌표를 state 로 업데이트
           return;
-        } else if (data.marker.length === 0) {
-          // 마커를 삭제하고 완료 버튼을 클릭하면 마커의 좌표를 저장하는 state 초기화
-          setUserMarkerLocation([]);
-          return;
         }
+        // else if (data.marker.length === 0) {
+        //   // 마커를 삭제하고 완료 버튼을 클릭하면 마커의 좌표를 저장하는 state 초기화
+        //   setUserMarkerLocation([]);
+        //   return;
+        // }
       });
     },
     [setUserMarkerLocation]
@@ -98,11 +97,11 @@ const Map = ({ setUserMarkerLocation }) => {
   return (
     <>
       <MapStyle.MapImage id="map">맵 불러오는 중</MapStyle.MapImage>
-      <MapStyle.ButtonBox>
-        <MapStyle.ButtonMarker type="button" onClick={() => marker("MARKER")}>
-          마커하기
-        </MapStyle.ButtonMarker>
-      </MapStyle.ButtonBox>
+      <MapStyle.MarkerBtnBox>
+        <MapStyle.MarkerBtn type="button" onClick={() => marker("MARKER")}>
+          장소 마커하기 <span class="material-symbols-outlined">push_pin</span>
+        </MapStyle.MarkerBtn>
+      </MapStyle.MarkerBtnBox>
     </>
   );
 };

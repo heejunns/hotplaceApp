@@ -40,6 +40,7 @@ export const InputPostText = styled.textarea`
   border: 3px solid mediumorchid;
   border-radius: 10px;
   padding: 10px;
+  resize: none;
 `;
 // 카테고리 선택 input
 export const InputCategory = styled.input`
@@ -77,7 +78,7 @@ export const UploadImgBox = styled.div`
 `;
 // 업로드 이미지가 없을때
 export const UploadEmptyImg = styled.label`
-  span:nth-of-type(1) {
+  & > span {
     font-size: 100px;
     color: mediumorchid;
   }
@@ -114,11 +115,10 @@ export const PostUploadImageBox = styled.div`
   margin-bottom: 10px;
 `;
 export const PostUploadCategoryBox = styled.div`
-  display: flex;
-  flex-direction: column;
-  height: 80px;
+  height: 100px;
   border-bottom: 1px solid grey;
-  margin-bottom: 10px;
+  padding-bottom: 20px;
+  margin-bottom: 20px;
 `;
 
 export const CategoryTitle = styled.span`
@@ -126,24 +126,30 @@ export const CategoryTitle = styled.span`
 `;
 
 export const CategoryMenu = styled.div`
-  display: flex;
   margin-top: 10px;
-  width: 30%;
-  justify-content: space-between;
+  display: flex;
 `;
 
 export const CategoryBtn = styled.label`
-  width: 80px;
-  height: 30px;
+  width: 100px;
+  padding: 10px;
   display: flex;
   justify-content: center;
   align-items: center;
   border-radius: 10px;
   border: 1px solid mediumorchid;
   font-weight: 800;
+  white-space: nowrap;
   background-color: ${(props) =>
     props.userSelectCategory !== "" ? props.userSelectCategory : "white"};
   color: ${(props) => (props.userSelectCategory !== "" ? "white" : "black")};
+  & > span {
+    margin-left: 5px;
+  }
+  &:nth-child(1),
+  &:nth-child(2) {
+    margin-right: 10px;
+  }
 `;
 
 export const PostUploadInputTextBox = styled.div`
@@ -151,7 +157,7 @@ export const PostUploadInputTextBox = styled.div`
   flex-direction: column;
   height: 150px;
   border-bottom: 1px solid grey;
-  margin-bottom: 10px;
+  margin-bottom: 20px;
 `;
 export const InputTextBoxTitle = styled.span`
   font-size: 20px;
@@ -161,9 +167,9 @@ export const InputTextBoxTitle = styled.span`
 export const PostUploadMapBox = styled.div`
   display: flex;
   flex-direction: column;
-  padding-bottom: 10px;
+  padding-bottom: 20px;
   border-bottom: 1px solid grey;
-  margin-bottom: 10px;
+  margin-bottom: 20px;
 `;
 
 export const MapBoxTitle = styled.span`
@@ -205,7 +211,7 @@ export const MapBox = styled.div`
   align-items: center;
   padding: 10px;
   border-radius: 10px;
-  span:nth-of-type(1) {
+  & > span {
     font-size: 100px;
     color: mediumorchid;
   }
