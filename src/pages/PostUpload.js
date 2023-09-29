@@ -140,7 +140,7 @@ const PostUpload = ({ userLocation }) => {
                 userSelectCategory === "cafe" ? "mediumorchid" : ""
               }
             >
-              카페
+              카페 <span class="material-symbols-outlined">local_cafe</span>
               <PostUploadStyle.InputCategory
                 id="cafe"
                 type="radio"
@@ -154,7 +154,7 @@ const PostUpload = ({ userLocation }) => {
                 userSelectCategory === "food" ? "mediumorchid" : ""
               }
             >
-              음식
+              음식 <span class="material-symbols-outlined">restaurant</span>
               <PostUploadStyle.InputCategory
                 id="food"
                 type="radio"
@@ -168,7 +168,7 @@ const PostUpload = ({ userLocation }) => {
                 userSelectCategory === "mart" ? "mediumorchid" : ""
               }
             >
-              마트
+              마트 <span class="material-symbols-outlined">storefront</span>
               <PostUploadStyle.InputCategory
                 id="mart"
                 type="radio"

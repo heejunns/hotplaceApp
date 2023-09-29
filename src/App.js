@@ -5,13 +5,16 @@ import { authService } from "./reactfbase";
 import styled from "styled-components";
 import { useSetRecoilState } from "recoil";
 import { userAtom } from "./recoils/UserAtom";
+import FadeLoader from "react-spinners/FadeLoader";
+import { ClipLoader, PulseLoader } from "react-spinners";
+import { initializeApp } from "firebase/app";
 
 // 처음 로딩 될때 화면을 보여줄 컴포넌트
 const Loading = styled.div`
   width: 100%;
-  color: mediumorchid;
-  height: 100vh;
-  font-size: 50px;
+  height: 100%;
+  font-size: 100px;
+  position: fixed;
   display: flex;
   justify-content: center;
   align-items: center;
@@ -69,7 +72,14 @@ const App = () => {
       {firebaseInitialize ? (
         <AppRouter userLocation={userLocation} />
       ) : (
-        <Loading>불러오는 중...</Loading>
+        <Loading>
+          <PulseLoader
+            color="mediumorchid"
+            height={100}
+            width={100}
+            radius={10}
+          />
+        </Loading>
       )}
     </>
   );
