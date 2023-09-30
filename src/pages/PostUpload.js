@@ -99,7 +99,7 @@ const PostUpload = ({ userLocation }) => {
   }, []);
   return (
     <PostUploadStyle.PostUploadBack>
-      <PostUploadStyle.PostUploadForm onSubmit={onsubmitButtonClick}>
+      <PostUploadStyle.PostUploadFormContainer onSubmit={onsubmitButtonClick}>
         <PostUploadStyle.PostUploadImageBox>
           <PostUploadStyle.ImgFileSelectTitle>
             이미지 추가하기
@@ -133,7 +133,7 @@ const PostUpload = ({ userLocation }) => {
           <PostUploadStyle.CategoryTitle>
             카테고리 선택
           </PostUploadStyle.CategoryTitle>
-          <PostUploadStyle.CategoryMenu>
+          <PostUploadStyle.CategoryMenuBox>
             <PostUploadStyle.CategoryBtn
               htmlFor="cafe"
               userSelectCategory={
@@ -176,7 +176,7 @@ const PostUpload = ({ userLocation }) => {
                 onChange={onchangeUserSelectCategory}
               />
             </PostUploadStyle.CategoryBtn>
-          </PostUploadStyle.CategoryMenu>
+          </PostUploadStyle.CategoryMenuBox>
         </PostUploadStyle.PostUploadCategoryBox>
         <PostUploadStyle.PostUploadInputTextBox>
           <PostUploadStyle.PostUploadInputTextBoxTitleBox>
@@ -184,9 +184,9 @@ const PostUpload = ({ userLocation }) => {
               자세한 설명
             </PostUploadStyle.InputTextBoxTitle>
             <span>
-              <PostUploadStyle.InputTextNumberLimit>
+              <PostUploadStyle.InputTextCurrentNumber>
                 {inputText.length}
-              </PostUploadStyle.InputTextNumberLimit>{" "}
+              </PostUploadStyle.InputTextCurrentNumber>{" "}
               / 100
             </span>
             {inputText.length === 100 && (
@@ -224,7 +224,7 @@ const PostUpload = ({ userLocation }) => {
         <PostUploadStyle.PostUploadSubmitBox>
           <PostUploadStyle.SubmitBtn type="submit" value="완료" />
         </PostUploadStyle.PostUploadSubmitBox>
-      </PostUploadStyle.PostUploadForm>
+      </PostUploadStyle.PostUploadFormContainer>
     </PostUploadStyle.PostUploadBack>
   );
 };

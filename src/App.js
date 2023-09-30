@@ -5,9 +5,7 @@ import { authService } from "./reactfbase";
 import styled from "styled-components";
 import { useSetRecoilState } from "recoil";
 import { userAtom } from "./recoils/UserAtom";
-import FadeLoader from "react-spinners/FadeLoader";
-import { ClipLoader, PulseLoader } from "react-spinners";
-import { initializeApp } from "firebase/app";
+import { PulseLoader } from "react-spinners";
 
 // 처음 로딩 될때 화면을 보여줄 컴포넌트
 const Loading = styled.div`
