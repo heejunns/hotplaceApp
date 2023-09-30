@@ -3,93 +3,45 @@ import styled from "styled-components";
 export const PostUploadBack = styled.div`
   font-family: "Nanum Myeongjo", serif;
   width: 100%;
-  height: 100%;
   background: white;
+  padding: 30px 10px;
   display: flex;
-  justify-content: space-evenly;
-  align-items: center;
+  justify-content: center;
 `;
 
-// 게시글 올리기 폼 스타일 태그
-export const PostUploadForm = styled.form`
-  min-width: 370px;
-  overflow-y: auto;
-  margin-top: 0.5rem;
-  padding: 1rem;
-  width: 90%;
-  height: 90%;
-  min-height: 90%;
+// 게시글 올리기 폼 컨테이너
+export const PostUploadFormContainer = styled.form`
+  width: 100%;
+  max-width: 1000px;
   border-radius: 10px;
   display: flex;
   flex-direction: column;
-  /* border: 3px solid mediumorchid; */
-  @media screen and (min-width: 400px) {
-    width: 80%;
-  }
-  @media screen and (min-width: 768px) {
-    width: 60%;
-  }
 `;
-// 텍스트 input
-export const InputPostText = styled.textarea`
-  width: 100%;
-  height: 100px;
-  margin-top: 10px;
-  background: transparent;
-  border-style: none;
-  border: 3px solid mediumorchid;
-  border-radius: 10px;
-  padding: 10px;
-  resize: none;
+// ============================================ 이미지 업로드 ======================================
+// 이미지 업로드 부분 박스
+export const PostUploadImageBox = styled.div`
+  display: flex;
+  flex-direction: column;
+  height: 140px;
+  border-bottom: 1px solid grey;
+  margin-bottom: 20px;
 `;
-// 카테고리 선택 input
-export const InputCategory = styled.input`
-  display: none;
-`;
-// 이미지 업로드 버튼 input
+// 이미지 업로드 버튼 인풋 태그
 export const ImgFileSelectInput = styled.input`
   display: none;
 `;
-// 이미지 업로드 버튼 label
-export const ImgFileSelectTitle = styled.span`
+// 이미지 업로드 제목
+export const ImgFileSelectTitle = styled.h1`
   font-size: 20px;
-
-  cursor: pointer;
-`;
-// 게시글에 올릴 정보를 모두 작성하고 클릭하는 완료 버튼
-export const SubmitBtn = styled.input`
-  width: 100px;
-  height: 30px;
-  display: flex;
-  justify-content: center;
-  align-items: center;
-  border-radius: 10px;
-  border: 3px solid mediumorchid;
-  background-color: transparent;
-`;
-
-// 업로드 이미지 박스
-export const UploadImgBox = styled.div`
-  margin: 0.3rem 0 0 1rem;
-  padding: 5px;
-  width: 100px;
-  height: 100px;
-  position: relative;
-`;
-// 업로드 이미지가 없을때
-export const UploadEmptyImg = styled.label`
-  & > span {
-    font-size: 100px;
-    color: mediumorchid;
-  }
 `;
 // 업로드 이미지
 export const UploadImg = styled.img`
-  width: 100%;
-  height: 100%;
+  width: 90px;
+  height: 90px;
   border-radius: 10px;
+  object-fit: cover;
 `;
-// 업로드하기 위해 선택한 이미지 삭제 버튼
+// 업로드 한 이미지 삭제 버튼
 export const UploadImgDeleteBtn = styled.button`
   font-size: 25px;
   cursor: pointer;
@@ -106,30 +58,101 @@ export const UploadImgDeleteBtn = styled.button`
   background-color: mediumorchid;
   border: 2px solid mediumorchid;
 `;
+// 업로드 한 이미지의 박스
+export const UploadImgBox = styled.div`
+  margin-top: 10px;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  padding: 5px;
+  width: 100px;
+  height: 100px;
+  position: relative;
+`;
+// 업로드 이미지가 없을때
+export const UploadEmptyImg = styled.label`
+  margin-top: 10px;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  padding: 5px;
+  width: 100px;
+  height: 100px;
+  & > span {
+    font-size: 90px;
+    color: mediumorchid;
+  }
+`;
 
-export const PostUploadImageBox = styled.div`
+// ============================================ 이미지 업로드 끝 ======================================
+
+// ============================================ 자세한 설명 =====================================
+// 텍스트 입력 박스
+export const PostUploadInputTextBox = styled.div`
   display: flex;
   flex-direction: column;
   height: 150px;
   border-bottom: 1px solid grey;
-  margin-bottom: 10px;
+  margin-bottom: 20px;
 `;
+// 텍스트 입력 제목 박스
+export const PostUploadInputTextBoxTitleBox = styled.div`
+  display: flex;
+  align-items: center;
+`;
+
+// 텍스트 입력 textarea
+export const InputPostText = styled.textarea`
+  width: 100%;
+  height: 100px;
+  margin-top: 20px;
+  background: transparent;
+  border-style: none;
+  border: 3px solid mediumorchid;
+  border-radius: 10px;
+  padding: 10px;
+  resize: none;
+`;
+//
+export const InputTextBoxTitle = styled.span`
+  font-size: 20px;
+  margin-right: 20px;
+`;
+// 현재 입력한 글자 수
+export const InputTextCurrentNumber = styled.span`
+  color: mediumorchid;
+`;
+// 현재 입력한 글자의 수가 제한된 글자 수를 모두 채웠다는 멘트
+export const InputTextLimitText = styled.span`
+  margin-left: 10px;
+  color: red;
+  font-size: 15px;
+`;
+
+// ==================================== 자세한 설명 부분 끝 ==============================
+
+// ===================================== 카테고리 선택 =======================================
+// 카테고리 선택 박스
 export const PostUploadCategoryBox = styled.div`
   height: 100px;
   border-bottom: 1px solid grey;
   padding-bottom: 20px;
   margin-bottom: 20px;
 `;
-
+// 카테고리 선택 제목
 export const CategoryTitle = styled.span`
   font-size: 20px;
 `;
-
-export const CategoryMenu = styled.div`
+// 카테고리 선택 input
+export const InputCategory = styled.input`
+  display: none;
+`;
+// 카테고리 선택 메뉴 박스
+export const CategoryMenuBox = styled.div`
   margin-top: 10px;
   display: flex;
 `;
-
+// 카테고리 선택 버튼
 export const CategoryBtn = styled.label`
   width: 100px;
   padding: 10px;
@@ -152,16 +175,18 @@ export const CategoryBtn = styled.label`
   }
 `;
 
-export const PostUploadInputTextBox = styled.div`
+// ======================================  카테고리 선택 끝 =======================================
+
+// 게시글에 올릴 정보를 모두 작성하고 클릭하는 완료 버튼
+export const SubmitBtn = styled.input`
+  width: 100px;
+  height: 30px;
   display: flex;
-  flex-direction: column;
-  height: 150px;
-  border-bottom: 1px solid grey;
-  margin-bottom: 20px;
-`;
-export const InputTextBoxTitle = styled.span`
-  font-size: 20px;
-  margin-right: 20px;
+  justify-content: center;
+  align-items: center;
+  border-radius: 10px;
+  border: 3px solid mediumorchid;
+  background-color: transparent;
 `;
 
 export const PostUploadMapBox = styled.div`
@@ -182,21 +207,6 @@ export const PostUploadSubmitBox = styled.div`
   align-items: center;
   flex-direction: column;
   height: 50px;
-`;
-
-export const PostUploadInputTextBoxTitleBox = styled.div`
-  display: flex;
-  align-items: center;
-`;
-
-export const InputTextNumberLimit = styled.span`
-  color: mediumorchid;
-`;
-
-export const InputTextLimitText = styled.span`
-  margin-left: 10px;
-  color: red;
-  font-size: 15px;
 `;
 
 // 맵 레이아웃 스타일 태그
