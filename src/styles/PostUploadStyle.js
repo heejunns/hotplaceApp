@@ -179,14 +179,15 @@ export const CategoryBtn = styled.label`
 
 // 게시글에 올릴 정보를 모두 작성하고 클릭하는 완료 버튼
 export const SubmitBtn = styled.input`
-  width: 100px;
-  height: 30px;
+  width: 150px;
+  height: 50px;
   display: flex;
   justify-content: center;
   align-items: center;
   border-radius: 10px;
   border: 3px solid mediumorchid;
   background-color: transparent;
+  font-size: 20px;
 `;
 
 export const PostUploadMapBox = styled.div`

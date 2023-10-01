@@ -11,10 +11,13 @@ import { useRecoilValue } from "recoil";
 import { hamburgerBtnClick } from "../recoils/UserAtom";
 import * as HomeStyle from "../styles/HomeStyle";
 import PostItem from "../components/PostItem";
+import DeleteModal from "../components/DeleteModal";
 
 const Home = ({ userLocation }) => {
   const [currentData, setCurrentData] = useState([]);
   const hamburgerClickInfo = useRecoilValue(hamburgerBtnClick);
+  const [isDeleteModal, setIsDeleteModal] = useState(false);
+  const [deleteData, setDeleteData] = useState(null);
   useEffect(() => {
     console.log("랜더링");
   }, [hamburgerClickInfo]);
@@ -90,31 +93,35 @@ const Home = ({ userLocation }) => {
     });
   }, [userLocation]);
 
-  const iconStyle = useCallback(() => {
-    return {
-      marginRight: "0.5rem",
-    };
-  }, []);
-
   return (
-    <HomeStyle.HomeBack hamburgerClickInfo={hamburgerClickInfo}>
-      <HomeStyle.PostLayout>
-        {currentData.length === 0 ? (
-          <HomeStyle.EmptyPost>현재 게시물이 없습니다.</HomeStyle.EmptyPost>
-        ) : (
-          currentData.map((data, index) => {
-            return (
-              <PostItem
-                key={index}
-                data={data}
-                index={index}
-                dataLen={currentData.length}
-              />
-            );
-          })
-        )}
-      </HomeStyle.PostLayout>
-    </HomeStyle.HomeBack>
+    <>
+      <HomeStyle.HomeBack hamburgerClickInfo={hamburgerClickInfo}>
+        <HomeStyle.PostLayout>
+          {currentData.length === 0 ? (
+            <HomeStyle.EmptyPost>현재 게시물이 없습니다.</HomeStyle.EmptyPost>
+          ) : (
+            currentData.map((data, index) => {
+              return (
+                <PostItem
+                  key={index}
+                  data={data}
+                  index={index}
+                  dataLen={currentData.length}
+                  setIsDeleteModal={setIsDeleteModal}
+                  setDeleteData={setDeleteData}
+                />
+              );
+            })
+          )}
+        </HomeStyle.PostLayout>
+      </HomeStyle.HomeBack>
+      {isDeleteModal && (
+        <DeleteModal
+          setIsDeleteModal={setIsDeleteModal}
+          deleteData={deleteData}
+        />
+      )}
+    </>
   );
 };
 
