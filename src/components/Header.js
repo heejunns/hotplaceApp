@@ -31,9 +31,6 @@ const Header = ({ userLocation }) => {
       console.log(e);
     }
   };
-  const iconStyle = useCallback(() => {
-    return { color: "mediumorchid", marginRight: "0.5rem" };
-  }, []);
   // 좋아요 순 게시글 보기 클릭하였을 때
   const onclickPostLike = useCallback(() => {
     const q = query(

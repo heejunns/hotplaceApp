@@ -10,7 +10,13 @@ import { userAtom } from "../recoils/UserAtom";
 import * as PostItemStyle from "../styles/PostItemStyle";
 
 // word-break: break-all;
-const PostItem = ({ data, index, dataLen }) => {
+const PostItem = ({
+  data,
+  index,
+  dataLen,
+  setIsDeleteModal,
+  setDeleteData,
+}) => {
   const user = useRecoilValue(userAtom);
   console.log(user);
   const [inputNewText, setInputNewText] = useState(data.inputText); // 닉네임을 변경하는 값의 state
@@ -26,16 +32,11 @@ const PostItem = ({ data, index, dataLen }) => {
   }, []);
 
   // 게시글 삭제 버튼을 클릭하면 호출되는 콜백함수
-  const onclickDeleteButton = useCallback(async () => {
-    try {
-      await deleteDoc(doc(dbService, "test", data.id));
-      if (data.getUploadFileURL !== "") {
-        await deleteObject(ref(storageService, data.getUploadFileURL));
-      }
-    } catch (error) {
-      console.log(error.message);
-    }
-  }, [data.id, data.getUploadFileURL]);
+  const onclickDeleteButton = (data) => {
+    document.body.style.overflow = "hidden";
+    setIsDeleteModal((prev) => !prev);
+    setDeleteData(data);
+  };
 
   // 게시글 수정 폼을 화면에 보여주고 안보여주고 해주는 함수, 게시글 수정 버튼을 클릭하면 호출하는 콜백함수
   const onclickToggleAditButton = useCallback(() => {
@@ -101,73 +102,70 @@ const PostItem = ({ data, index, dataLen }) => {
   }, []);
 
   return (
-    <PostItemStyle.PostItemBack
-      image={data.getUploadFileURL}
-      index={index}
-      dataLen={dataLen}
-    >
-      <PostItemStyle.PostItemBox>
+    <PostItemStyle.PostItemBack image={data.getUploadFileURL}>
+      <PostItemStyle.PostItemTitleBox>
         <PostItemStyle.PostItemNickname>
-          {data.nickname} 님의 게시글
+          {data.nickname} 님
         </PostItemStyle.PostItemNickname>
-        <PostItemStyle.PostItemTime>
-          {" "}
-          {Math.round((Date.now() - data.createTime) / 1000 / 60) < 60
-            ? `약 ${Math.round(
-                (Date.now() - data.createTime) / 1000 / 60
-              )} 분 전`
-            : Math.round((Date.now() - data.createTime) / 1000 / 60) > 59 &&
-              Math.round((Date.now() - data.createTime) / 1000 / 60 / 60) < 24
-            ? `약 ${Math.round(
-                (Date.now() - data.createTime) / 1000 / 60 / 60
-              )} 시간 전`
-            : Math.round((Date.now() - data.createTime) / 1000 / 60 / 60) >
-                23 &&
-              Math.round((Date.now() - data.createTime) / 1000 / 60 / 60 / 24) <
-                30
-            ? `약 ${Math.round(
-                (Date.now() - data.createTime) / 1000 / 60 / 60 / 24
-              )} 일 전`
-            : "한달이 넘음"}
-        </PostItemStyle.PostItemTime>
-        <PostItemStyle.PostItemCategory>
-          {" "}
-          {data.userSelectCategory === "food"
-            ? "음식"
-            : data.userSelectCategory === "cafe"
-            ? "카페"
-            : data.userSelectCategory === "mart"
-            ? "마트"
-            : null}
-          /
-        </PostItemStyle.PostItemCategory>
+        <div>
+          <PostItemStyle.PostItemTime>
+            {" "}
+            {Math.round((Date.now() - data.createTime) / 1000 / 60) < 60
+              ? `${Math.round(
+                  (Date.now() - data.createTime) / 1000 / 60
+                )} 분 전 `
+              : Math.round((Date.now() - data.createTime) / 1000 / 60) > 59 &&
+                Math.round((Date.now() - data.createTime) / 1000 / 60 / 60) < 24
+              ? `${Math.round(
+                  (Date.now() - data.createTime) / 1000 / 60 / 60
+                )} 시간 전  `
+              : Math.round((Date.now() - data.createTime) / 1000 / 60 / 60) >
+                  23 &&
+                Math.round(
+                  (Date.now() - data.createTime) / 1000 / 60 / 60 / 24
+                ) < 30
+              ? `${Math.round(
+                  (Date.now() - data.createTime) / 1000 / 60 / 60 / 24
+                )} 일 전 `
+              : "한달이 넘음 "}
+            /
+          </PostItemStyle.PostItemTime>
+          <PostItemStyle.PostItemCategory>
+            {data.userSelectCategory === "food"
+              ? "음식"
+              : data.userSelectCategory === "cafe"
+              ? "카페"
+              : data.userSelectCategory === "mart"
+              ? "마트"
+              : null}
+          </PostItemStyle.PostItemCategory>
+        </div>
+      </PostItemStyle.PostItemTitleBox>
 
-        {data.getUploadFileURL && (
-          <PostItemStyle.PostItemImg
-            src={data.getUploadFileURL}
-            alt="사진 업로드"
-          />
-        )}
-        <PostItemStyle.PostItemText>
-          {data.inputText}
-        </PostItemStyle.PostItemText>
-      </PostItemStyle.PostItemBox>
+      {data.getUploadFileURL && (
+        <PostItemStyle.PostItemImgBox>
+          <img src={data.getUploadFileURL} alt="사진 업로드" />
+        </PostItemStyle.PostItemImgBox>
+      )}
+      <PostItemStyle.PostItemText>{data.inputText}</PostItemStyle.PostItemText>
       <PostItemStyle.PostBtnBox>
         {data.writer === user.uid ? (
           <>
-            <PostItemStyle.PostItemBtn onClick={onclickDeleteButton}>
-              <i class="fa-solid fa-trash"></i>
+            <PostItemStyle.PostItemBtn
+              onClick={() => onclickDeleteButton(data)}
+            >
+              <span class="material-symbols-outlined">delete</span>
             </PostItemStyle.PostItemBtn>
             <PostItemStyle.PostItemBtn onClick={onclickToggleAditButton}>
-              <i class="fa-solid fa-pen"></i>
+              <span class="material-symbols-outlined">edit</span>
             </PostItemStyle.PostItemBtn>
             {data.userMarkerLocation.length !== 0 && (
               <PostItemStyle.PostItemBtn onClick={onclickMapButton}>
-                <i class="fa-solid fa-location-dot"></i>
+                <span class="material-symbols-outlined">location_on</span>
               </PostItemStyle.PostItemBtn>
             )}
             <PostItemStyle.PostItemBtn onClick={onclickComments}>
-              <i class="fa-regular fa-comment"></i>
+              <span class="material-symbols-outlined">add_comment</span>
             </PostItemStyle.PostItemBtn>
           </>
         ) : (
@@ -175,12 +173,12 @@ const PostItem = ({ data, index, dataLen }) => {
             {data.userMarkerLocation.length !== 0 && (
               <PostItemStyle.PostItemBtn onClick={onclickMapButton}>
                 {" "}
-                <i class="fa-solid fa-location-dot"></i>
+                <span class="material-symbols-outlined">location_on</span>
               </PostItemStyle.PostItemBtn>
             )}
             <PostItemStyle.PostItemBtn onClick={onclickComments}>
               {" "}
-              <i class="fa-regular fa-comment"></i>
+              <span class="material-symbols-outlined">add_comment</span>
             </PostItemStyle.PostItemBtn>
           </>
         )}

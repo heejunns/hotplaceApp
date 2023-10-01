@@ -16,6 +16,7 @@ const Loading = styled.div`
   display: flex;
   justify-content: center;
   align-items: center;
+  background: rgba(0, 0, 0, 0.1);
 `;
 
 // 어플리케이션이 로드 될때 너무 빨라서 파이어 베이스는 사용자가 로그인 되었는지 확인할 시간이 없음.
@@ -67,18 +68,12 @@ const App = () => {
 
   return (
     <>
-      {firebaseInitialize ? (
-        <AppRouter userLocation={userLocation} />
-      ) : (
+      {!firebaseInitialize && (
         <Loading>
-          <PulseLoader
-            color="mediumorchid"
-            height={100}
-            width={100}
-            radius={10}
-          />
+          <PulseLoader color="mediumorchid" size={20} />
         </Loading>
       )}
+      <AppRouter userLocation={userLocation} />
     </>
   );
 };

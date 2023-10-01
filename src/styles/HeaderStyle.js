@@ -16,6 +16,8 @@ export const HeaderBackground = styled.div`
     a:nth-of-type(2) {
       display: none;
     }
+    position: fixed;
+    top: 0;
   }
 `;
 
@@ -75,9 +77,7 @@ export const HamburgerSideBar = styled.div`
   z-index: 3;
   top: 50px;
   position: fixed;
-  /* right: -210px; */
   transition: all ease 0.5s;
-  /* display: ${(props) => (props.toggle ? "block" : "none")}; */
   transition: ${(props) => (props.toggle ? "all ease 0.5s" : "")};
   right: ${(props) => (props.toggle ? "0" : "-210px")};
   display: none;
@@ -86,15 +86,12 @@ export const HamburgerSideBar = styled.div`
   }
 `;
 export const HamburgerButtonIcon = styled.div`
-  z-index: 101px;
   width: 70px;
-  height: 100%;
   background: transparent;
-  /* display: flex; */
+  display: none;
   flex-direction: column;
   justify-content: center;
   align-items: flex-end;
-  display: none;
   @media screen and (max-width: 768px) {
     display: flex;
   }
@@ -105,33 +102,31 @@ export const HamburgerIconItem = styled.div`
   border-radius: 10px;
   background-color: mediumorchid;
   z-index: 101;
-  transition: all ease 0.5s;
+  transition: all ease 0.3s;
+  position: relative;
   &:nth-child(1),
   &:nth-child(2) {
     margin-bottom: 3px;
   }
   &:nth-child(1) {
-    position: ${(props) => (props.toggle ? "absolute" : "static")};
-    top: ${(props) => (props.toggle ? "20px" : "0")};
+    top: ${(props) => (props.toggle ? "9px" : "0")};
     transform: ${(props) => (props.toggle ? "rotate(45deg)" : "")};
   }
   &:nth-child(2) {
     display: ${(props) => (props.toggle ? "none" : "block")};
   }
   &:nth-child(3) {
-    position: ${(props) => (props.toggle ? "absolute" : "static")};
-    top: ${(props) => (props.toggle ? "20px" : "0")};
     transform: ${(props) => (props.toggle ? "rotate(-45deg)" : "")};
   }
 `;
 
 export const HamburgerSideBarBox = styled.ul`
   width: 100%;
-  padding: 0.5rem;
+  padding: 10px;
 `;
 
 export const HamburgerSideBarList = styled.li`
-  margin-top: 1rem;
+  margin-top: 10px;
   cursor: pointer;
   &:hover {
     color: mediumorchid;
