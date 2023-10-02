@@ -43,6 +43,9 @@ const DeleteModalBtn = styled.button`
   border-radius: 10px;
   font-size: 15px;
   background-color: transparent;
+  display: flex;
+  justify-content: center;
+  align-items: center;
 `;
 const DeleteModalCancelBtn = styled(DeleteModalBtn)`
   &:hover {

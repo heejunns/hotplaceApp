@@ -8,21 +8,22 @@ import Comments from "./Comments";
 import { useRecoilValue } from "recoil";
 import { userAtom } from "../recoils/UserAtom";
 import * as PostItemStyle from "../styles/PostItemStyle";
+import EditModal from "./EditModal";
+import DeleteModal from "./DeleteModal";
 
 // word-break: break-all;
-const PostItem = ({
-  data,
-  index,
-  dataLen,
-  setIsDeleteModal,
-  setDeleteData,
-}) => {
+const PostItem = ({ data, index, dataLen }) => {
   const user = useRecoilValue(userAtom);
   console.log(user);
+
   const [inputNewText, setInputNewText] = useState(data.inputText); // 닉네임을 변경하는 값의 state
-  const [editingMode, setEditngMode] = useState(false); // 게시글 수정 모드를 사용하고 있는지 여부 state
+  const [isDeleteModal, setIsDeleteModal] = useState(false);
+  const [deleteData, setDeleteData] = useState(null);
+  const [isEditModal, setIsEditModal] = useState(false); // 게시글 수정 모드를 사용하고 있는지 여부 state
+  const [editData, setEditData] = useState(null);
   const [mapMode, setMapMode] = useState(false); // 맵을 보는지 여부 state
   const [commentMode, setCommentMode] = useState(false); // 댓글 모드 여부 state
+
   // 수정 게시글을 작성할때 input 태그에서 발생하는 onchange 이벤트에 호출되는 콜백함수
   const onchangeAditText = useCallback((event) => {
     const {
@@ -39,32 +40,16 @@ const PostItem = ({
   };
 
   // 게시글 수정 폼을 화면에 보여주고 안보여주고 해주는 함수, 게시글 수정 버튼을 클릭하면 호출하는 콜백함수
-  const onclickToggleAditButton = useCallback(() => {
-    setEditngMode((prev) => !prev);
-    setCommentMode(false);
-    setMapMode(false);
+  const onclickEditButton = useCallback((data) => {
+    setIsEditModal((prev) => !prev);
+    setEditData(data);
+    document.body.style.overflow = "hidden";
   }, []);
-
-  // 게시물을 수정하고 버튼을 클릭하였을때 호출
-  const onsubmitAdit = useCallback(
-    async (e) => {
-      e.preventDefault();
-
-      await updateDoc(doc(dbService, "test", data.id), {
-        inputText: inputNewText,
-      }); // 데이터 베이스 업데이트
-
-      setEditngMode((prev) => !prev);
-      setInputNewText("");
-    },
-    [data.id, inputNewText]
-  );
 
   // 지도보기 버튼을 클릭하면 호출
   const onclickMapButton = useCallback(() => {
     setMapMode((prev) => !prev);
     setCommentMode(false);
-    setEditngMode(false);
   }, []);
   // 하트를 클릭하면 호출
 
@@ -97,111 +82,119 @@ const PostItem = ({
   // 댓글 달기 버튼 클릭하면 호출
   const onclickComments = useCallback(() => {
     setCommentMode((prev) => !prev); // 댓글 기능 열기
-    setEditngMode(false); // 게시글 수정 모드 닫기
     setMapMode(false); // 맵 모드 닫기
   }, []);
 
   return (
-    <PostItemStyle.PostItemBack image={data.getUploadFileURL}>
-      <PostItemStyle.PostItemTitleBox>
-        <PostItemStyle.PostItemNickname>
-          {data.nickname} 님
-        </PostItemStyle.PostItemNickname>
-        <div>
-          <PostItemStyle.PostItemTime>
-            {" "}
-            {Math.round((Date.now() - data.createTime) / 1000 / 60) < 60
-              ? `${Math.round(
-                  (Date.now() - data.createTime) / 1000 / 60
-                )} 분 전 `
-              : Math.round((Date.now() - data.createTime) / 1000 / 60) > 59 &&
-                Math.round((Date.now() - data.createTime) / 1000 / 60 / 60) < 24
-              ? `${Math.round(
-                  (Date.now() - data.createTime) / 1000 / 60 / 60
-                )} 시간 전  `
-              : Math.round((Date.now() - data.createTime) / 1000 / 60 / 60) >
-                  23 &&
-                Math.round(
-                  (Date.now() - data.createTime) / 1000 / 60 / 60 / 24
-                ) < 30
-              ? `${Math.round(
-                  (Date.now() - data.createTime) / 1000 / 60 / 60 / 24
-                )} 일 전 `
-              : "한달이 넘음 "}
-            /
-          </PostItemStyle.PostItemTime>
-          <PostItemStyle.PostItemCategory>
-            {data.userSelectCategory === "food"
-              ? "음식"
-              : data.userSelectCategory === "cafe"
-              ? "카페"
-              : data.userSelectCategory === "mart"
-              ? "마트"
-              : null}
-          </PostItemStyle.PostItemCategory>
-        </div>
-      </PostItemStyle.PostItemTitleBox>
-
-      {data.getUploadFileURL && (
-        <PostItemStyle.PostItemImgBox>
-          <img src={data.getUploadFileURL} alt="사진 업로드" />
-        </PostItemStyle.PostItemImgBox>
-      )}
-      <PostItemStyle.PostItemText>{data.inputText}</PostItemStyle.PostItemText>
-      <PostItemStyle.PostBtnBox>
-        {data.writer === user.uid ? (
-          <>
-            <PostItemStyle.PostItemBtn
-              onClick={() => onclickDeleteButton(data)}
-            >
-              <span class="material-symbols-outlined">delete</span>
-            </PostItemStyle.PostItemBtn>
-            <PostItemStyle.PostItemBtn onClick={onclickToggleAditButton}>
-              <span class="material-symbols-outlined">edit</span>
-            </PostItemStyle.PostItemBtn>
-            {data.userMarkerLocation.length !== 0 && (
-              <PostItemStyle.PostItemBtn onClick={onclickMapButton}>
-                <span class="material-symbols-outlined">location_on</span>
-              </PostItemStyle.PostItemBtn>
-            )}
-            <PostItemStyle.PostItemBtn onClick={onclickComments}>
-              <span class="material-symbols-outlined">add_comment</span>
-            </PostItemStyle.PostItemBtn>
-          </>
-        ) : (
-          <>
-            {data.userMarkerLocation.length !== 0 && (
-              <PostItemStyle.PostItemBtn onClick={onclickMapButton}>
-                {" "}
-                <span class="material-symbols-outlined">location_on</span>
-              </PostItemStyle.PostItemBtn>
-            )}
-            <PostItemStyle.PostItemBtn onClick={onclickComments}>
+    <>
+      <PostItemStyle.PostItemBack image={data.getUploadFileURL}>
+        <PostItemStyle.PostItemTitleBox>
+          <PostItemStyle.PostItemNickname>
+            {data.nickname} 님
+          </PostItemStyle.PostItemNickname>
+          <div>
+            <PostItemStyle.PostItemTime>
               {" "}
-              <span class="material-symbols-outlined">add_comment</span>
-            </PostItemStyle.PostItemBtn>
-          </>
+              {Math.round((Date.now() - data.createTime) / 1000 / 60) < 60
+                ? `${Math.round(
+                    (Date.now() - data.createTime) / 1000 / 60
+                  )} 분 전 `
+                : Math.round((Date.now() - data.createTime) / 1000 / 60) > 59 &&
+                  Math.round((Date.now() - data.createTime) / 1000 / 60 / 60) <
+                    24
+                ? `${Math.round(
+                    (Date.now() - data.createTime) / 1000 / 60 / 60
+                  )} 시간 전  `
+                : Math.round((Date.now() - data.createTime) / 1000 / 60 / 60) >
+                    23 &&
+                  Math.round(
+                    (Date.now() - data.createTime) / 1000 / 60 / 60 / 24
+                  ) < 30
+                ? `${Math.round(
+                    (Date.now() - data.createTime) / 1000 / 60 / 60 / 24
+                  )} 일 전 `
+                : "한달이 넘음 "}
+              /
+            </PostItemStyle.PostItemTime>
+            <PostItemStyle.PostItemCategory>
+              {data.userSelectCategory === "food"
+                ? "음식"
+                : data.userSelectCategory === "cafe"
+                ? "카페"
+                : data.userSelectCategory === "mart"
+                ? "마트"
+                : null}
+            </PostItemStyle.PostItemCategory>
+          </div>
+        </PostItemStyle.PostItemTitleBox>
+
+        {data.getUploadFileURL && (
+          <PostItemStyle.PostItemImgBox>
+            <img src={data.getUploadFileURL} alt="사진 업로드" />
+          </PostItemStyle.PostItemImgBox>
         )}
-      </PostItemStyle.PostBtnBox>
-      {editingMode ? (
-        <>
-          <PostItemStyle.PostItemEditForm onSubmit={onsubmitAdit}>
-            <PostItemStyle.PostItemEditInput
-              type="text"
-              value={inputNewText}
-              onChange={onchangeAditText}
-              placeholder="게시물의 수정 사항을 작성해주세요."
-            />
-            <PostItemStyle.PostItemEditSubmit type="submit" value="수정 완료" />
-          </PostItemStyle.PostItemEditForm>
-        </>
-      ) : null}
-      {mapMode && <PostMap data={data} />}
-      {commentMode && <Comments setCommentMode={setCommentMode} data={data} />}
-      <PostItemStyle.PostItemLike onClick={onclickLike}>
-        &#9829;<span>{data.likeMember.length}</span>
-      </PostItemStyle.PostItemLike>
-    </PostItemStyle.PostItemBack>
+        <PostItemStyle.PostItemText>
+          {data.inputText}
+        </PostItemStyle.PostItemText>
+        <PostItemStyle.PostBtnBox>
+          {data.writer === user.uid ? (
+            <>
+              <PostItemStyle.PostItemBtn
+                onClick={() => onclickDeleteButton(data)}
+              >
+                <span class="material-symbols-outlined">delete</span>
+              </PostItemStyle.PostItemBtn>
+              <PostItemStyle.PostItemBtn
+                onClick={() => onclickEditButton(data)}
+              >
+                <span class="material-symbols-outlined">edit</span>
+              </PostItemStyle.PostItemBtn>
+              {data.userMarkerLocation.length !== 0 && (
+                <PostItemStyle.PostItemBtn onClick={onclickMapButton}>
+                  <span class="material-symbols-outlined">location_on</span>
+                </PostItemStyle.PostItemBtn>
+              )}
+              <PostItemStyle.PostItemBtn onClick={onclickComments}>
+                <span class="material-symbols-outlined">add_comment</span>
+              </PostItemStyle.PostItemBtn>
+            </>
+          ) : (
+            <>
+              {data.userMarkerLocation.length !== 0 && (
+                <PostItemStyle.PostItemBtn onClick={onclickMapButton}>
+                  {" "}
+                  <span class="material-symbols-outlined">location_on</span>
+                </PostItemStyle.PostItemBtn>
+              )}
+              <PostItemStyle.PostItemBtn onClick={onclickComments}>
+                {" "}
+                <span class="material-symbols-outlined">add_comment</span>
+              </PostItemStyle.PostItemBtn>
+            </>
+          )}
+        </PostItemStyle.PostBtnBox>
+
+        {mapMode && <PostMap data={data} />}
+        {commentMode && (
+          <Comments setCommentMode={setCommentMode} data={data} />
+        )}
+        <PostItemStyle.PostItemLike onClick={onclickLike}>
+          &#9829;<span>{data.likeMember.length}</span>
+        </PostItemStyle.PostItemLike>
+      </PostItemStyle.PostItemBack>
+      {isDeleteModal && (
+        <DeleteModal
+          setIsDeleteModal={setIsDeleteModal}
+          deleteData={deleteData}
+        />
+      )}
+      {isEditModal && (
+        <EditModal
+          setIsEditModal={setIsEditModal}
+          editData={editData}
+        ></EditModal>
+      )}
+    </>
   );
 };
 

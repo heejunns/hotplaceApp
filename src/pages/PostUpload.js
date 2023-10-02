@@ -44,9 +44,7 @@ const PostUpload = ({ userLocation }) => {
       let getUploadFileURL = "";
       if (uploadImageFileURL !== "") {
         // 이미지 url 이 있다면 이미지가 있다는 뜻이니까
-        console.log("hello world!");
         const storageRef = ref(storageService, `${user.uid}/${uuidv4()}`); // 이미지 storage 에 저장
-        console.log("hello world! storge", storageRef);
         await uploadString(storageRef, uploadImageFileURL, "data_url");
 
         getUploadFileURL = await getDownloadURL(storageRef); // 이미지 url 불러오기
