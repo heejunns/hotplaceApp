@@ -2,7 +2,7 @@ import styled from "styled-components";
 
 // 게시글 하나의 전체 백그라운드 스타일 태그
 export const PostItemBack = styled.div`
-  border: 1px solid mediumorchid;
+  border: 2px solid mediumorchid;
   display: flex;
   flex-direction: column;
   .scroll::-webkit-scrollbar {
@@ -23,17 +23,17 @@ export const PostItemTitleBox = styled.div`
 // 게시글 버튼들의 박스 스타일 태그
 export const PostBtnBox = styled.div`
   display: flex;
-  justify-content: flex-end;
 `;
 
 // 게시글 버튼들의 스타일 태그
 export const PostItemBtn = styled.button`
-  margin: 0 0.3rem;
   border-style: none;
-  padding: 0.3rem;
-  background: white;
-  font-size: 0.5rem;
-  color: mediumorchid;
+  padding: 10px;
+  background: transparent;
+  & > span {
+    color: mediumorchid;
+    font-size: 25px;
+  }
 `;
 
 // 게시글 이미지 박스
@@ -47,6 +47,9 @@ export const PostItemImgBox = styled.div`
     height: 100%;
     border-radius: 10px;
     object-fit: cover;
+  }
+  @media screen and (max-width: 768px) {
+    height: 230px;
   }
 `;
 // 게시글 수정 폼 스타일 태그
@@ -80,19 +83,22 @@ export const PostItemTime = styled.span`
 // 게시글의 카테코리를 보여주는 스타일 태그
 export const PostItemCategory = styled.span`
   white-space: nowrap;
-  @media screen and (max-width: 1100px) {
-    display: none;
-  }
 `;
 // 게시글의 게시자의 이름 스타일 태그
 export const PostItemNickname = styled.span`
   white-space: nowrap;
 `;
 // 게시글의 글 스타일 태그
-export const PostItemText = styled.span`
+export const PostItemText = styled.div`
   margin-top: 10px;
   width: 100%;
   word-break: break-all;
+  height: 60px;
+  overflow: hidden;
+  text-overflow: ellipsis;
+  display: -webkit-box;
+  -webkit-line-clamp: 3;
+  -webkit-box-orient: vertical;
 `;
 // 게시글의 좋아요 스타일 태그
 export const PostItemLike = styled.div`

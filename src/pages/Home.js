@@ -16,8 +16,7 @@ import DeleteModal from "../components/DeleteModal";
 const Home = ({ userLocation }) => {
   const [currentData, setCurrentData] = useState([]);
   const hamburgerClickInfo = useRecoilValue(hamburgerBtnClick);
-  const [isDeleteModal, setIsDeleteModal] = useState(false);
-  const [deleteData, setDeleteData] = useState(null);
+
   useEffect(() => {
     console.log("랜더링");
   }, [hamburgerClickInfo]);
@@ -107,20 +106,12 @@ const Home = ({ userLocation }) => {
                   data={data}
                   index={index}
                   dataLen={currentData.length}
-                  setIsDeleteModal={setIsDeleteModal}
-                  setDeleteData={setDeleteData}
                 />
               );
             })
           )}
         </HomeStyle.PostLayout>
       </HomeStyle.HomeBack>
-      {isDeleteModal && (
-        <DeleteModal
-          setIsDeleteModal={setIsDeleteModal}
-          deleteData={deleteData}
-        />
-      )}
     </>
   );
 };
