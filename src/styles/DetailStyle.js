@@ -1,9 +1,66 @@
 import styled from "styled-components";
 
-export const DetailBack = styled.div``;
-export const DetailBox = styled.div``;
-export const DetailTitleBox = styled.div``;
+export const DetailBack = styled.div`
+  width: 100%;
+  display: flex;
+  justify-content: center;
+  padding: 0 20px;
+`;
+export const DetailBox = styled.div`
+  /* border: 3px solid mediumorchid; */
+  border-radius: 10px;
+  width: 100%;
+  max-width: 1200px;
+  display: flex;
+  flex-direction: column;
+  padding: 20px;
+`;
+export const DetailTitleBox = styled.div`
+  display: flex;
+  justify-content: space-between;
+  margin-bottom: 20px;
+  align-items: center;
+`;
 export const DetailTitleText = styled.span``;
-export const DetailImgBox = styled.div``;
-export const DetailMainText = styled.div;
-export const DetailMap = styled.div``;
+export const DetailImgBox = styled.div`
+  width: 100%;
+  height: 400px;
+  margin-bottom: 20px;
+  & > img {
+    width: 100%;
+    height: 100%;
+    border-radius: 10px;
+    object-fit: cover;
+  }
+`;
+export const DetailMainText = styled.div`
+  width: 100%;
+  height: 100%;
+  min-height: 100px;
+  font-size: 20px;
+  margin-bottom: 20px;
+`;
+export const DetailMap = styled.div`
+  width: 100%;
+  height: 300px;
+`;
+export const DetailTitleBoxLeft = styled.div`
+  display: flex;
+  align-items: center;
+`;
+
+// 게시글 버튼들의 박스 스타일 태그
+export const DetailBtnBox = styled.div`
+  display: flex;
+`;
+
+// 게시글 버튼들의 스타일 태그
+export const DetailBtn = styled.button`
+  border-style: none;
+  padding: 10px;
+  background: transparent;
+  & > span {
+    color: mediumorchid;
+    font-size: 25px;
+  }
+`;

@@ -16,7 +16,7 @@ const EditModalBack = styled.div`
   left: 0;
 `;
 const EditModalBox = styled.div`
-  width: 280px;
+  width: 300px;
   height: 250px;
   padding: 20px;
   display: flex;
@@ -33,11 +33,12 @@ const EditModalText = styled.span`
 `;
 const EditModalInputText = styled.textarea`
   width: 100%;
-  height: 150px;
+  height: 130px;
   border: 3px solid mediumorchid;
   border-radius: 10px;
   padding: 10px;
   margin-bottom: 10px;
+  resize: none;
 `;
 const EditModalForm = styled.form``;
 const EditModalBtnBox = styled.div`
