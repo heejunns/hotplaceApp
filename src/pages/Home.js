@@ -26,6 +26,7 @@ const Home = ({ userLocation }) => {
       collection(dbService, "test"),
       orderBy("createTime", "desc") // createTime 기준으로 내림차순으로 정렬
     );
+    console.log("hello snapshot");
     onSnapshot(q, (snapshot) => {
       setCurrentData([]); // 새롭게 불러온 데이터를 저장하기 위해 현재 데이터를 초기화
       snapshot.forEach((doc) =>

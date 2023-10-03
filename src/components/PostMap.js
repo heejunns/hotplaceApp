@@ -7,15 +7,12 @@ const PostMapStyle = styled.div`
   height: 20rem;
 `;
 const PostMap = ({ data }) => {
-  const { userMarkerLocation } = data;
+  const { location } = data;
 
   const getMap = useCallback(() => {
     const mapContainer = document.getElementById("postMap"); // 지도를 표시할 div
     const mapOption = {
-      center: new window.kakao.maps.LatLng(
-        userMarkerLocation[0],
-        userMarkerLocation[1]
-      ), // 지도의 중심좌표
+      center: new window.kakao.maps.LatLng(location[0], location[1]), // 지도의 중심좌표
       level: 3, // 지도의 확대 레벨
     };
 
@@ -23,8 +20,8 @@ const PostMap = ({ data }) => {
 
     // 마커가 표시될 위치입니다
     const markerPosition = new window.kakao.maps.LatLng(
-      userMarkerLocation[0],
-      userMarkerLocation[1]
+      location[0],
+      location[1]
     );
 
     // 마커를 생성합니다
@@ -34,7 +31,7 @@ const PostMap = ({ data }) => {
 
     // 마커가 지도 위에 표시되도록 설정합니다
     marker.setMap(map);
-  }, [userMarkerLocation]);
+  }, [location]);
 
   useEffect(() => {
     getMap();

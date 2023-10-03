@@ -20,22 +20,6 @@ export const PostItemTitleBox = styled.div`
   justify-content: space-between;
 `;
 
-// 게시글 버튼들의 박스 스타일 태그
-export const PostBtnBox = styled.div`
-  display: flex;
-`;
-
-// 게시글 버튼들의 스타일 태그
-export const PostItemBtn = styled.button`
-  border-style: none;
-  padding: 10px;
-  background: transparent;
-  & > span {
-    color: mediumorchid;
-    font-size: 25px;
-  }
-`;
-
 // 게시글 이미지 박스
 export const PostItemImgBox = styled.div`
   margin-top: 10px;
@@ -93,12 +77,13 @@ export const PostItemText = styled.div`
   margin-top: 10px;
   width: 100%;
   word-break: break-all;
-  height: 60px;
+  height: 70px;
   overflow: hidden;
   text-overflow: ellipsis;
   display: -webkit-box;
   -webkit-line-clamp: 3;
   -webkit-box-orient: vertical;
+  line-height: 120%;
 `;
 // 게시글의 좋아요 스타일 태그
 export const PostItemLike = styled.div`

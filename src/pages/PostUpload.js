@@ -21,9 +21,7 @@ const PostUpload = ({ userLocation }) => {
   const [userMarkerLocation, setUserMarkerLocation] = useState([]); // 사용자가 맵에 마커한 매장의 주소
   // 트윗 작성 input 태그의 onchange 이벤트 콜백 함수
   const onchangeInputText = useCallback((event) => {
-    const {
-      target: { value },
-    } = event;
+    const { value } = event.target;
     if (value.length > 100) {
       return;
     }
@@ -32,9 +30,7 @@ const PostUpload = ({ userLocation }) => {
 
   // 게시글에 올리는 가게의 종류를 고르면 호출되는(라디오) onchange 콜백 함수
   const onchangeUserSelectCategory = useCallback((event) => {
-    const {
-      target: { id },
-    } = event;
+    const { id } = event.target;
     setUserSelectCategory(id);
   }, []);
   // 작성한 글을 등록하기 위해 버튼을 클릭했을때 호출되는 콜백함수
@@ -55,10 +51,17 @@ const PostUpload = ({ userLocation }) => {
         inputText, // 게시글
         createTime: Date.now(), // 생성 날짜
         writer: user.uid, // 작성한 작성자의 uid
-        getUploadFileURL, // 업로드한 이미지의 url
+        uploadImgUrl: getUploadFileURL, // 업로드한 이미지의 url
         nickname: user.displayName, // 작성자의 닉네임
-        userMarkerLocation, // 작성자가 맵에 마커한 위치 정보
-        userSelectCategory, // 작성자가 선택한 카테고리 종류
+        location: userMarkerLocation, // 작성자가 맵에 마커한 위치 정보
+        category:
+          userSelectCategory === "cafe"
+            ? "카페"
+            : userSelectCategory === "food"
+            ? "음식"
+            : userSelectCategory === "mart"
+            ? "마트"
+            : null, // 작성자가 선택한 카테고리 종류
         likeMember: [], // 좋아요 누른 사람의 명단
         likeNumber: 0,
         comments: [], // 댓글 정보

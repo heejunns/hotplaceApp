@@ -10,3 +10,8 @@ export const hamburgerBtnClick = atom({
   key: "hamburgerButtonClick",
   default: null,
 });
+
+export const clickPostItemData = atom({
+  key: "clickPostItemData",
+  default: null,
+});
