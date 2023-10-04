@@ -462,6 +462,7 @@ const Signup = () => {
             <SuccessMessage>비밀번호가 일치합니다.</SuccessMessage>
           )}
         </InputPasswordCheckLayout>
+        {/* <button onClick={navigate("/")}>로그인으로 돌아가기</button> */}
         <SignButtonLayout>
           <SignUpButton type="submit">회원가입</SignUpButton>
         </SignButtonLayout>

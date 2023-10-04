@@ -4,7 +4,7 @@ export const DetailBack = styled.div`
   width: 100%;
   display: flex;
   justify-content: center;
-  padding: 0 20px;
+  padding: 20px 20px 40px 20px;
 `;
 export const DetailBox = styled.div`
   /* border: 3px solid mediumorchid; */
@@ -20,6 +20,8 @@ export const DetailTitleBox = styled.div`
   justify-content: space-between;
   margin-bottom: 20px;
   align-items: center;
+  padding-bottom: 10px;
+  border-bottom: 2px solid black;
 `;
 export const DetailTitleText = styled.span``;
 export const DetailImgBox = styled.div`
@@ -39,10 +41,14 @@ export const DetailMainText = styled.div`
   min-height: 100px;
   font-size: 20px;
   margin-bottom: 20px;
+  padding: 30px 0;
+  border-top: 2px solid black;
+  border-bottom: 2px solid black;
 `;
 export const DetailMap = styled.div`
   width: 100%;
   height: 300px;
+  margin-bottom: 100px;
 `;
 export const DetailTitleBoxLeft = styled.div`
   display: flex;

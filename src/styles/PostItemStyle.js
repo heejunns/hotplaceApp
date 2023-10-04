@@ -5,12 +5,16 @@ export const PostItemBack = styled.div`
   border: 2px solid mediumorchid;
   display: flex;
   flex-direction: column;
+  cursor: pointer;
   .scroll::-webkit-scrollbar {
     display: none;
   }
   padding: 10px;
   font-size: 20px;
   border-radius: 10px;
+  &:hover {
+    border: 2px solid greenyellow;
+  }
 `;
 
 // 게시글 하나의 박스 스타일 태그
@@ -84,6 +88,7 @@ export const PostItemText = styled.div`
   -webkit-line-clamp: 3;
   -webkit-box-orient: vertical;
   line-height: 120%;
+  margin-bottom: 10px;
 `;
 // 게시글의 좋아요 스타일 태그
 export const PostItemLike = styled.div`

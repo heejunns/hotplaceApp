@@ -1,5 +1,8 @@
 import React from "react";
 import { atom } from "recoil";
+import { recoilPersist } from "recoil-persist";
+
+const { persistAtom } = recoilPersist();
 
 export const userAtom = atom({
   key: "userAtom",
@@ -11,7 +14,8 @@ export const hamburgerBtnClick = atom({
   default: null,
 });
 
-export const clickPostItemData = atom({
-  key: "clickPostItemData",
+export const clickPostItemDataId = atom({
+  key: "clickPostItemDataId",
   default: null,
+  effects_UNSTABLE: [persistAtom],
 });
