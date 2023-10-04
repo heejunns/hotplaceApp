@@ -6,7 +6,7 @@ import styled from "styled-components";
 import PostMap from "./PostMap";
 import Comments from "./Comments";
 import { useRecoilState, useRecoilValue } from "recoil";
-import { clickPostItemData, userAtom } from "../recoils/UserAtom";
+import { clickPostItemDataId, userAtom } from "../recoils/UserAtom";
 import * as PostItemStyle from "../styles/PostItemStyle";
 import EditModal from "./EditModal";
 import DeleteModal from "./DeleteModal";
@@ -15,7 +15,8 @@ import { useNavigate } from "react-router-dom";
 // word-break: break-all;
 const PostItem = ({ data, index, dataLen }) => {
   const user = useRecoilValue(userAtom);
-  const [clickPostItem, setClickPostItem] = useRecoilState(clickPostItemData);
+  const [clickPostItemId, setClickPostItemId] =
+    useRecoilState(clickPostItemDataId);
   const navigator = useNavigate();
 
   // 좋아요 버튼을 클릭하면 호출
@@ -46,8 +47,8 @@ const PostItem = ({ data, index, dataLen }) => {
   }, [data.id, data.likeMember, user.uid]);
 
   // 게시글을 클릭하면 해당 게시글의 디테일 페이지로 이동
-  const onClickPostItem = (data) => {
-    setClickPostItem(data);
+  const onClickPostItem = (id) => {
+    setClickPostItemId(id);
     navigator("/detail");
   };
   const calculateTime = (data) => {
@@ -70,7 +71,7 @@ const PostItem = ({ data, index, dataLen }) => {
     <>
       <PostItemStyle.PostItemBack
         image={data.getUploadFileURL}
-        onClick={() => onClickPostItem(data)}
+        onClick={() => onClickPostItem(data.id)}
       >
         <PostItemStyle.PostItemTitleBox>
           <PostItemStyle.PostItemNickname>

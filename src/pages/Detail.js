@@ -1,24 +1,31 @@
-import React from "react";
+import React, { useRef } from "react";
 import * as DetailStyle from "../styles/DetailStyle";
 import { useRecoilValue } from "recoil";
-import { clickPostItemData, userAtom } from "../recoils/UserAtom";
+import { clickPostItemDataId, userAtom } from "../recoils/UserAtom";
 import PostMap from "../components/PostMap";
 import { useState } from "react";
 import { useCallback } from "react";
 import DeleteModal from "../components/DeleteModal";
 import EditModal from "../components/EditModal";
+import Comments from "../components/Comments";
+import { useEffect } from "react";
+import { doc, getDoc } from "firebase/firestore";
+import { dbService } from "../reactfbase";
 const Detail = () => {
   const user = useRecoilValue(userAtom);
-  const data = useRecoilValue(clickPostItemData);
-  const [inputNewText, setInputNewText] = useState(data.inputText); // 닉네임을 변경하는 값의 state
+  const dataId = useRecoilValue(clickPostItemDataId);
+
+  const [inputNewText, setInputNewText] = useState(null); // 닉네임을 변경하는 값의 state
   const [isDeleteModal, setIsDeleteModal] = useState(false);
   const [deleteData, setDeleteData] = useState(null);
   const [isEditModal, setIsEditModal] = useState(false); // 게시글 수정 모드를 사용하고 있는지 여부 state
   const [editData, setEditData] = useState(null);
   const [mapMode, setMapMode] = useState(false); // 맵을 보는지 여부 state
   const [commentMode, setCommentMode] = useState(false); // 댓글 모드 여부 state
+  const [detailData, setDetailData] = useState(null);
+  const [isChangeData, setIsChangeData] = useState(false);
 
-  console.log("디테일 데이터", data);
+  console.log("디테일 데이터", dataId);
   const calculateTime = (data) => {
     // 게시글을 올린지 얼마나 지났는지 시간을 계산하는 함수
     const minute = (Date.now() - data.createTime) / 1000 / 60;
@@ -61,73 +68,70 @@ const Detail = () => {
     setCommentMode((prev) => !prev); // 댓글 기능 열기
     setMapMode(false); // 맵 모드 닫기
   }, []);
+  useEffect(() => {
+    const getDetailData = async () => {
+      try {
+        const docRef = doc(dbService, "test", dataId);
+        const docSnap = await getDoc(docRef);
+        console.log("컴온", docSnap.data());
+        setDetailData(docSnap.data());
+      } catch (e) {
+        console.log(e);
+      }
+    };
+    getDetailData();
+  }, [isChangeData]);
+  console.log("디테일 데이터 아이디", dataId);
   return (
     <>
       <DetailStyle.DetailBack>
         <DetailStyle.DetailBox>
           <DetailStyle.DetailTitleBox>
             <DetailStyle.DetailTitleText>
-              {data.nickname} 님의 게시물
+              {detailData && detailData.nickname} 님의 게시물
             </DetailStyle.DetailTitleText>
             <DetailStyle.DetailTitleBoxLeft>
               <DetailStyle.DetailBtnBox>
-                {data.writer === user.uid ? (
+                {detailData && detailData.writer === user.uid && (
                   <>
                     <DetailStyle.DetailBtn
-                      onClick={() => onclickDeleteButton(data)}
+                      onClick={() => onclickDeleteButton()}
                     >
                       <span class="material-symbols-outlined">delete</span>
                     </DetailStyle.DetailBtn>
-                    <DetailStyle.DetailBtn
-                      onClick={() => onclickEditButton(data)}
-                    >
+                    <DetailStyle.DetailBtn onClick={() => onclickEditButton()}>
                       <span class="material-symbols-outlined">edit</span>
-                    </DetailStyle.DetailBtn>
-                    {/* {data.location.length !== 0 && (
-                      <DetailStyle.DetailBtn onClick={onclickMapButton}>
-                        <span class="material-symbols-outlined">
-                          location_on
-                        </span>
-                      </DetailStyle.DetailBtn>
-                    )} */}
-                    <DetailStyle.DetailBtn onClick={onclickComments}>
-                      <span class="material-symbols-outlined">add_comment</span>
-                    </DetailStyle.DetailBtn>
-                  </>
-                ) : (
-                  <>
-                    {/* {data.location.length !== 0 && (
-                      <DetailStyle.DetailBtn onClick={onclickMapButton}>
-                        {" "}
-                        <span class="material-symbols-outlined">
-                          location_on
-                        </span>
-                      </DetailStyle.DetailBtn>
-                    )} */}
-                    <DetailStyle.DetailBtn onClick={onclickComments}>
-                      {" "}
-                      <span class="material-symbols-outlined">add_comment</span>
                     </DetailStyle.DetailBtn>
                   </>
                 )}
               </DetailStyle.DetailBtnBox>
               <DetailStyle.DetailTitleText>
-                {calculateTime(data)} /
+                {detailData && calculateTime(detailData)} /
               </DetailStyle.DetailTitleText>
               <DetailStyle.DetailTitleText>
-                {data.category}
+                {detailData && detailData.category}
               </DetailStyle.DetailTitleText>
             </DetailStyle.DetailTitleBoxLeft>
           </DetailStyle.DetailTitleBox>
           <DetailStyle.DetailImgBox>
-            <img src={data.uploadImgUrl} alt="게시글 이미지" />
+            <img
+              src={detailData && detailData.uploadImgUrl}
+              alt="게시글 이미지"
+            />
           </DetailStyle.DetailImgBox>
           <DetailStyle.DetailMainText>
-            {data.inputText}
+            {detailData && detailData.inputText}
           </DetailStyle.DetailMainText>
           <DetailStyle.DetailMap>
-            <PostMap data={data} />
+            {detailData && <PostMap data={detailData} />}
           </DetailStyle.DetailMap>
+          {detailData && (
+            <Comments
+              dataId={dataId}
+              data={detailData}
+              setIsChangeData={setIsChangeData}
+            />
+          )}
         </DetailStyle.DetailBox>
       </DetailStyle.DetailBack>
       {isDeleteModal && (

@@ -47,7 +47,7 @@ const App = () => {
     getAddr(lat, lng);
     function getAddr(lat, lng) {
       let geocoder = new window.kakao.maps.services.Geocoder();
-
+      console.log("maps", geocoder);
       let coord = new window.kakao.maps.LatLng(lat, lng);
       let callback = function (result, status) {
         if (status === window.kakao.maps.services.Status.OK) {
