@@ -1,31 +1,29 @@
 import React, { useRef } from "react";
 import * as DetailStyle from "../styles/DetailStyle";
 import { useRecoilValue } from "recoil";
-import { clickPostItemDataId, userAtom } from "../recoils/UserAtom";
+import { clickPostItemData, userAtom } from "../recoils/UserAtom";
 import PostMap from "../components/PostMap";
 import { useState } from "react";
 import { useCallback } from "react";
-import DeleteModal from "../components/DeleteModal";
+import DeleteModal from "../components/PostDeleteModal";
 import EditModal from "../components/EditModal";
 import Comments from "../components/Comments";
 import { useEffect } from "react";
 import { doc, getDoc } from "firebase/firestore";
 import { dbService } from "../reactfbase";
+import PostDeleteModal from "../components/PostDeleteModal";
 const Detail = () => {
   const user = useRecoilValue(userAtom);
-  const dataId = useRecoilValue(clickPostItemDataId);
+  const data = useRecoilValue(clickPostItemData);
 
-  const [inputNewText, setInputNewText] = useState(null); // 닉네임을 변경하는 값의 state
-  const [isDeleteModal, setIsDeleteModal] = useState(false);
-  const [deleteData, setDeleteData] = useState(null);
+  const [isPostDeleteModal, setIsPostDeleteModal] = useState(false);
+  const [postDeleteData, setPostDeleteData] = useState(null);
   const [isEditModal, setIsEditModal] = useState(false); // 게시글 수정 모드를 사용하고 있는지 여부 state
   const [editData, setEditData] = useState(null);
-  const [mapMode, setMapMode] = useState(false); // 맵을 보는지 여부 state
-  const [commentMode, setCommentMode] = useState(false); // 댓글 모드 여부 state
-  const [detailData, setDetailData] = useState(null);
+  const [detailData, setDetailData] = useState(data);
   const [isChangeData, setIsChangeData] = useState(false);
 
-  console.log("디테일 데이터", dataId);
+  console.log("디테일 데이터", data);
   const calculateTime = (data) => {
     // 게시글을 올린지 얼마나 지났는지 시간을 계산하는 함수
     const minute = (Date.now() - data.createTime) / 1000 / 60;
@@ -42,19 +40,12 @@ const Detail = () => {
       return "한달 전";
     }
   };
-  // 수정 게시글을 작성할때 input 태그에서 발생하는 onchange 이벤트에 호출되는 콜백함수
-  const onchangeAditText = useCallback((event) => {
-    const {
-      target: { value },
-    } = event;
-    setInputNewText(value);
-  }, []);
 
   // 게시글 삭제 버튼을 클릭하면 호출되는 콜백함수
   const onclickDeleteButton = (data) => {
     document.body.style.overflow = "hidden";
-    setIsDeleteModal((prev) => !prev);
-    setDeleteData(data);
+    setIsPostDeleteModal((prev) => !prev);
+    setPostDeleteData(data);
   };
 
   // 게시글 수정 폼을 화면에 보여주고 안보여주고 해주는 함수, 게시글 수정 버튼을 클릭하면 호출하는 콜백함수
@@ -63,15 +54,11 @@ const Detail = () => {
     setEditData(data);
     document.body.style.overflow = "hidden";
   }, []);
-  // 댓글 달기 버튼 클릭하면 호출
-  const onclickComments = useCallback(() => {
-    setCommentMode((prev) => !prev); // 댓글 기능 열기
-    setMapMode(false); // 맵 모드 닫기
-  }, []);
+
   useEffect(() => {
     const getDetailData = async () => {
       try {
-        const docRef = doc(dbService, "test", dataId);
+        const docRef = doc(dbService, "test", data.id);
         const docSnap = await getDoc(docRef);
         console.log("컴온", docSnap.data());
         setDetailData(docSnap.data());
@@ -81,7 +68,7 @@ const Detail = () => {
     };
     getDetailData();
   }, [isChangeData]);
-  console.log("디테일 데이터 아이디", dataId);
+  console.log("디테일 데이터 아이디", data);
   return (
     <>
       <DetailStyle.DetailBack>
@@ -95,7 +82,7 @@ const Detail = () => {
                 {detailData && detailData.writer === user.uid && (
                   <>
                     <DetailStyle.DetailBtn
-                      onClick={() => onclickDeleteButton()}
+                      onClick={() => onclickDeleteButton(data)}
                     >
                       <span class="material-symbols-outlined">delete</span>
                     </DetailStyle.DetailBtn>
@@ -127,17 +114,17 @@ const Detail = () => {
           </DetailStyle.DetailMap>
           {detailData && (
             <Comments
-              dataId={dataId}
+              dataId={data.id}
               data={detailData}
               setIsChangeData={setIsChangeData}
             />
           )}
         </DetailStyle.DetailBox>
       </DetailStyle.DetailBack>
-      {isDeleteModal && (
-        <DeleteModal
-          setIsDeleteModal={setIsDeleteModal}
-          deleteData={deleteData}
+      {isPostDeleteModal && (
+        <PostDeleteModal
+          setIsPostDeleteModal={setIsPostDeleteModal}
+          postDeleteData={postDeleteData}
         />
       )}
       {isEditModal && (

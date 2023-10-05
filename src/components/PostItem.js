@@ -6,17 +6,16 @@ import styled from "styled-components";
 import PostMap from "./PostMap";
 import Comments from "./Comments";
 import { useRecoilState, useRecoilValue } from "recoil";
-import { clickPostItemDataId, userAtom } from "../recoils/UserAtom";
+import { clickPostItemData, userAtom } from "../recoils/UserAtom";
 import * as PostItemStyle from "../styles/PostItemStyle";
 import EditModal from "./EditModal";
-import DeleteModal from "./DeleteModal";
+import DeleteModal from "./PostDeleteModal";
 import { useNavigate } from "react-router-dom";
 
 // word-break: break-all;
 const PostItem = ({ data, index, dataLen }) => {
   const user = useRecoilValue(userAtom);
-  const [clickPostItemId, setClickPostItemId] =
-    useRecoilState(clickPostItemDataId);
+  const [clickPostItem, setClickPostItem] = useRecoilState(clickPostItemData);
   const navigator = useNavigate();
 
   // 좋아요 버튼을 클릭하면 호출
@@ -47,8 +46,8 @@ const PostItem = ({ data, index, dataLen }) => {
   }, [data.id, data.likeMember, user.uid]);
 
   // 게시글을 클릭하면 해당 게시글의 디테일 페이지로 이동
-  const onClickPostItem = (id) => {
-    setClickPostItemId(id);
+  const onClickPostItem = (data) => {
+    setClickPostItem(data);
     navigator("/detail");
   };
   const calculateTime = (data) => {
@@ -62,7 +61,7 @@ const PostItem = ({ data, index, dataLen }) => {
       Math.round(minute / 60) > 23 &&
       Math.round(minute / 60 / 24) < 31
     ) {
-      return `${Math.round(minute / 60)} 일 전`;
+      return `${Math.round(minute / 60 / 24)} 일 전`;
     } else if (Math.round(minute / 60 / 24) > 30) {
       return "한달 전";
     }
@@ -71,7 +70,7 @@ const PostItem = ({ data, index, dataLen }) => {
     <>
       <PostItemStyle.PostItemBack
         image={data.getUploadFileURL}
-        onClick={() => onClickPostItem(data.id)}
+        onClick={() => onClickPostItem(data)}
       >
         <PostItemStyle.PostItemTitleBox>
           <PostItemStyle.PostItemNickname>

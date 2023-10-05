@@ -1,10 +1,10 @@
-import React, { useCallback, useEffect, useMemo } from "react";
+import React, { useCallback, useEffect } from "react";
 import styled from "styled-components";
 
 const PostMapStyle = styled.div`
   border-radius: 10px;
   width: 100%;
-  height: 20rem;
+  height: 300px;
 `;
 const PostMap = ({ data }) => {
   const { location } = data;
@@ -38,9 +38,9 @@ const PostMap = ({ data }) => {
   }, [getMap]);
 
   return (
-    <div>
-      <PostMapStyle id="postMap"></PostMapStyle>
-    </div>
+    <>
+      <PostMapStyle id="postMap"></PostMapStyle>;
+    </>
   );
 };
 

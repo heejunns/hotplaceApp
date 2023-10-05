@@ -4,7 +4,7 @@
 
 ### 사용한 기술
 
-html, css, styled-components, react, react-router react-spinners, uuid, firebase
+html, css, styled-components, react, react-router react-spinners, uuid, firebase, recoil-persist
 
 ### 💁‍♂️  왜 만들었는가?
 
