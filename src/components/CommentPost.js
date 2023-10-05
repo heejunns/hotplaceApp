@@ -1,14 +1,18 @@
 import { doc, updateDoc } from "firebase/firestore";
-import React from "react";
+import React, { useState } from "react";
 import styled from "styled-components";
 import { dbService } from "../reactfbase";
 import { userAtom } from "../recoils/UserAtom";
 import { useRecoilValue } from "recoil";
+import CommentDeleteModal from "./CommentDeleteModal";
 
 // 댓글 레이아웃 스타일 태그
-const CommentLayout = styled.div`
+const CommentItemBox = styled.div`
+  border: 1px solid black;
+  border-radius: 10px;
   width: 100%;
-  padding: 0.5rem;
+  padding: 10px;
+  margin-top: 10px;
   @media screen and (min-width: 820px) and (min-height: 1180px) {
     font-size: 2rem;
   }
@@ -16,18 +20,21 @@ const CommentLayout = styled.div`
 // 댓글 지우기 스타일 태그
 const CommentDelete = styled.span`
   float: right;
-  cursot: pointer;
-  &:hover {
-    color: red;
+  cursor: pointer;
+
+  & > span {
+    &:hover {
+      color: red;
+    }
+    font-size: 30px;
+    color: mediumorchid;
   }
 `;
 // 댓글 작성자를 보여주는 스타일 태그
-const CommentWriter = styled.div`
-  clear: left;
-`;
+const CommentWriter = styled.div``;
 // 댓글을 보여주는 스타일 태그
 const CommentValue = styled.div`
-  margin-top: 0.5rem;
+  margin-top: 10px;
 `;
 // 댓글에서 좋아요 스타일 태그
 const CommentLike = styled.div`
@@ -38,9 +45,12 @@ const CommentLike = styled.div`
   }
 `;
 
-const CommentPost = ({ commentInfo, data }) => {
+const CommentPost = ({ commentInfo, data, dataId, setIsChangeData }) => {
   const user = useRecoilValue(userAtom);
   // 댓글에서 좋아요 버튼을 클릭하면 호출
+  console.log("user", user);
+  console.log("commentInfo", commentInfo);
+  const [isCommentDeleteModal, setIsCommentDeleteModal] = useState(false);
   const onclickLikeButton = async () => {
     const newComments = data.comments.map((comment) => {
       if (comment.comment_id === commentInfo.comment_id) {
@@ -75,71 +85,59 @@ const CommentPost = ({ commentInfo, data }) => {
         return comment;
       }
     });
-    await updateDoc(doc(dbService, "test", data.id), {
+    await updateDoc(doc(dbService, "test", dataId), {
       // comment 에 새로운 comment 정보 업데이트
       comments: newComments,
     });
   };
 
   const onclickDeleteCommentButton = async () => {
-    // 댓글 삭제 버튼을 클릭하면 호출
-    const newComments = data.comments.filter((comment) => {
-      // 클릭한 댓글을 필터로 가려내기 클릭하지 않은 댓글만 리턴
-      return comment.comment_id !== commentInfo.comment_id;
-    });
-
-    await updateDoc(doc(dbService, "test", data.id), {
-      // 새로운 comment 정보 업데이트
-      comments: newComments,
-    });
+    // 삭제 버튼 클릭
+    document.body.style.overflow = "hidden";
+    setIsCommentDeleteModal((prev) => !prev);
+  };
+  const calculateTime = (data) => {
+    // 게시글을 올린지 얼마나 지났는지 시간을 계산하는 함수
+    const minute = (Date.now() - data.commentCreateTime) / 1000 / 60;
+    if (Math.round(minute) < 60) {
+      return Math.round(minute) === 0 ? "지금" : `${Math.round(minute)} 분 전`;
+    } else if (Math.round(minute) > 59 && Math.round(minute / 60) < 24) {
+      return `${Math.round(minute / 60)} 시간 전`;
+    } else if (
+      Math.round(minute / 60) > 23 &&
+      Math.round(minute / 60 / 24) < 31
+    ) {
+      return `${Math.round(minute / 60 / 24)} 일 전`;
+    } else if (Math.round(minute / 60 / 24) > 30) {
+      return "한달 전";
+    }
   };
   return (
-    <div>
-      <CommentLayout>
-        <CommentDelete onClick={onclickDeleteCommentButton}>삭제</CommentDelete>
+    <>
+      <CommentItemBox>
+        <CommentDelete onClick={onclickDeleteCommentButton}>
+          {user.displayName === commentInfo.commentWriter && (
+            <span class="material-symbols-outlined">delete</span>
+          )}
+        </CommentDelete>
         <CommentWriter>
-          {commentInfo.commentWriter} /{" "}
-          {Math.round(
-            (Date.now() - commentInfo.commentCreateTime) / 1000 / 60
-          ) < 60
-            ? `약 ${Math.round(
-                (Date.now() - commentInfo.commentCreateTime) / 1000 / 60
-              )} 분 전`
-            : Math.round(
-                (Date.now() - commentInfo.commentCreateTime) / 1000 / 60
-              ) > 59 &&
-              Math.round(
-                (Date.now() - commentInfo.commentCreateTime) / 1000 / 60 / 60
-              ) < 24
-            ? `약 ${Math.round(
-                (Date.now() - commentInfo.commentCreateTime) / 1000 / 60 / 60
-              )} 시간 전`
-            : Math.round(
-                (Date.now() - commentInfo.commentCreateTime) / 1000 / 60 / 60
-              ) > 23 &&
-              Math.round(
-                (Date.now() - commentInfo.commentCreateTime) /
-                  1000 /
-                  60 /
-                  60 /
-                  24
-              ) < 30
-            ? `약 ${Math.round(
-                (Date.now() - commentInfo.commentCreateTime) /
-                  1000 /
-                  60 /
-                  60 /
-                  24
-              )} 일 전`
-            : "한달이 넘음"}
+          {commentInfo.commentWriter} / {calculateTime(commentInfo)}
         </CommentWriter>
         <CommentValue>{commentInfo.commentValue} </CommentValue>
         <CommentLike onClick={onclickLikeButton}>
-          {" "}
           &#9829; {commentInfo.commentLikeMember.length}
         </CommentLike>
-      </CommentLayout>
-    </div>
+      </CommentItemBox>
+      {isCommentDeleteModal && (
+        <CommentDeleteModal
+          setIsCommentDeleteModal={setIsCommentDeleteModal}
+          data={data}
+          dataId={dataId}
+          setIsChangeData={setIsChangeData}
+          commentInfo={commentInfo}
+        />
+      )}
+    </>
   );
 };
 

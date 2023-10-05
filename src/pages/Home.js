@@ -11,7 +11,7 @@ import { useRecoilValue } from "recoil";
 import { hamburgerBtnClick } from "../recoils/UserAtom";
 import * as HomeStyle from "../styles/HomeStyle";
 import PostItem from "../components/PostItem";
-import DeleteModal from "../components/DeleteModal";
+import DeleteModal from "../components/PostDeleteModal";
 
 const Home = ({ userLocation }) => {
   const [currentData, setCurrentData] = useState([]);

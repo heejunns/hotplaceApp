@@ -18,6 +18,7 @@ export const HeaderBackground = styled.div`
     }
     position: fixed;
     top: 0;
+    z-index: 100;
   }
 `;
 
@@ -74,7 +75,7 @@ export const HamburgerSideBar = styled.div`
   opacity: 0.8;
   background: mediumorchid;
   height: 100%;
-  z-index: 3;
+  z-index: 100;
   top: 50px;
   position: fixed;
   transition: all ease 0.5s;
