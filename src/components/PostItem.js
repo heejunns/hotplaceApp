@@ -4,7 +4,7 @@ import { dbService, storageService } from "../reactfbase";
 import { deleteObject, ref } from "firebase/storage";
 import styled from "styled-components";
 import PostMap from "./PostMap";
-import Comments from "./Comments";
+import Comments from "./Comment";
 import { useRecoilState, useRecoilValue } from "recoil";
 import { clickPostItemData, userAtom } from "../recoils/UserAtom";
 import * as PostItemStyle from "../styles/PostItemStyle";
@@ -74,8 +74,9 @@ const PostItem = ({ data, index, dataLen }) => {
       >
         <PostItemStyle.PostItemTitleBox>
           <PostItemStyle.PostItemNickname>
-            {data.nickname} 님
+            <span>{data.nickname}</span>님
           </PostItemStyle.PostItemNickname>
+
           <div>
             <PostItemStyle.PostItemTime>
               {calculateTime(data)}/

@@ -7,7 +7,7 @@ export const HomeBack = styled.div`
   justify-content: center;
   align-items: center;
   background: white;
-  padding: 0 20px;
+  padding: 0 20px 30px 20px;
   background-color: ${(props) =>
     props.hamburgerClickInfo ? "rgba(0,0,0,0.2)" : ""};
 `;

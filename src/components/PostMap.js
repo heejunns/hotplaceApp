@@ -39,7 +39,7 @@ const PostMap = ({ data }) => {
 
   return (
     <>
-      <PostMapStyle id="postMap"></PostMapStyle>;
+      <PostMapStyle id="postMap"></PostMapStyle>
     </>
   );
 };

@@ -9,6 +9,8 @@ import { useNavigate } from "react-router-dom";
 import { userAtom } from "../recoils/UserAtom";
 import { useRecoilValue } from "recoil";
 import * as PostUploadStyle from "../styles/PostUploadStyle";
+import { Loading } from "../styles/LoadingStyle";
+import { PulseLoader } from "react-spinners";
 
 const PostUpload = ({ userLocation }) => {
   const user = useRecoilValue(userAtom);
@@ -19,7 +21,18 @@ const PostUpload = ({ userLocation }) => {
   const [mapStatus, setMapStatus] = useState(false); // 게시글을 작성할 때 매장의 주소를 기록할지 여부
   const [userSelectCategory, setUserSelectCategory] = useState("cafe"); // 사용자가 글을 게시할때 사용자의 주소
   const [userMarkerLocation, setUserMarkerLocation] = useState([]); // 사용자가 맵에 마커한 매장의 주소
-  // 트윗 작성 input 태그의 onchange 이벤트 콜백 함수
+  const [isLoading, setIsLoading] = useState(false);
+  const [inputPostTitle, setInputPostTitle] = useState("");
+  // 매장 이름 작성하는 input 태그에 걸어 둔 onchange 함수
+  const onchangeInputPostTitle = (e) => {
+    const { value } = e.target;
+    if (value.length > 20) {
+      return;
+    }
+    setInputPostTitle(value);
+  };
+
+  // 자세한 설명 작성하는 textarea 태그에 걸어 둔 onchange 함수
   const onchangeInputText = useCallback((event) => {
     const { value } = event.target;
     if (value.length > 100) {
@@ -36,6 +49,7 @@ const PostUpload = ({ userLocation }) => {
   // 작성한 글을 등록하기 위해 버튼을 클릭했을때 호출되는 콜백함수
   const onsubmitButtonClick = async (e) => {
     e.preventDefault();
+    setIsLoading(true);
     try {
       let getUploadFileURL = "";
       if (uploadImageFileURL !== "") {
@@ -66,10 +80,12 @@ const PostUpload = ({ userLocation }) => {
         likeNumber: 0,
         comments: [], // 댓글 정보
         userLocation, // 유저 주소, 이 정보로 지역 게시물만 보기 기능 만들거임
+        postName: inputPostTitle,
       });
-
+      setInputPostTitle("");
       setInputText("");
       setUploadImageFileURL("");
+      setIsLoading(false);
       navigate("/");
     } catch (error) {
       console.error("Error adding document: ", error);
@@ -99,134 +115,167 @@ const PostUpload = ({ userLocation }) => {
     setMapStatus((prev) => !prev);
   }, []);
   return (
-    <PostUploadStyle.PostUploadBack>
-      <PostUploadStyle.PostUploadFormContainer onSubmit={onsubmitButtonClick}>
-        <PostUploadStyle.PostUploadImageBox>
-          <PostUploadStyle.ImgFileSelectTitle>
-            이미지 추가하기
-          </PostUploadStyle.ImgFileSelectTitle>
-          <PostUploadStyle.ImgFileSelectInput
-            id="imageUploadInput"
-            type="file"
-            accept="image/*"
-            onChange={onchangeImageUpload}
-          />
-          {uploadImageFileURL ? (
-            <PostUploadStyle.UploadImgBox>
-              <PostUploadStyle.UploadImg
-                src={uploadImageFileURL}
-                alt="uploadImg"
-              />
-              <PostUploadStyle.UploadImgDeleteBtn
-                type="button"
-                onClick={onclickUploadFileDelete}
-              >
-                &#215;
-              </PostUploadStyle.UploadImgDeleteBtn>
-            </PostUploadStyle.UploadImgBox>
-          ) : (
-            <PostUploadStyle.UploadEmptyImg htmlFor="imageUploadInput">
-              <span class="material-symbols-outlined">create_new_folder</span>
-            </PostUploadStyle.UploadEmptyImg>
-          )}
-        </PostUploadStyle.PostUploadImageBox>
-        <PostUploadStyle.PostUploadCategoryBox>
-          <PostUploadStyle.CategoryTitle>
-            카테고리 선택
-          </PostUploadStyle.CategoryTitle>
-          <PostUploadStyle.CategoryMenuBox>
-            <PostUploadStyle.CategoryBtn
-              htmlFor="cafe"
-              userSelectCategory={
-                userSelectCategory === "cafe" ? "mediumorchid" : ""
-              }
-            >
-              카페 <span class="material-symbols-outlined">local_cafe</span>
-              <PostUploadStyle.InputCategory
-                id="cafe"
-                type="radio"
-                name="cafe"
-                onChange={onchangeUserSelectCategory}
-              />
-            </PostUploadStyle.CategoryBtn>
-            <PostUploadStyle.CategoryBtn
-              htmlFor="food"
-              userSelectCategory={
-                userSelectCategory === "food" ? "mediumorchid" : ""
-              }
-            >
-              음식 <span class="material-symbols-outlined">restaurant</span>
-              <PostUploadStyle.InputCategory
-                id="food"
-                type="radio"
-                name="cafe"
-                onChange={onchangeUserSelectCategory}
-              />
-            </PostUploadStyle.CategoryBtn>
-            <PostUploadStyle.CategoryBtn
-              htmlFor="mart"
-              userSelectCategory={
-                userSelectCategory === "mart" ? "mediumorchid" : ""
-              }
-            >
-              마트 <span class="material-symbols-outlined">storefront</span>
-              <PostUploadStyle.InputCategory
-                id="mart"
-                type="radio"
-                name="cafe"
-                onChange={onchangeUserSelectCategory}
-              />
-            </PostUploadStyle.CategoryBtn>
-          </PostUploadStyle.CategoryMenuBox>
-        </PostUploadStyle.PostUploadCategoryBox>
-        <PostUploadStyle.PostUploadInputTextBox>
-          <PostUploadStyle.PostUploadInputTextBoxTitleBox>
-            <PostUploadStyle.InputTextBoxTitle>
-              자세한 설명
-            </PostUploadStyle.InputTextBoxTitle>
-            <span>
-              <PostUploadStyle.InputTextCurrentNumber>
-                {inputText.length}
-              </PostUploadStyle.InputTextCurrentNumber>{" "}
-              / 100
-            </span>
-            {inputText.length === 100 && (
-              <PostUploadStyle.InputTextLimitText>
-                100 글자를 초과해서 입력 할 수 없습니다
-              </PostUploadStyle.InputTextLimitText>
-            )}
-          </PostUploadStyle.PostUploadInputTextBoxTitleBox>
-
-          <PostUploadStyle.InputPostText
-            type="text"
-            value={inputText}
-            onChange={onchangeInputText}
-            placeholder="업로드 하고 싶은 글을 작성 해주세요."
-          />
-        </PostUploadStyle.PostUploadInputTextBox>
-        <PostUploadStyle.PostUploadMapBox>
-          <PostUploadStyle.MapBoxTitle>
-            장소 지정하기
-          </PostUploadStyle.MapBoxTitle>
-          <PostUploadStyle.MapBox>
-            {mapStatus ? (
-              <Map setUserMarkerLocation={setUserMarkerLocation} />
-            ) : (
-              <span
-                class="material-symbols-outlined"
-                onClick={onclickMapButton}
-              >
-                add_location_alt
+    <>
+      <PostUploadStyle.PostUploadBack>
+        <PostUploadStyle.PostUploadFormContainer onSubmit={onsubmitButtonClick}>
+          <PostUploadStyle.PostUploadPostNameBox>
+            <PostUploadStyle.PostUploadPostNameTitleBox>
+              <PostUploadStyle.PostUploadPostNameTitle>
+                매장 이름
+              </PostUploadStyle.PostUploadPostNameTitle>
+              <span>
+                <PostUploadStyle.InputTextCurrentNumber>
+                  {inputPostTitle.length}
+                </PostUploadStyle.InputTextCurrentNumber>{" "}
+                / 20
               </span>
-            )}
-          </PostUploadStyle.MapBox>
-        </PostUploadStyle.PostUploadMapBox>
+              {inputPostTitle.length === 20 && (
+                <PostUploadStyle.InputTextLimitText>
+                  20 글자를 초과해서 입력 할 수 없습니다
+                </PostUploadStyle.InputTextLimitText>
+              )}
+            </PostUploadStyle.PostUploadPostNameTitleBox>
 
-        <PostUploadStyle.PostUploadSubmitBox>
-          <PostUploadStyle.SubmitBtn type="submit" value="완료" />
-        </PostUploadStyle.PostUploadSubmitBox>
-      </PostUploadStyle.PostUploadFormContainer>
-    </PostUploadStyle.PostUploadBack>
+            <PostUploadStyle.PostUploadPostNameInput
+              type="text"
+              value={inputPostTitle}
+              onChange={onchangeInputPostTitle}
+              placeholder="매장 이름을 작성해주세요."
+            />
+          </PostUploadStyle.PostUploadPostNameBox>
+          <PostUploadStyle.PostUploadImageBox>
+            <PostUploadStyle.ImgFileSelectTitle>
+              이미지 추가하기
+            </PostUploadStyle.ImgFileSelectTitle>
+
+            <PostUploadStyle.ImgFileSelectInput
+              id="imageUploadInput"
+              type="file"
+              accept="image/*"
+              onChange={onchangeImageUpload}
+            />
+            {uploadImageFileURL ? (
+              <PostUploadStyle.UploadImgBox>
+                <PostUploadStyle.UploadImg
+                  src={uploadImageFileURL}
+                  alt="uploadImg"
+                />
+                <PostUploadStyle.UploadImgDeleteBtn
+                  type="button"
+                  onClick={onclickUploadFileDelete}
+                >
+                  &#215;
+                </PostUploadStyle.UploadImgDeleteBtn>
+              </PostUploadStyle.UploadImgBox>
+            ) : (
+              <PostUploadStyle.UploadEmptyImg htmlFor="imageUploadInput">
+                <span class="material-symbols-outlined">create_new_folder</span>
+              </PostUploadStyle.UploadEmptyImg>
+            )}
+          </PostUploadStyle.PostUploadImageBox>
+          <PostUploadStyle.PostUploadCategoryBox>
+            <PostUploadStyle.CategoryTitle>
+              카테고리 선택
+            </PostUploadStyle.CategoryTitle>
+            <PostUploadStyle.CategoryMenuBox>
+              <PostUploadStyle.CategoryBtn
+                htmlFor="cafe"
+                userSelectCategory={
+                  userSelectCategory === "cafe" ? "mediumorchid" : ""
+                }
+              >
+                카페 <span class="material-symbols-outlined">local_cafe</span>
+                <PostUploadStyle.InputCategory
+                  id="cafe"
+                  type="radio"
+                  name="cafe"
+                  onChange={onchangeUserSelectCategory}
+                />
+              </PostUploadStyle.CategoryBtn>
+              <PostUploadStyle.CategoryBtn
+                htmlFor="food"
+                userSelectCategory={
+                  userSelectCategory === "food" ? "mediumorchid" : ""
+                }
+              >
+                음식 <span class="material-symbols-outlined">restaurant</span>
+                <PostUploadStyle.InputCategory
+                  id="food"
+                  type="radio"
+                  name="cafe"
+                  onChange={onchangeUserSelectCategory}
+                />
+              </PostUploadStyle.CategoryBtn>
+              <PostUploadStyle.CategoryBtn
+                htmlFor="mart"
+                userSelectCategory={
+                  userSelectCategory === "mart" ? "mediumorchid" : ""
+                }
+              >
+                마트 <span class="material-symbols-outlined">storefront</span>
+                <PostUploadStyle.InputCategory
+                  id="mart"
+                  type="radio"
+                  name="cafe"
+                  onChange={onchangeUserSelectCategory}
+                />
+              </PostUploadStyle.CategoryBtn>
+            </PostUploadStyle.CategoryMenuBox>
+          </PostUploadStyle.PostUploadCategoryBox>
+          <PostUploadStyle.PostUploadInputTextBox>
+            <PostUploadStyle.PostUploadInputTextBoxTitleBox>
+              <PostUploadStyle.InputTextBoxTitle>
+                자세한 설명
+              </PostUploadStyle.InputTextBoxTitle>
+              <span>
+                <PostUploadStyle.InputTextCurrentNumber>
+                  {inputText.length}
+                </PostUploadStyle.InputTextCurrentNumber>{" "}
+                / 100
+              </span>
+              {inputText.length === 100 && (
+                <PostUploadStyle.InputTextLimitText>
+                  100 글자를 초과해서 입력 할 수 없습니다
+                </PostUploadStyle.InputTextLimitText>
+              )}
+            </PostUploadStyle.PostUploadInputTextBoxTitleBox>
+
+            <PostUploadStyle.InputPostText
+              type="text"
+              value={inputText}
+              onChange={onchangeInputText}
+              placeholder="업로드 하고 싶은 글을 작성 해주세요."
+            />
+          </PostUploadStyle.PostUploadInputTextBox>
+          <PostUploadStyle.PostUploadMapBox>
+            <PostUploadStyle.MapBoxTitle>
+              장소 지정하기
+            </PostUploadStyle.MapBoxTitle>
+            <PostUploadStyle.MapBox>
+              {mapStatus ? (
+                <Map setUserMarkerLocation={setUserMarkerLocation} />
+              ) : (
+                <span
+                  class="material-symbols-outlined"
+                  onClick={onclickMapButton}
+                >
+                  add_location_alt
+                </span>
+              )}
+            </PostUploadStyle.MapBox>
+          </PostUploadStyle.PostUploadMapBox>
+
+          <PostUploadStyle.PostUploadSubmitBox>
+            <PostUploadStyle.SubmitBtn type="submit" value="완료" />
+          </PostUploadStyle.PostUploadSubmitBox>
+        </PostUploadStyle.PostUploadFormContainer>
+      </PostUploadStyle.PostUploadBack>
+      {isLoading && (
+        <Loading>
+          <PulseLoader color="mediumorchid" size={20} />
+        </Loading>
+      )}
+    </>
   );
 };
 

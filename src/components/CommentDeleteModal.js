@@ -2,7 +2,6 @@ import React from "react";
 import * as DeleteModalStyle from "../styles/DeleteModalStyle";
 import { doc, updateDoc } from "firebase/firestore";
 import { dbService } from "../reactfbase";
-import { useNavigate } from "react-router-dom";
 const CommentDeleteModal = ({
   setIsCommentDeleteModal,
   data,
@@ -10,7 +9,6 @@ const CommentDeleteModal = ({
   setIsChangeData,
   dataId,
 }) => {
-  const navigate = useNavigate();
   const cancelBtnClick = () => {
     setIsCommentDeleteModal((prev) => !prev);
     document.body.style.overflow = "";
@@ -28,7 +26,6 @@ const CommentDeleteModal = ({
         comments: newComments,
       });
       setIsChangeData((prev) => !prev);
-      navigate("/");
     } catch (e) {
       console.log(e);
     }
