@@ -1,6 +1,5 @@
 import { deleteDoc, doc } from "firebase/firestore";
 import React from "react";
-import styled from "styled-components";
 import { dbService, storageService } from "../reactfbase";
 import { deleteObject, ref } from "firebase/storage";
 import * as DeleteModalStyle from "../styles/DeleteModalStyle";
@@ -29,21 +28,23 @@ const PostDeleteModal = ({ setIsPostDeleteModal, postDeleteData }) => {
   };
 
   return (
-    <DeleteModalStyle.DeleteModalBack>
-      <DeleteModalStyle.DeleteModalBox>
-        <DeleteModalStyle.DeleteModalText>
-          게시글을 삭제 하시겠습니까?
-        </DeleteModalStyle.DeleteModalText>
-        <DeleteModalStyle.DeleteModalBtnBox>
-          <DeleteModalStyle.DeleteModalCancelBtn onClick={cancelBtnClick}>
-            취소
-          </DeleteModalStyle.DeleteModalCancelBtn>
-          <DeleteModalStyle.DeleteModalConfirmBtn onClick={confirmBtnClick}>
-            삭제
-          </DeleteModalStyle.DeleteModalConfirmBtn>
-        </DeleteModalStyle.DeleteModalBtnBox>
-      </DeleteModalStyle.DeleteModalBox>
-    </DeleteModalStyle.DeleteModalBack>
+    <>
+      <DeleteModalStyle.DeleteModalBack>
+        <DeleteModalStyle.DeleteModalBox>
+          <DeleteModalStyle.DeleteModalText>
+            게시글을 삭제 하시겠습니까?
+          </DeleteModalStyle.DeleteModalText>
+          <DeleteModalStyle.DeleteModalBtnBox>
+            <DeleteModalStyle.DeleteModalCancelBtn onClick={cancelBtnClick}>
+              취소
+            </DeleteModalStyle.DeleteModalCancelBtn>
+            <DeleteModalStyle.DeleteModalConfirmBtn onClick={confirmBtnClick}>
+              삭제
+            </DeleteModalStyle.DeleteModalConfirmBtn>
+          </DeleteModalStyle.DeleteModalBtnBox>
+        </DeleteModalStyle.DeleteModalBox>
+      </DeleteModalStyle.DeleteModalBack>
+    </>
   );
 };
 

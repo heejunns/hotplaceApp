@@ -110,12 +110,8 @@ const Header = ({ userLocation }) => {
         </li>
         <li>
           <HeaderStyle.LogOutButton onClick={onclickLogoutButton}>
-            {" "}
-            <i
-              class="fa-solid fa-arrow-right-from-bracket"
-              // style={iconStyle()}
-            ></i>
-            로그아웃{" "}
+            <span class="material-symbols-outlined">logout</span>
+            로그아웃
           </HeaderStyle.LogOutButton>
         </li>
       </HeaderStyle.HeaderUserInfoBox>

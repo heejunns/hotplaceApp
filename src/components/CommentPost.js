@@ -43,6 +43,7 @@ const CommentLike = styled.div`
   &:hover {
     color: red;
   }
+  cursor: pointer;
 `;
 
 const CommentPost = ({ commentInfo, data, dataId, setIsChangeData }) => {
@@ -62,19 +63,18 @@ const CommentPost = ({ commentInfo, data, dataId, setIsChangeData }) => {
             commentLikeMember: [user.uid], // commentLikeMember 의 값에서는 현재 사용자의 uid 를 저장
           };
         } else if (
-          comment.commentLikeMember.some((element) => element === user.uid) // commentLikeMember 중에서 현재 사용중인 uid 와 같은 요소가 있다면 true 이니까
+          comment.commentLikeMember.includes(user.uid) // commentLikeMember 중에서 현재 사용중인 uid 와 같은 요소가 있다면 true 이니까
         ) {
           // 현재 좋아요를 클릭한 사용자의 정보는 commentLikeMember 에서 삭제하고 새로운 commentLikeMember 을 만들어서
           const newCommentLikeMember = comment.commentLikeMember.filter(
             (element) => element !== user.uid
           );
-
           return {
             ...comment,
             commentLikeMember: newCommentLikeMember, // 새로운 commentLikeMember 저장
           };
         } else if (
-          !comment.commentLikeMember.some((element) => element === user.uid) // false 가 나온다면 기존의 commentLikeMember 에 현재 사용자의 uid 가 없다는 뜻이니까
+          !comment.commentLikeMember.includes(user.uid) // false 가 나온다면 기존의 commentLikeMember 에 현재 사용자의 uid 가 없다는 뜻이니까
         ) {
           return {
             ...comment,
@@ -89,6 +89,7 @@ const CommentPost = ({ commentInfo, data, dataId, setIsChangeData }) => {
       // comment 에 새로운 comment 정보 업데이트
       comments: newComments,
     });
+    setIsChangeData((prev) => !prev);
   };
 
   const onclickDeleteCommentButton = async () => {

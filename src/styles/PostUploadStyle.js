@@ -17,14 +17,39 @@ export const PostUploadFormContainer = styled.form`
   display: flex;
   flex-direction: column;
 `;
+// ============================================ 매장 이름 =======================================
+export const PostUploadPostNameBox = styled.div`
+  width: 100%;
+  height: 140px;
+  border-bottom: 1px solid grey;
+  padding: 20px 0 30px 0;
+  display: flex;
+  flex-direction: column;
+`;
+export const PostUploadPostNameTitle = styled.h1`
+  font-size: 20px;
+
+  margin-right: 20px;
+`;
+export const PostUploadPostNameInput = styled.input`
+  border: 3px solid mediumorchid;
+  border-radius: 10px;
+  height: 50px;
+  padding: 10px;
+`;
+export const PostUploadPostNameTitleBox = styled.div`
+  display: flex;
+  align-items: center;
+  margin-bottom: 20px;
+`;
 // ============================================ 이미지 업로드 ======================================
 // 이미지 업로드 부분 박스
 export const PostUploadImageBox = styled.div`
   display: flex;
   flex-direction: column;
-  height: 140px;
+  height: 180px;
+  padding: 30px 0;
   border-bottom: 1px solid grey;
-  margin-bottom: 20px;
 `;
 // 이미지 업로드 버튼 인풋 태그
 export const ImgFileSelectInput = styled.input`
@@ -79,6 +104,7 @@ export const UploadEmptyImg = styled.label`
   width: 100px;
   height: 100px;
   & > span {
+    cursor: pointer;
     font-size: 90px;
     color: mediumorchid;
   }
@@ -91,9 +117,9 @@ export const UploadEmptyImg = styled.label`
 export const PostUploadInputTextBox = styled.div`
   display: flex;
   flex-direction: column;
-  height: 150px;
+  height: 200px;
   border-bottom: 1px solid grey;
-  margin-bottom: 20px;
+  padding: 30px 0;
 `;
 // 텍스트 입력 제목 박스
 export const PostUploadInputTextBoxTitleBox = styled.div`
@@ -114,7 +140,7 @@ export const InputPostText = styled.textarea`
   resize: none;
 `;
 //
-export const InputTextBoxTitle = styled.span`
+export const InputTextBoxTitle = styled.h1`
   font-size: 20px;
   margin-right: 20px;
 `;
@@ -134,13 +160,13 @@ export const InputTextLimitText = styled.span`
 // ===================================== 카테고리 선택 =======================================
 // 카테고리 선택 박스
 export const PostUploadCategoryBox = styled.div`
-  height: 100px;
+  height: 130px;
   border-bottom: 1px solid grey;
   padding-bottom: 20px;
-  margin-bottom: 20px;
+  padding: 30px 0;
 `;
 // 카테고리 선택 제목
-export const CategoryTitle = styled.span`
+export const CategoryTitle = styled.h1`
   font-size: 20px;
 `;
 // 카테고리 선택 input
@@ -167,6 +193,7 @@ export const CategoryBtn = styled.label`
     props.userSelectCategory !== "" ? props.userSelectCategory : "white"};
   color: ${(props) => (props.userSelectCategory !== "" ? "white" : "black")};
   & > span {
+    cursor: pointer;
     margin-left: 5px;
   }
   &:nth-child(1),
@@ -188,17 +215,17 @@ export const SubmitBtn = styled.input`
   border: 3px solid mediumorchid;
   background-color: transparent;
   font-size: 20px;
+  cursor: pointer;
 `;
 
 export const PostUploadMapBox = styled.div`
   display: flex;
   flex-direction: column;
-  padding-bottom: 20px;
   border-bottom: 1px solid grey;
-  margin-bottom: 20px;
+  padding: 30px 0;
 `;
 
-export const MapBoxTitle = styled.span`
+export const MapBoxTitle = styled.h1`
   font-size: 20px;
 `;
 
@@ -223,6 +250,7 @@ export const MapBox = styled.div`
   padding: 10px;
   border-radius: 10px;
   & > span {
+    cursor: pointer;
     font-size: 100px;
     color: mediumorchid;
   }

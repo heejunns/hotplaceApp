@@ -22,6 +22,9 @@ export const PostItemTitleBox = styled.div`
   width: 100%;
   display: flex;
   justify-content: space-between;
+  /* @media screen and (max-width: 768px) {
+    font-size: 15px;
+  } */
 `;
 
 // 게시글 이미지 박스
@@ -75,6 +78,20 @@ export const PostItemCategory = styled.span`
 // 게시글의 게시자의 이름 스타일 태그
 export const PostItemNickname = styled.span`
   white-space: nowrap;
+  display: flex;
+  justify-content: flex-start;
+  & > span {
+    white-space: nowrap;
+    width: 100%;
+    max-width: 60px;
+    overflow: hidden;
+    text-overflow: ellipsis;
+    @media screen and (max-width: 768px) {
+      width: auto;
+      overflow: none;
+      text-overflow: none;
+    }
+  }
 `;
 // 게시글의 글 스타일 태그
 export const PostItemText = styled.div`

@@ -68,6 +68,12 @@ export const LogOutButton = styled.button`
   &:hover {
     color: mediumorchid;
   }
+  display: flex;
+  align-items: center;
+  & > span {
+    font-size: 20px;
+    color: mediumorchid;
+  }
 `;
 
 export const HamburgerSideBar = styled.div`
