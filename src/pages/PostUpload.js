@@ -102,7 +102,6 @@ const PostUpload = ({ userLocation }) => {
     const reader = new FileReader(); // 파일리더 생성
     reader.readAsDataURL(uploadFile); //  파일 url 생성
     reader.onloadend = (fileLoadEndEvent) => {
-      // 파일리더에 파일 업로드가 끝나는지 리스너를 달아서 업로드가 끝나면 콜백함수에 업로드 된 객체가 전달되어 콜백함수가 호출
       setUploadImageFileURL(fileLoadEndEvent.target.result);
     };
   }, []);

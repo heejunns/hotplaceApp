@@ -98,8 +98,7 @@ const Header = ({ userLocation }) => {
           <Link to="/profile" style={{ textDecoration: "none" }}>
             {user.displayName === null ? (
               <HeaderStyle.HeaderBoxItem>
-                {" "}
-                <i class="fa-regular fa-user"></i>닉네임을 만들어주세요.
+                닉네임을 만들어주세요.
               </HeaderStyle.HeaderBoxItem>
             ) : (
               <HeaderStyle.HeaderBoxItem>

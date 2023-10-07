@@ -1,11 +1,13 @@
 import styled from "styled-components";
 
+// 디테일 페이지 백그라운드
 export const DetailBack = styled.div`
   width: 100%;
   display: flex;
   justify-content: center;
   padding: 20px 20px 40px 20px;
 `;
+// 디테일 페이지 전체 박스
 export const DetailBox = styled.div`
   border-radius: 10px;
   width: 100%;
@@ -17,6 +19,7 @@ export const DetailBox = styled.div`
     margin-top: 50px;
   }
 `;
+// 디테일 페이지의 타이틀 박스
 export const DetailTitleBox = styled.div`
   display: flex;
   justify-content: space-between;
@@ -29,9 +32,11 @@ export const DetailTitleBox = styled.div`
     flex-direction: column;
   }
 `;
+// 디테일 페이지의 타이틀 박스 안에 텍스트
 export const DetailTitleText = styled.span`
   white-space: nowrap;
 `;
+// 디테일 페이지의 이미지 박스
 export const DetailImgBox = styled.div`
   width: 100%;
   height: 400px;
@@ -47,6 +52,7 @@ export const DetailImgBox = styled.div`
     }
   }
 `;
+// 디테일 페이지의 자세한 설명
 export const DetailMainText = styled.div`
   width: 100%;
   height: 100%;
@@ -58,6 +64,7 @@ export const DetailMainText = styled.div`
   display: flex;
   flex-direction: column;
 `;
+// 디테일 페이지의 지도
 export const DetailMap = styled.div`
   width: 100%;
   height: 300px;
@@ -67,10 +74,12 @@ export const DetailMap = styled.div`
   padding: 30px 0;
   border-bottom: 2px solid black;
 `;
+// 디테일 페이지의 각각의 요소들의 제목
 export const DetailItemTitle = styled.span`
   font-size: 30px;
   margin-bottom: 20px;
 `;
+// 디테일 페이지의 타이틀 박스의 오른쪽
 export const DetailTitleBoxRight = styled.div`
   display: flex;
   align-items: center;
@@ -89,6 +98,9 @@ export const DetailBtn = styled.button`
   border-style: none;
   padding: 10px;
   background: transparent;
+  display: flex;
+  justify-content: center;
+  align-items: center;
   & > span {
     cursor: pointer;
     color: mediumorchid;
