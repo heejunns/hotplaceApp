@@ -9,7 +9,7 @@ import DeleteModal from "../components/PostDeleteModal";
 import EditModal from "../components/EditModal";
 import Comments from "../components/Comment";
 import { useEffect } from "react";
-import { doc, getDoc } from "firebase/firestore";
+import { doc, getDoc, updateDoc } from "firebase/firestore";
 import { dbService } from "../reactfbase";
 import PostDeleteModal from "../components/PostDeleteModal";
 import { Loading } from "../styles/LoadingStyle";
@@ -69,6 +69,30 @@ const Detail = () => {
     };
     getDetailData();
   }, [isChangeData]);
+  const onclickLike = async () => {
+    console.log("좋아요 클릭 멤버", detailData.likeMember);
+    console.log("유저 아이디", user);
+    let newLikeMember;
+    if (
+      detailData.likeMember.length === 0 ||
+      !detailData.likeMember.includes(user.uid)
+    ) {
+      newLikeMember = [...detailData.likeMember, user.uid];
+    } else if (detailData.likeMember.includes(user.uid)) {
+      newLikeMember = detailData.likeMember.filter((item) => {
+        return item !== user.uid;
+      });
+    }
+
+    console.log("멤버", newLikeMember);
+    console.log("멤버 수", newLikeMember.length);
+
+    await updateDoc(doc(dbService, "test", data.id), {
+      likeMember: newLikeMember,
+      likeNumber: newLikeMember.length,
+    });
+    setIsChangeData((prev) => !prev);
+  };
   console.log("디테일 데이터 아이디", data);
   return (
     <>
@@ -79,6 +103,10 @@ const Detail = () => {
               {detailData && detailData.nickname} 님의 게시물
             </DetailStyle.DetailTitleText>
             <DetailStyle.DetailTitleBoxRight>
+              <DetailStyle.DetailBtn onClick={onclickLike}>
+                <span class="material-symbols-outlined">favorite</span>
+                <span>{detailData && detailData.likeMember.length}</span>
+              </DetailStyle.DetailBtn>
               <DetailStyle.DetailBtnBox>
                 {detailData && detailData.writer === user.uid && (
                   <>
