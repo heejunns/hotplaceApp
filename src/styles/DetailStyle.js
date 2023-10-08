@@ -111,3 +111,14 @@ export const DetailBtn = styled.button`
     margin-right: 10px;
   }
 `;
+
+export const DetailPostNameBox = styled.div`
+  height: 100px;
+  display: flex;
+  flex-direction: column;
+  border-bottom: 2px solid black;
+  padding-bottom: 20px;
+  margin-bottom: 20px;
+`;
+
+export const DetailPostName = styled.span``;
