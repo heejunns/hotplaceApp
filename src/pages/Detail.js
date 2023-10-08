@@ -129,6 +129,13 @@ const Detail = () => {
               </DetailStyle.DetailTitleText>
             </DetailStyle.DetailTitleBoxRight>
           </DetailStyle.DetailTitleBox>
+
+          <DetailStyle.DetailPostNameBox>
+            <DetailStyle.DetailItemTitle>매장 이름</DetailStyle.DetailItemTitle>
+            <DetailStyle.DetailPostName>
+              {detailData && detailData.postName}
+            </DetailStyle.DetailPostName>
+          </DetailStyle.DetailPostNameBox>
           <DetailStyle.DetailImgBox>
             {/* <DetailStyle.DetailTitleBox>자세한 사진</DetailStyle.DetailTitleBox> */}
             <img

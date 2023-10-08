@@ -13,9 +13,7 @@ export const HeaderBackground = styled.div`
   background-color: white;
   @media screen and (max-width: 768px) {
     justify-content: space-between;
-    a:nth-of-type(2) {
-      display: none;
-    }
+
     position: fixed;
     top: 0;
     z-index: 100;
@@ -38,6 +36,11 @@ export const AppTitleName = styled.div`
 export const HeaderMenuBox = styled.div`
   display: flex;
   align-items: center;
+  @media screen and (max-width: 768px) {
+    & > a:nth-of-type(2) {
+      display: none;
+    }
+  }
 `;
 // Header 의 오른쪽 유저 정보 또는 로그인, 로그아웃, 회원가입 박스
 export const HeaderUserInfoBox = styled.ul`

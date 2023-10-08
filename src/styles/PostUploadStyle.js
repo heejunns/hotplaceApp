@@ -16,6 +16,9 @@ export const PostUploadFormContainer = styled.form`
   border-radius: 10px;
   display: flex;
   flex-direction: column;
+  @media screen and (max-width: 768px) {
+    margin-top: 20px;
+  }
 `;
 // ============================================ 매장 이름 =======================================
 export const PostUploadPostNameBox = styled.div`

@@ -4,11 +4,10 @@ export const ProfileBack = styled.div`
   font-family: "Nanum Myeongjo", serif;
   background: white;
   width: 100%;
-  height: 95vh;
   display: flex;
   flex-direction: column;
   align-items: center;
-  min-width: 370px;
+  padding: 0 20px;
 `;
 export const ProfileUserInfoBox = styled.div`
   width: 100%;
@@ -76,20 +75,57 @@ export const ProfileForm = styled.form`
   }
 `;
 // 현재 사용자가 올린 게시글을 보여줄 게시글 레이아웃 스타일 태그
-export const PostProfileLayout = styled.div`
+export const ProfileBox = styled.div`
   border-radius: 10px;
-  height: 90%;
-  width: 90%;
+  width: 100%;
   overflow-y: auto;
   display: flex;
   flex-direction: column;
-  justify-content: flex-start;
+  /* justify-content: center; */
+  /* align-items: center; */
+  padding-bottom: 30px;
+`;
+export const ProfileMenuBox = styled.div`
+  width: 100%;
+  position: relative;
+  height: 100px;
+  display: flex;
+  /* align-items: center; */
+  border: 1px solid black;
+`;
+export const ProfileSelectMenuBtn = styled.button`
+  border-style: none;
+  /* width: 120px; */
+  height: 30px;
+  border: 3px solid mediumorchid;
+  background-color: transparent;
+  border-radius: 10px;
+  cursor: pointer;
+  display: flex;
+  justify-content: space-between;
   align-items: center;
-  @media screen and (min-width: 400px) {
-    width: 77.8%;
-  }
-  @media screen and (min-width: 820px) {
-    width: 58.85%;
+`;
+export const ProfileSelectMenu = styled.ul`
+  width: 100%;
+  height: 100px;
+  display: flex;
+  align-items: center;
+`;
+
+export const ProfileMenuItem = styled.li`
+  white-space: nowrap;
+  border-bottom: ${(props) =>
+    props.selectMenu === props.id
+      ? "2px solid mediumorchid"
+      : "2px solid grey"};
+  width: 150px;
+  height: 30px;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  cursor: pointer;
+  &:nth-child(1) {
+    margin-right: 10px;
   }
 `;
 // 프로필 이름 변경 폼 내부의 input 스타일 태그
@@ -115,4 +151,15 @@ export const NoPost = styled.div`
   font-size: 2.5rem;
   margin-top: 2rem;
   color: mediumorchid;
+`;
+export const ProfilePostBox = styled.div`
+  display: grid;
+  grid-template-columns: repeat(4, 1fr);
+  gap: 20px;
+  @media screen and (max-width: 1024px) {
+    grid-template-columns: repeat(3, 1fr);
+  }
+  @media screen and (max-width: 768px) {
+    grid-template-columns: repeat(1, 1fr);
+  }
 `;

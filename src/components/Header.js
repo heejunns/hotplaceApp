@@ -132,8 +132,11 @@ const Header = ({ userLocation }) => {
       </HeaderStyle.HamburgerButtonIcon>
       <HeaderStyle.HamburgerSideBar toggle={clickHamburgerBtn}>
         <HeaderStyle.HamburgerSideBarBox>
-          <Link to="/postmake" style={{ textDecoration: "none" }}>
+          <Link to="/postupload">
             <HeaderStyle.HeaderBoxItem>게시글 올리기</HeaderStyle.HeaderBoxItem>
+          </Link>
+          <Link to="/profile">
+            <HeaderStyle.HeaderBoxItem>마이프로필</HeaderStyle.HeaderBoxItem>
           </Link>
           <HeaderStyle.HamburgerSideBarList onClick={() => onclickPost("cafe")}>
             카페 게시글
