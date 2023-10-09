@@ -204,11 +204,12 @@ const Home = ({ userLocation }) => {
             </HomeStyle.SelectSortMethodItem>
           </HomeStyle.SelectSortMethodList>
         </HomeStyle.SelectSortMethodBox>
-        <HomeStyle.PostLayout>
-          {currentData.length === 0 ? (
-            <HomeStyle.EmptyPost>현재 게시물이 없습니다.</HomeStyle.EmptyPost>
-          ) : (
-            currentData.map((data, index) => {
+
+        {currentData.length === 0 ? (
+          <HomeStyle.EmptyPost>현재 게시물이 없습니다.</HomeStyle.EmptyPost>
+        ) : (
+          <HomeStyle.PostLayout>
+            {currentData.map((data, index) => {
               return (
                 <PostItem
                   key={index}
@@ -217,9 +218,9 @@ const Home = ({ userLocation }) => {
                   dataLen={currentData.length}
                 />
               );
-            })
-          )}
-        </HomeStyle.PostLayout>
+            })}
+          </HomeStyle.PostLayout>
+        )}
       </HomeStyle.HomeBack>
     </>
   );

@@ -11,11 +11,12 @@ import {
   query,
   where,
 } from "firebase/firestore";
-import styled from "styled-components";
 import PostItem from "../components/PostItem";
-import { useRecoilState } from "recoil";
+import { useRecoilState, useRecoilValue } from "recoil";
 import { userAtom } from "../recoils/UserAtom";
 import * as ProfileStyle from "../styles/ProfileStyle";
+import ProfileImgUploadModal from "../components/ProfileImgUploadModal";
+import ProfileNameEditModal from "../components/ProfileNameEditModal";
 
 // 현재 우리가 다양한 컴포넌트에 prop 로 전달해주고 있는 user 객체를 authService.currentUser 로 업데이트 해야한다. 하지만 set 함수로 업데이트 해도 리 랜더링이 되지 않는다. 왜일까?
 // react 는 복잡하고 큰 객체를 전에 상태와 바뀌었는지 판단하는것을 어려워한다.
@@ -28,34 +29,14 @@ const Profile = () => {
   console.log("user", user);
   const [userUploadData, setUserUploadData] = useState([]); // 해당 유저가 작성한 게시글만 가져와서 저장하는 state
   const [newNickname, setNewNickname] = useState(user.displayName); // 해당 유저의 닉네임을 저장하는 state
-  const [profileImgUploadUrl, setProfileImgUploadUrl] = useState("");
+  const profileImg = user.photoURL;
   const [selectMenu, setSelectMenu] = useState("1");
+  const [isProfileImgUploadModal, setIsProfileImgUploadModal] = useState(false);
+  const [isProfileNameEditModal, setIsProfileNameEditModal] = useState(false);
   console.log("유저 데이터", userUploadData);
-
-  const onchangeImageUpload = async (e) => {
-    try {
-      const { files } = e.target;
-      const uploadFile = files[0];
-      const reader = new FileReader();
-      console.log("읽기 동작 전", reader.result);
-      reader.readAsDataURL(uploadFile);
-      reader.onloadend = () => {
-        setProfileImgUploadUrl(reader.result);
-      };
-
-      console.log("읽기 동작 후", reader.result);
-
-      const res = await updateProfile(authService.currentUser, {
-        providerData: {
-          photoURL: reader.result,
-        },
-      });
-      console.log("res", res);
-    } catch (e) {
-      console.log(e);
-    }
+  const onclickProfileImgUploadIcon = () => {
+    setIsProfileImgUploadModal((prev) => !prev);
   };
-  console.log("이미지 url", profileImgUploadUrl);
 
   // 해당 유저가 작성한 글을 실시간으로 가져오기
 
@@ -93,7 +74,7 @@ const Profile = () => {
     });
     setUserUploadData(profileData);
   };
-
+  console.log("이미지 url", user.photoURL);
   const onclickSelectMenu = (e) => {
     const { id } = e.target;
     setSelectMenu(id);
@@ -135,84 +116,99 @@ const Profile = () => {
   };
 
   return (
-    <ProfileStyle.ProfileBack>
-      <ProfileStyle.ProfileUserInfoBox>
-        <ProfileStyle.ProfileUserImgBox>
-          <ProfileStyle.ProfileUserInfoImg>
-            {profileImgUploadUrl === "" ? (
-              <span class="material-symbols-outlined">person</span>
+    <>
+      {" "}
+      <ProfileStyle.ProfileBack>
+        <ProfileStyle.ProfileUserInfoBox>
+          <ProfileStyle.ProfileUserImgBox>
+            <ProfileStyle.ProfileUserInfoImg>
+              {profileImg === "" ? (
+                <span class="material-symbols-outlined">person</span>
+              ) : (
+                <img src={profileImg} alt="profileImg" />
+              )}
+            </ProfileStyle.ProfileUserInfoImg>
+            <ProfileStyle.ProfileUserImgUploadIcon
+              onClick={onclickProfileImgUploadIcon}
+            >
+              <span class="material-symbols-outlined">add_circle</span>
+            </ProfileStyle.ProfileUserImgUploadIcon>
+            {/* <ProfileStyle.ProfileUserImgUploadInput
+              type="file"
+              accept="image/*"
+              id="imgUploadInput"
+              onChange={onchangeImageUpload}
+            /> */}
+          </ProfileStyle.ProfileUserImgBox>
+          <ProfileStyle.ProfileUserInfoName>
+            {user.displayName}
+            <span
+              class="material-symbols-outlined"
+              onClick={() => {
+                setIsProfileNameEditModal((prev) => !prev);
+              }}
+            >
+              edit
+            </span>
+          </ProfileStyle.ProfileUserInfoName>
+        </ProfileStyle.ProfileUserInfoBox>
+        {/* <ProfileStyle.ProfileForm onSubmit={onsubmitNewNickname}>
+    <ProfileStyle.ProfileFormInput
+      type="text"
+      value={newNickname}
+      onChange={onchangeNewNickname}
+      maxLength="5"
+      placeholder="변경할 닉네임을 입력해주세요. 최대 5글자"
+    />
+    <ProfileStyle.ProfileFormSubmit type="submit" value="닉네임 변경" />
+  </ProfileStyle.ProfileForm> */}
+        <ProfileStyle.ProfileBox>
+          <ProfileStyle.ProfileSelectMenu>
+            <ProfileStyle.ProfileMenuItem
+              id="1"
+              selectMenu={selectMenu}
+              onClick={onclickSelectMenu}
+            >
+              내가 작성한 게시물
+            </ProfileStyle.ProfileMenuItem>
+            <ProfileStyle.ProfileMenuItem
+              id="2"
+              selectMenu={selectMenu}
+              onClick={onclickSelectMenu}
+            >
+              좋아요한 게시물
+            </ProfileStyle.ProfileMenuItem>
+          </ProfileStyle.ProfileSelectMenu>
+          <ProfileStyle.ProfilePostBox>
+            {userUploadData.length === 0 ? (
+              <ProfileStyle.NoPost>현재 게시물이 없습니다.</ProfileStyle.NoPost>
             ) : (
-              <img src={profileImgUploadUrl} alt="profileImg" />
+              userUploadData.map((data, index) => {
+                return (
+                  <PostItem
+                    key={index}
+                    data={data}
+                    user={user}
+                    index={index}
+                    dataLen={userUploadData.length}
+                  />
+                );
+              })
             )}
-          </ProfileStyle.ProfileUserInfoImg>
-          <ProfileStyle.ProfileUserImgUploadIcon htmlFor="imgUploadInput">
-            <span class="material-symbols-outlined">add_circle</span>
-          </ProfileStyle.ProfileUserImgUploadIcon>
-          <ProfileStyle.ProfileUserImgUploadInput
-            type="file"
-            accept="image/*"
-            id="imgUploadInput"
-            onChange={onchangeImageUpload}
-          />
-        </ProfileStyle.ProfileUserImgBox>
-        <ProfileStyle.ProfileUserInfoName>
-          {user.displayName}
-        </ProfileStyle.ProfileUserInfoName>
-      </ProfileStyle.ProfileUserInfoBox>
-      {/* <ProfileStyle.ProfileForm onSubmit={onsubmitNewNickname}>
-        <ProfileStyle.ProfileFormInput
-          type="text"
-          value={newNickname}
-          onChange={onchangeNewNickname}
-          maxLength="5"
-          placeholder="변경할 닉네임을 입력해주세요. 최대 5글자"
+          </ProfileStyle.ProfilePostBox>
+        </ProfileStyle.ProfileBox>
+      </ProfileStyle.ProfileBack>
+      {isProfileImgUploadModal && (
+        <ProfileImgUploadModal
+          setIsProfileImgUploadModal={setIsProfileImgUploadModal}
         />
-        <ProfileStyle.ProfileFormSubmit type="submit" value="닉네임 변경" />
-      </ProfileStyle.ProfileForm> */}
-      <ProfileStyle.ProfileBox>
-        {/* <ProfileStyle.ProfileSelectMenuBtn onClick={onclickSelectMenuBtn}>
-            {selectMenu}
-            {isSelectMenu ? (
-              <span class="material-symbols-outlined">expand_less</span>
-            ) : (
-              <span class="material-symbols-outlined">keyboard_arrow_down</span>
-            )}
-          </ProfileStyle.ProfileSelectMenuBtn> */}
-        <ProfileStyle.ProfileSelectMenu>
-          <ProfileStyle.ProfileMenuItem
-            id="1"
-            selectMenu={selectMenu}
-            onClick={onclickSelectMenu}
-          >
-            내가 작성한 게시물
-          </ProfileStyle.ProfileMenuItem>
-          <ProfileStyle.ProfileMenuItem
-            id="2"
-            selectMenu={selectMenu}
-            onClick={onclickSelectMenu}
-          >
-            좋아요한 게시물
-          </ProfileStyle.ProfileMenuItem>
-        </ProfileStyle.ProfileSelectMenu>
-        <ProfileStyle.ProfilePostBox>
-          {userUploadData.length === 0 ? (
-            <ProfileStyle.NoPost>현재 게시물이 없습니다.</ProfileStyle.NoPost>
-          ) : (
-            userUploadData.map((data, index) => {
-              return (
-                <PostItem
-                  key={index}
-                  data={data}
-                  user={user}
-                  index={index}
-                  dataLen={userUploadData.length}
-                />
-              );
-            })
-          )}
-        </ProfileStyle.ProfilePostBox>
-      </ProfileStyle.ProfileBox>
-    </ProfileStyle.ProfileBack>
+      )}
+      {isProfileNameEditModal && (
+        <ProfileNameEditModal
+          setIsProfileNameEditModal={setIsProfileNameEditModal}
+        />
+      )}
+    </>
   );
 };
 
