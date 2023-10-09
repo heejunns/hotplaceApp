@@ -7,34 +7,31 @@ export const ProfileBack = styled.div`
   display: flex;
   flex-direction: column;
   align-items: center;
-  padding: 0 20px;
+  padding: 20px;
 `;
 export const ProfileUserInfoBox = styled.div`
   width: 100%;
-  height: 300px;
+  height: 150px;
   display: flex;
   justify-content: center;
   align-items: center;
   flex-direction: column;
 `;
 
-export const ProfileUserImgUploadIcon = styled.label`
+export const ProfileUserImgUploadIcon = styled.div`
   position: absolute;
   bottom: 0;
   right: 0;
+  cursor: pointer;
   & > span {
-    color: mediumorchid;
+    border-radius: 50%;
     background-color: aqua;
+    color: mediumorchid;
   }
-`;
-
-export const ProfileUserImgUploadInput = styled.input`
-  display: none;
 `;
 
 export const ProfileUserImgBox = styled.div`
   position: relative;
-  border: 1px solid aqua;
 `;
 
 export const ProfileUserInfoImg = styled.div`
@@ -55,25 +52,32 @@ export const ProfileUserInfoImg = styled.div`
   }
 `;
 
-export const ProfileUserInfoName = styled.span`
+export const ProfileUserInfoName = styled.div`
   font-size: 20px;
-`;
-// 프로필 이름을 변경하는 폼 스타일 태그
-export const ProfileForm = styled.form`
-  border: 1px solid mediumorchid;
-  border-top: none;
-  width: 78%;
-  height: 10%;
   display: flex;
   justify-content: center;
   align-items: center;
-  @media screen and (min-width: 400px) {
-    width: 70%;
-  }
-  @media screen and (min-width: 820px) {
-    width: 53%;
+  & > span {
+    color: mediumorchid;
+    cursor: pointer;
   }
 `;
+// 프로필 이름을 변경하는 폼 스타일 태그
+// export const ProfileForm = styled.form`
+//   border: 1px solid mediumorchid;
+//   border-top: none;
+//   width: 78%;
+//   height: 10%;
+//   display: flex;
+//   justify-content: center;
+//   align-items: center;
+//   @media screen and (min-width: 400px) {
+//     width: 70%;
+//   }
+//   @media screen and (min-width: 820px) {
+//     width: 53%;
+//   }
+// `;
 // 현재 사용자가 올린 게시글을 보여줄 게시글 레이아웃 스타일 태그
 export const ProfileBox = styled.div`
   border-radius: 10px;
@@ -129,24 +133,24 @@ export const ProfileMenuItem = styled.li`
   }
 `;
 // 프로필 이름 변경 폼 내부의 input 스타일 태그
-export const ProfileFormInput = styled.input`
-  width: 60%;
-  height: 2rem;
-  border-radius: 5px;
-  border: 2px solid mediumorchid;
-  padding: 0.5rem;
-  background: white;
-  margin-right: 1rem;
-`;
-// 프로필 이름 변경 후 버튼을 클릭하는데 닉네임 변경 버튼 스타일 태그
-export const ProfileFormSubmit = styled.input`
-  border-radius: 5px;
-  border: 2px solid mediumorchid;
-  padding: 0.5rem;
-  width: 5rem;
-  height: 2rem;
-  background: white;
-`;
+// export const ProfileFormInput = styled.input`
+//   width: 60%;
+//   height: 2rem;
+//   border-radius: 5px;
+//   border: 2px solid mediumorchid;
+//   padding: 0.5rem;
+//   background: white;
+//   margin-right: 1rem;
+// `;
+// // 프로필 이름 변경 후 버튼을 클릭하는데 닉네임 변경 버튼 스타일 태그
+// export const ProfileFormSubmit = styled.input`
+//   border-radius: 5px;
+//   border: 2px solid mediumorchid;
+//   padding: 0.5rem;
+//   width: 5rem;
+//   height: 2rem;
+//   background: white;
+// `;
 export const NoPost = styled.div`
   font-size: 2.5rem;
   margin-top: 2rem;
