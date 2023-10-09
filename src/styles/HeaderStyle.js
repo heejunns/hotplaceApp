@@ -133,12 +133,38 @@ export const HamburgerIconItem = styled.div`
 export const HamburgerSideBarBox = styled.ul`
   width: 100%;
   padding: 10px;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  & > a {
+    text-decoration: none;
+    color: black;
+    cursor: pointer;
+    &:hover {
+      color: yellowgreen;
+    }
+  }
+`;
+
+export const SideBarLogOutButton = styled.button`
+  cursor: pointer;
+  font-family: "Nanum Myeongjo", serif;
+  border-style: none;
+  background: transparent;
+  color: black;
+  display: flex;
+  margin-top: 10px;
+  font-size: 15px;
+  padding: 0;
+  &:hover {
+    color: greenyellow;
+  }
+  & > span {
+    font-size: 20px;
+    color: black;
+  }
 `;
 
 export const HamburgerSideBarList = styled.li`
   margin-top: 10px;
-  cursor: pointer;
-  &:hover {
-    color: mediumorchid;
-  }
 `;

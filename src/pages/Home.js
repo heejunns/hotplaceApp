@@ -6,6 +6,7 @@ import {
   query,
   orderBy,
   where,
+  getDocs,
 } from "firebase/firestore";
 import { useRecoilValue } from "recoil";
 import { hamburgerBtnClick } from "../recoils/UserAtom";
@@ -16,7 +17,72 @@ import DeleteModal from "../components/PostDeleteModal";
 const Home = ({ userLocation }) => {
   const [currentData, setCurrentData] = useState([]);
   const hamburgerClickInfo = useRecoilValue(hamburgerBtnClick);
+  const [selectSortMethod, setSelectSortMethod] = useState("전체 게시글 보기");
+  const [isSelectSort, setIsSelectSort] = useState(false);
 
+  const onclickSelectSortMethod = () => {
+    setIsSelectSort((prev) => !prev);
+  };
+  const queryMake = (selectMethod) => {
+    let queryContent;
+    if (selectMethod === "전체 게시글 보기") {
+      queryContent = query(
+        collection(dbService, "test"),
+        orderBy("createTime", "desc")
+      );
+    } else if (selectMethod === "카페 게시글 보기") {
+      queryContent = query(
+        collection(dbService, "test"),
+        where("category", "==", "카페"),
+        orderBy("createTime", "desc")
+      );
+    } else if (selectMethod === "음식 게시글 보기") {
+      queryContent = query(
+        collection(dbService, "test"),
+        where("category", "==", "음식"),
+        orderBy("createTime", "desc")
+      );
+    } else if (selectMethod === "마트 게시글 보기") {
+      queryContent = query(
+        collection(dbService, "test"),
+        where("category", "==", "마트"),
+        orderBy("createTime", "desc")
+      );
+    } else if (selectMethod === "좋아요 순으로 보기") {
+      queryContent = query(
+        collection(dbService, "test"),
+        orderBy("likeNumber", "desc")
+      );
+    } else if (selectMethod === "나의 지역 게시글만 보기") {
+      queryContent = query(
+        collection(dbService, "test"),
+        where("userLocation", "==", userLocation),
+        orderBy("createTime", "desc")
+      );
+    }
+    return queryContent;
+  };
+  const onclickSelectSortChange = async (selectMethod) => {
+    try {
+      setSelectSortMethod(selectMethod);
+      setIsSelectSort((prev) => !prev);
+      console.log("h");
+      const q = queryMake(selectMethod);
+      console.log("q", q);
+      const querySnapshot = await getDocs(q);
+      const postData = [];
+      querySnapshot.forEach((doc) => {
+        console.log("데이터", doc.data());
+        postData.push({ id: doc.id, ...doc.data() });
+      });
+      setCurrentData(postData);
+      // querySnapshot.forEach((doc) => {
+      //   console.log(doc.id, doc.data());
+      // });
+    } catch (e) {
+      console.log(e);
+    }
+  };
   useEffect(() => {
     console.log("랜더링");
   }, [hamburgerClickInfo]);
@@ -96,6 +162,48 @@ const Home = ({ userLocation }) => {
   return (
     <>
       <HomeStyle.HomeBack hamburgerClickInfo={hamburgerClickInfo}>
+        <HomeStyle.SelectSortMethodBox>
+          <HomeStyle.SelectSortMethodBtn onClick={onclickSelectSortMethod}>
+            {selectSortMethod}
+            {isSelectSort ? (
+              <span class="material-symbols-outlined">expand_less</span>
+            ) : (
+              <span class="material-symbols-outlined">keyboard_arrow_down</span>
+            )}
+          </HomeStyle.SelectSortMethodBtn>
+          <HomeStyle.SelectSortMethodList isSelectSort={isSelectSort}>
+            <HomeStyle.SelectSortMethodItem
+              onClick={() => onclickSelectSortChange("전체 게시글 보기")}
+            >
+              전체 게시글 보기
+            </HomeStyle.SelectSortMethodItem>
+            <HomeStyle.SelectSortMethodItem
+              onClick={() => onclickSelectSortChange("카페 게시글 보기")}
+            >
+              카페 게시글 보기
+            </HomeStyle.SelectSortMethodItem>
+            <HomeStyle.SelectSortMethodItem
+              onClick={() => onclickSelectSortChange("음식 게시글 보기")}
+            >
+              음식 게시글 보기
+            </HomeStyle.SelectSortMethodItem>
+            <HomeStyle.SelectSortMethodItem
+              onClick={() => onclickSelectSortChange("마트 게시글 보기")}
+            >
+              마트 게시글 보기
+            </HomeStyle.SelectSortMethodItem>
+            <HomeStyle.SelectSortMethodItem
+              onClick={() => onclickSelectSortChange("좋아요 순으로 보기")}
+            >
+              좋아요 순으로 보기
+            </HomeStyle.SelectSortMethodItem>
+            <HomeStyle.SelectSortMethodItem
+              onClick={() => onclickSelectSortChange("나의 지역 게시글만 보기")}
+            >
+              나의 지역 게시글만 보기
+            </HomeStyle.SelectSortMethodItem>
+          </HomeStyle.SelectSortMethodList>
+        </HomeStyle.SelectSortMethodBox>
         <HomeStyle.PostLayout>
           {currentData.length === 0 ? (
             <HomeStyle.EmptyPost>현재 게시물이 없습니다.</HomeStyle.EmptyPost>

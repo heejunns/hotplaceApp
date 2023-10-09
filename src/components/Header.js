@@ -133,12 +133,21 @@ const Header = ({ userLocation }) => {
       <HeaderStyle.HamburgerSideBar toggle={clickHamburgerBtn}>
         <HeaderStyle.HamburgerSideBarBox>
           <Link to="/postupload">
-            <HeaderStyle.HeaderBoxItem>게시글 올리기</HeaderStyle.HeaderBoxItem>
+            <HeaderStyle.HamburgerSideBarList>
+              게시글 올리기
+            </HeaderStyle.HamburgerSideBarList>
           </Link>
           <Link to="/profile">
-            <HeaderStyle.HeaderBoxItem>마이프로필</HeaderStyle.HeaderBoxItem>
+            <HeaderStyle.HamburgerSideBarList>
+              {user.displayName}님 프로필가기
+            </HeaderStyle.HamburgerSideBarList>
           </Link>
-          <HeaderStyle.HamburgerSideBarList onClick={() => onclickPost("cafe")}>
+          <HeaderStyle.SideBarLogOutButton onClick={onclickLogoutButton}>
+            로그아웃
+            <span class="material-symbols-outlined">logout</span>
+          </HeaderStyle.SideBarLogOutButton>
+
+          {/* <HeaderStyle.HamburgerSideBarList onClick={() => onclickPost("cafe")}>
             카페 게시글
           </HeaderStyle.HamburgerSideBarList>
           <HeaderStyle.HamburgerSideBarList onClick={() => onclickPost("food")}>
@@ -152,7 +161,7 @@ const Header = ({ userLocation }) => {
           </HeaderStyle.HamburgerSideBarList>
           <HeaderStyle.HamburgerSideBarList onClick={onclickPostAddress}>
             나의 지역 게시글만 보기
-          </HeaderStyle.HamburgerSideBarList>
+          </HeaderStyle.HamburgerSideBarList> */}
         </HeaderStyle.HamburgerSideBarBox>
       </HeaderStyle.HamburgerSideBar>
     </HeaderStyle.HeaderBackground>
