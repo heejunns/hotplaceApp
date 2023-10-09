@@ -93,18 +93,18 @@ export const ProfileMenuBox = styled.div`
   /* align-items: center; */
   border: 1px solid black;
 `;
-export const ProfileSelectMenuBtn = styled.button`
-  border-style: none;
-  /* width: 120px; */
-  height: 30px;
-  border: 3px solid mediumorchid;
-  background-color: transparent;
-  border-radius: 10px;
-  cursor: pointer;
-  display: flex;
-  justify-content: space-between;
-  align-items: center;
-`;
+// export const ProfileSelectMenuBtn = styled.button`
+//   border-style: none;
+//   /* width: 120px; */
+//   height: 30px;
+//   border: 3px solid mediumorchid;
+//   background-color: transparent;
+//   border-radius: 10px;
+//   cursor: pointer;
+//   display: flex;
+//   justify-content: space-between;
+//   align-items: center;
+// `;
 export const ProfileSelectMenu = styled.ul`
   width: 100%;
   height: 100px;

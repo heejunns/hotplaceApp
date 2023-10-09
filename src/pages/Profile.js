@@ -64,8 +64,8 @@ const Profile = () => {
     console.log("user id", user.uid);
     const q = query(
       collection(dbService, "test"),
-      where("writer", "==", user.uid)
-      // orderBy("createTime")
+      where("writer", "==", user.uid),
+      orderBy("createTime")
     );
     const docSnap = await getDocs(q);
     const profileData = [];
