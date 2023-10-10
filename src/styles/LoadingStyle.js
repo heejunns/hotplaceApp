@@ -9,7 +9,7 @@ export const Loading = styled.div`
   display: flex;
   justify-content: center;
   align-items: center;
-  background: rgba(0, 0, 0, 0.1);
+  background: rgba(0, 0, 0, 0.3);
   top: 0;
   left: 0;
   z-index: 100;

@@ -74,7 +74,7 @@ const PostItem = ({ data, index, dataLen }) => {
       >
         <PostItemStyle.PostItemTitleBox>
           <PostItemStyle.PostItemNickname>
-            <span>{data.nickname}</span>님
+            <span>{data.nickname}</span> 님
           </PostItemStyle.PostItemNickname>
 
           <div>
