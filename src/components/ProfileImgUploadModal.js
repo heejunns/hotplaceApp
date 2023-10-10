@@ -6,9 +6,12 @@ import { useRecoilState } from "recoil";
 import { userAtom } from "../recoils/UserAtom";
 import { v4 as uuidv4 } from "uuid";
 import { getDownloadURL, ref, uploadString } from "firebase/storage";
+import { PulseLoader } from "react-spinners";
+import { Loading } from "../styles/LoadingStyle";
 const ProfileImgUploadModal = ({ setIsProfileImgUploadModal }) => {
   const [user, setUser] = useRecoilState(userAtom);
   const [profileImgUploadUrl, setProfileImgUploadUrl] = useState("");
+  const [isLoading, setIsLoading] = useState(false);
   const onchangeImageUpload = async (e) => {
     try {
       const { files } = e.target;
@@ -34,6 +37,7 @@ const ProfileImgUploadModal = ({ setIsProfileImgUploadModal }) => {
 
   const onclickProfileImgUpload = async () => {
     try {
+      setIsLoading(true);
       const storageRef = ref(storageService, `${user.uid}/${uuidv4()}`); // 이미지 storage 에 저장
       await uploadString(storageRef, profileImgUploadUrl, "data_url");
 
@@ -46,56 +50,64 @@ const ProfileImgUploadModal = ({ setIsProfileImgUploadModal }) => {
       const newUser = JSON.parse(JSON.stringify(authService.currentUser));
       setUser(newUser);
       setIsProfileImgUploadModal((prev) => !prev);
+      setIsLoading(false);
     } catch (e) {
       console.log(e);
     }
   };
 
   return (
-    <ProfileImgUploadModalStyle.ProfileImgUploadModalBack>
-      <ProfileImgUploadModalStyle.ProfileImgUploadModalBox>
-        <ProfileImgUploadModalStyle.UploadImgBox>
-          <ProfileImgUploadModalStyle.UploadImg>
-            {profileImgUploadUrl ? (
-              <>
-                <img src={profileImgUploadUrl} alt="uploadProfileImg" />
-                <ProfileImgUploadModalStyle.UploadImgCancelBtn
-                  onClick={onclickUploadImgCancel}
-                >
-                  <span class="material-symbols-outlined">close</span>
-                </ProfileImgUploadModalStyle.UploadImgCancelBtn>
-              </>
-            ) : (
-              <>
-                <span class="material-symbols-outlined">person</span>
-                <ProfileImgUploadModalStyle.SelectImgBtn htmlFor="imgUploadInput">
-                  <span class="material-symbols-outlined">photo_camera</span>
-                </ProfileImgUploadModalStyle.SelectImgBtn>
-                <ProfileImgUploadModalStyle.ProfileImgUploadInput
-                  type="file"
-                  accept="image/*"
-                  id="imgUploadInput"
-                  onChange={onchangeImageUpload}
-                />
-              </>
-            )}
-          </ProfileImgUploadModalStyle.UploadImg>
-        </ProfileImgUploadModalStyle.UploadImgBox>
-        <ProfileImgUploadModalStyle.ProfileImgUploadModalBtnBox>
-          <ProfileImgUploadModalStyle.CancelBtn
-            onClick={onclickCancelUploadModal}
-          >
-            cancel
-          </ProfileImgUploadModalStyle.CancelBtn>
+    <>
+      <ProfileImgUploadModalStyle.ProfileImgUploadModalBack>
+        <ProfileImgUploadModalStyle.ProfileImgUploadModalBox>
+          <ProfileImgUploadModalStyle.UploadImgBox>
+            <ProfileImgUploadModalStyle.UploadImg>
+              {profileImgUploadUrl ? (
+                <>
+                  <img src={profileImgUploadUrl} alt="uploadProfileImg" />
+                  <ProfileImgUploadModalStyle.UploadImgCancelBtn
+                    onClick={onclickUploadImgCancel}
+                  >
+                    <span class="material-symbols-outlined">close</span>
+                  </ProfileImgUploadModalStyle.UploadImgCancelBtn>
+                </>
+              ) : (
+                <>
+                  <span class="material-symbols-outlined">person</span>
+                  <ProfileImgUploadModalStyle.SelectImgBtn htmlFor="imgUploadInput">
+                    <span class="material-symbols-outlined">photo_camera</span>
+                  </ProfileImgUploadModalStyle.SelectImgBtn>
+                  <ProfileImgUploadModalStyle.ProfileImgUploadInput
+                    type="file"
+                    accept="image/*"
+                    id="imgUploadInput"
+                    onChange={onchangeImageUpload}
+                  />
+                </>
+              )}
+            </ProfileImgUploadModalStyle.UploadImg>
+          </ProfileImgUploadModalStyle.UploadImgBox>
+          <ProfileImgUploadModalStyle.ProfileImgUploadModalBtnBox>
+            <ProfileImgUploadModalStyle.CancelBtn
+              onClick={onclickCancelUploadModal}
+            >
+              cancel
+            </ProfileImgUploadModalStyle.CancelBtn>
 
-          <ProfileImgUploadModalStyle.UploadImgBtn
-            onClick={onclickProfileImgUpload}
-          >
-            upload
-          </ProfileImgUploadModalStyle.UploadImgBtn>
-        </ProfileImgUploadModalStyle.ProfileImgUploadModalBtnBox>
-      </ProfileImgUploadModalStyle.ProfileImgUploadModalBox>
-    </ProfileImgUploadModalStyle.ProfileImgUploadModalBack>
+            <ProfileImgUploadModalStyle.UploadImgBtn
+              onClick={onclickProfileImgUpload}
+            >
+              upload
+            </ProfileImgUploadModalStyle.UploadImgBtn>
+          </ProfileImgUploadModalStyle.ProfileImgUploadModalBtnBox>
+          {isLoading && (
+            <Loading>
+              <PulseLoader color="mediumorchid" size={20} />
+            </Loading>
+          )}
+        </ProfileImgUploadModalStyle.ProfileImgUploadModalBox>
+      </ProfileImgUploadModalStyle.ProfileImgUploadModalBack>
+    </>
   );
 };
 

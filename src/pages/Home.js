@@ -13,6 +13,7 @@ import { hamburgerBtnClick } from "../recoils/UserAtom";
 import * as HomeStyle from "../styles/HomeStyle";
 import PostItem from "../components/PostItem";
 import DeleteModal from "../components/PostDeleteModal";
+import TopPost from "../components/TopPost";
 
 const Home = ({ userLocation }) => {
   const [currentData, setCurrentData] = useState([]);
@@ -162,6 +163,7 @@ const Home = ({ userLocation }) => {
   return (
     <>
       <HomeStyle.HomeBack hamburgerClickInfo={hamburgerClickInfo}>
+        <TopPost />
         <HomeStyle.SelectSortMethodBox>
           <HomeStyle.SelectSortMethodBtn onClick={onclickSelectSortMethod}>
             {selectSortMethod}

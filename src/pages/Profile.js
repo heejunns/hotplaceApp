@@ -58,7 +58,6 @@ const Profile = () => {
     setUserUploadData(profileData);
   };
   const getUserLikePost = async () => {
-    setUserUploadData([]);
     console.log("hello");
     const q = query(
       collection(dbService, "test"),
@@ -89,31 +88,6 @@ const Profile = () => {
   useEffect(() => {
     getRealtimeUserData();
   }, []);
-
-  // 닉네임을 작성하는 Input 태그에서 onchange 이벤트가 발생하면 호출
-  const onchangeNewNickname = useCallback((event) => {
-    const { value } = event.target;
-    setNewNickname(value);
-  }, []);
-
-  // 새로운 닉네임을 작성하고 버튼을 클릭하면 호출
-  const onsubmitNewNickname = async (e) => {
-    e.preventDefault();
-    if (user.displayName !== newNickname) {
-      await updateProfile(authService.currentUser, {
-        displayName: newNickname,
-      });
-    }
-    // 현재 유저의 정보를 필요한것만 업로드 하기
-    // setCurrentUser({
-    //   uid: authService.currentUser.uid,
-    //   displayName: authService.currentUser.displayName,
-    // });
-    const newUser = JSON.parse(JSON.stringify(authService.currentUser));
-    setUser(newUser);
-
-    setNewNickname("");
-  };
 
   return (
     <>

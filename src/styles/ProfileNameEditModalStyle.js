@@ -28,7 +28,7 @@ export const ProfileNameEditBox = styled.div`
 export const ProfileNameEditInput = styled.input`
   width: 300px;
   height: 30px;
-  border-radius: 10px;
+  border-radius: 5px;
   border: 2px solid mediumorchid;
   padding: 10px;
   background: white;
