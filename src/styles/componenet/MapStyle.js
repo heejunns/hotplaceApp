@@ -27,6 +27,7 @@ export const MarkerBtn = styled.button`
   display: flex;
   justify-content: center;
   align-items: center;
+  cursor: pointer;
   & > span {
     font-size: 30px;
   }

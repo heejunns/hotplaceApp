@@ -1,42 +1,7 @@
 import React, { useCallback, useState } from "react";
 import { authService } from "../reactfbase";
 import { signInWithEmailAndPassword } from "firebase/auth";
-import styled from "styled-components";
-
-// 로그인 폼 스타일 태그
-const FormStyle = styled.form`
-  text-align: center;
-  height: 40%;
-  width: 100%;
-  display: flex;
-  flex-direction: column;
-  justify-content: space-evenly;
-  align-items: center;
-`;
-// 로그인 폼 내에 input 스타일 태그
-const InputStyle = styled.input`
-  display: block;
-  width: 90%;
-  height: 2rem;
-  border-radius: 5px;
-  border: 3px solid mediumorchid;
-  padding: 1rem;
-  @media screen and (min-width: 768px) {
-    height: 3rem;
-  }
-`;
-// 이메일, 비밀번호 입력 후 클릭하는 버튼 스타일 태그
-const ButtonStyle = styled.button`
-  width: 50%;
-  height: 2rem;
-  border-radius: 10px;
-  border: 3px solid mediumorchid;
-  background: white;
-  @media screen and (min-width: 768px) {
-    height: 3rem;
-  }
-`;
-
+import * as LoginStyle from "../styles/componenet/LoginStyle";
 const Login = () => {
   const [inputEmail, setInputEmail] = useState(""); // 입력하는 이메일을 저장하는 state
   const [inputPassword, setInputPassword] = useState(""); // 입력하는 비밀번호를 저장하는 state
@@ -68,16 +33,16 @@ const Login = () => {
   );
   return (
     <>
-      <FormStyle onSubmit={onsubmitLoginButton}>
-        <InputStyle
+      <LoginStyle.LoginForm onSubmit={onsubmitLoginButton}>
+        <LoginStyle.LoginFormInput
           name="email"
           type="email"
-          placeholder="이메일을 입력하세요."
+          placeholder="아이디를 입력하세요.(이메일)"
           value={inputEmail}
           required
           onChange={onchangeInput}
         />
-        <InputStyle
+        <LoginStyle.LoginFormInput
           name="password"
           type="password"
           placeholder="비밀번호를 입력 하세요."
@@ -85,8 +50,8 @@ const Login = () => {
           required
           onChange={onchangeInput}
         />
-        <ButtonStyle type="submit">로그인</ButtonStyle>
-      </FormStyle>
+        <LoginStyle.LoginBtn type="submit">로그인</LoginStyle.LoginBtn>
+      </LoginStyle.LoginForm>
     </>
   );
 };

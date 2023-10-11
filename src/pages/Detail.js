@@ -1,5 +1,5 @@
 import React, { useRef } from "react";
-import * as DetailStyle from "../styles/DetailStyle";
+import * as DetailStyle from "../styles/pages/DetailStyle";
 import { useRecoilValue } from "recoil";
 import { clickPostItemData, userAtom } from "../recoils/UserAtom";
 import PostMap from "../components/PostMap";
@@ -12,7 +12,7 @@ import { useEffect } from "react";
 import { doc, getDoc, updateDoc } from "firebase/firestore";
 import { dbService } from "../reactfbase";
 import PostDeleteModal from "../components/PostDeleteModal";
-import { Loading } from "../styles/LoadingStyle";
+import { Loading } from "../styles/componenet/LoadingStyle";
 const Detail = () => {
   const user = useRecoilValue(userAtom);
   const data = useRecoilValue(clickPostItemData);

@@ -13,11 +13,12 @@ import {
   where,
 } from "firebase/firestore";
 import { dbService } from "../reactfbase";
-import * as HeaderStyle from "../styles/HeaderStyle";
+import * as HeaderStyle from "../styles/componenet/HeaderStyle";
 
 const Header = ({ userLocation }) => {
   const [clickHamburgerBtn, setClickHamburgerBtn] = useState(false);
   const user = useRecoilValue(userAtom);
+  console.log("user", user);
   const navigate = useNavigate(); // useNavigate 훅스를 사용해서 로그 아웃시 "/" 주소로 강제 이동
   const [currentData, setCurrentData] = useState([]);
   const setHamburgerBtnClickInfo = useSetRecoilState(hamburgerBtnClick);
@@ -88,30 +89,44 @@ const Header = ({ userLocation }) => {
         <Link to="/" style={{ textDecoration: "none" }}>
           <HeaderStyle.AppTitleName>우리동네핫플</HeaderStyle.AppTitleName>
         </Link>
-        <Link to="/postupload" style={{ textDecoration: "none" }}>
-          <HeaderStyle.HeaderBoxItem>게시글 올리기</HeaderStyle.HeaderBoxItem>
-        </Link>
+        {user && (
+          <Link to="/postupload" style={{ textDecoration: "none" }}>
+            <HeaderStyle.HeaderBoxItem>게시글 올리기</HeaderStyle.HeaderBoxItem>
+          </Link>
+        )}
       </HeaderStyle.HeaderMenuBox>
 
       <HeaderStyle.HeaderUserInfoBox>
         <li>
-          <Link to="/profile" style={{ textDecoration: "none" }}>
-            {user.displayName === null ? (
+          {user ? (
+            <Link to="/profile" style={{ textDecoration: "none" }}>
               <HeaderStyle.HeaderBoxItem>
-                닉네임을 만들어주세요.
+                {" "}
+                {user.displayName
+                  ? `${user.displayName} 님 프로필`
+                  : "닉네임을 만들어주세요."}
               </HeaderStyle.HeaderBoxItem>
-            ) : (
+            </Link>
+          ) : (
+            <Link to="/login">
+              {" "}
               <HeaderStyle.HeaderBoxItem>
-                {user.displayName} 님 프로필
+                로그인<span class="material-symbols-outlined">login</span>
               </HeaderStyle.HeaderBoxItem>
-            )}
-          </Link>
+            </Link>
+          )}
         </li>
         <li>
-          <HeaderStyle.LogOutButton onClick={onclickLogoutButton}>
-            <span class="material-symbols-outlined">logout</span>
-            로그아웃
-          </HeaderStyle.LogOutButton>
+          {user ? (
+            <HeaderStyle.LogOutButton onClick={onclickLogoutButton}>
+              <span class="material-symbols-outlined">logout</span>
+              로그아웃
+            </HeaderStyle.LogOutButton>
+          ) : (
+            <Link to="/signup">
+              <HeaderStyle.HeaderBoxItem>회원가입</HeaderStyle.HeaderBoxItem>
+            </Link>
+          )}
         </li>
       </HeaderStyle.HeaderUserInfoBox>
       <HeaderStyle.HamburgerButtonIcon
@@ -137,15 +152,24 @@ const Header = ({ userLocation }) => {
               게시글 올리기
             </HeaderStyle.HamburgerSideBarList>
           </Link>
-          <Link to="/profile">
-            <HeaderStyle.HamburgerSideBarList>
-              {user.displayName}님 프로필가기
-            </HeaderStyle.HamburgerSideBarList>
-          </Link>
-          <HeaderStyle.SideBarLogOutButton onClick={onclickLogoutButton}>
-            로그아웃
-            <span class="material-symbols-outlined">logout</span>
-          </HeaderStyle.SideBarLogOutButton>
+
+          <HeaderStyle.HamburgerSideBarList>
+            {user ? (
+              <Link to="/profile">{`${user.displayName} 님 프로필가기`}</Link>
+            ) : (
+              <Link to="/login">
+                로그인<span class="material-symbols-outlined">login</span>
+              </Link>
+            )}
+          </HeaderStyle.HamburgerSideBarList>
+          {user ? (
+            <HeaderStyle.SideBarLogOutButton onClick={onclickLogoutButton}>
+              로그아웃
+              <span class="material-symbols-outlined">logout</span>
+            </HeaderStyle.SideBarLogOutButton>
+          ) : (
+            <Link to="/signup">회원가입</Link>
+          )}
 
           {/* <HeaderStyle.HamburgerSideBarList onClick={() => onclickPost("cafe")}>
             카페 게시글

@@ -8,8 +8,8 @@ import Map from "../components/Map";
 import { useNavigate } from "react-router-dom";
 import { userAtom } from "../recoils/UserAtom";
 import { useRecoilValue } from "recoil";
-import * as PostUploadStyle from "../styles/PostUploadStyle";
-import { Loading } from "../styles/LoadingStyle";
+import * as PostUploadStyle from "../styles/pages/PostUploadStyle";
+import { Loading } from "../styles/componenet/LoadingStyle";
 import { PulseLoader } from "react-spinners";
 
 const PostUpload = ({ userLocation }) => {

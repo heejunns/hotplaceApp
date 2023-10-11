@@ -5,7 +5,7 @@ import { dbService } from "../reactfbase";
 import { v4 as uuidv4 } from "uuid";
 import { useRecoilValue } from "recoil";
 import { userAtom } from "../recoils/UserAtom";
-import * as CommentStyle from "../styles/CommentStyle";
+import * as CommentStyle from "../styles/componenet/CommentStyle";
 
 const Comment = ({ data, dataId, setIsChangeData }) => {
   const user = useRecoilValue(userAtom);

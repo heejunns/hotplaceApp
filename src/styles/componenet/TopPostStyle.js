@@ -49,3 +49,17 @@ export const TopPostNextBtn = styled(TopPostBtn)`
   right: 0;
   display: ${(props) => (props.topBoxPx === -2359 ? "none" : "bloack")};
 `;
+
+export const TopPostTitleBox = styled.div`
+  width: 100%;
+  margin-top: 20px;
+  max-width: 1200px;
+  height: 30px;
+  display: flex;
+  align-items: center;
+`;
+
+export const TopPostTitleText = styled.h1`
+  font-size: 20px;
+  font-weight: 500;
+`;

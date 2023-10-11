@@ -10,7 +10,7 @@ import {
 } from "firebase/firestore";
 import { useRecoilValue } from "recoil";
 import { hamburgerBtnClick } from "../recoils/UserAtom";
-import * as HomeStyle from "../styles/HomeStyle";
+import * as HomeStyle from "../styles/pages/HomeStyle";
 import PostItem from "../components/PostItem";
 import DeleteModal from "../components/PostDeleteModal";
 import TopPost from "../components/TopPost";

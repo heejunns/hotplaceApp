@@ -1,5 +1,5 @@
 import React from "react";
-import * as ProfileNameEditModalStyle from "../styles/ProfileNameEditModalStyle";
+import * as ProfileNameEditModalStyle from "../styles/componenet/ProfileNameEditModalStyle";
 import { useState } from "react";
 import { authService } from "../reactfbase";
 import { updateProfile } from "firebase/auth";
