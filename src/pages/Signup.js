@@ -1,343 +1,8 @@
 import React, { useCallback, useState } from "react";
 import { useNavigate } from "react-router-dom";
 import { createUserWithEmailAndPassword, signOut } from "firebase/auth";
-import styled from "styled-components";
 import { authService } from "../reactfbase";
-// 에러 메세지 스타일 태그
-const ErrorMessage = styled.div`
-  margin-top: 2rem;
-  color: red;
-  font-size: 1.5rem;
-  display: flex;
-  justify-content: center;
-`;
-// 회원가입할 때 에러가 발생하면 에러를 보여줄 스타일 태그
-const ErrorMessagePassword = styled(ErrorMessage)`
-  margin: 0.5rem 0 0 50%;
-  @media screen and (min-width: 600px) {
-    margin: 0.5rem 0 0 50%;
-    font-size: 1.5rem;
-  }
-  @media screen and (min-width: 1024px) {
-    margin: 0.5rem 0 0 50%;
-    font-size: 2rem;
-  }
-`;
-// 에러없이 성공하면 보여줄 성공 메세지 스타일 태그
-const SuccessMessage = styled.div`
-  margin-top: 0.5rem;
-  color: green;
-  font-size: 0.8rem;
-  margin: 0.5rem 0 0 50%;
-  @media screen and (min-width: 600px) {
-    margin: 0.5rem 0 0 50%;
-    font-size: 1.5rem;
-  }
-  @media screen and (min-width: 1024px) {
-    margin: 0.5rem 0 0 50%;
-    font-size: 2rem;
-  }
-`;
-// 회원가입 페이지 배경 스타일 태그
-const SignUpBack = styled.div`
-  font-family: "Nanum Myeongjo", serif;
-  background: white;
-  width: 100vh;
-  height: 100vh;
-  display: flex;
-  flex-direction: column;
-  align-items: center;
-  justify-content: center;
-  min-width: 370px;
-`;
-// 회원가입 폼 스타일 태그
-const SignUpForm = styled.form`
-  margin-top: 5rem;
-  width: 80%;
-  height: 70%;
-  border: 3px solid mediumorchid;
-  border-radius: 5px;
-  padding: 1rem;
-  @media screen and (min-width: 390px) and (min-height: 844px) {
-    height: 60%;
-  }
-  @media screen and (min-width: 768px) and (min-height: 1024px) {
-    height: 50%;
-    width: 65%;
-  }
-
-  @media screen and (min-width: 700px) {
-    height: 50%;
-    width: 70%;
-  }
-  @media screen and (min-width: 800px) {
-    height: 50%;
-    width: 60%;
-  }
-  @media screen and (min-width: 1024px) {
-    height: 60%;
-    width: 50%;
-  }
-  @media screen and (min-width: 1300px) {
-    height: 60%;
-    width: 40%;
-  }
-`;
-// 이메일 입력 레이아웃 스타일 태그
-const InputEmailLayout = styled.div`
-  width: 100%;
-  margin-bottom: 1rem;
-  @media screen and (min-width: 390px) and (min-height: 844px) {
-    margin-bottom: 1.5rem;
-  }
-  @media screen and (min-width: 768px) and (min-height: 1024px) {
-    margin-bottom: 3rem;
-  }
-`;
-// 비밀번호 입력 레이아웃 스타일 태그
-const InputPasswordLayout = styled.div`
-  width: 100%;
-  margin: 1rem 0;
-  @media screen and (min-width: 390px) and (min-height: 844px) {
-    margin-bottom: 1.5rem;
-  }
-  @media screen and (min-width: 768px) and (min-height: 1024px) {
-    margin-bottom: 3rem;
-  }
-`;
-// 비밀번호 확인 입력 레이아웃 스타일 태그ㄴ
-const InputPasswordCheckLayout = styled.div`
-  width: 100%;
-  margin: 1rem 0;
-  @media screen and (min-width: 390px) and (min-height: 844px) {
-    margin-bottom: 1.5rem;
-  }
-  @media screen and (min-width: 768px) and (min-height: 1024px) {
-    margin-bottom: 3rem;
-  }
-`;
-// 이메일 입력 라벨 스타일 태그
-const InputEmailText = styled.label`
-  font-size: 1rem;
-  display: inline-block;
-  width: 38%;
-  color: mediumorchid;
-  vertical-align: -0.1rem;
-  @media screen and (min-width: 390px) and (min-height: 844px) {
-    width: 48%;
-    font-size: 1.5rem;
-    vertical-align: -0.2rem;
-  }
-  @media screen and (min-width: 768px) and (min-height: 1024px) {
-    font-size: 2.5rem;
-    width: 50%;
-    vertical-align: -0.6rem;
-  }
-  @media screen and (min-width: 600px) {
-    font-size: 2rem;
-    width: 50%;
-    vertical-align: -0.4rem;
-  }
-  @media screen and (min-width: 1024px) {
-    font-size: 2.5rem;
-    width: 50%;
-    vertical-align: -0.6rem;
-  }
-`;
-// 이메일 입력 input 스타일 태그
-const InputEmail = styled.input`
-  width: 62%;
-  height: 2rem;
-  border-radius: 5px;
-  border: 2px solid mediumorchid;
-  padding: 0.5rem;
-  background: white;
-  @media screen and (min-width: 390px) and (min-height: 844px) {
-    height: 2.2rem;
-    width: 52%;
-  }
-  @media screen and (min-width: 768px) and (min-height: 1024px) {
-    height: 3rem;
-    width: 50%;
-  }
-  @media screen and (min-width: 600px) {
-    height: 2.2rem;
-    width: 50%;
-  }
-  @media screen and (min-width: 1024px) {
-    height: 2.5rem;
-    width: 50%;
-  }
-`;
-// 비밀번호 입력 라벨 스타일 태그
-const InputPasswordText = styled.label`
-  font-size: 1rem;
-  display: inline-block;
-  width: 38%;
-  color: mediumorchid;
-  vertical-align: -0.1rem;
-  @media screen and (min-width: 390px) and (min-height: 844px) {
-    width: 48%;
-    font-size: 1.5rem;
-    vertical-align: -0.2rem;
-  }
-  @media screen and (min-width: 768px) and (min-height: 1024px) {
-    font-size: 2.5rem;
-    width: 50%;
-    vertical-align: -0.6rem;
-  }
-  @media screen and (min-width: 600px) {
-    font-size: 2rem;
-    width: 50%;
-    vertical-align: -0.4rem;
-  }
-
-  @media screen and (min-width: 1024px) {
-    font-size: 2.5rem;
-    width: 50%;
-    vertical-align: -0.6rem;
-  }
-`;
-// 비밀번호 입력 스타일 태그
-const InputPassword = styled.input`
-  width: 62%;
-  height: 2rem;
-  border-radius: 5px;
-  border: 2px solid mediumorchid;
-  padding: 0.5rem;
-  background: white;
-  @media screen and (min-width: 390px) and (min-height: 844px) {
-    height: 2.2rem;
-    width: 52%;
-  }
-  @media screen and (min-width: 768px) and (min-height: 1024px) {
-    height: 3rem;
-    width: 50%;
-  }
-  @media screen and (min-width: 600px) {
-    height: 2.2rem;
-    width: 50%;
-  }
-  @media screen and (min-width: 1024px) {
-    height: 2.5rem;
-    width: 50%;
-  }
-`;
-// 비밀번호 확인 입력 라벨 스타일 태그
-const InputPasswordCheckText = styled.label`
-  display: inline-block;
-  width: 38%;
-  font-size: 1rem;
-  color: mediumorchid;
-  vertical-align: -0.1rem;
-
-  @media screen and (min-width: 390px) and (min-height: 844px) {
-    width: 48%;
-    font-size: 1.5rem;
-    vertical-align: -0.2rem;
-  }
-  @media screen and (min-width: 768px) and (min-height: 1024px) {
-    font-size: 2.5rem;
-    width: 50%;
-    vertical-align: -0.6rem;
-  }
-  @media screen and (min-width: 600px) {
-    font-size: 2rem;
-    width: 50%;
-    vertical-align: -0.4rem;
-  }
-  @media screen and (min-width: 1024px) {
-    font-size: 2.5rem;
-    width: 50%;
-    vertical-align: -0.6rem;
-  }
-`;
-// 비밀번호 확인 입력 input 스타일 태그
-const InputPasswordCheck = styled.input`
-  width: 62%;
-  height: 2rem;
-  border-radius: 5px;
-  border: 2px solid mediumorchid;
-  padding: 0.5rem;
-  background: white;
-  @media screen and (min-width: 390px) and (min-height: 844px) {
-    width: 52%;
-    height: 2.2rem;
-  }
-  @media screen and (min-width: 768px) and (min-height: 1024px) {
-    height: 3rem;
-    width: 50%;
-  }
-  @media screen and (min-width: 600px) {
-    height: 2.2rem;
-    width: 50%;
-  }
-  @media screen and (min-width: 1024px) {
-    height: 2.5rem;
-    width: 50%;
-  }
-`;
-// 비밀번호 확인 입력에 기존에 입력한 비밀번호와 일치하는지 꼭 입력해달라는 메세지 스타일 태그
-const InputPasswordCheckMessage = styled.div`
-  font-size: 0.8rem;
-  margin: 0.5rem 0 0 50%;
-  @media screen and (min-width: 390px) and (min-height: 844px) {
-    margin: 0.5rem 0 0 50%;
-    font-size: 1rem;
-  }
-  @media screen and (min-width: 768px) and (min-height: 1024px) {
-    margin: 0.5rem 0 0 50%;
-    font-size: 1.5rem;
-  }
-  @media screen and (min-width: 600px) {
-    margin: 0.5rem 0 0 50%;
-    font-size: 1.5rem;
-  }
-  @media screen and (min-width: 1024px) {
-    margin: 0.5rem 0 0 50%;
-    font-size: 2rem;
-  }
-`;
-// 회원가입 버튼 스타일 태그
-const SignUpButton = styled.button`
-  width: 50%;
-  height: 2rem;
-  border-radius: 5px;
-  border: 3px solid mediumorchid;
-  background: white;
-  @media screen and (min-width: 768px) and (min-height: 1024px) {
-    width: 60%;
-    height: 3rem;
-  }
-  @media screen and (min-width: 600px) {
-    width: 60%;
-    height: 2.5rem;
-  }
-  @media screen and (min-width: 1024px) {
-    width: 60%;
-    height: 3rem;
-  }
-`;
-// 회원가입 버튼 레이아웃 스타일 태그
-const SignButtonLayout = styled.div`
-  width: 100%;
-  text-align: center;
-`;
-// 로고 이름 스타일 태그
-const LogoName = styled.div`
-  min-width: 245px;
-  color: mediumorchid;
-  font-size: 2.5rem;
-  @media screen and (min-width: 820px) and (min-height: 1180px) {
-    font-size: 4rem;
-  }
-  @media screen and (min-width: 600px) {
-    font-size: 3rem;
-  }
-  @media screen and (min-width: 1024px) {
-    font-size: 3.5rem;
-  }
-`;
+import * as SignupStyle from "../styles/pages/SignupStyle";
 
 // 회원가입을 하면 바로 자동으로 로그인이 되고 페이지가 회원가입 페이지에 머물어 있는 문제가 있다.
 // 회원가입 하면 자동으로 홈 페이지로 이동하고 로그아웃되며 회원가입 때 입력한 이메일과 비밀번호로 로그인 하도록 만들기.
@@ -413,36 +78,39 @@ const Signup = () => {
     [inputNewPassword]
   );
   return (
-    <SignUpBack>
-      <LogoName>우리동네 핫플</LogoName>
-      <SignUpForm onSubmit={onsubmitSignUpButton}>
-        <InputEmailLayout>
-          <InputEmailText htmlFor="newEmail">이메일</InputEmailText>
-          <InputEmail
+    <SignupStyle.SignupBack>
+      <SignupStyle.SignupTitle>회원가입</SignupStyle.SignupTitle>
+      <SignupStyle.SignupForm onSubmit={onsubmitSignUpButton}>
+        <SignupStyle.InputEmailBox>
+          <SignupStyle.InputEmailText htmlFor="newEmail">
+            이메일
+          </SignupStyle.InputEmailText>
+          <SignupStyle.InputEmail
             name="newEmail"
             type="email"
             value={inputNewEmail}
             onChange={onchangeInput}
             placeholder="이메일을 입력해주세요."
           />
-        </InputEmailLayout>
-
-        <InputPasswordLayout>
-          <InputPasswordText htmlFor="newPassword">비밀번호</InputPasswordText>
-          <InputPassword
+        </SignupStyle.InputEmailBox>
+        <SignupStyle.InputPasswordBox>
+          <SignupStyle.InputPasswordText htmlFor="newPassword">
+            비밀번호
+          </SignupStyle.InputPasswordText>
+          <SignupStyle.InputPassword
             name="newPassword"
             type="password"
             value={inputNewPassword}
             onChange={onchangeInput}
             placeholder="비밀번호를 입력 해주세요."
           />
-        </InputPasswordLayout>
-        <InputPasswordCheckLayout>
+        </SignupStyle.InputPasswordBox>
+        <SignupStyle.InputPasswordCheckBox>
           <div>
-            <InputPasswordCheckText htmlFor="namePasswordCheck">
+            <SignupStyle.InputPasswordCheckText htmlFor="namePasswordCheck">
               비밀번호확인
-            </InputPasswordCheckText>
-            <InputPasswordCheck
+            </SignupStyle.InputPasswordCheckText>
+            <SignupStyle.InputPasswordCheck
               name="newPasswordCheck"
               type="password"
               value={inputNewPasswordCheck}
@@ -451,24 +119,26 @@ const Signup = () => {
             />
           </div>
           {checkPasswordApproval === null ? (
-            <InputPasswordCheckMessage>
+            <SignupStyle.InputPasswordCheckText>
               비밀번호 중복을 확인 해주세요.
-            </InputPasswordCheckMessage>
+            </SignupStyle.InputPasswordCheckText>
           ) : checkPasswordApproval === false ? (
-            <ErrorMessagePassword>
+            <SignupStyle.ErrorTextPassword>
               비밀번호가 일치하지 않습니다.
-            </ErrorMessagePassword>
+            </SignupStyle.ErrorTextPassword>
           ) : (
-            <SuccessMessage>비밀번호가 일치합니다.</SuccessMessage>
+            <SignupStyle.SuccessText>
+              비밀번호가 일치합니다.
+            </SignupStyle.SuccessText>
           )}
-        </InputPasswordCheckLayout>
+        </SignupStyle.InputPasswordCheckBox>
         {/* <button onClick={navigate("/")}>로그인으로 돌아가기</button> */}
-        <SignButtonLayout>
-          <SignUpButton type="submit">회원가입</SignUpButton>
-        </SignButtonLayout>
-        {error ? <ErrorMessage>{error}</ErrorMessage> : null}
-      </SignUpForm>
-    </SignUpBack>
+        <SignupStyle.SignupBtnBox>
+          <SignupStyle.SignupBtn type="submit">회원가입</SignupStyle.SignupBtn>
+        </SignupStyle.SignupBtnBox>
+        {error ? <SignupStyle.ErrorText>{error}</SignupStyle.ErrorText> : null}
+      </SignupStyle.SignupForm>
+    </SignupStyle.SignupBack>
   );
 };
 

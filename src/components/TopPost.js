@@ -1,5 +1,5 @@
 import React from "react";
-import * as TopPostStyle from "../styles/TopPostStyle";
+import * as TopPostStyle from "../styles/componenet/TopPostStyle";
 import { useEffect } from "react";
 import { collection, getDocs, orderBy, query, where } from "firebase/firestore";
 import { dbService } from "../reactfbase";
@@ -38,23 +38,33 @@ const TopPost = () => {
     getTopPost();
   }, []);
   return (
-    <TopPostStyle.TopPostBack>
-      <TopPostStyle.TopPostBox topBoxPx={topBoxPx}>
-        {topPostData.length > 0 &&
-          topPostData.map((item) => {
-            return <PostItem data={item} />;
-          })}
-      </TopPostStyle.TopPostBox>
-      <TopPostStyle.TopPostPrevBtn onClick={onclickLeftBtn} topBoxPx={topBoxPx}>
-        <span class="material-symbols-outlined">chevron_left</span>
-      </TopPostStyle.TopPostPrevBtn>
-      <TopPostStyle.TopPostNextBtn
-        onClick={onclickRightBtn}
-        topBoxPx={topBoxPx}
-      >
-        <span class="material-symbols-outlined">chevron_right</span>
-      </TopPostStyle.TopPostNextBtn>
-    </TopPostStyle.TopPostBack>
+    <>
+      <TopPostStyle.TopPostTitleBox>
+        <TopPostStyle.TopPostTitleText>
+          인기 핫플레이스 Top10
+        </TopPostStyle.TopPostTitleText>
+      </TopPostStyle.TopPostTitleBox>
+      <TopPostStyle.TopPostBack>
+        <TopPostStyle.TopPostBox topBoxPx={topBoxPx}>
+          {topPostData.length > 0 &&
+            topPostData.map((item) => {
+              return <PostItem data={item} />;
+            })}
+        </TopPostStyle.TopPostBox>
+        <TopPostStyle.TopPostPrevBtn
+          onClick={onclickLeftBtn}
+          topBoxPx={topBoxPx}
+        >
+          <span class="material-symbols-outlined">chevron_left</span>
+        </TopPostStyle.TopPostPrevBtn>
+        <TopPostStyle.TopPostNextBtn
+          onClick={onclickRightBtn}
+          topBoxPx={topBoxPx}
+        >
+          <span class="material-symbols-outlined">chevron_right</span>
+        </TopPostStyle.TopPostNextBtn>
+      </TopPostStyle.TopPostBack>
+    </>
   );
 };
 

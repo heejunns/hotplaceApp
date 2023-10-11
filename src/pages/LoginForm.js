@@ -3,67 +3,8 @@ import { authService } from "../reactfbase";
 import { Link } from "react-router-dom";
 import { signInWithPopup, GoogleAuthProvider } from "firebase/auth";
 import Login from "../components/Login";
-import styled from "styled-components";
+import * as LoginFormStyle from "../styles/pages/LoginFormStyle";
 
-// 로그인 폼 배경 스타일 태그
-const LoginFormBack = styled.div`
-  font-family: "Nanum Myeongjo", serif;
-  width: 100%;
-  height: 100vh;
-  background: white;
-  display: flex;
-  flex-direction: column;
-  justify-content: center;
-  align-items: center;
-`;
-// 로그인 폼 레이아웃 스타일 태그
-const LoginFormLayout = styled.div`
-  margin-top: 5rem;
-  border: 3px solid mediumorchid;
-  border-radius: 5px;
-  height: 60%;
-  width: 80%;
-  min-width: 370px;
-  display: flex;
-  flex-direction: column;
-  @media screen and (min-width: 768px) {
-    width: 60%;
-  }
-  @media screen and (min-width: 1100px) {
-    width: 40%;
-  }
-  @media screen and (min-width: 1500px) {
-    width: 30%;
-  }
-`;
-// 로그인 폼 내에 버튼 레이아웃 스타일 태그
-const ButtonLayout = styled.div`
-  width: 100%;
-  height: 5rem;
-  display: flex;
-  justify-content: space-evenly;
-  align-items: center;
-`;
-// 로그인 폼 내에 버튼 스타일 태그
-const ButtonStyle = styled.button`
-  border: 3px solid mediumorchid;
-  background: white;
-  height: 2rem;
-  width: 40%;
-  border-radius: 5px;
-  @media screen and (min-width: 768px) {
-    height: 3rem;
-  }
-`;
-// 로그인 폼 위에 로고 이름 보여주는 스타일 태그
-const LogoName = styled.div`
-  color: mediumorchid;
-  font-size: 3rem;
-  min-width: 290px;
-  @media screen and (min-width: 768px) {
-    font-size: 4rem;
-  }
-`;
 const LoginForm = () => {
   const provider = useMemo(() => new GoogleAuthProvider(), []); // 구글로 로그인하기 위해서 구글 인증 프로바이더 가져오기
 
@@ -78,22 +19,23 @@ const LoginForm = () => {
   }, [provider]);
 
   return (
-    <LoginFormBack>
-      <LogoName>우리동네 핫플</LogoName>
-      <LoginFormLayout>
+    <LoginFormStyle.LoginFormBack>
+      <LoginFormStyle.LoginFormTitle>로그인</LoginFormStyle.LoginFormTitle>
+      <LoginFormStyle.LoginFormBox>
         <Login />
-        <ButtonLayout>
-          <ButtonStyle onClick={onclickGoogleLogin}>
+        <LoginFormStyle.LoginBtnBox>
+          <LoginFormStyle.LoginFormGoogleLoginBtn onClick={onclickGoogleLogin}>
             구글로 로그인하기
-          </ButtonStyle>
-          <ButtonStyle>
-            <Link to="/signup" style={{ textDecoration: "none" }}>
+          </LoginFormStyle.LoginFormGoogleLoginBtn>
+
+          <Link to="/signup" style={{ textDecoration: "none" }}>
+            <LoginFormStyle.LoginFormSignUpBtn>
               회원가입하기
-            </Link>
-          </ButtonStyle>
-        </ButtonLayout>
-      </LoginFormLayout>
-    </LoginFormBack>
+            </LoginFormStyle.LoginFormSignUpBtn>
+          </Link>
+        </LoginFormStyle.LoginBtnBox>
+      </LoginFormStyle.LoginFormBox>
+    </LoginFormStyle.LoginFormBack>
   );
 };
 

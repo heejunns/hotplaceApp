@@ -39,7 +39,7 @@ export const PostItemImgBox = styled.div`
     width: 100%;
     height: 100%;
     border-radius: 10px;
-    object-fit: cover;
+    /* object-fit: cover; */
   }
   @media screen and (max-width: 768px) {
     height: 230px;

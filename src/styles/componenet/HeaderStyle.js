@@ -114,6 +114,7 @@ export const HamburgerIconItem = styled.div`
   z-index: 101;
   transition: all ease 0.3s;
   position: relative;
+  cursor: pointer;
   &:nth-child(1),
   &:nth-child(2) {
     margin-bottom: 3px;

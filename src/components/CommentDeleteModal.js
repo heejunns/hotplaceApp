@@ -1,5 +1,5 @@
 import React from "react";
-import * as DeleteModalStyle from "../styles/DeleteModalStyle";
+import * as DeleteModalStyle from "../styles/componenet/DeleteModalStyle";
 import { doc, updateDoc } from "firebase/firestore";
 import { dbService } from "../reactfbase";
 const CommentDeleteModal = ({

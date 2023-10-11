@@ -1,5 +1,5 @@
 import React, { useState } from "react";
-import * as ProfileImgUploadModalStyle from "../styles/ProfileImgUploadStyle";
+import * as ProfileImgUploadModalStyle from "../styles/componenet/ProfileImgUploadStyle";
 import { updateProfile } from "firebase/auth";
 import { authService, storageService } from "../reactfbase";
 import { useRecoilState } from "recoil";
@@ -7,7 +7,7 @@ import { userAtom } from "../recoils/UserAtom";
 import { v4 as uuidv4 } from "uuid";
 import { getDownloadURL, ref, uploadString } from "firebase/storage";
 import { PulseLoader } from "react-spinners";
-import { Loading } from "../styles/LoadingStyle";
+import { Loading } from "../styles/componenet/LoadingStyle";
 const ProfileImgUploadModal = ({ setIsProfileImgUploadModal }) => {
   const [user, setUser] = useRecoilState(userAtom);
   const [profileImgUploadUrl, setProfileImgUploadUrl] = useState("");

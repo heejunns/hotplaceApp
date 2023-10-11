@@ -14,7 +14,7 @@ import {
 import PostItem from "../components/PostItem";
 import { useRecoilState, useRecoilValue } from "recoil";
 import { userAtom } from "../recoils/UserAtom";
-import * as ProfileStyle from "../styles/ProfileStyle";
+import * as ProfileStyle from "../styles/pages/ProfileStyle";
 import ProfileImgUploadModal from "../components/ProfileImgUploadModal";
 import ProfileNameEditModal from "../components/ProfileNameEditModal";
 

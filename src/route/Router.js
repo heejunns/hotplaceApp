@@ -18,21 +18,21 @@ const AppRouter = ({ userLocation }) => {
   return (
     <>
       <Router>
-        {user && <Header userLocation={userLocation} />}
+        <Header userLocation={userLocation} />
         <Routes>
+          <Route path="/" element={<Home userLocation={userLocation} />} />
+          <Route path="/detail" element={<Detail />} />
           {user ? (
             <>
-              <Route path="/" element={<Home userLocation={userLocation} />} />
               <Route path="/profile" element={<Profile />} />
               <Route
                 path="/postupload"
                 element={<PostUpload userLocation={userLocation} />}
               />
-              <Route path="/detail" element={<Detail />} />
             </>
           ) : (
             <>
-              <Route path="/" element={<LoginForm />} />
+              <Route path="/login" element={<LoginForm />} />
               <Route path="/signup" element={<Signup />} />
             </>
           )}

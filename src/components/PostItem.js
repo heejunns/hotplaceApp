@@ -7,7 +7,7 @@ import PostMap from "./PostMap";
 import Comments from "./Comment";
 import { useRecoilState, useRecoilValue } from "recoil";
 import { clickPostItemData, userAtom } from "../recoils/UserAtom";
-import * as PostItemStyle from "../styles/PostItemStyle";
+import * as PostItemStyle from "../styles/componenet/PostItemStyle";
 import EditModal from "./EditModal";
 import DeleteModal from "./PostDeleteModal";
 import { useNavigate } from "react-router-dom";

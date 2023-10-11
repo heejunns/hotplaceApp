@@ -1,5 +1,5 @@
 import React, { memo, useCallback, useEffect, useState } from "react";
-import * as MapStyle from "../styles/MapStyle";
+import * as MapStyle from "../styles/componenet/MapStyle";
 const Map = ({ setUserMarkerLocation }) => {
   const [marker, setMarker] = useState(""); // 마커 버튼을 클릭하면 호출 될 함수를 저장할 state
   const getLocation = useCallback(

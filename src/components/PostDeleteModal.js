@@ -2,7 +2,7 @@ import { deleteDoc, doc } from "firebase/firestore";
 import React from "react";
 import { dbService, storageService } from "../reactfbase";
 import { deleteObject, ref } from "firebase/storage";
-import * as DeleteModalStyle from "../styles/DeleteModalStyle";
+import * as DeleteModalStyle from "../styles/componenet/DeleteModalStyle";
 import { useNavigate } from "react-router-dom";
 
 const PostDeleteModal = ({ setIsPostDeleteModal, postDeleteData }) => {
