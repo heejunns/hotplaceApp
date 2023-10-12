@@ -4,6 +4,7 @@ import styled from "styled-components";
 export const DetailBack = styled.div`
   width: 100%;
   display: flex;
+  background-color: white;
   justify-content: center;
   padding: 20px 20px 40px 20px;
 `;

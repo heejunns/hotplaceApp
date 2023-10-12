@@ -2,12 +2,15 @@ import styled from "styled-components";
 // 프로필 페이지 배경 스타일 태그
 export const ProfileBack = styled.div`
   font-family: "Nanum Myeongjo", serif;
-  background: white;
   width: 100%;
+  background-color: white;
   display: flex;
   flex-direction: column;
   align-items: center;
   padding: 20px;
+  @media screen and (max-width: 768px) {
+    padding: 60px 20px 20px 20px;
+  }
 `;
 export const ProfileUserInfoBox = styled.div`
   width: 100%;

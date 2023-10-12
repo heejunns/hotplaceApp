@@ -20,37 +20,11 @@ const PostItem = ({ data, index, dataLen }) => {
   const [isNoUserClickModal, setIsNoUserClickModal] = useState(false);
   const navigator = useNavigate();
 
-  // // 좋아요 버튼을 클릭하면 호출
-  // const onclickLike = useCallback(async () => {
-  //   if (data.likeMember.length === 0) {
-  //     // likeMember 에 아무도 없다면
-  //     await updateDoc(doc(dbService, "test", data.id), {
-  //       likeMember: [user.uid], // 좋아요 누른 사람 현재 사용자 uid 저장
-  //       likeNumber: 1, // 좋아요 누른 사람 한명
-  //     });
-  //   } else if (data.likeMember.includes(user.uid)) {
-  //     // likeMember 에 현재 사용자 uid 가 있다면 이미 좋아요를 눌렀는데 또 누르는 거니까 좋아요 취소
-  //     const newLikeMember = data.likeMember.filter(
-  //       // 현재 사용자 uid 와 같지 않은 새로운 likeMember 생성
-  //       (element) => element !== user.uid
-  //     );
-  //     await updateDoc(doc(dbService, "test", data.id), {
-  //       likeMember: newLikeMember, // 새로운 likMember 저장
-  //       likeNumber: newLikeMember.length, // 새로운 likeMember 의 길이를 저장, 좋아요 누른 사람의 수
-  //     });
-  //   } else if (!data.likeMember.includes(user.uid)) {
-  //     // likeMember 에 사용자의 uid 가 없다면 좋아요를 누르지 않았다는 뜻 이니까 좋아요 수 증가
-  //     await updateDoc(doc(dbService, "test", data.id), {
-  //       likeMember: [...data.likeMember, user.uid], // 기존의 likeMember 에 현재 사용자의 uid 추가
-  //       likeNumber: [...data.likeMember, user.uid].length, // 추가한 likeMember 의 길이 저장
-  //     });
-  //   }
-  // }, [data.id, data.likeMember, user.uid]);
-
   // 게시글을 클릭하면 해당 게시글의 디테일 페이지로 이동
   console.log("user", user);
   const onClickPostItem = (data) => {
     if (user === null) {
+      document.body.style.overflow = "hidden";
       setIsNoUserClickModal((prev) => !prev);
       return;
     }

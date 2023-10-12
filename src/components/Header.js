@@ -12,13 +12,13 @@ const Header = ({ userLocation }) => {
   const user = useRecoilValue(userAtom);
   console.log("user", user);
   const navigate = useNavigate(); // useNavigate 훅스를 사용해서 로그 아웃시 "/" 주소로 강제 이동
-  const setHamburgerBtnClickInfo = useSetRecoilState(hamburgerBtnClick);
   // 로그아웃 버튼을 클릭하면 호출되는 콜백 함수
   const onclickLogoutButton = async () => {
     // 로그아웃하기
     try {
       await signOut(authService);
       navigate("/");
+      setClickHamburgerBtn(false);
     } catch (e) {
       console.log(e);
     }
@@ -27,7 +27,11 @@ const Header = ({ userLocation }) => {
   return (
     <HeaderStyle.HeaderBackground>
       <HeaderStyle.HeaderMenuBox>
-        <Link to="/" style={{ textDecoration: "none" }}>
+        <Link
+          to="/"
+          style={{ textDecoration: "none" }}
+          onClick={() => setClickHamburgerBtn(false)}
+        >
           <HeaderStyle.AppTitleName>우리동네핫플</HeaderStyle.AppTitleName>
         </Link>
         {user && (
@@ -69,10 +73,7 @@ const Header = ({ userLocation }) => {
         </li>
       </HeaderStyle.HeaderUserInfoBox>
       <HeaderStyle.HamburgerButtonIcon
-        onClick={() => {
-          setHamburgerBtnClickInfo(!clickHamburgerBtn);
-          setClickHamburgerBtn((prev) => !prev);
-        }}
+        onClick={() => setClickHamburgerBtn((prev) => !prev)}
       >
         <HeaderStyle.HamburgerIconItem
           toggle={clickHamburgerBtn}
@@ -86,20 +87,22 @@ const Header = ({ userLocation }) => {
       </HeaderStyle.HamburgerButtonIcon>
       <HeaderStyle.HamburgerSideBar toggle={clickHamburgerBtn}>
         <HeaderStyle.HamburgerSideBarBox>
-          <Link to="/postupload">
-            <HeaderStyle.HamburgerSideBarList>
-              게시글 올리기
-            </HeaderStyle.HamburgerSideBarList>
-          </Link>
+          {user && (
+            <Link to="/postupload" onClick={() => setClickHamburgerBtn(false)}>
+              <HeaderStyle.HamburgerSideBarList>
+                게시글 올리기
+              </HeaderStyle.HamburgerSideBarList>
+            </Link>
+          )}
 
           {user ? (
-            <Link to="/profile">
+            <Link to="/profile" onClick={() => setClickHamburgerBtn(false)}>
               <HeaderStyle.HamburgerSideBarList>
                 {`${user.displayName} 님 프로필가기`}{" "}
               </HeaderStyle.HamburgerSideBarList>
             </Link>
           ) : (
-            <Link to="/login">
+            <Link to="/login" onClick={() => setClickHamburgerBtn(false)}>
               <HeaderStyle.HamburgerSideBarList>
                 로그인<span class="material-symbols-outlined">login</span>
               </HeaderStyle.HamburgerSideBarList>
@@ -112,10 +115,9 @@ const Header = ({ userLocation }) => {
               <span class="material-symbols-outlined">logout</span>
             </HeaderStyle.SideBarLogOutButton>
           ) : (
-            <Link to="/signup">
-              {" "}
+            <Link to="/signup" onClick={() => setClickHamburgerBtn(false)}>
               <HeaderStyle.HamburgerSideBarList>
-                회원가입{" "}
+                회원가입
               </HeaderStyle.HamburgerSideBarList>
             </Link>
           )}

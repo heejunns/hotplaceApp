@@ -14,7 +14,6 @@ export const TopPostBack = styled.div`
 `;
 
 export const TopPostBox = styled.div`
-  position: relative;
   min-width: 2950px;
   display: grid;
   grid-template-columns: repeat(10, 1fr);

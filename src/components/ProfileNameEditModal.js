@@ -47,8 +47,8 @@ const ProfileNameEditModal = ({ setIsProfileNameEditModal }) => {
           type="text"
           value={newName}
           onChange={onchangeNewName}
-          maxLength="5"
-          placeholder="변경할 닉네임을 입력해주세요. 최대 5글자"
+          maxLength="10"
+          placeholder="변경할 닉네임을 입력해주세요. 최대 10글자"
         />
         <ProfileNameEditModalStyle.ProfileNameEditBtnBox>
           <ProfileNameEditModalStyle.CancelBtn onClick={onclickCancelModal}>
