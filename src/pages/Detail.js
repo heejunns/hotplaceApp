@@ -109,7 +109,7 @@ const Detail = () => {
             <DetailStyle.DetailTitleBoxRight>
               <DetailStyle.DetailBtn onClick={onclickLike}>
                 <span class="material-symbols-outlined">favorite</span>
-                <span>{detailData && detailData.likeMember.length}</span>
+                <span>{detailData && detailData.likeNumber}</span>
               </DetailStyle.DetailBtn>
               <DetailStyle.DetailBtnBox>
                 {detailData && user && detailData.writer === user.uid && (

@@ -34,7 +34,7 @@ const Header = ({ userLocation }) => {
         >
           <HeaderStyle.AppTitleName>우리동네핫플</HeaderStyle.AppTitleName>
         </Link>
-        {user && (
+        {user && user.displayName && (
           <Link to="/postupload" style={{ textDecoration: "none" }}>
             <HeaderStyle.HeaderBoxItem>게시글 올리기</HeaderStyle.HeaderBoxItem>
           </Link>
@@ -46,9 +46,9 @@ const Header = ({ userLocation }) => {
           {user ? (
             <Link to="/profile">
               <HeaderStyle.HeaderBoxItem>
-                {user.displayName
-                  ? `${user.displayName} 님 프로필`
-                  : "닉네임을 만들어주세요."}
+                {user.displayName === undefined
+                  ? "닉네임을 만들어주세요."
+                  : `${user.displayName} 님 프로필`}
               </HeaderStyle.HeaderBoxItem>
             </Link>
           ) : (
@@ -98,7 +98,9 @@ const Header = ({ userLocation }) => {
           {user ? (
             <Link to="/profile" onClick={() => setClickHamburgerBtn(false)}>
               <HeaderStyle.HamburgerSideBarList>
-                {`${user.displayName} 님 프로필가기`}{" "}
+                {user.displayName === undefined
+                  ? "닉네임을 만들어주세요."
+                  : `${user.displayName} 님 프로필`}
               </HeaderStyle.HamburgerSideBarList>
             </Link>
           ) : (

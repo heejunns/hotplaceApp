@@ -4,7 +4,7 @@ import { useEffect } from "react";
 import { collection, getDocs, orderBy, query, where } from "firebase/firestore";
 import { dbService } from "../reactfbase";
 import { useState } from "react";
-import PostItem from "./PostItem";
+import TopPostItem from "./TopPostItem";
 const TopPost = () => {
   const [topPostData, setTopPostData] = useState([]);
   const [topBoxPx, setTopBoxPx] = useState(15);
@@ -30,7 +30,6 @@ const TopPost = () => {
           postData.push({ id: doc.id, ...doc.data() });
         });
         setTopPostData(postData.slice(0, 10));
-        console.log("hi");
       } catch (e) {
         console.log(e);
       }
@@ -48,7 +47,7 @@ const TopPost = () => {
         <TopPostStyle.TopPostBox topBoxPx={topBoxPx}>
           {topPostData.length > 0 &&
             topPostData.map((item) => {
-              return <PostItem data={item} />;
+              return <TopPostItem data={item} />;
             })}
         </TopPostStyle.TopPostBox>
         <TopPostStyle.TopPostPrevBtn

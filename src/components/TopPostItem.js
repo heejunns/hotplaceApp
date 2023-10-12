@@ -1,23 +1,18 @@
 import React, { useCallback, useState } from "react";
 import { useRecoilState, useRecoilValue } from "recoil";
 import { clickPostItemData, userAtom } from "../recoils/UserAtom";
-import * as PostItemStyle from "../styles/componenet/PostItemStyle";
+import * as TopPostItemStyle from "../styles/componenet/TopPostItemStyle";
 import { useNavigate } from "react-router-dom";
-import NoUserClickModal from "./NoUserClickModal";
-
 // word-break: break-all;
-const PostItem = ({ data, index, dataLen }) => {
+const TopPostItem = ({ data, index, dataLen }) => {
   const user = useRecoilValue(userAtom);
   const [clickPostItem, setClickPostItem] = useRecoilState(clickPostItemData);
-  const [isNoUserClickModal, setIsNoUserClickModal] = useState(false);
   const navigator = useNavigate();
-
   // 게시글을 클릭하면 해당 게시글의 디테일 페이지로 이동
   console.log("user", user);
-  const onClickPostItem = (data) => {
+  const onClickTopPostItem = (data) => {
     if (user === null) {
-      document.body.style.overflow = "hidden";
-      setIsNoUserClickModal((prev) => !prev);
+      navigator("/login");
       return;
     }
     setClickPostItem(data);
@@ -41,47 +36,44 @@ const PostItem = ({ data, index, dataLen }) => {
   };
   return (
     <>
-      <PostItemStyle.PostItemBack
+      <TopPostItemStyle.TopPostItemBack
         image={data.getUploadFileURL}
-        onClick={() => onClickPostItem(data)}
+        onClick={() => onClickTopPostItem(data)}
       >
-        <PostItemStyle.PostItemTitleBox>
-          <PostItemStyle.PostItemNickname>
+        <TopPostItemStyle.TopPostItemTitleBox>
+          <TopPostItemStyle.TopPostItemNickname>
             <span>{data.nickname}</span> 님
-          </PostItemStyle.PostItemNickname>
+          </TopPostItemStyle.TopPostItemNickname>
 
           <div>
-            <PostItemStyle.PostItemTime>
+            <TopPostItemStyle.TopPostItemTime>
               {calculateTime(data)}/
-            </PostItemStyle.PostItemTime>
-            <PostItemStyle.PostItemCategory>
+            </TopPostItemStyle.TopPostItemTime>
+            <TopPostItemStyle.TopPostItemCategory>
               {data.category}
-            </PostItemStyle.PostItemCategory>
+            </TopPostItemStyle.TopPostItemCategory>
           </div>
-        </PostItemStyle.PostItemTitleBox>
+        </TopPostItemStyle.TopPostItemTitleBox>
 
         {data.uploadImgUrl && (
-          <PostItemStyle.PostItemImgBox>
+          <TopPostItemStyle.TopPostItemImgBox>
             <img src={data.uploadImgUrl} alt="사진 업로드" />
-          </PostItemStyle.PostItemImgBox>
+          </TopPostItemStyle.TopPostItemImgBox>
         )}
-        <PostItemStyle.PostItemText>
+        <TopPostItemStyle.TopPostItemText>
           {data.inputText}
-        </PostItemStyle.PostItemText>
+        </TopPostItemStyle.TopPostItemText>
 
         {/* {mapMode && <PostMap data={data} />}
         {commentMode && (
           <Comments setCommentMode={setCommentMode} data={data} />
         )} */}
-        <PostItemStyle.PostItemLike>
+        <TopPostItemStyle.TopPostItemLike>
           &#9829;<span>{data.likeMember.length}</span>
-        </PostItemStyle.PostItemLike>
-      </PostItemStyle.PostItemBack>
-      {isNoUserClickModal && (
-        <NoUserClickModal setIsNoUserClickModal={setIsNoUserClickModal} />
-      )}
+        </TopPostItemStyle.TopPostItemLike>
+      </TopPostItemStyle.TopPostItemBack>
     </>
   );
 };
 
-export default PostItem;
+export default TopPostItem;
