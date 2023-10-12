@@ -47,17 +47,23 @@ export const HeaderUserInfoBox = styled.ul`
   display: flex;
   justify-content: space-between;
   align-items: center;
+  & > li > a {
+    text-decoration: none;
+  }
   @media screen and (max-width: 768px) {
     display: none;
   }
 `;
 // 네비게이션 요소들의 스타일 태그
-export const HeaderBoxItem = styled.a`
+export const HeaderBoxItem = styled.div`
   color: black;
   font-size: 20px;
+  display: flex;
+  align-items: center;
   &:hover {
     color: mediumorchid;
   }
+  margin-left: 10px;
 `;
 // 로그아웃 버튼 스타일 태그
 export const LogOutButton = styled.button`
@@ -168,4 +174,11 @@ export const SideBarLogOutButton = styled.button`
 
 export const HamburgerSideBarList = styled.li`
   margin-top: 10px;
+  display: flex;
+  align-items: center;
+  font-size: 20px;
+  color: white;
+  &:hover {
+    color: black;
+  }
 `;

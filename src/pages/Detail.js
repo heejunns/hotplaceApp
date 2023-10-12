@@ -108,7 +108,7 @@ const Detail = () => {
                 <span>{detailData && detailData.likeMember.length}</span>
               </DetailStyle.DetailBtn>
               <DetailStyle.DetailBtnBox>
-                {detailData && detailData.writer === user.uid && (
+                {detailData && user && detailData.writer === user.uid && (
                   <>
                     <DetailStyle.DetailBtn
                       onClick={() => onclickDeleteButton(data)}

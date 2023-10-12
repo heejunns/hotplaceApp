@@ -5,14 +5,6 @@ import { Link, useNavigate } from "react-router-dom";
 import { authService } from "../reactfbase";
 import { useRecoilState, useRecoilValue, useSetRecoilState } from "recoil";
 import { hamburgerBtnClick, userAtom } from "../recoils/UserAtom";
-import {
-  collection,
-  onSnapshot,
-  query,
-  orderBy,
-  where,
-} from "firebase/firestore";
-import { dbService } from "../reactfbase";
 import * as HeaderStyle from "../styles/componenet/HeaderStyle";
 
 const Header = ({ userLocation }) => {
@@ -20,7 +12,6 @@ const Header = ({ userLocation }) => {
   const user = useRecoilValue(userAtom);
   console.log("user", user);
   const navigate = useNavigate(); // useNavigate 훅스를 사용해서 로그 아웃시 "/" 주소로 강제 이동
-  const [currentData, setCurrentData] = useState([]);
   const setHamburgerBtnClickInfo = useSetRecoilState(hamburgerBtnClick);
   // 로그아웃 버튼을 클릭하면 호출되는 콜백 함수
   const onclickLogoutButton = async () => {
@@ -32,56 +23,6 @@ const Header = ({ userLocation }) => {
       console.log(e);
     }
   };
-  // 좋아요 순 게시글 보기 클릭하였을 때
-  const onclickPostLike = useCallback(() => {
-    const q = query(
-      collection(dbService, "test"),
-      orderBy("likeNumber", "desc")
-    );
-    console.log(q);
-    onSnapshot(q, (snapshot) => {
-      setCurrentData([]);
-      snapshot.forEach((doc) =>
-        setCurrentData((prevDocData) => [
-          ...prevDocData,
-          { ...doc.data(), id: doc.id },
-        ])
-      );
-    });
-  }, []);
-  // 사용자의 사는 지역 게시글만 보기 클릭하였을 때
-  const onclickPostAddress = useCallback(() => {
-    const q = query(
-      collection(dbService, "test"),
-      where("userLocation", "==", userLocation),
-      orderBy("createTime", "desc")
-    );
-    onSnapshot(q, (snapshot) => {
-      setCurrentData([]);
-      snapshot.forEach((doc) =>
-        setCurrentData((prevDocData) => [
-          ...prevDocData,
-          { ...doc.data(), id: doc.id },
-        ])
-      );
-    });
-  }, [userLocation]);
-  const onclickPost = useCallback((category) => {
-    const q = query(
-      collection(dbService, "test"),
-      where("userSelectCategory", "==", category),
-      orderBy("createTime", "desc")
-    );
-    onSnapshot(q, (snapshot) => {
-      setCurrentData([]);
-      snapshot.forEach((doc) =>
-        setCurrentData((prevDocData) => [
-          ...prevDocData,
-          { ...doc.data(), id: doc.id },
-        ])
-      );
-    });
-  }, []);
 
   return (
     <HeaderStyle.HeaderBackground>
@@ -99,9 +40,8 @@ const Header = ({ userLocation }) => {
       <HeaderStyle.HeaderUserInfoBox>
         <li>
           {user ? (
-            <Link to="/profile" style={{ textDecoration: "none" }}>
+            <Link to="/profile">
               <HeaderStyle.HeaderBoxItem>
-                {" "}
                 {user.displayName
                   ? `${user.displayName} 님 프로필`
                   : "닉네임을 만들어주세요."}
@@ -109,7 +49,6 @@ const Header = ({ userLocation }) => {
             </Link>
           ) : (
             <Link to="/login">
-              {" "}
               <HeaderStyle.HeaderBoxItem>
                 로그인<span class="material-symbols-outlined">login</span>
               </HeaderStyle.HeaderBoxItem>
@@ -153,22 +92,32 @@ const Header = ({ userLocation }) => {
             </HeaderStyle.HamburgerSideBarList>
           </Link>
 
-          <HeaderStyle.HamburgerSideBarList>
-            {user ? (
-              <Link to="/profile">{`${user.displayName} 님 프로필가기`}</Link>
-            ) : (
-              <Link to="/login">
+          {user ? (
+            <Link to="/profile">
+              <HeaderStyle.HamburgerSideBarList>
+                {`${user.displayName} 님 프로필가기`}{" "}
+              </HeaderStyle.HamburgerSideBarList>
+            </Link>
+          ) : (
+            <Link to="/login">
+              <HeaderStyle.HamburgerSideBarList>
                 로그인<span class="material-symbols-outlined">login</span>
-              </Link>
-            )}
-          </HeaderStyle.HamburgerSideBarList>
+              </HeaderStyle.HamburgerSideBarList>
+            </Link>
+          )}
+
           {user ? (
             <HeaderStyle.SideBarLogOutButton onClick={onclickLogoutButton}>
               로그아웃
               <span class="material-symbols-outlined">logout</span>
             </HeaderStyle.SideBarLogOutButton>
           ) : (
-            <Link to="/signup">회원가입</Link>
+            <Link to="/signup">
+              {" "}
+              <HeaderStyle.HamburgerSideBarList>
+                회원가입{" "}
+              </HeaderStyle.HamburgerSideBarList>
+            </Link>
           )}
 
           {/* <HeaderStyle.HamburgerSideBarList onClick={() => onclickPost("cafe")}>

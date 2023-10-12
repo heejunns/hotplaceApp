@@ -11,11 +11,13 @@ import * as PostItemStyle from "../styles/componenet/PostItemStyle";
 import EditModal from "./EditModal";
 import DeleteModal from "./PostDeleteModal";
 import { useNavigate } from "react-router-dom";
+import NoUserClickModal from "./NoUserClickModal";
 
 // word-break: break-all;
 const PostItem = ({ data, index, dataLen }) => {
   const user = useRecoilValue(userAtom);
   const [clickPostItem, setClickPostItem] = useRecoilState(clickPostItemData);
+  const [isNoUserClickModal, setIsNoUserClickModal] = useState(false);
   const navigator = useNavigate();
 
   // // 좋아요 버튼을 클릭하면 호출
@@ -46,7 +48,12 @@ const PostItem = ({ data, index, dataLen }) => {
   // }, [data.id, data.likeMember, user.uid]);
 
   // 게시글을 클릭하면 해당 게시글의 디테일 페이지로 이동
+  console.log("user", user);
   const onClickPostItem = (data) => {
+    if (user === null) {
+      setIsNoUserClickModal((prev) => !prev);
+      return;
+    }
     setClickPostItem(data);
     navigator("/detail");
   };
@@ -104,6 +111,9 @@ const PostItem = ({ data, index, dataLen }) => {
           &#9829;<span>{data.likeMember.length}</span>
         </PostItemStyle.PostItemLike>
       </PostItemStyle.PostItemBack>
+      {isNoUserClickModal && (
+        <NoUserClickModal setIsNoUserClickModal={setIsNoUserClickModal} />
+      )}
     </>
   );
 };

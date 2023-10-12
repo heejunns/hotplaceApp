@@ -14,6 +14,7 @@ import * as HomeStyle from "../styles/pages/HomeStyle";
 import PostItem from "../components/PostItem";
 import DeleteModal from "../components/PostDeleteModal";
 import TopPost from "../components/TopPost";
+import NoUserClickModal from "../components/NoUserClickModal";
 
 const Home = ({ userLocation }) => {
   const [currentData, setCurrentData] = useState([]);

@@ -32,7 +32,5 @@ export const LoginBtn = styled.button`
   border: none;
   color: white;
   font-size: 20px;
-  @media screen and (max-width: 768px) {
-    height: 3rem;
-  }
+  cursor: pointer;
 `;
