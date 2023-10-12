@@ -8,17 +8,18 @@ export const TopPostBack = styled.div`
   border: 1px solid mediumorchid;
   border-radius: 10px;
   overflow: hidden;
-  position: relative;
   display: flex;
   align-items: center;
+  position: relative;
 `;
 
 export const TopPostBox = styled.div`
+  position: relative;
   min-width: 2950px;
   display: grid;
   grid-template-columns: repeat(10, 1fr);
   gap: 15px;
-  transition: 2s ease;
+  transition: 1s ease-in-out;
   transform: ${(props) =>
     props.topBoxPx > 0
       ? `translateX(${props.topBoxPx}px)`
@@ -28,14 +29,19 @@ export const TopPostBox = styled.div`
 export const TopPostBtn = styled.button`
   width: 50px;
   height: 50px;
-  background-color: white;
+  background-color: #969696;
   display: flex;
   justify-content: center;
   align-items: center;
-  border-radius: 10px;
+  border-radius: 5px;
+  border: none;
+  opacity: 0.8;
   position: absolute;
   white-space: nowrap;
   cursor: pointer;
+  & > span {
+    opacity: 1;
+  }
 `;
 
 export const TopPostPrevBtn = styled(TopPostBtn)`

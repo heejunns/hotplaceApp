@@ -106,8 +106,13 @@ export const ProfileMenuItem = styled.li`
   }
 `;
 export const NoPost = styled.div`
-  font-size: 2.5rem;
-  margin-top: 2rem;
+  width: 100%;
+  height: 300px;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  font-size: 35px;
+  margin-top: 10px;
   color: mediumorchid;
 `;
 export const ProfilePostBox = styled.div`

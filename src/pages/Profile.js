@@ -88,7 +88,7 @@ const Profile = () => {
   useEffect(() => {
     getRealtimeUserData();
   }, []);
-
+  console.log("프로필 이미지", profileImg);
   return (
     <>
       {" "}
@@ -96,7 +96,7 @@ const Profile = () => {
         <ProfileStyle.ProfileUserInfoBox>
           <ProfileStyle.ProfileUserImgBox>
             <ProfileStyle.ProfileUserInfoImg>
-              {profileImg === "" ? (
+              {profileImg === undefined ? (
                 <span class="material-symbols-outlined">person</span>
               ) : (
                 <img src={profileImg} alt="profileImg" />
@@ -115,7 +115,7 @@ const Profile = () => {
             /> */}
           </ProfileStyle.ProfileUserImgBox>
           <ProfileStyle.ProfileUserInfoName>
-            {user.displayName}
+            {user.displayName ? user.displayName : "닉네임을 만들어주세요."}
             <span
               class="material-symbols-outlined"
               onClick={() => {
@@ -153,11 +153,11 @@ const Profile = () => {
               좋아요한 게시물
             </ProfileStyle.ProfileMenuItem>
           </ProfileStyle.ProfileSelectMenu>
-          <ProfileStyle.ProfilePostBox>
-            {userUploadData.length === 0 ? (
-              <ProfileStyle.NoPost>현재 게시물이 없습니다.</ProfileStyle.NoPost>
-            ) : (
-              userUploadData.map((data, index) => {
+          {userUploadData.length === 0 ? (
+            <ProfileStyle.NoPost>현재 게시물이 없습니다.</ProfileStyle.NoPost>
+          ) : (
+            <ProfileStyle.ProfilePostBox>
+              {userUploadData.map((data, index) => {
                 return (
                   <PostItem
                     key={index}
@@ -167,9 +167,9 @@ const Profile = () => {
                     dataLen={userUploadData.length}
                   />
                 );
-              })
-            )}
-          </ProfileStyle.ProfilePostBox>
+              })}
+            </ProfileStyle.ProfilePostBox>
+          )}
         </ProfileStyle.ProfileBox>
       </ProfileStyle.ProfileBack>
       {isProfileImgUploadModal && (
