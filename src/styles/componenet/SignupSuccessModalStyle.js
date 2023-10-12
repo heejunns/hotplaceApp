@@ -23,6 +23,9 @@ export const SignupSuccessModalBox = styled.div`
   align-items: center;
   justify-content: center;
   padding: 10px;
+  @media screen and (max-width: 768px) {
+    width: 300px;
+  }
 `;
 
 export const SignupSuccessModalTextBox = styled.div`
@@ -36,4 +39,7 @@ export const SignupSuccessModalTextBox = styled.div`
 
 export const SignupSuccessModalText = styled.span`
   font-size: 20px;
+  @media screen and (max-width: 768px) {
+    font-size: 18px;
+  }
 `;

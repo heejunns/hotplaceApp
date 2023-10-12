@@ -1,9 +1,11 @@
 import React, { useCallback, useState } from "react";
-import { useNavigate } from "react-router-dom";
+import { Link, useNavigate } from "react-router-dom";
 import { createUserWithEmailAndPassword, signOut } from "firebase/auth";
 import { authService } from "../reactfbase";
 import * as SignupStyle from "../styles/pages/SignupStyle";
 import SignupSuccessModal from "../components/SignupSuccessModal";
+import { useRecoilValue, useSetRecoilState } from "recoil";
+import { hamburgerBtnClick } from "../recoils/UserAtom";
 
 // 회원가입을 하면 바로 자동으로 로그인이 되고 페이지가 회원가입 페이지에 머물어 있는 문제가 있다.
 // 회원가입 하면 자동으로 홈 페이지로 이동하고 로그아웃되며 회원가입 때 입력한 이메일과 비밀번호로 로그인 하도록 만들기.
@@ -11,7 +13,6 @@ import SignupSuccessModal from "../components/SignupSuccessModal";
 const Signup = () => {
   const navigate = useNavigate(); // useNavigate 훅스를 사용해서 로그 아웃시 "/" 주소로 강제 이동
   // 중복확인 버튼을 클릭하면 서브밋 이벤트가 발생함, 당연히 버튼에 달아둔 클릭 이벤트도 발생
-
   const [inputNewEmail, setInputNewEmail] = useState(""); // 입력하는 이메일 state
   const [inputNewPassword, setInputNewPassword] = useState(""); // 입력하는 비밀번호 state
   const [inputNewPasswordCheck, setInputNewPasswordCheck] = useState(""); // 입력하는 비밀번호확인 state
@@ -77,7 +78,11 @@ const Signup = () => {
   return (
     <>
       <SignupStyle.SignupBack>
-        <SignupStyle.SignupTitle>회원가입</SignupStyle.SignupTitle>
+        <Link to="/">
+          {" "}
+          <SignupStyle.SignupTitle>우리동네핫플</SignupStyle.SignupTitle>
+        </Link>
+
         <SignupStyle.SignupForm onSubmit={onsubmitSignUpButton}>
           <SignupStyle.InputBox>
             <SignupStyle.InputText htmlFor="newEmail">

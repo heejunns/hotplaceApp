@@ -5,10 +5,12 @@ const NoUserClickModal = ({ setIsNoUserClickModal }) => {
   const navigate = useNavigate();
   const onclickConfirm = () => {
     setIsNoUserClickModal((prev) => !prev);
+    document.body.style.overflow = "";
   };
 
   const onclickLoginPage = () => {
     setIsNoUserClickModal((prev) => !prev);
+    document.body.style.overflow = "";
     navigate("/login");
   };
 

@@ -115,7 +115,4 @@ export const PostItemLike = styled.div`
   color: mediumorchid;
   cursor: pointer;
   font-size: 20px;
-  &:hover {
-    color: red;
-  }
 `;

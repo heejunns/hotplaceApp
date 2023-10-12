@@ -1,7 +1,11 @@
 import React, { useRef } from "react";
 import * as DetailStyle from "../styles/pages/DetailStyle";
 import { useRecoilValue } from "recoil";
-import { clickPostItemData, userAtom } from "../recoils/UserAtom";
+import {
+  clickPostItemData,
+  hamburgerBtnClick,
+  userAtom,
+} from "../recoils/UserAtom";
 import PostMap from "../components/PostMap";
 import { useState } from "react";
 import { useCallback } from "react";

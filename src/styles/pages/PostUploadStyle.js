@@ -3,10 +3,11 @@ import styled from "styled-components";
 export const PostUploadBack = styled.div`
   font-family: "Nanum Myeongjo", serif;
   width: 100%;
-  background: white;
+  background-color: white;
   padding: 30px 10px;
   display: flex;
   justify-content: center;
+  z-index: 100;
 `;
 
 // 게시글 올리기 폼 컨테이너
@@ -184,6 +185,7 @@ export const CategoryMenuBox = styled.div`
 // 카테고리 선택 버튼
 export const CategoryBtn = styled.label`
   width: 100px;
+
   padding: 10px;
   display: flex;
   justify-content: center;
@@ -233,6 +235,7 @@ export const MapBoxTitle = styled.h1`
 `;
 
 export const PostUploadSubmitBox = styled.div`
+  margin-top: 20px;
   display: flex;
   justify-content: center;
   align-items: center;

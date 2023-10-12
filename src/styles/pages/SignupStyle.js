@@ -16,15 +16,16 @@ export const SuccessText = styled(PasswordCheckText)`
 // 회원가입 페이지 배경 스타일 태그
 export const SignupBack = styled.div`
   font-family: "Nanum Myeongjo", serif;
-  background: white;
   width: 100%;
+  background-color: white;
   display: flex;
   flex-direction: column;
   align-items: center;
   justify-content: center;
   padding: 50px 100px;
-  /* @media screen {
-  } */
+  & > a {
+    text-decoration: none;
+  }
   @media screen and (max-width: 768px) {
     padding: 80px 10px;
   }
@@ -87,5 +88,8 @@ export const SignupBtnBox = styled.div`
 // 로고 이름 스타일 태그
 export const SignupTitle = styled.div`
   color: mediumorchid;
-  font-size: 30px;
+  font-size: 40px;
+  @media screen and (max-width: 768px) {
+    font-size: 30px;
+  }
 `;

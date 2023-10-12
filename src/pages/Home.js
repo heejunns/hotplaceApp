@@ -18,7 +18,6 @@ import NoUserClickModal from "../components/NoUserClickModal";
 
 const Home = ({ userLocation }) => {
   const [currentData, setCurrentData] = useState([]);
-  const hamburgerClickInfo = useRecoilValue(hamburgerBtnClick);
   const [selectSortMethod, setSelectSortMethod] = useState("전체 게시글 보기");
   const [isSelectSort, setIsSelectSort] = useState(false);
 
@@ -85,9 +84,6 @@ const Home = ({ userLocation }) => {
       console.log(e);
     }
   };
-  useEffect(() => {
-    console.log("랜더링");
-  }, [hamburgerClickInfo]);
   // 실시간으로 데이터 베이스에 저장되어 있는 데이터를 가져온다.
   const getRealTimePostData = useCallback(() => {
     const q = query(
@@ -163,7 +159,7 @@ const Home = ({ userLocation }) => {
 
   return (
     <>
-      <HomeStyle.HomeBack hamburgerClickInfo={hamburgerClickInfo}>
+      <HomeStyle.HomeBack>
         <TopPost />
         <HomeStyle.SelectSortMethodBox>
           <HomeStyle.SelectSortMethodBtn onClick={onclickSelectSortMethod}>

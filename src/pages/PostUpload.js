@@ -6,7 +6,7 @@ import { v4 as uuidv4 } from "uuid";
 import { addDoc, collection } from "firebase/firestore";
 import Map from "../components/Map";
 import { useNavigate } from "react-router-dom";
-import { userAtom } from "../recoils/UserAtom";
+import { hamburgerBtnClick, userAtom } from "../recoils/UserAtom";
 import { useRecoilValue } from "recoil";
 import * as PostUploadStyle from "../styles/pages/PostUploadStyle";
 import { Loading } from "../styles/componenet/LoadingStyle";
@@ -14,7 +14,6 @@ import { PulseLoader } from "react-spinners";
 
 const PostUpload = ({ userLocation }) => {
   const user = useRecoilValue(userAtom);
-
   const navigate = useNavigate(); // useNavigate 훅스를 사용해서 게시글을 올리면 "/" 주소로 강제 이동
   const [inputText, setInputText] = useState(""); // input 태그에 입력하는 value 의 state
   const [uploadImageFileURL, setUploadImageFileURL] = useState(""); // 업로드 하려는 이미지의 주소를 저장

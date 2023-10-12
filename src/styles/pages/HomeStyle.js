@@ -3,14 +3,13 @@ import styled from "styled-components";
 export const HomeBack = styled.div`
   font-family: "Nanum Myeongjo", serif;
   width: 100%;
+  background-color: white;
   display: flex;
   justify-content: center;
   align-items: center;
   background: white;
   flex-direction: column;
-  padding: 0 20px 30px 20px;
-  background-color: ${(props) =>
-    props.hamburgerClickInfo ? "rgba(0,0,0,0.2)" : ""};
+  padding: 40px 20px;
 `;
 
 export const PostLayout = styled.div`

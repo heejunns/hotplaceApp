@@ -4,6 +4,8 @@ import { Link, useNavigate } from "react-router-dom";
 import { signInWithPopup, GoogleAuthProvider } from "firebase/auth";
 import Login from "../components/Login";
 import * as LoginFormStyle from "../styles/pages/LoginFormStyle";
+import { useRecoilValue, useSetRecoilState } from "recoil";
+import { hamburgerBtnClick } from "../recoils/UserAtom";
 
 const LoginForm = () => {
   const provider = useMemo(() => new GoogleAuthProvider(), []); // 구글로 로그인하기 위해서 구글 인증 프로바이더 가져오기
@@ -21,7 +23,12 @@ const LoginForm = () => {
 
   return (
     <LoginFormStyle.LoginFormBack>
-      <LoginFormStyle.LoginFormTitle>로그인</LoginFormStyle.LoginFormTitle>
+      <Link to="/">
+        <LoginFormStyle.LoginFormTitle>
+          우리동네핫플
+        </LoginFormStyle.LoginFormTitle>
+      </Link>
+
       <LoginFormStyle.LoginFormBox>
         <Login />
         <LoginFormStyle.LoginBtnBox>

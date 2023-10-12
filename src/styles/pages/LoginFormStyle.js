@@ -4,12 +4,15 @@ import styled from "styled-components";
 export const LoginFormBack = styled.div`
   font-family: "Nanum Myeongjo", serif;
   width: 100%;
+  background-color: white;
   padding: 30px 100px;
-  background: white;
   display: flex;
   flex-direction: column;
   justify-content: center;
   align-items: center;
+  & > a {
+    text-decoration: none;
+  }
   @media screen and (max-width: 768px) {
     padding: 70px 20px;
   }
@@ -67,8 +70,8 @@ export const LoginFormSignUpBtn = styled(LoginFormBtn)`
 export const LoginFormTitle = styled.div`
   color: mediumorchid;
   white-space: nowrap;
-  font-size: 50px;
-  @media screen and (max-width: 768px) {
+  font-size: 40px;
+  @media screen and (max-wdith: 768px) {
     font-size: 30px;
   }
 `;
