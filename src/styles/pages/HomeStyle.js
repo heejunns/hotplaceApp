@@ -56,13 +56,14 @@ export const SelectSortMethodBox = styled.div`
 export const SelectSortMethodBtn = styled.button`
   border: 2px solid mediumorchid;
   background-color: transparent;
-  border-radius: 5px;
+  border-radius: 3px;
   display: flex;
   justify-content: space-between;
   align-items: center;
   width: 180px;
   height: 30px;
   white-space: nowrap;
+  cursor: pointer;
 `;
 
 export const SelectSortMethodList = styled.ul`
@@ -74,8 +75,10 @@ export const SelectSortMethodList = styled.ul`
 `;
 
 export const SelectSortMethodItem = styled.li`
-  border: 2px solid mediumorchid;
-  border-radius: 5px;
+  border-left: 2px solid mediumorchid;
+  border-right: 2px solid mediumorchid;
+  border-bottom: 2px solid mediumorchid;
+  border-radius: 3px;
   background-color: white;
   width: 180px;
   height: 30px;
@@ -83,6 +86,7 @@ export const SelectSortMethodItem = styled.li`
   display: flex;
   justify-content: center;
   align-items: center;
+  cursor: pointer;
   &:hover {
     background-color: grey;
   }

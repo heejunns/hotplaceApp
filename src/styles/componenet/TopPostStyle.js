@@ -57,11 +57,13 @@ export const TopPostNextBtn = styled(TopPostBtn)`
 
 export const TopPostTitleBox = styled.div`
   width: 100%;
-  margin-top: 20px;
   max-width: 1200px;
   height: 30px;
   display: flex;
   align-items: center;
+  @media screen and (max-width: 768px) {
+    margin-top: 20px;
+  }
 `;
 
 export const TopPostTitleText = styled.h1`

@@ -1,4 +1,4 @@
-import React, { useCallback, useEffect, useState } from "react";
+import React, { useCallback, useEffect, useRef, useState } from "react";
 import { dbService } from "../reactfbase";
 import {
   collection,
@@ -20,6 +20,21 @@ const Home = ({ userLocation }) => {
   const [currentData, setCurrentData] = useState([]);
   const [selectSortMethod, setSelectSortMethod] = useState("전체 게시글 보기");
   const [isSelectSort, setIsSelectSort] = useState(false);
+  const selectSortMethodDropDownRef = useRef();
+
+  useEffect(() => {
+    const outSideClick = (e) => {
+      const { target } = e;
+      if (
+        isSelectSort &&
+        selectSortMethodDropDownRef.current &&
+        !selectSortMethodDropDownRef.current.contains(target)
+      ) {
+        setIsSelectSort(false);
+      }
+    };
+    document.addEventListener("mousedown", outSideClick);
+  }, [isSelectSort]);
 
   const onclickSelectSortMethod = () => {
     setIsSelectSort((prev) => !prev);
@@ -162,7 +177,10 @@ const Home = ({ userLocation }) => {
       <HomeStyle.HomeBack>
         <TopPost />
         <HomeStyle.SelectSortMethodBox>
-          <HomeStyle.SelectSortMethodBtn onClick={onclickSelectSortMethod}>
+          <HomeStyle.SelectSortMethodBtn
+            onClick={onclickSelectSortMethod}
+            ref={selectSortMethodDropDownRef}
+          >
             {selectSortMethod}
             {isSelectSort ? (
               <span class="material-symbols-outlined">expand_less</span>

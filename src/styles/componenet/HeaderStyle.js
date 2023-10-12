@@ -155,20 +155,22 @@ export const HamburgerSideBarBox = styled.ul`
 
 export const SideBarLogOutButton = styled.button`
   cursor: pointer;
+  padding: 0;
+  margin-top: 10px;
   font-family: "Nanum Myeongjo", serif;
   border-style: none;
-  background: transparent;
-  color: black;
+  background-color: transparent;
   display: flex;
-  margin-top: 10px;
-  font-size: 15px;
-  padding: 0;
+  justify-content: flex-start;
+  align-items: center;
+  font-size: 20px;
+  color: white;
   &:hover {
-    color: greenyellow;
+    color: black;
   }
   & > span {
     font-size: 20px;
-    color: black;
+    color: white;
   }
 `;
 

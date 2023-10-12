@@ -23,6 +23,9 @@ export const NoUserClickModalBox = styled.div`
   align-items: center;
   justify-content: center;
   padding: 10px;
+  @media screen and (max-width: 768px) {
+    width: 300px;
+  }
 `;
 
 export const NoUserClickModalTextBox = styled.div`
@@ -35,6 +38,9 @@ export const NoUserClickModalTextBox = styled.div`
 
 export const NoUserClickModalText = styled.span`
   font-size: 20px;
+  @media screen and (max-width: 768px) {
+    font-size: 15px;
+  }
 `;
 
 export const NoUserClickModalBtnBox = styled.div`
