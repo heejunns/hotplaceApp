@@ -19,6 +19,7 @@ const Signup = () => {
   const [checkPasswordApproval, setCheckPasswordApproval] = useState(null); // 입력하는 비밀번호와 비밀번호확인에 입력한 비밀번호가 같은 여부를 확인하는 state
   const [error, setError] = useState(""); // 에러가 발생하면 에러 메세지를 저장할 state
   const [isSignupSuccessModal, setIsSignSuccessModal] = useState(false);
+  const [inputNewNickname, setInputNewNickname] = useState("");
   // 입력하는 이메일과 비밀번호의 input 태그에서 onchange 이벤트가 발생하면 호출
   const onchangeInput = useCallback((event) => {
     const { name, value } = event.target;
@@ -26,8 +27,12 @@ const Signup = () => {
       setInputNewEmail(value);
     } else if (name === "newPassword") {
       setInputNewPassword(value);
+    } else if (name === "newNickname") {
+      setInputNewNickname(value);
     }
   }, []);
+
+  console.log("nickname", inputNewNickname);
   // 이메일과 비밀번호, 비밀번호확인을 입력하고 회원가입 버튼을 클릭하면 호출
   const onsubmitSignUpButton = async (e) => {
     try {
@@ -84,6 +89,23 @@ const Signup = () => {
         </Link>
 
         <SignupStyle.SignupForm onSubmit={onsubmitSignUpButton}>
+          <SignupStyle.InputBox>
+            <SignupStyle.NicknameInputTitleBox>
+              <SignupStyle.InputText htmlFor="newNickname">
+                닉네임
+              </SignupStyle.InputText>
+              <SignupStyle.OverlapNicknameCheckBtn>
+                닉네임 중복확인
+              </SignupStyle.OverlapNicknameCheckBtn>
+            </SignupStyle.NicknameInputTitleBox>
+            <SignupStyle.SignupInput
+              name="newNickname"
+              type="email"
+              value={inputNewNickname}
+              onChange={onchangeInput}
+              placeholder="닉네임을 입력해주세요."
+            />
+          </SignupStyle.InputBox>
           <SignupStyle.InputBox>
             <SignupStyle.InputText htmlFor="newEmail">
               이메일

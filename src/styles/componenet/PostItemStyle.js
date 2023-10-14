@@ -34,12 +34,12 @@ export const PostItemImgBox = styled.div`
   margin-top: 10px;
   width: 100%;
   height: 150px;
-  border-radius: 10px;
+  /* border-radius: 10px; */
   & > img {
     width: 100%;
     height: 100%;
     border-radius: 10px;
-    /* object-fit: cover; */
+    object-fit: fill;
   }
   @media screen and (max-width: 768px) {
     height: 230px;
