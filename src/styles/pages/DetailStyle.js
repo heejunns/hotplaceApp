@@ -12,7 +12,7 @@ export const DetailBack = styled.div`
 export const DetailBox = styled.div`
   border-radius: 10px;
   width: 100%;
-  max-width: 1200px;
+  max-width: 800px;
   display: flex;
   flex-direction: column;
   /* padding: 20px; */
@@ -40,17 +40,18 @@ export const DetailTitleText = styled.span`
 // 디테일 페이지의 이미지 박스
 export const DetailImgBox = styled.div`
   width: 100%;
-  height: 400px;
+  height: 700px;
   margin-bottom: 20px;
   & > img {
     width: 100%;
     height: 100%;
+    /* width: 600px;
+    height: 400px; */
     border-radius: 10px;
     object-fit: cover;
-
-    @media screen and (max-width: 768px) {
+    /* @media screen and (max-width: 768px) {
       object-fit: fill;
-    }
+    } */
   }
 `;
 // 디테일 페이지의 자세한 설명

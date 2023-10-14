@@ -93,3 +93,13 @@ export const SignupTitle = styled.div`
     font-size: 30px;
   }
 `;
+
+export const NicknameInputTitleBox = styled.div`
+  display: flex;
+`;
+
+export const OverlapNicknameCheckBtn = styled.button`
+  width: 100px;
+  height: 50px;
+  background-color: mediumorchid;
+`;
