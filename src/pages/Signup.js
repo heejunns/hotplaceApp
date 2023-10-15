@@ -1,11 +1,12 @@
 import React, { useCallback, useState } from "react";
 import { Link, useNavigate } from "react-router-dom";
 import { createUserWithEmailAndPassword, signOut } from "firebase/auth";
-import { authService } from "../reactfbase";
+import { authService, dbService } from "../reactfbase";
 import * as SignupStyle from "../styles/pages/SignupStyle";
 import SignupSuccessModal from "../components/SignupSuccessModal";
 import { useRecoilValue, useSetRecoilState } from "recoil";
 import { hamburgerBtnClick } from "../recoils/UserAtom";
+import { addDoc, collection, doc, getDoc, setDoc } from "firebase/firestore";
 
 // 회원가입을 하면 바로 자동으로 로그인이 되고 페이지가 회원가입 페이지에 머물어 있는 문제가 있다.
 // 회원가입 하면 자동으로 홈 페이지로 이동하고 로그아웃되며 회원가입 때 입력한 이메일과 비밀번호로 로그인 하도록 만들기.
@@ -19,7 +20,8 @@ const Signup = () => {
   const [checkPasswordApproval, setCheckPasswordApproval] = useState(null); // 입력하는 비밀번호와 비밀번호확인에 입력한 비밀번호가 같은 여부를 확인하는 state
   const [error, setError] = useState(""); // 에러가 발생하면 에러 메세지를 저장할 state
   const [isSignupSuccessModal, setIsSignSuccessModal] = useState(false);
-  const [inputNewNickname, setInputNewNickname] = useState("");
+  const [inputNewNickname, setInputNewNickname] = useState(""); // 입력하는 닉네임 state
+  const [isNicknameOverlap, setIsNicknameOverlap] = useState(""); // 닉네임 중복 검사 여부 state
   // 입력하는 이메일과 비밀번호의 input 태그에서 onchange 이벤트가 발생하면 호출
   const onchangeInput = useCallback((event) => {
     const { name, value } = event.target;
@@ -32,12 +34,51 @@ const Signup = () => {
     }
   }, []);
 
+  const onclickNicknameOverlapCheck = async () => {
+    try {
+      const docRef = doc(dbService, "test", "nicknameDB");
+      const docSnap = await getDoc(docRef);
+      if (inputNewNickname === "") {
+        setIsNicknameOverlap(null);
+        return;
+      }
+      if (docSnap.exists()) {
+        console.log(
+          "Document data:",
+          docSnap.data().data.includes(inputNewNickname)
+        );
+        if (docSnap.data().data.includes(inputNewNickname)) {
+          setIsNicknameOverlap(false);
+          console.log("hello");
+        } else {
+          console.log("하하호호");
+          setIsNicknameOverlap(true);
+        }
+      } else {
+        // docSnap.data() will be undefined in this case
+        console.log("No such document!");
+      }
+    } catch (e) {
+      console.log(e);
+    }
+  };
+
   console.log("nickname", inputNewNickname);
   // 이메일과 비밀번호, 비밀번호확인을 입력하고 회원가입 버튼을 클릭하면 호출
   const onsubmitSignUpButton = async (e) => {
     try {
-      setIsSignSuccessModal((prev) => !prev);
       e.preventDefault();
+      if (isNicknameOverlap !== true) {
+        alert("닉네임을 입력하고 중복 확인을 진행 해주세요.");
+        return;
+      }
+      setIsSignSuccessModal((prev) => !prev);
+      const docRef = doc(dbService, "test", "nicknameDB");
+      const docSnap = await getDoc(docRef);
+      const newNicknameData = [...docSnap.data().data, inputNewNickname];
+      await setDoc(doc(dbService, "test", "nicknameDB"), {
+        data: newNicknameData,
+      });
       const createData = await createUserWithEmailAndPassword(
         authService,
         inputNewEmail,
@@ -87,20 +128,34 @@ const Signup = () => {
           {" "}
           <SignupStyle.SignupTitle>우리동네핫플</SignupStyle.SignupTitle>
         </Link>
-
         <SignupStyle.SignupForm onSubmit={onsubmitSignUpButton}>
           <SignupStyle.InputBox>
             <SignupStyle.NicknameInputTitleBox>
               <SignupStyle.InputText htmlFor="newNickname">
                 닉네임
               </SignupStyle.InputText>
-              <SignupStyle.OverlapNicknameCheckBtn>
+              <SignupStyle.OverlapNicknameCheckBtn
+                onClick={onclickNicknameOverlapCheck}
+                type="button"
+              >
                 닉네임 중복확인
               </SignupStyle.OverlapNicknameCheckBtn>
+              <SignupStyle.NicknameOverlapCheckText>
+                {isNicknameOverlap === ""
+                  ? ""
+                  : isNicknameOverlap === null
+                  ? "닉네임을 입력 해주세요."
+                  : isNicknameOverlap === true
+                  ? "닉네임이 사용 가능 합니다."
+                  : isNicknameOverlap === false
+                  ? "입력하신 닉네임은 사용 중입니다."
+                  : null}
+              </SignupStyle.NicknameOverlapCheckText>
             </SignupStyle.NicknameInputTitleBox>
             <SignupStyle.SignupInput
+              id="newNickname"
               name="newNickname"
-              type="email"
+              type="text"
               value={inputNewNickname}
               onChange={onchangeInput}
               placeholder="닉네임을 입력해주세요."
@@ -111,6 +166,7 @@ const Signup = () => {
               이메일
             </SignupStyle.InputText>
             <SignupStyle.SignupInput
+              id="newEmail"
               name="newEmail"
               type="email"
               value={inputNewEmail}
@@ -123,6 +179,7 @@ const Signup = () => {
               비밀번호
             </SignupStyle.InputText>
             <SignupStyle.SignupInput
+              id="newPassword"
               name="newPassword"
               type="password"
               value={inputNewPassword}
@@ -135,6 +192,7 @@ const Signup = () => {
               비밀번호확인
             </SignupStyle.InputText>
             <SignupStyle.SignupInput
+              id="newPasswordCheck"
               name="newPasswordCheck"
               type="password"
               value={inputNewPasswordCheck}
