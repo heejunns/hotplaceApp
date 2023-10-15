@@ -49,13 +49,11 @@ export const InputBox = styled.div`
 // 이메일 입력 라벨 스타일 태그
 export const InputText = styled.label`
   font-size: 20px;
-  display: block;
-  margin-bottom: 10px;
-  width: 100%;
   color: mediumorchid;
 `;
 // 이메일 입력 input 스타일 태그
 export const SignupInput = styled.input`
+  margin-top: 10px;
   width: 100%;
   height: 50px;
   padding: 10px;
@@ -96,10 +94,23 @@ export const SignupTitle = styled.div`
 
 export const NicknameInputTitleBox = styled.div`
   display: flex;
+  align-items: center;
+  width: 100%;
+  height: 40px;
 `;
 
 export const OverlapNicknameCheckBtn = styled.button`
-  width: 100px;
-  height: 50px;
+  margin-left: 10px;
+  width: 120px;
+  height: 35px;
   background-color: mediumorchid;
+  border: none;
+  border-radius: 10px;
+  cursor: pointer;
+  color: white;
+  white-space: nowrap;
+`;
+export const NicknameOverlapCheckText = styled.span`
+  font-size: 20px;
+  color: red;
 `;
