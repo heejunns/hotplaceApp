@@ -50,6 +50,7 @@ export const InputBox = styled.div`
 export const InputText = styled.label`
   font-size: 20px;
   color: mediumorchid;
+  white-space: nowrap;
 `;
 // 이메일 입력 input 스타일 태그
 export const SignupInput = styled.input`
@@ -113,4 +114,9 @@ export const OverlapNicknameCheckBtn = styled.button`
 export const NicknameOverlapCheckText = styled.span`
   font-size: 20px;
   color: red;
+  margin-left: 10px;
+  @media screen and (max-width: 768px) {
+    font-size: 15px;
+    margin-left: 5px;
+  }
 `;

@@ -7,6 +7,7 @@ import SignupSuccessModal from "../components/SignupSuccessModal";
 import { useRecoilValue, useSetRecoilState } from "recoil";
 import { hamburgerBtnClick } from "../recoils/UserAtom";
 import { addDoc, collection, doc, getDoc, setDoc } from "firebase/firestore";
+import RejectSignupModal from "../components/RejectSignupModal";
 
 // 회원가입을 하면 바로 자동으로 로그인이 되고 페이지가 회원가입 페이지에 머물어 있는 문제가 있다.
 // 회원가입 하면 자동으로 홈 페이지로 이동하고 로그아웃되며 회원가입 때 입력한 이메일과 비밀번호로 로그인 하도록 만들기.
@@ -22,6 +23,7 @@ const Signup = () => {
   const [isSignupSuccessModal, setIsSignSuccessModal] = useState(false);
   const [inputNewNickname, setInputNewNickname] = useState(""); // 입력하는 닉네임 state
   const [isNicknameOverlap, setIsNicknameOverlap] = useState(""); // 닉네임 중복 검사 여부 state
+  const [isRejectSignupModal, setIsRejectSignupModal] = useState(false);
   // 입력하는 이메일과 비밀번호의 input 태그에서 onchange 이벤트가 발생하면 호출
   const onchangeInput = useCallback((event) => {
     const { name, value } = event.target;
@@ -68,8 +70,9 @@ const Signup = () => {
   const onsubmitSignUpButton = async (e) => {
     try {
       e.preventDefault();
-      if (isNicknameOverlap !== true) {
-        alert("닉네임을 입력하고 중복 확인을 진행 해주세요.");
+      document.body.style.overflow = "hidden";
+      if (isNicknameOverlap !== true || checkPasswordApproval !== true) {
+        setIsRejectSignupModal((prev) => !prev);
         return;
       }
       setIsSignSuccessModal((prev) => !prev);
@@ -85,6 +88,7 @@ const Signup = () => {
         inputNewPassword
       );
       await signOut(authService);
+      document.body.style.overflow = "";
       setIsSignSuccessModal((prev) => !prev);
       navigate("/login");
       console.log(createData);
@@ -223,6 +227,9 @@ const Signup = () => {
         </SignupStyle.SignupForm>
       </SignupStyle.SignupBack>
       {isSignupSuccessModal && <SignupSuccessModal />}
+      {isRejectSignupModal && (
+        <RejectSignupModal setIsRejectSignupModal={setIsRejectSignupModal} />
+      )}
     </>
   );
 };
