@@ -45,13 +45,11 @@ export const DetailImgBox = styled.div`
   & > img {
     width: 100%;
     height: 100%;
-    /* width: 600px;
-    height: 400px; */
     border-radius: 10px;
     object-fit: cover;
-    /* @media screen and (max-width: 768px) {
-      object-fit: fill;
-    } */
+  }
+  @media screen and (max-width: 768px) {
+    height: 300px;
   }
 `;
 // 디테일 페이지의 자세한 설명

@@ -91,7 +91,7 @@ const ProfileImgUploadModal = ({ setIsProfileImgUploadModal }) => {
             <ProfileImgUploadModalStyle.CancelBtn
               onClick={onclickCancelUploadModal}
             >
-              cancel
+              <span class="material-symbols-outlined">close</span>
             </ProfileImgUploadModalStyle.CancelBtn>
 
             <ProfileImgUploadModalStyle.UploadImgBtn

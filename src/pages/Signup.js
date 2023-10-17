@@ -1,6 +1,10 @@
 import React, { useCallback, useState } from "react";
 import { Link, useNavigate } from "react-router-dom";
-import { createUserWithEmailAndPassword, signOut } from "firebase/auth";
+import {
+  createUserWithEmailAndPassword,
+  signOut,
+  updateProfile,
+} from "firebase/auth";
 import { authService, dbService } from "../reactfbase";
 import * as SignupStyle from "../styles/pages/SignupStyle";
 import SignupSuccessModal from "../components/SignupSuccessModal";
@@ -87,6 +91,9 @@ const Signup = () => {
         inputNewEmail,
         inputNewPassword
       );
+      await updateProfile(authService.currentUser, {
+        displayName: inputNewNickname,
+      });
       await signOut(authService);
       document.body.style.overflow = "";
       setIsSignSuccessModal((prev) => !prev);

@@ -87,7 +87,7 @@ const Profile = () => {
 
   useEffect(() => {
     getRealtimeUserData();
-  }, []);
+  }, [isProfileNameEditModal]);
   console.log("프로필 이미지", profileImg);
   return (
     <>

@@ -82,7 +82,7 @@ export const UploadImgDeleteBtn = styled.button`
   right: 0;
   width: 25px;
   height: 25px;
-  border-radius: 50%;
+  border-radius: 100%;
   color: white;
   background-color: mediumorchid;
   border: 2px solid mediumorchid;
@@ -221,6 +221,7 @@ export const SubmitBtn = styled.input`
   background-color: transparent;
   font-size: 20px;
   cursor: pointer;
+  color: black;
 `;
 
 export const PostUploadMapBox = styled.div`
