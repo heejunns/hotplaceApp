@@ -15,7 +15,7 @@ export const SuccessText = styled(PasswordCheckText)`
 `;
 // 회원가입 페이지 배경 스타일 태그
 export const SignupBack = styled.div`
-  font-family: "Nanum Myeongjo", serif;
+  font-family: "Tilt Neon", sans-serif;
   width: 100%;
   background-color: white;
   display: flex;

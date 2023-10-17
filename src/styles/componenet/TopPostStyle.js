@@ -1,16 +1,14 @@
 import styled from "styled-components";
 
 export const TopPostBack = styled.div`
-  margin-top: 20px;
   width: 100%;
   max-width: 1200px;
-  height: 400px;
-  border: 1px solid mediumorchid;
-  border-radius: 10px;
+  height: 350px;
   overflow: hidden;
   display: flex;
   align-items: center;
   position: relative;
+  /* border: 1px solid black; */
 `;
 
 export const TopPostBox = styled.div`
@@ -32,16 +30,20 @@ export const TopPostBtn = styled.button`
   display: flex;
   justify-content: center;
   align-items: center;
-  border-radius: 5px;
+  border-radius: 100%;
   border: none;
-  opacity: 0.8;
+  opacity: 0.7;
   position: absolute;
   white-space: nowrap;
   color: black;
   cursor: pointer;
   & > span {
     opacity: 1;
-    color: black;
+    color: white;
+    font-size: 35px;
+  }
+  &:hover {
+    opacity: 1;
   }
 `;
 
@@ -73,4 +75,5 @@ export const TopPostTitleBox = styled.div`
 export const TopPostTitleText = styled.h1`
   font-size: 20px;
   font-weight: 500;
+  font-family: "Tilt Neon", sans-serif;
 `;

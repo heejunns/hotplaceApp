@@ -2,7 +2,7 @@ import styled from "styled-components";
 
 // 게시글 하나의 전체 백그라운드 스타일 태그
 export const TopPostItemBack = styled.div`
-  width: 280px;
+  width: 285px;
   border: 2px solid mediumorchid;
   display: flex;
   flex-direction: column;

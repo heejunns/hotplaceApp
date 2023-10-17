@@ -20,21 +20,24 @@ const Home = ({ userLocation }) => {
   const [currentData, setCurrentData] = useState([]);
   const [selectSortMethod, setSelectSortMethod] = useState("전체 게시글 보기");
   const [isSelectSort, setIsSelectSort] = useState(false);
-  const selectSortMethodDropDownRef = useRef();
+  const selectSortMethodBtnRef = useRef();
+  const selectSortMethodListRef = useRef();
 
-  // useEffect(() => {
-  //   const outSideClick = (e) => {
-  //     const { target } = e;
-  //     if (
-  //       isSelectSort &&
-  //       selectSortMethodDropDownRef.current &&
-  //       !selectSortMethodDropDownRef.current.contains(target)
-  //     ) {
-  //       setIsSelectSort(false);
-  //     }
-  //   };
-  //   document.addEventListener("mousedown", outSideClick);
-  // }, [isSelectSort]);
+  useEffect(() => {
+    const outSideClick = (e) => {
+      const { target } = e;
+      if (
+        isSelectSort &&
+        selectSortMethodBtnRef.current &&
+        selectSortMethodListRef &&
+        !selectSortMethodBtnRef.current.contains(target) &&
+        !selectSortMethodListRef.current.contains(target)
+      ) {
+        setIsSelectSort(false);
+      }
+    };
+    document.addEventListener("mousedown", outSideClick);
+  }, [isSelectSort]);
 
   const onclickSelectSortMethod = () => {
     setIsSelectSort((prev) => !prev);
@@ -124,7 +127,7 @@ const Home = ({ userLocation }) => {
         <HomeStyle.SelectSortMethodBox>
           <HomeStyle.SelectSortMethodBtn
             onClick={() => setIsSelectSort((prev) => !prev)}
-            ref={selectSortMethodDropDownRef}
+            ref={selectSortMethodBtnRef}
           >
             {selectSortMethod}
             {isSelectSort ? (
@@ -133,7 +136,10 @@ const Home = ({ userLocation }) => {
               <span class="material-symbols-outlined">keyboard_arrow_down</span>
             )}
           </HomeStyle.SelectSortMethodBtn>
-          <HomeStyle.SelectSortMethodList isSelectSort={isSelectSort}>
+          <HomeStyle.SelectSortMethodList
+            isSelectSort={isSelectSort}
+            ref={selectSortMethodListRef}
+          >
             <HomeStyle.SelectSortMethodItem
               onClick={() => onclickSelectSortChange("전체 게시글 보기")}
             >

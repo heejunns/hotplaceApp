@@ -2,6 +2,7 @@ import styled from "styled-components";
 
 // 디테일 페이지 백그라운드
 export const DetailBack = styled.div`
+  font-family: "Tilt Neon", sans-serif;
   width: 100%;
   display: flex;
   background-color: white;
