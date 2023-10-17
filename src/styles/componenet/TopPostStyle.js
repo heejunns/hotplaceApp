@@ -37,9 +37,11 @@ export const TopPostBtn = styled.button`
   opacity: 0.8;
   position: absolute;
   white-space: nowrap;
+  color: black;
   cursor: pointer;
   & > span {
     opacity: 1;
+    color: black;
   }
 `;
 
@@ -47,10 +49,12 @@ export const TopPostPrevBtn = styled(TopPostBtn)`
   top: 175px;
   left: 0;
   display: ${(props) => (props.topBoxPx === 15 ? "none" : "block")};
+  color: black;
 `;
 
 export const TopPostNextBtn = styled(TopPostBtn)`
   top: 175px;
+  color: black;
   right: 0;
   display: ${(props) => (props.topBoxPx === -2359 ? "none" : "bloack")};
 `;

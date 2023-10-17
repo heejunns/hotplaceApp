@@ -14,7 +14,7 @@ export const ProfileNameEditBack = styled.div`
 
 export const ProfileNameEditBox = styled.div`
   width: 380px;
-  height: 120px;
+  height: 150px;
   border-radius: 10px;
   border: 3px solid mediumorchid;
   background-color: white;
@@ -22,48 +22,87 @@ export const ProfileNameEditBox = styled.div`
   flex-direction: column;
   align-items: center;
   justify-content: center;
-  padding: 10px;
+  padding: 20px;
+  position: relative;
+  @media screen and (max-width: 768px) {
+    width: 300px;
+  }
 `;
 
 export const ProfileNameEditInput = styled.input`
   width: 300px;
-  height: 30px;
+  height: 35px;
   border-radius: 5px;
   border: 2px solid mediumorchid;
   padding: 10px;
   background: white;
+  @media screen and (max-width: 768px) {
+    width: 250px;
+  }
+`;
+
+export const NicknameOverlapCheckText = styled.div`
+  font-size: 15px;
+  display: flex;
+  width: 300px;
+  height: 15px;
+  margin-top: 10px;
+  color: mediumorchid;
+  @media screen and (max-width: 768px) {
+    width: 250px;
+  }
 `;
 
 export const ProfileNameEditBtnBox = styled.div`
-  width: 270px;
+  margin-top: 10px;
+  width: 100%;
   height: 60px;
   display: flex;
   justify-content: space-between;
   align-items: center;
-  padding: 0 20px;
+  padding: 0 35px;
+  @media screen and (max-width: 768px) {
+    padding: 0 20px;
+  }
 `;
 export const ProfileNameEditModalBtn = styled.button`
-  width: 100px;
-  height: 30px;
+  width: 120px;
+  height: 35px;
   display: flex;
   justify-content: center;
   align-items: center;
-  border: 2px solid black;
   border-radius: 10px;
-  background-color: white;
   white-space: nowrap;
   cursor: pointer;
+  border: none;
+  /* position: relative; */
+  @media screen and (max-width: 768px) {
+    width: 100px;
+    font-size: 12px;
+  }
 `;
 
-export const CancelBtn = styled(ProfileNameEditModalBtn)`
-  &:hover {
-    background-color: red;
-    color: white;
+export const CancelBtn = styled.button`
+  border: none;
+  padding: 0;
+  margin: 0;
+  background-color: transparent;
+  color: white;
+  position: absolute;
+  right: 0;
+  top: 0;
+  cursor: pointer;
+  & > span {
+    color: mediumorchid;
   }
+`;
+
+export const NicknameoverlapCheckBtn = styled(ProfileNameEditModalBtn)`
+  background-color: #00afff;
+  color: black;
 `;
 
 export const EditBtn = styled(ProfileNameEditModalBtn)`
-  &:hover {
-    background-color: greenyellow;
-  }
+  background-color: #5bffb0;
+  color: black;
 `;

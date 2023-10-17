@@ -22,19 +22,19 @@ const Home = ({ userLocation }) => {
   const [isSelectSort, setIsSelectSort] = useState(false);
   const selectSortMethodDropDownRef = useRef();
 
-  useEffect(() => {
-    const outSideClick = (e) => {
-      const { target } = e;
-      if (
-        isSelectSort &&
-        selectSortMethodDropDownRef.current &&
-        !selectSortMethodDropDownRef.current.contains(target)
-      ) {
-        setIsSelectSort(false);
-      }
-    };
-    document.addEventListener("mousedown", outSideClick);
-  }, [isSelectSort]);
+  // useEffect(() => {
+  //   const outSideClick = (e) => {
+  //     const { target } = e;
+  //     if (
+  //       isSelectSort &&
+  //       selectSortMethodDropDownRef.current &&
+  //       !selectSortMethodDropDownRef.current.contains(target)
+  //     ) {
+  //       setIsSelectSort(false);
+  //     }
+  //   };
+  //   document.addEventListener("mousedown", outSideClick);
+  // }, [isSelectSort]);
 
   const onclickSelectSortMethod = () => {
     setIsSelectSort((prev) => !prev);
@@ -79,22 +79,17 @@ const Home = ({ userLocation }) => {
     return queryContent;
   };
   const onclickSelectSortChange = async (selectMethod) => {
+    console.log("select method", selectMethod);
     try {
       setSelectSortMethod(selectMethod);
       setIsSelectSort((prev) => !prev);
-      console.log("h");
       const q = queryMake(selectMethod);
-      console.log("q", q);
       const querySnapshot = await getDocs(q);
       const postData = [];
       querySnapshot.forEach((doc) => {
-        console.log("데이터", doc.data());
         postData.push({ id: doc.id, ...doc.data() });
       });
       setCurrentData(postData);
-      // querySnapshot.forEach((doc) => {
-      //   console.log(doc.id, doc.data());
-      // });
     } catch (e) {
       console.log(e);
     }
@@ -105,7 +100,6 @@ const Home = ({ userLocation }) => {
       collection(dbService, "test"),
       orderBy("createTime", "desc") // createTime 기준으로 내림차순으로 정렬
     );
-    console.log("hello snapshot");
     onSnapshot(q, (snapshot) => {
       setCurrentData([]); // 새롭게 불러온 데이터를 저장하기 위해 현재 데이터를 초기화
       snapshot.forEach((doc) =>
@@ -120,57 +114,8 @@ const Home = ({ userLocation }) => {
   useEffect(() => {
     getRealTimePostData();
   }, [getRealTimePostData]);
-  // 카페, 음식, 마트 게시물 보기 클릭하였을 때
-  const onclickPost = useCallback((category) => {
-    const q = query(
-      collection(dbService, "test"),
-      where("userSelectCategory", "==", category),
-      orderBy("createTime", "desc")
-    );
-    onSnapshot(q, (snapshot) => {
-      setCurrentData([]);
-      snapshot.forEach((doc) =>
-        setCurrentData((prevDocData) => [
-          ...prevDocData,
-          { ...doc.data(), id: doc.id },
-        ])
-      );
-    });
-  }, []);
-  // 좋아요 순 게시글 보기 클릭하였을 때
-  const onclickPostLike = useCallback(() => {
-    const q = query(
-      collection(dbService, "test"),
-      orderBy("likeNumber", "desc")
-    );
-    console.log(q);
-    onSnapshot(q, (snapshot) => {
-      setCurrentData([]);
-      snapshot.forEach((doc) =>
-        setCurrentData((prevDocData) => [
-          ...prevDocData,
-          { ...doc.data(), id: doc.id },
-        ])
-      );
-    });
-  }, []);
-  // 사용자의 사는 지역 게시글만 보기 클릭하였을 때
-  const onclickPostAddress = useCallback(() => {
-    const q = query(
-      collection(dbService, "test"),
-      where("userLocation", "==", userLocation),
-      orderBy("createTime", "desc")
-    );
-    onSnapshot(q, (snapshot) => {
-      setCurrentData([]);
-      snapshot.forEach((doc) =>
-        setCurrentData((prevDocData) => [
-          ...prevDocData,
-          { ...doc.data(), id: doc.id },
-        ])
-      );
-    });
-  }, [userLocation]);
+
+  console.log("select", selectSortMethod);
 
   return (
     <>
@@ -178,7 +123,7 @@ const Home = ({ userLocation }) => {
         <TopPost />
         <HomeStyle.SelectSortMethodBox>
           <HomeStyle.SelectSortMethodBtn
-            onClick={onclickSelectSortMethod}
+            onClick={() => setIsSelectSort((prev) => !prev)}
             ref={selectSortMethodDropDownRef}
           >
             {selectSortMethod}
@@ -195,7 +140,10 @@ const Home = ({ userLocation }) => {
               전체 게시글 보기
             </HomeStyle.SelectSortMethodItem>
             <HomeStyle.SelectSortMethodItem
-              onClick={() => onclickSelectSortChange("카페 게시글 보기")}
+              onClick={() => {
+                console.log("카페 게시글 보기");
+                onclickSelectSortChange("카페 게시글 보기");
+              }}
             >
               카페 게시글 보기
             </HomeStyle.SelectSortMethodItem>

@@ -13,7 +13,6 @@ const PostItem = ({ data, index, dataLen }) => {
   const navigator = useNavigate();
 
   // 게시글을 클릭하면 해당 게시글의 디테일 페이지로 이동
-  console.log("user", user);
   const onClickPostItem = (data) => {
     if (user === null) {
       document.body.style.overflow = "hidden";

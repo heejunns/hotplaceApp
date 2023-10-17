@@ -38,6 +38,7 @@ export const LoginBtnBox = styled.div`
   flex-direction: column;
   align-items: center;
   justify-content: space-between;
+  color: black;
   & > a {
     width: 100%;
   }
@@ -50,6 +51,7 @@ export const LoginFormBtn = styled.button`
   border-radius: 5px;
   white-space: nowrap;
   cursor: pointer;
+  color: black;
 `;
 
 export const LoginFormGoogleLoginBtn = styled(LoginFormBtn)`

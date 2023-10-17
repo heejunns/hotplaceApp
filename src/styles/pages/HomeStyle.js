@@ -64,6 +64,10 @@ export const SelectSortMethodBtn = styled.button`
   height: 30px;
   white-space: nowrap;
   cursor: pointer;
+  color: black;
+  & > span {
+    color: black;
+  }
 `;
 
 export const SelectSortMethodList = styled.ul`

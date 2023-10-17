@@ -162,7 +162,7 @@ const PostUpload = ({ userLocation }) => {
                   type="button"
                   onClick={onclickUploadFileDelete}
                 >
-                  &#215;
+                  <span class="material-symbols-outlined">close</span>
                 </PostUploadStyle.UploadImgDeleteBtn>
               </PostUploadStyle.UploadImgBox>
             ) : (

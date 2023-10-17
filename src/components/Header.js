@@ -36,7 +36,10 @@ const Header = ({ userLocation }) => {
         </Link>
         {user && user.displayName && (
           <Link to="/postupload" style={{ textDecoration: "none" }}>
-            <HeaderStyle.HeaderBoxItem>게시글 올리기</HeaderStyle.HeaderBoxItem>
+            <HeaderStyle.HeaderBoxItem>
+              게시글 올리기
+              <span class="material-symbols-outlined">upload_file</span>
+            </HeaderStyle.HeaderBoxItem>
           </Link>
         )}
       </HeaderStyle.HeaderMenuBox>
@@ -90,7 +93,8 @@ const Header = ({ userLocation }) => {
           {user && (
             <Link to="/postupload" onClick={() => setClickHamburgerBtn(false)}>
               <HeaderStyle.HamburgerSideBarList>
-                게시글 올리기
+                게시글 올리기{" "}
+                <span class="material-symbols-outlined">upload_file</span>
               </HeaderStyle.HamburgerSideBarList>
             </Link>
           )}
