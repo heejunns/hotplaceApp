@@ -1,7 +1,8 @@
 import styled from "styled-components";
 
 export const HomeBack = styled.div`
-  font-family: "Nanum Myeongjo", serif;
+  font-family: "Tilt Neon", sans-serif;
+
   width: 100%;
   background-color: white;
   display: flex;
@@ -49,12 +50,13 @@ export const SelectSortMethodBox = styled.div`
   height: 30px;
   position: relative;
   @media screen and (max-width: 768px) {
-    margin-top: 70px;
+    margin-top: 40px;
   }
 `;
 
 export const SelectSortMethodBtn = styled.button`
   border: 2px solid mediumorchid;
+  font-size: 16px;
   background-color: transparent;
   border-radius: 3px;
   display: flex;
@@ -62,6 +64,7 @@ export const SelectSortMethodBtn = styled.button`
   align-items: center;
   width: 180px;
   height: 30px;
+  padding: 10px;
   white-space: nowrap;
   cursor: pointer;
   color: black;
@@ -88,10 +91,10 @@ export const SelectSortMethodItem = styled.li`
   height: 30px;
   white-space: nowrap;
   display: flex;
-  justify-content: center;
+  padding: 10px;
   align-items: center;
   cursor: pointer;
   &:hover {
-    background-color: grey;
+    background-color: #b4b4b4;
   }
 `;

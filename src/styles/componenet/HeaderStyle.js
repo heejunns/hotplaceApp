@@ -2,7 +2,7 @@ import styled from "styled-components";
 
 // 네이게이선 배경 스타일 태그
 export const HeaderBackground = styled.div`
-  font-family: "Nanum Myeongjo", serif;
+  font-family: "Tilt Neon", sans-serif;
   height: 50px;
   width: 100%;
   padding: 0 20px;
@@ -68,7 +68,6 @@ export const HeaderBoxItem = styled.div`
 // 로그아웃 버튼 스타일 태그
 export const LogOutButton = styled.button`
   cursor: pointer;
-  font-family: "Nanum Myeongjo", serif;
   font-size: 20px;
   border-style: none;
   background: transparent;

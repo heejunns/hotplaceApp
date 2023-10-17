@@ -14,8 +14,13 @@ export const PostItemBack = styled.div`
   padding: 10px;
   font-size: 20px;
   border-radius: 10px;
-  &:hover {
-    border: 2px solid greenyellow;
+
+  @media screen and (max-width: 768px) {
+  }
+  @media (hover: hover) and (pointer: fine) {
+    &:hover {
+      border: 2px solid greenyellow;
+    }
   }
 `;
 

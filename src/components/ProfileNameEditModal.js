@@ -28,8 +28,6 @@ const ProfileNameEditModal = ({ setIsProfileNameEditModal }) => {
     setInputNewNickname(value);
   };
 
-  console.log("인풋 데이터", inputNewNickname);
-
   const onclickCancelModal = () => {
     setIsProfileNameEditModal((prev) => !prev);
   };

@@ -7,13 +7,13 @@ import { useState } from "react";
 import TopPostItem from "./TopPostItem";
 const TopPost = () => {
   const [topPostData, setTopPostData] = useState([]);
-  const [topBoxPx, setTopBoxPx] = useState(15);
+  const [topBoxPx, setTopBoxPx] = useState(0);
   const onclickLeftBtn = () => {
-    if (topBoxPx < 2900) setTopBoxPx((prev) => prev + 1187);
+    if (topBoxPx < 2900) setTopBoxPx((prev) => prev + 1200);
   };
 
   const onclickRightBtn = () => {
-    if (topBoxPx > -2900) setTopBoxPx((prev) => prev - 1187);
+    if (topBoxPx > -2900) setTopBoxPx((prev) => prev - 1200);
   };
   console.log("topPostPx", topBoxPx);
   useEffect(() => {
