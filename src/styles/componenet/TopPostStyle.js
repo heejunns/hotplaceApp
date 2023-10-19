@@ -8,7 +8,6 @@ export const TopPostBack = styled.div`
   display: flex;
   align-items: center;
   position: relative;
-  /* border: 1px solid black; */
 `;
 
 export const TopPostBox = styled.div`
@@ -48,17 +47,17 @@ export const TopPostBtn = styled.button`
 `;
 
 export const TopPostPrevBtn = styled(TopPostBtn)`
-  top: 175px;
+  top: 157px;
   left: 0;
-  display: ${(props) => (props.topBoxPx === 15 ? "none" : "block")};
+  display: ${(props) => (props.topBoxPx === 0 ? "none" : "block")};
   color: black;
 `;
 
 export const TopPostNextBtn = styled(TopPostBtn)`
-  top: 175px;
+  top: 157px;
   color: black;
-  right: 0;
-  display: ${(props) => (props.topBoxPx === -2359 ? "none" : "bloack")};
+  right: 15px;
+  display: ${(props) => (props.topBoxPx === -2400 ? "none" : "bloack")};
 `;
 
 export const TopPostTitleBox = styled.div`

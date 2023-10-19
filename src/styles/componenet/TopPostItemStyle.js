@@ -23,9 +23,6 @@ export const TopPostItemTitleBox = styled.div`
   width: 100%;
   display: flex;
   justify-content: space-between;
-  /* @media screen and (max-width: 768px) {
-    font-size: 15px;
-  } */
 `;
 
 // 게시글 이미지 박스
@@ -38,7 +35,6 @@ export const TopPostItemImgBox = styled.div`
     width: 100%;
     height: 100%;
     border-radius: 10px;
-    /* object-fit: cover; */
   }
 `;
 
