@@ -32,6 +32,10 @@ export const PostItemTitleBox = styled.div`
   /* @media screen and (max-width: 768px) {
     font-size: 15px;
   } */
+  & > div {
+    display: flex;
+    align-items: center;
+  }
 `;
 
 // 게시글 이미지 박스
@@ -120,4 +124,16 @@ export const PostItemLike = styled.div`
   color: mediumorchid;
   cursor: pointer;
   font-size: 20px;
+`;
+
+export const ProfileImg = styled.div`
+  width: 25px;
+  height: 25px;
+  border-radius: 100%;
+  margin-left: 5px;
+  & > img {
+    width: 100%;
+    height: 100%;
+    border-radius: 100%;
+  }
 `;
