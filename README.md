@@ -25,37 +25,37 @@ html, css, styled-components, javascript, react, react-router react-spinners, uu
 
 ### 로그인 기능 : 로그인 기능입니다. 회원가입할 때 입력한 이메일과 비밀번호로 로그인할 수 있으며 구글 계정으로 연동해서 회원가입, 로그인할 수 있습니다.
 
-<img src = "./images/loginPage.png">
+<img src = "./images/login.png">
 
 ### 회원가입 기능 : 구글 계정으로 로그인하지 않고 이메일과 비밀번호를 입력해 회원가입할 수 있습니다.
 
-<img src = "./images/signupPage.png">
+<img src = "./images/signup.png">
 
 ### 게시물 업로드 기능 : 사용자가 원하는 글을 게시할 수 있는 기능입니다. 하나의 사진을 첨부할 수 있고 올리는 게시글이 카페,음식,마트 관련인지 선택할 수 있습니다. 게시물들을 업로드하면서 소개 글을 작성할 수 있고 사용자가 올리는 매장의 위치를 카카오 맵으로 마커를 남겨 업로드할 수 있습니다. 다른 사용자가 게시글의 디테일 페이지에서 이 지도를 보고 해당 매장의 위치를 알 수 있게 됩니다.
 
-<img src = "./images/postUploadPage-1.png">
+<img src = "./images/postUpload-1.png">
 
-<img src = "./images/postUploadPage-2.png">
+<img src = "./images/postUpload-2.png">
 
-<img src = "./images/postUploadPage-3.png">
+<img src = "./images/postUpload-3.png">
 
 ### 게시물 좋아요 기능 : 게시물에 공감한다면 좋아요를 남길 수 있습니다. 게시글의 작성자든 게시글을 보는 사용자든 무분별한 좋아요를 막기 위해서 게시글 하나당 계정 하나의 좋아요만 남길 수 있습니다. 다시 클릭하면 좋아요는 취소됩니다. 좋아요는 사용자가 좋아요를 클릭하면 마이 페이지에서 좋아요를 한 게시글을 확인 할 수 있습니다.
 
 ### 게시글 댓글 기능 : 게시글에 댓글을 남길 수 있습니다. 게시글에 좋아요를 남길 수도 있고 댓글을 수정하거나 삭제 할 수도 있습니다. 좋아요는 게시글 좋아요와 마찬가지로 무분별한 좋아요를 방지하기 위해서 계정 하나당 하나의 댓글에 한 번의 좋아요만 남길 수 있습니다. 다시 클릭한다면 좋아요는 취소됩니다.
 
-<img src = "./images/DetailPageComment.png">
+<img src = "./images/DetailComment.png">
 
 ### 게시글 분류해서 보기 : 드롭다운을 이용해서 사용자가 원하는 게시글만 볼 수 있는 기능 입니다. 추후에 게시글이 많아지게 되면 사용자가 원하는 게시글만 볼 수 있어 시간을 아낄 수 있습니다.
 
-<img src = "./images/mainPageDropDown.png">
+<img src = "./images/mainDropDown.png">
 
 ### 좋아요 top10 슬라이드로 보기 : 사용자가 좋아요한 게시글의 10위까지의 게시글을 한눈에 확인 할 수 있습니다.
 
-<img src = "./images/mainPage.png">
+<img src = "./images/main.png">
 
 ### 마이프로필 기능 : 마이프로필 페이지에서 나의 프로필 사진, 닉네임, 내가 올린 게시글 보기, 내가 좋아요한 게시글 보기 기능을 사용하실 수 있습니다.
 
-<img src = "./images/myProfilePage.png">
+<img src = "./images/myProfile.png">
 
 ### 개발하면서 어려웠지만 좀 더 배웠던 부분
 
