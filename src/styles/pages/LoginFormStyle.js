@@ -20,7 +20,6 @@ export const LoginFormBack = styled.div`
 // 로그인 폼 레이아웃 스타일 태그
 export const LoginFormBox = styled.div`
   margin-top: 20px;
-  /* border: 3px solid mediumorchid; */
   border-radius: 5px;
   width: 100%;
   max-width: 400px;
@@ -70,7 +69,7 @@ export const LoginFormSignUpBtn = styled(LoginFormBtn)`
 `;
 // 로그인 폼 위에 로고 이름 보여주는 스타일 태그
 export const LoginFormTitle = styled.div`
-  color: mediumorchid;
+  color: black;
   white-space: nowrap;
   font-size: 40px;
   @media screen and (max-wdith: 768px) {

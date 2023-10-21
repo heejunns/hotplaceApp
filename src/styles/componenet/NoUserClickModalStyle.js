@@ -16,7 +16,7 @@ export const NoUserClickModalBox = styled.div`
   width: 380px;
   height: 120px;
   border-radius: 10px;
-  border: 3px solid mediumorchid;
+  border: 3px solid #a0a0a0;
   background-color: white;
   display: flex;
   flex-direction: column;
@@ -70,5 +70,5 @@ export const ConfirmBtn = styled(NoUserClickModalBtn)`
 `;
 
 export const LoginPageBtn = styled(NoUserClickModalBtn)`
-  background-color: mediumorchid;
+  background-color: #a0a0a0;
 `;

@@ -16,7 +16,7 @@ export const SignupSuccessModalBox = styled.div`
   width: 380px;
   height: 120px;
   border-radius: 10px;
-  border: 3px solid mediumorchid;
+  border: 3px solid black;
   background-color: white;
   display: flex;
   flex-direction: column;

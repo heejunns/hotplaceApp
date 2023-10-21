@@ -6,14 +6,13 @@ export const HeaderBackground = styled.div`
   height: 50px;
   width: 100%;
   padding: 0 20px;
-  border-bottom: 1px solid mediumorchid;
+  border-bottom: 1px solid black;
   display: flex;
   justify-content: space-between;
   align-items: center;
   background-color: white;
   @media screen and (max-width: 768px) {
     justify-content: space-between;
-
     position: fixed;
     top: 0;
     z-index: 100;
@@ -25,7 +24,7 @@ export const AppTitleName = styled.div`
   cursor: pointer;
   font-size: 25px;
   font-weight: 600;
-  color: mediumorchid;
+  color: black;
   display: flex;
   align-items: center;
   margin-right: 20px;
@@ -60,9 +59,6 @@ export const HeaderBoxItem = styled.div`
   font-size: 20px;
   display: flex;
   align-items: center;
-  &:hover {
-    color: mediumorchid;
-  }
   margin-left: 10px;
 `;
 // 로그아웃 버튼 스타일 태그
@@ -73,21 +69,18 @@ export const LogOutButton = styled.button`
   background: transparent;
   margin-left: 20px;
   color: black;
-  &:hover {
-    color: mediumorchid;
-  }
   display: flex;
   align-items: center;
   & > span {
     font-size: 20px;
-    color: mediumorchid;
+    color: black;
   }
 `;
 
 export const HamburgerSideBar = styled.div`
   width: 210px;
   opacity: 0.8;
-  background: mediumorchid;
+  background: black;
   height: 100%;
   z-index: 100;
   top: 50px;
@@ -115,7 +108,7 @@ export const HamburgerIconItem = styled.div`
   width: 33px;
   height: 6px;
   border-radius: 10px;
-  background-color: mediumorchid;
+  background-color: black;
   z-index: 101;
   transition: all ease 0.3s;
   position: relative;
@@ -146,9 +139,6 @@ export const HamburgerSideBarBox = styled.ul`
     text-decoration: none;
     color: black;
     cursor: pointer;
-    &:hover {
-      color: yellowgreen;
-    }
   }
 `;
 
@@ -156,7 +146,6 @@ export const SideBarLogOutButton = styled.button`
   cursor: pointer;
   padding: 0;
   margin-top: 10px;
-  font-family: "Nanum Myeongjo", serif;
   border-style: none;
   background-color: transparent;
   display: flex;
@@ -164,9 +153,6 @@ export const SideBarLogOutButton = styled.button`
   align-items: center;
   font-size: 20px;
   color: white;
-  &:hover {
-    color: black;
-  }
   & > span {
     font-size: 20px;
     color: white;
@@ -179,7 +165,4 @@ export const HamburgerSideBarList = styled.li`
   align-items: center;
   font-size: 20px;
   color: white;
-  &:hover {
-    color: black;
-  }
 `;

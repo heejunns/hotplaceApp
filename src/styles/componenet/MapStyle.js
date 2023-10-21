@@ -2,7 +2,7 @@ import styled from "styled-components";
 
 // 맵 이미지 스타일 태그
 export const MapImage = styled.div`
-  color: mediumorchid;
+  color: #a0a0a0;
   width: 100%;
   height: 100%;
   border-radius: 10px;
@@ -20,18 +20,19 @@ export const MarkerBtnBox = styled.div`
 // 마커 버튼 스타일 태그
 export const MarkerBtn = styled.button`
   border-radius: 10px;
-  border: 3px solid mediumorchid;
-  background: white;
+  background: #a0a0a0;
+  border: none;
   padding: 10px;
   font-size: 20px;
   display: flex;
   justify-content: center;
   align-items: center;
+  color: white;
   cursor: pointer;
   & > span {
     font-size: 30px;
   }
   &:hover {
-    border: 3px solid purple;
+    border: 3px solid #6edcdc;
   }
 `;

@@ -179,7 +179,7 @@ const PostUpload = ({ userLocation }) => {
               <PostUploadStyle.CategoryBtn
                 htmlFor="cafe"
                 userSelectCategory={
-                  userSelectCategory === "cafe" ? "mediumorchid" : ""
+                  userSelectCategory === "cafe" ? "#a0a0a0" : ""
                 }
               >
                 카페 <span class="material-symbols-outlined">local_cafe</span>

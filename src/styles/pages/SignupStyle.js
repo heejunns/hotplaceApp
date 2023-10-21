@@ -49,7 +49,7 @@ export const InputBox = styled.div`
 // 이메일 입력 라벨 스타일 태그
 export const InputText = styled.label`
   font-size: 20px;
-  color: mediumorchid;
+  color: black;
   white-space: nowrap;
 `;
 // 이메일 입력 input 스타일 태그
@@ -59,11 +59,11 @@ export const SignupInput = styled.input`
   height: 50px;
   padding: 10px;
   border-radius: 5px;
-  border: 2px solid #b4b4b4;
+  border: 1px solid #a0a0a0;
   background: white;
   font-size: 15px;
   &:focus {
-    border: 2px solid greenyellow;
+    border: 2px solid #6edcdc;
   }
 `;
 // 회원가입 버튼 스타일 태그
@@ -73,7 +73,7 @@ export const SignupBtn = styled.button`
   font-size: 20px;
   border-radius: 5px;
   border: none;
-  background-color: mediumorchid;
+  background-color: black;
   color: white;
   cursor: pointer;
 `;
@@ -86,7 +86,7 @@ export const SignupBtnBox = styled.div`
 `;
 // 로고 이름 스타일 태그
 export const SignupTitle = styled.div`
-  color: mediumorchid;
+  color: black;
   font-size: 40px;
   @media screen and (max-width: 768px) {
     font-size: 30px;
@@ -104,7 +104,7 @@ export const OverlapNicknameCheckBtn = styled.button`
   margin-left: 10px;
   width: 120px;
   height: 35px;
-  background-color: mediumorchid;
+  background-color: black;
   border: none;
   border-radius: 10px;
   cursor: pointer;

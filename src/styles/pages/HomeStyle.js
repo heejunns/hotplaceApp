@@ -40,7 +40,7 @@ export const EmptyPost = styled.div`
   display: flex;
   justify-content: center;
   align-items: center;
-  color: mediumorchid;
+  color: black;
 `;
 
 export const SelectSortMethodBox = styled.div`
@@ -55,14 +55,14 @@ export const SelectSortMethodBox = styled.div`
 `;
 
 export const SelectSortMethodBtn = styled.button`
-  border: 2px solid mediumorchid;
+  border: 2px solid black;
   font-size: 16px;
   background-color: transparent;
-  border-radius: 3px;
+  border-radius: 3px 3px 0 0;
   display: flex;
   justify-content: space-between;
   align-items: center;
-  width: 180px;
+  width: 190px;
   height: 30px;
   padding: 10px;
   white-space: nowrap;
@@ -75,19 +75,22 @@ export const SelectSortMethodBtn = styled.button`
 
 export const SelectSortMethodList = styled.ul`
   position: absolute;
-  width: 180px;
+  border: 2px solid black;
+  border-radius: 0 0 3px 3px;
+  border-top: none;
+  width: 190px;
   z-index: 10;
   top: 30px;
   display: ${(props) => (props.isSelectSort ? "block" : "none")};
 `;
 
 export const SelectSortMethodItem = styled.li`
-  border-left: 2px solid mediumorchid;
+  /* border-left: 2px solid mediumorchid;
   border-right: 2px solid mediumorchid;
   border-bottom: 2px solid mediumorchid;
-  border-radius: 3px;
+  border-radius: 3px; */
   background-color: white;
-  width: 180px;
+  width: 100%;
   height: 30px;
   white-space: nowrap;
   display: flex;

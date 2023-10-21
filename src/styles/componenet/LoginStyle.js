@@ -16,10 +16,10 @@ export const LoginFormInput = styled.input`
   width: 100%;
   height: 50px;
   border-radius: 5px;
-  border: 2px solid #b4b4b4;
+  border: 1px solid #a0a0a0;
   padding: 15px;
   &:focus {
-    border: 3px solid greenyellow;
+    border: 2px solid #6edcdc;
   }
 `;
 // 이메일, 비밀번호 입력 후 클릭하는 버튼 스타일 태그
@@ -28,7 +28,7 @@ export const LoginBtn = styled.button`
   width: 100%;
   height: 50px;
   border-radius: 5px;
-  background-color: mediumorchid;
+  background-color: #a0a0a0;
   border: none;
   color: white;
   font-size: 20px;

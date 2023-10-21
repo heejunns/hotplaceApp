@@ -8,6 +8,7 @@ export const TopPostBack = styled.div`
   display: flex;
   align-items: center;
   position: relative;
+  border-bottom: 1px solid black;
 `;
 
 export const TopPostBox = styled.div`
@@ -29,7 +30,7 @@ export const TopPostBtn = styled.button`
   display: flex;
   justify-content: center;
   align-items: center;
-  border-radius: 100%;
+  border-radius: 50%;
   border: none;
   opacity: 0.7;
   position: absolute;

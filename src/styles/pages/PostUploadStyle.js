@@ -36,10 +36,13 @@ export const PostUploadPostNameTitle = styled.h1`
   margin-right: 20px;
 `;
 export const PostUploadPostNameInput = styled.input`
-  border: 3px solid mediumorchid;
+  border: 1px solid #a0a0a0;
   border-radius: 10px;
   height: 50px;
   padding: 10px;
+  &:focus {
+    border: 2px solid #6edcdc;
+  }
 `;
 export const PostUploadPostNameTitleBox = styled.div`
   display: flex;
@@ -84,8 +87,8 @@ export const UploadImgDeleteBtn = styled.button`
   height: 25px;
   border-radius: 100%;
   color: white;
-  background-color: mediumorchid;
-  border: 2px solid mediumorchid;
+  background-color: black;
+  border: 2px solid black;
 `;
 // 업로드 한 이미지의 박스
 export const UploadImgBox = styled.div`
@@ -110,7 +113,10 @@ export const UploadEmptyImg = styled.label`
   & > span {
     cursor: pointer;
     font-size: 90px;
-    color: mediumorchid;
+    color: #a0a0a0;
+    &:hover {
+      color: #6edcdc;
+    }
   }
 `;
 
@@ -138,10 +144,13 @@ export const InputPostText = styled.textarea`
   margin-top: 20px;
   background: transparent;
   border-style: none;
-  border: 3px solid mediumorchid;
+  border: 1px solid #a0a0a0;
   border-radius: 10px;
   padding: 10px;
   resize: none;
+  &:focus {
+    border: 2px solid #6edcdc;
+  }
 `;
 //
 export const InputTextBoxTitle = styled.h1`
@@ -150,7 +159,7 @@ export const InputTextBoxTitle = styled.h1`
 `;
 // 현재 입력한 글자 수
 export const InputTextCurrentNumber = styled.span`
-  color: mediumorchid;
+  color: #a0a0a0;
 `;
 // 현재 입력한 글자의 수가 제한된 글자 수를 모두 채웠다는 멘트
 export const InputTextLimitText = styled.span`
@@ -185,20 +194,19 @@ export const CategoryMenuBox = styled.div`
 // 카테고리 선택 버튼
 export const CategoryBtn = styled.label`
   width: 100px;
-
   padding: 10px;
   display: flex;
   justify-content: center;
   align-items: center;
   border-radius: 10px;
-  border: 1px solid mediumorchid;
+  border: 1px solid #a0a0a0;
   font-weight: 800;
   white-space: nowrap;
+  cursor: pointer;
   background-color: ${(props) =>
     props.userSelectCategory !== "" ? props.userSelectCategory : "white"};
   color: ${(props) => (props.userSelectCategory !== "" ? "white" : "black")};
   & > span {
-    cursor: pointer;
     margin-left: 5px;
   }
   &:nth-child(1),
@@ -217,11 +225,11 @@ export const SubmitBtn = styled.input`
   justify-content: center;
   align-items: center;
   border-radius: 10px;
-  border: 3px solid mediumorchid;
-  background-color: transparent;
+  border: none;
+  background-color: #a0a0a0;
   font-size: 20px;
   cursor: pointer;
-  color: black;
+  color: white;
 `;
 
 export const PostUploadMapBox = styled.div`
@@ -248,7 +256,7 @@ export const PostUploadSubmitBox = styled.div`
 export const MapBox = styled.div`
   width: 100%;
   height: 500px;
-  border: 3px solid mediumorchid;
+  border: 3px solid #a0a0a0;
   margin-top: 10px;
   display: flex;
   flex-direction: column;
@@ -259,6 +267,9 @@ export const MapBox = styled.div`
   & > span {
     cursor: pointer;
     font-size: 100px;
-    color: mediumorchid;
+    color: #a0a0a0;
+    &:hover {
+      color: #6edcdc;
+    }
   }
 `;

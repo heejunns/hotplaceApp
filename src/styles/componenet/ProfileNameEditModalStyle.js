@@ -16,7 +16,7 @@ export const ProfileNameEditBox = styled.div`
   width: 380px;
   height: 150px;
   border-radius: 10px;
-  border: 3px solid mediumorchid;
+  border: 3px solid black;
   background-color: white;
   display: flex;
   flex-direction: column;
@@ -33,9 +33,12 @@ export const ProfileNameEditInput = styled.input`
   width: 300px;
   height: 35px;
   border-radius: 5px;
-  border: 2px solid mediumorchid;
+  border: 1px solid #a0a0a0;
   padding: 10px;
   background: white;
+  &:focus {
+    border: 2px solid #6edcdc;
+  }
   @media screen and (max-width: 768px) {
     width: 250px;
   }
@@ -47,7 +50,7 @@ export const NicknameOverlapCheckText = styled.div`
   width: 300px;
   height: 15px;
   margin-top: 10px;
-  color: mediumorchid;
+  color: #6edcdc;
   @media screen and (max-width: 768px) {
     width: 250px;
   }
@@ -93,7 +96,7 @@ export const CancelBtn = styled.button`
   top: 0;
   cursor: pointer;
   & > span {
-    color: mediumorchid;
+    color: black;
   }
 `;
 

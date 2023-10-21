@@ -22,7 +22,7 @@ export const DeleteModalBox = styled.div`
   flex-direction: column;
   justify-content: center;
   align-items: center;
-  border: 3px solid mediumorchid;
+  border: 3px solid black;
   border-radius: 10px;
 `;
 
@@ -40,24 +40,19 @@ export const DeleteModalBtnBox = styled.div`
 export const DeleteModalBtn = styled.button`
   width: 80px;
   height: 35px;
-  border: 3px solid mediumorchid;
+  border: none;
   border-radius: 10px;
   font-size: 15px;
-  background-color: transparent;
   display: flex;
   justify-content: center;
   align-items: center;
 `;
 
 export const DeleteModalCancelBtn = styled(DeleteModalBtn)`
-  &:hover {
-    background-color: red;
-    color: white;
-  }
+  background-color: red;
+  color: white;
 `;
 
 export const DeleteModalConfirmBtn = styled(DeleteModalBtn)`
-  &:hover {
-    background-color: greenyellow;
-  }
+  background-color: greenyellow;
 `;
