@@ -104,7 +104,7 @@ export const DetailBtn = styled.button`
   align-items: center;
   & > span {
     cursor: pointer;
-    color: mediumorchid;
+    color: black;
     font-size: 25px;
   }
   @media screen and (max-width: 768px) {

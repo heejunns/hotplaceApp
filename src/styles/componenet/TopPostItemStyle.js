@@ -3,7 +3,6 @@ import styled from "styled-components";
 // 게시글 하나의 전체 백그라운드 스타일 태그
 export const TopPostItemBack = styled.div`
   width: 285px;
-  border: 2px solid mediumorchid;
   display: flex;
   flex-direction: column;
   cursor: pointer;
@@ -13,9 +12,11 @@ export const TopPostItemBack = styled.div`
   padding: 10px;
   font-size: 20px;
   border-radius: 10px;
-  &:hover {
-    border: 2px solid greenyellow;
-  }
+  /* @media (hover: hover) and (pointer: fine) {
+    &:hover {
+      border: 2px solid greenyellow;
+    }
+  } */
 `;
 
 // 게시글 하나의 박스 스타일 태그
@@ -76,7 +77,7 @@ export const TopPostItemText = styled.div`
 // 게시글의 좋아요 스타일 태그
 export const TopPostItemLike = styled.div`
   width: 20px;
-  color: mediumorchid;
+  color: black;
   cursor: pointer;
   font-size: 20px;
 `;

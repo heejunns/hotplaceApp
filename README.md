@@ -37,13 +37,13 @@ html, css, styled-components, javascript, react, react-router react-spinners, uu
 
 <img src = "./images/postUploadPage-2.png">
 
-<img src = "./images/postUploadPageMap.png">
+<img src = "./images/postUploadPage-3.png">
 
 ### 게시물 좋아요 기능 : 게시물에 공감한다면 좋아요를 남길 수 있습니다. 게시글의 작성자든 게시글을 보는 사용자든 무분별한 좋아요를 막기 위해서 게시글 하나당 계정 하나의 좋아요만 남길 수 있습니다. 다시 클릭하면 좋아요는 취소됩니다. 좋아요는 사용자가 좋아요를 클릭하면 마이 페이지에서 좋아요를 한 게시글을 확인 할 수 있습니다.
 
 ### 게시글 댓글 기능 : 게시글에 댓글을 남길 수 있습니다. 게시글에 좋아요를 남길 수도 있고 댓글을 수정하거나 삭제 할 수도 있습니다. 좋아요는 게시글 좋아요와 마찬가지로 무분별한 좋아요를 방지하기 위해서 계정 하나당 하나의 댓글에 한 번의 좋아요만 남길 수 있습니다. 다시 클릭한다면 좋아요는 취소됩니다.
 
-<img src = "./images/postLike.png">
+<img src = "./images/DetailPageComment.png">
 
 ### 게시글 분류해서 보기 : 드롭다운을 이용해서 사용자가 원하는 게시글만 볼 수 있는 기능 입니다. 추후에 게시글이 많아지게 되면 사용자가 원하는 게시글만 볼 수 있어 시간을 아낄 수 있습니다.
 
@@ -51,7 +51,7 @@ html, css, styled-components, javascript, react, react-router react-spinners, uu
 
 ### 좋아요 top10 슬라이드로 보기 : 사용자가 좋아요한 게시글의 10위까지의 게시글을 한눈에 확인 할 수 있습니다.
 
-<img src = "./images/mainPageTop10.png">
+<img src = "./images/mainPage.png">
 
 ### 마이프로필 기능 : 마이프로필 페이지에서 나의 프로필 사진, 닉네임, 내가 올린 게시글 보기, 내가 좋아요한 게시글 보기 기능을 사용하실 수 있습니다.
 

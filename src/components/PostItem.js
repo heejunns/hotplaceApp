@@ -45,18 +45,15 @@ const PostItem = ({ data, index, dataLen }) => {
         onClick={() => onClickPostItem(data)}
       >
         <PostItemStyle.PostItemTitleBox>
-          <div>
-            <PostItemStyle.PostItemNickname>
-              <span>{data.nickname}</span> 님
-            </PostItemStyle.PostItemNickname>
-            <PostItemStyle.ProfileImg>
+          <PostItemStyle.PostItemNickname>
+            <span>{data.nickname}</span> 님
+          </PostItemStyle.PostItemNickname>
+          {/* <PostItemStyle.ProfileImg>
               <img
                 src={data.nickname === user.displayName && user.photoURL}
                 alt="profileImg"
               />
-            </PostItemStyle.ProfileImg>
-          </div>
-
+            </PostItemStyle.ProfileImg> */}
           <div>
             <PostItemStyle.PostItemTime>
               {calculateTime(data)}/

@@ -16,7 +16,7 @@ export const RejectSignupModalBox = styled.div`
   width: 450px;
   height: 120px;
   border-radius: 10px;
-  border: 3px solid mediumorchid;
+  border: 3px solid black;
   background-color: white;
   display: flex;
   flex-direction: column;
@@ -56,7 +56,7 @@ export const RejectSignupModalConfirmBtn = styled.button`
   border: none;
   border-radius: 10px;
   font-size: 15px;
-  background-color: mediumorchid;
+  background-color: #a0a0a0;
   display: flex;
   justify-content: center;
   align-items: center;

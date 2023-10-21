@@ -29,7 +29,7 @@ export const ProfileUserImgUploadIcon = styled.div`
   & > span {
     border-radius: 50%;
     color: black;
-    background-color: #00b9ff;
+    background-color: #6edcdc;
   }
 `;
 
@@ -62,7 +62,7 @@ export const ProfileUserInfoName = styled.div`
   justify-content: center;
   align-items: center;
   & > span {
-    color: mediumorchid;
+    color: black;
     cursor: pointer;
   }
 `;
@@ -95,9 +95,7 @@ export const ProfileSelectMenu = styled.ul`
 export const ProfileMenuItem = styled.li`
   white-space: nowrap;
   border-bottom: ${(props) =>
-    props.selectMenu === props.id
-      ? "2px solid mediumorchid"
-      : "2px solid grey"};
+    props.selectMenu === props.id ? "2px solid #6edcdc" : "2px solid #a0a0a0"};
   width: 150px;
   height: 30px;
   display: flex;
@@ -116,7 +114,7 @@ export const NoPost = styled.div`
   align-items: center;
   font-size: 35px;
   margin-top: 10px;
-  color: mediumorchid;
+  color: black;
 `;
 export const ProfilePostBox = styled.div`
   display: grid;

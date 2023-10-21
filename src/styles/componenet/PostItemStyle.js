@@ -3,8 +3,6 @@ import styled from "styled-components";
 // 게시글 하나의 전체 백그라운드 스타일 태그
 export const PostItemBack = styled.div`
   width: 100%;
-  /* max-width: 300px; */
-  border: 2px solid mediumorchid;
   display: flex;
   flex-direction: column;
   cursor: pointer;
@@ -14,14 +12,6 @@ export const PostItemBack = styled.div`
   padding: 10px;
   font-size: 20px;
   border-radius: 10px;
-
-  @media screen and (max-width: 768px) {
-  }
-  @media (hover: hover) and (pointer: fine) {
-    &:hover {
-      border: 2px solid greenyellow;
-    }
-  }
 `;
 
 // 게시글 하나의 박스 스타일 태그
@@ -54,30 +44,6 @@ export const PostItemImgBox = styled.div`
     height: 230px;
   }
 `;
-// // 게시글 수정 폼 스타일 태그
-// export const PostItemEditForm = styled.form`
-//   margin-top: 1rem;
-//   width: 95%;
-//   height: 3rem;
-//   display: flex;
-//   justify-content: space-between;
-// `;
-// // 게시글 수정 폼 내에 input 스타일 태그
-// export const PostItemEditInput = styled.input`
-//   border-radius: 5px;
-//   border: 3px solid mediumorchid;
-//   width: 70%;
-//   height: 1.5rem;
-//   padding: 0.5rem;
-// `;
-// // 게시글 수정 폼 내에 게시글 수정 완료 버튼 스타일 태그
-// export const PostItemEditSubmit = styled.input`
-//   width: 10rem;
-//   height: 1.5rem;
-//   border-radius: 5px;
-//   border: 3px solid mediumorchid;
-//   background: white;
-// `;
 // 게시글을 게시한 시간을 보여주는 스타일 태그
 export const PostItemTime = styled.span`
   white-space: nowrap;
@@ -121,7 +87,7 @@ export const PostItemText = styled.div`
 // 게시글의 좋아요 스타일 태그
 export const PostItemLike = styled.div`
   width: 20px;
-  color: mediumorchid;
+  color: black;
   cursor: pointer;
   font-size: 20px;
 `;

@@ -21,7 +21,7 @@ export const CommentForm = styled.form`
 `;
 // 댓글을 입력하는 input 의 스타일 태그
 export const CommentInput = styled.textarea`
-  border: 3px solid mediumorchid;
+  border: 3px solid black;
   width: 100%;
   height: 100px;
   border-radius: 10px;
@@ -31,7 +31,7 @@ export const CommentInput = styled.textarea`
 `;
 // 댓글을 입력하고 댓글을 게시하는 버튼의 스타일 태그
 export const CommentSubmitButton = styled.button`
-  border: 3px solid mediumorchid;
+  border: 3px solid black;
   margin-left: 1rem;
   border-radius: 10px;
   height: 100px;
