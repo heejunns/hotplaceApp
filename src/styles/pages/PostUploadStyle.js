@@ -115,7 +115,7 @@ export const UploadEmptyImg = styled.label`
     font-size: 90px;
     color: #a0a0a0;
     &:hover {
-      color: #6edcdc;
+      color: black;
     }
   }
 `;
@@ -269,7 +269,7 @@ export const MapBox = styled.div`
     font-size: 100px;
     color: #a0a0a0;
     &:hover {
-      color: #6edcdc;
+      color: black;
     }
   }
 `;

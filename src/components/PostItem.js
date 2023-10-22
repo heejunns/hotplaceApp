@@ -44,16 +44,18 @@ const PostItem = ({ data, index, dataLen }) => {
         image={data.getUploadFileURL}
         onClick={() => onClickPostItem(data)}
       >
+        {data.uploadImgUrl && (
+          <PostItemStyle.PostItemImgBox>
+            <img src={data.uploadImgUrl} alt="사진 업로드" />
+          </PostItemStyle.PostItemImgBox>
+        )}
+        <PostItemStyle.TopPostItemPostName>
+          {data.postName}
+        </PostItemStyle.TopPostItemPostName>
         <PostItemStyle.PostItemTitleBox>
-          <PostItemStyle.PostItemNickname>
-            <span>{data.nickname}</span> 님
-          </PostItemStyle.PostItemNickname>
-          {/* <PostItemStyle.ProfileImg>
-              <img
-                src={data.nickname === user.displayName && user.photoURL}
-                alt="profileImg"
-              />
-            </PostItemStyle.ProfileImg> */}
+          <PostItemStyle.PostItemLike>
+            &#9829;<span>{data.likeMember.length}</span>
+          </PostItemStyle.PostItemLike>
           <div>
             <PostItemStyle.PostItemTime>
               {calculateTime(data)}/
@@ -63,23 +65,6 @@ const PostItem = ({ data, index, dataLen }) => {
             </PostItemStyle.PostItemCategory>
           </div>
         </PostItemStyle.PostItemTitleBox>
-
-        {data.uploadImgUrl && (
-          <PostItemStyle.PostItemImgBox>
-            <img src={data.uploadImgUrl} alt="사진 업로드" />
-          </PostItemStyle.PostItemImgBox>
-        )}
-        <PostItemStyle.PostItemText>
-          {data.inputText}
-        </PostItemStyle.PostItemText>
-
-        {/* {mapMode && <PostMap data={data} />}
-        {commentMode && (
-          <Comments setCommentMode={setCommentMode} data={data} />
-        )} */}
-        <PostItemStyle.PostItemLike>
-          &#9829;<span>{data.likeMember.length}</span>
-        </PostItemStyle.PostItemLike>
       </PostItemStyle.PostItemBack>
       {isNoUserClickModal && (
         <NoUserClickModal setIsNoUserClickModal={setIsNoUserClickModal} />

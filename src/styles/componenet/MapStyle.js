@@ -32,7 +32,4 @@ export const MarkerBtn = styled.button`
   & > span {
     font-size: 30px;
   }
-  &:hover {
-    border: 3px solid #6edcdc;
-  }
 `;

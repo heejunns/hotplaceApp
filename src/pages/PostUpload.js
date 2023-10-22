@@ -193,7 +193,7 @@ const PostUpload = ({ userLocation }) => {
               <PostUploadStyle.CategoryBtn
                 htmlFor="food"
                 userSelectCategory={
-                  userSelectCategory === "food" ? "mediumorchid" : ""
+                  userSelectCategory === "food" ? "#a0a0a0" : ""
                 }
               >
                 음식 <span class="material-symbols-outlined">restaurant</span>
@@ -207,7 +207,7 @@ const PostUpload = ({ userLocation }) => {
               <PostUploadStyle.CategoryBtn
                 htmlFor="mart"
                 userSelectCategory={
-                  userSelectCategory === "mart" ? "mediumorchid" : ""
+                  userSelectCategory === "mart" ? "#a0a0a0" : ""
                 }
               >
                 마트 <span class="material-symbols-outlined">storefront</span>
@@ -270,7 +270,7 @@ const PostUpload = ({ userLocation }) => {
       </PostUploadStyle.PostUploadBack>
       {isLoading && (
         <Loading>
-          <PulseLoader color="mediumorchid" size={20} />
+          <PulseLoader color="black" size={20} />
         </Loading>
       )}
     </>
