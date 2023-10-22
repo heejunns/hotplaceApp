@@ -2,8 +2,10 @@ import styled from "styled-components";
 
 export const TopPostBack = styled.div`
   width: 100%;
+  padding: 20px 0 30px 0;
+  /* border: 1px solid black; */
   max-width: 1200px;
-  height: 350px;
+  /* height: 280px; */
   overflow: hidden;
   display: flex;
   align-items: center;
@@ -48,14 +50,14 @@ export const TopPostBtn = styled.button`
 `;
 
 export const TopPostPrevBtn = styled(TopPostBtn)`
-  top: 157px;
+  top: 125px;
   left: 0;
   display: ${(props) => (props.topBoxPx === 0 ? "none" : "block")};
   color: black;
 `;
 
 export const TopPostNextBtn = styled(TopPostBtn)`
-  top: 157px;
+  top: 125px;
   color: black;
   right: 15px;
   display: ${(props) => (props.topBoxPx === -2400 ? "none" : "bloack")};

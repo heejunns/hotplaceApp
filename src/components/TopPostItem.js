@@ -39,11 +39,18 @@ const TopPostItem = ({ data, index, dataLen }) => {
         image={data.getUploadFileURL}
         onClick={() => onClickTopPostItem(data)}
       >
+        {data.uploadImgUrl && (
+          <TopPostItemStyle.TopPostItemImgBox>
+            <img src={data.uploadImgUrl} alt="사진 업로드" />
+          </TopPostItemStyle.TopPostItemImgBox>
+        )}
+        <TopPostItemStyle.TopPostItemPostName>
+          {data.postName}
+        </TopPostItemStyle.TopPostItemPostName>
         <TopPostItemStyle.TopPostItemTitleBox>
-          <TopPostItemStyle.TopPostItemNickname>
-            <span>{data.nickname}</span> 님
-          </TopPostItemStyle.TopPostItemNickname>
-
+          <TopPostItemStyle.TopPostItemLike>
+            &#9829;<span>{data.likeMember.length}</span>
+          </TopPostItemStyle.TopPostItemLike>
           <div>
             <TopPostItemStyle.TopPostItemTime>
               {calculateTime(data)}/
@@ -54,22 +61,10 @@ const TopPostItem = ({ data, index, dataLen }) => {
           </div>
         </TopPostItemStyle.TopPostItemTitleBox>
 
-        {data.uploadImgUrl && (
-          <TopPostItemStyle.TopPostItemImgBox>
-            <img src={data.uploadImgUrl} alt="사진 업로드" />
-          </TopPostItemStyle.TopPostItemImgBox>
-        )}
-        <TopPostItemStyle.TopPostItemText>
-          {data.inputText}
-        </TopPostItemStyle.TopPostItemText>
-
         {/* {mapMode && <PostMap data={data} />}
         {commentMode && (
           <Comments setCommentMode={setCommentMode} data={data} />
         )} */}
-        <TopPostItemStyle.TopPostItemLike>
-          &#9829;<span>{data.likeMember.length}</span>
-        </TopPostItemStyle.TopPostItemLike>
       </TopPostItemStyle.TopPostItemBack>
     </>
   );

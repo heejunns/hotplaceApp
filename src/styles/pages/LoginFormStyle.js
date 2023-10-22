@@ -61,11 +61,9 @@ export const LoginFormGoogleLoginBtn = styled(LoginFormBtn)`
 `;
 
 export const LoginFormSignUpBtn = styled(LoginFormBtn)`
-  border: 2px solid black;
-  background-color: white;
-  & > a {
-    color: black;
-  }
+  border: none;
+  background-color: black;
+  color: white;
 `;
 // 로그인 폼 위에 로고 이름 보여주는 스타일 태그
 export const LoginFormTitle = styled.div`

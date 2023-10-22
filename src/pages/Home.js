@@ -7,6 +7,10 @@ import {
   orderBy,
   where,
   getDocs,
+  startAt,
+  limit,
+  startAfter,
+  endBefore,
 } from "firebase/firestore";
 import { useRecoilValue } from "recoil";
 import { hamburgerBtnClick } from "../recoils/UserAtom";
@@ -20,6 +24,8 @@ const Home = ({ userLocation }) => {
   const [currentData, setCurrentData] = useState([]);
   const [selectSortMethod, setSelectSortMethod] = useState("전체 게시글 보기");
   const [isSelectSort, setIsSelectSort] = useState(false);
+  const [startTime, setStartTime] = useState("");
+  const [endTime, setEndTime] = useState("");
   const selectSortMethodBtnRef = useRef();
   const selectSortMethodListRef = useRef();
 
@@ -98,25 +104,69 @@ const Home = ({ userLocation }) => {
     }
   };
   // 실시간으로 데이터 베이스에 저장되어 있는 데이터를 가져온다.
-  const getRealTimePostData = useCallback(() => {
-    const q = query(
-      collection(dbService, "test"),
-      orderBy("createTime", "desc") // createTime 기준으로 내림차순으로 정렬
-    );
-    onSnapshot(q, (snapshot) => {
-      setCurrentData([]); // 새롭게 불러온 데이터를 저장하기 위해 현재 데이터를 초기화
-      snapshot.forEach((doc) =>
-        setCurrentData((prevDocData) => [
-          ...prevDocData,
-          { ...doc.data(), id: doc.id },
-        ])
-      );
-    });
-  }, []);
+  const getRealTimePostData = useCallback(
+    async (number) => {
+      let q;
+      // setStartTime(currentData.length > 0 && currentData[0].createTime);
+      try {
+        if (currentData.length === 0 && number === 1) {
+          q = query(
+            collection(dbService, "test"),
+            orderBy("createTime", "desc"), // createTime 기준으로 내림차순으로 정렬
+            limit(4)
+          );
+        } else if (currentData.length > 0 && number === 1) {
+          console.log("응?");
+          q = query(
+            collection(dbService, "test"),
+            orderBy("createTime", "desc"), // createTime 기준으로 내림차순으로 정렬
+            startAfter(currentData[currentData.length - 1].createTime),
+            limit(4)
+          );
+        } else if (currentData.length > 0 && number === 2) {
+          q = query(
+            collection(dbService, "test"),
+            orderBy("createTime"), // createTime 기준으로 내림차순으로 정렬
+            startAfter(currentData[0].createTime),
+            limit(4)
+          );
+        }
+        if (number === 1) {
+          onSnapshot(q, (snapshot) => {
+            setCurrentData([]); // 새롭게 불러온 데이터를 저장하기 위해 현재 데이터를 초기화
+            snapshot.forEach((doc) =>
+              setCurrentData((prevDocData) => [
+                ...prevDocData,
+                { ...doc.data(), id: doc.id },
+              ])
+            );
+          });
+        } else if (number === 2) {
+          onSnapshot(q, (snapshot) => {
+            setCurrentData([]); // 새롭게 불러온 데이터를 저장하기 위해 현재 데이터를 초기화
+            snapshot.forEach((doc) =>
+              setCurrentData((prevDocData) => [
+                { ...doc.data(), id: doc.id },
+                ...prevDocData,
+              ])
+            );
+          });
+        }
+      } catch (e) {
+        console.log(e);
+      }
+    },
+    [currentData]
+  );
+
+  console.log("현재 데이터", currentData);
+
+  console.log("시작 시간", startTime);
+  console.log("끝 시간", endTime);
 
   useEffect(() => {
-    getRealTimePostData();
-  }, [getRealTimePostData]);
+    getRealTimePostData(1);
+  }, []);
 
   console.log("select", selectSortMethod);
 
@@ -175,6 +225,10 @@ const Home = ({ userLocation }) => {
             </HomeStyle.SelectSortMethodItem>
           </HomeStyle.SelectSortMethodList>
         </HomeStyle.SelectSortMethodBox>
+        {currentData.length < 4 ? null : (
+          <button onClick={() => getRealTimePostData(1)}>오른쪽으로</button>
+        )}
+        <button onClick={() => getRealTimePostData(2)}>왼쪽으로</button>
 
         {currentData.length === 0 ? (
           <HomeStyle.EmptyPost>현재 게시물이 없습니다.</HomeStyle.EmptyPost>

@@ -102,7 +102,7 @@ const ProfileImgUploadModal = ({ setIsProfileImgUploadModal }) => {
           </ProfileImgUploadModalStyle.ProfileImgUploadModalBtnBox>
           {isLoading && (
             <Loading>
-              <PulseLoader color="mediumorchid" size={20} />
+              <PulseLoader color="black" size={20} />
             </Loading>
           )}
         </ProfileImgUploadModalStyle.ProfileImgUploadModalBox>

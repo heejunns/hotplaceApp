@@ -12,6 +12,7 @@ export const TopPostItemBack = styled.div`
   padding: 10px;
   font-size: 20px;
   border-radius: 10px;
+  /* border: 2px solid black; */
   /* @media (hover: hover) and (pointer: fine) {
     &:hover {
       border: 2px solid greenyellow;
@@ -61,11 +62,11 @@ export const TopPostItemNickname = styled.span`
   }
 `;
 // 게시글의 글 스타일 태그
-export const TopPostItemText = styled.div`
+export const TopPostItemPostName = styled.div`
   margin-top: 10px;
   width: 100%;
   word-break: break-all;
-  height: 70px;
+  /* height: 70px; */
   overflow: hidden;
   text-overflow: ellipsis;
   display: -webkit-box;

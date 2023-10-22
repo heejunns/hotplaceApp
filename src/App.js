@@ -68,7 +68,7 @@ const App = () => {
     <>
       {!firebaseInitialize && (
         <Loading>
-          <PulseLoader color="mediumorchid" size={20} />
+          <PulseLoader color="black" size={20} />
         </Loading>
       )}
       <AppRouter userLocation={userLocation} />
