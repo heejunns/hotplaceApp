@@ -112,8 +112,8 @@ const Home = ({ userLocation }) => {
         if (currentData.length === 0 && number === 1) {
           q = query(
             collection(dbService, "test"),
-            orderBy("createTime", "desc"), // createTime 기준으로 내림차순으로 정렬
-            limit(4)
+            orderBy("createTime", "desc") // createTime 기준으로 내림차순으로 정렬
+            // limit(4)
           );
         } else if (currentData.length > 0 && number === 1) {
           console.log("응?");
@@ -225,10 +225,10 @@ const Home = ({ userLocation }) => {
             </HomeStyle.SelectSortMethodItem>
           </HomeStyle.SelectSortMethodList>
         </HomeStyle.SelectSortMethodBox>
-        {currentData.length < 4 ? null : (
+        {/* {currentData.length < 4 ? null : (
           <button onClick={() => getRealTimePostData(1)}>오른쪽으로</button>
         )}
-        <button onClick={() => getRealTimePostData(2)}>왼쪽으로</button>
+        <button onClick={() => getRealTimePostData(2)}>왼쪽으로</button> */}
 
         {currentData.length === 0 ? (
           <HomeStyle.EmptyPost>현재 게시물이 없습니다.</HomeStyle.EmptyPost>

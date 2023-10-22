@@ -47,15 +47,15 @@ html, css, styled-components, javascript, react, react-router react-spinners, uu
 
 ### 게시글 분류해서 보기 : 드롭다운을 이용해서 사용자가 원하는 게시글만 볼 수 있는 기능 입니다. 추후에 게시글이 많아지게 되면 사용자가 원하는 게시글만 볼 수 있어 시간을 아낄 수 있습니다.
 
-<img src = "./images/mainDropDown.png">
+<img src = "./images/dropdown.png">
 
 ### 좋아요 top10 슬라이드로 보기 : 사용자가 좋아요한 게시글의 10위까지의 게시글을 한눈에 확인 할 수 있습니다.
 
-<img src = "./images/main.png">
+<img src = "./images/mainview.png">
 
 ### 마이프로필 기능 : 마이프로필 페이지에서 나의 프로필 사진, 닉네임, 내가 올린 게시글 보기, 내가 좋아요한 게시글 보기 기능을 사용하실 수 있습니다.
 
-<img src = "./images/myProfile.png">
+<img src = "./images/profile.png">
 
 ### 개발하면서 어려웠지만 좀 더 배웠던 부분
 
