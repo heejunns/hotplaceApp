@@ -28,6 +28,7 @@ const Home = ({ userLocation }) => {
   const [endTime, setEndTime] = useState("");
   const selectSortMethodBtnRef = useRef();
   const selectSortMethodListRef = useRef();
+  // const [selectMethodText, setSelectMethodText] = useState("전체 게시글 보기");
 
   useEffect(() => {
     const outSideClick = (e) => {
@@ -48,56 +49,232 @@ const Home = ({ userLocation }) => {
   const onclickSelectSortMethod = () => {
     setIsSelectSort((prev) => !prev);
   };
-  const queryMake = (selectMethod) => {
+  const queryMake = (number, selectMethod) => {
     let queryContent;
-    if (selectMethod === "전체 게시글 보기") {
+    if (
+      currentData.length === 0 &&
+      number === 0 &&
+      selectMethod === "전체 게시글 보기"
+    ) {
       queryContent = query(
         collection(dbService, "test"),
-        orderBy("createTime", "desc")
+        orderBy("createTime", "desc"),
+        limit(4)
       );
-    } else if (selectMethod === "카페 게시글 보기") {
+    } else if (
+      currentData.length === 0 &&
+      number === 0 &&
+      selectMethod === "카페 게시글 보기"
+    ) {
       queryContent = query(
         collection(dbService, "test"),
         where("category", "==", "카페"),
-        orderBy("createTime", "desc")
+        orderBy("createTime", "desc"),
+        limit(4)
       );
-    } else if (selectMethod === "음식 게시글 보기") {
+    } else if (
+      currentData.length === 0 &&
+      number === 0 &&
+      selectMethod === "음식 게시글 보기"
+    ) {
       queryContent = query(
         collection(dbService, "test"),
         where("category", "==", "음식"),
-        orderBy("createTime", "desc")
+        orderBy("createTime", "desc"),
+        limit(4)
       );
-    } else if (selectMethod === "마트 게시글 보기") {
+    } else if (
+      currentData.length === 0 &&
+      number === 0 &&
+      selectMethod === "마트 게시글 보기"
+    ) {
       queryContent = query(
         collection(dbService, "test"),
         where("category", "==", "마트"),
-        orderBy("createTime", "desc")
+        orderBy("createTime", "desc"),
+        limit(4)
       );
-    } else if (selectMethod === "좋아요 순으로 보기") {
+    } else if (
+      currentData.length === 0 &&
+      number === 0 &&
+      selectMethod === "좋아요 순으로 보기"
+    ) {
       queryContent = query(
         collection(dbService, "test"),
-        orderBy("likeNumber", "desc")
+        orderBy("likeNumber", "desc"),
+        limit(4)
       );
-    } else if (selectMethod === "나의 지역 게시글만 보기") {
+    } else if (
+      currentData.length === 0 &&
+      number === 0 &&
+      selectMethod === "나의 지역 게시글만 보기"
+    ) {
       queryContent = query(
         collection(dbService, "test"),
         where("userLocation", "==", userLocation),
-        orderBy("createTime", "desc")
+        orderBy("createTime", "desc"),
+        limit(4)
+      );
+    } else if (
+      currentData.length > 0 &&
+      number === 1 &&
+      selectMethod === "전체 게시글 보기"
+    ) {
+      queryContent = query(
+        collection(dbService, "test"),
+        orderBy("createTime", "desc"),
+        startAfter(currentData[currentData.length - 1].createTime),
+        limit(4)
+      );
+    } else if (
+      currentData.length > 0 &&
+      number === 1 &&
+      selectMethod === "카페 게시글 보기"
+    ) {
+      queryContent = query(
+        collection(dbService, "test"),
+        where("category", "==", "카페"),
+        orderBy("createTime", "desc"),
+        startAfter(currentData[currentData.length - 1].createTime),
+        limit(4)
+      );
+    } else if (
+      currentData.length > 0 &&
+      number === 1 &&
+      selectMethod === "음식 게시글 보기"
+    ) {
+      queryContent = query(
+        collection(dbService, "test"),
+        where("category", "==", "음식"),
+        orderBy("createTime", "desc"),
+        startAfter(currentData[currentData.length - 1].createTime),
+        limit(4)
+      );
+    } else if (
+      currentData.length > 0 &&
+      number === 1 &&
+      selectMethod === "마트 게시글 보기"
+    ) {
+      queryContent = query(
+        collection(dbService, "test"),
+        where("category", "==", "마트"),
+        orderBy("createTime", "desc"),
+        startAfter(currentData[currentData.length - 1].createTime),
+        limit(4)
+      );
+    } else if (
+      currentData.length > 0 &&
+      number === 1 &&
+      selectMethod === "좋아요 순으로 보기"
+    ) {
+      queryContent = query(
+        collection(dbService, "test"),
+        orderBy("likeNumber", "desc"),
+        startAfter(currentData[currentData.length - 1].createTime),
+        limit(4)
+      );
+    } else if (
+      currentData.length > 0 &&
+      number === 2 &&
+      selectMethod === "나의 지역 게시글만 보기"
+    ) {
+      queryContent = query(
+        collection(dbService, "test"),
+        where("userLocation", "==", userLocation),
+        orderBy("createTime", "desc"),
+        startAfter(currentData[0].createTime),
+        limit(4)
+      );
+    } else if (
+      currentData.length > 0 &&
+      number === 2 &&
+      selectMethod === "전체 게시글 보기"
+    ) {
+      queryContent = query(
+        collection(dbService, "test"),
+        orderBy("createTime", "desc"),
+        startAfter(currentData[0].createTime),
+        limit(4)
+      );
+    } else if (
+      currentData.length > 0 &&
+      number === 2 &&
+      selectMethod === "카페 게시글 보기"
+    ) {
+      queryContent = query(
+        collection(dbService, "test"),
+        where("category", "==", "카페"),
+        orderBy("createTime", "desc"),
+        startAfter(currentData[0].createTime),
+        limit(4)
+      );
+    } else if (
+      currentData.length > 0 &&
+      number === 2 &&
+      selectMethod === "음식 게시글 보기"
+    ) {
+      queryContent = query(
+        collection(dbService, "test"),
+        where("category", "==", "음식"),
+        orderBy("createTime", "desc"),
+        startAfter(currentData[0].createTime),
+        limit(4)
+      );
+    } else if (
+      currentData.length > 0 &&
+      number === 2 &&
+      selectMethod === "마트 게시글 보기"
+    ) {
+      queryContent = query(
+        collection(dbService, "test"),
+        where("category", "==", "마트"),
+        orderBy("createTime", "desc"),
+        startAfter(currentData[0].createTime),
+        limit(4)
+      );
+    } else if (
+      currentData.length > 0 &&
+      number === 2 &&
+      selectMethod === "좋아요 순으로 보기"
+    ) {
+      queryContent = query(
+        collection(dbService, "test"),
+        orderBy("likeNumber", "desc"),
+        startAfter(currentData[0].createTime),
+        limit(4)
+      );
+    } else if (
+      currentData.length > 0 &&
+      number === 2 &&
+      selectMethod === "나의 지역 게시글만 보기"
+    ) {
+      queryContent = query(
+        collection(dbService, "test"),
+        where("userLocation", "==", userLocation),
+        orderBy("createTime", "desc"),
+        startAfter(currentData[0].createTime),
+        limit(4)
       );
     }
     return queryContent;
   };
-  const onclickSelectSortChange = async (selectMethod) => {
+  const onclickSelectSortChange = async (number, selectMethod) => {
     console.log("select method", selectMethod);
     try {
       setSelectSortMethod(selectMethod);
       setIsSelectSort((prev) => !prev);
-      const q = queryMake(selectMethod);
+      const q = queryMake(number, selectMethod);
       const querySnapshot = await getDocs(q);
       const postData = [];
-      querySnapshot.forEach((doc) => {
-        postData.push({ id: doc.id, ...doc.data() });
-      });
+      if (number === 0 && number === 1) {
+        querySnapshot.forEach((doc) => {
+          postData.push({ id: doc.id, ...doc.data() });
+        });
+      } else if (number === 2) {
+        querySnapshot.forEach((doc) => {
+          postData.push({ ...doc.data(), id: doc.id });
+        });
+      }
       setCurrentData(postData);
     } catch (e) {
       console.log(e);
@@ -109,11 +286,11 @@ const Home = ({ userLocation }) => {
       let q;
       // setStartTime(currentData.length > 0 && currentData[0].createTime);
       try {
-        if (currentData.length === 0 && number === 1) {
+        if (currentData.length === 0 && number === 0) {
           q = query(
             collection(dbService, "test"),
-            orderBy("createTime", "desc") // createTime 기준으로 내림차순으로 정렬
-            // limit(4)
+            orderBy("createTime", "desc"), // createTime 기준으로 내림차순으로 정렬
+            limit(4)
           );
         } else if (currentData.length > 0 && number === 1) {
           console.log("응?");
@@ -131,7 +308,7 @@ const Home = ({ userLocation }) => {
             limit(4)
           );
         }
-        if (number === 1) {
+        if (number === 0 || number === 1) {
           onSnapshot(q, (snapshot) => {
             setCurrentData([]); // 새롭게 불러온 데이터를 저장하기 위해 현재 데이터를 초기화
             snapshot.forEach((doc) =>
@@ -165,7 +342,7 @@ const Home = ({ userLocation }) => {
   console.log("끝 시간", endTime);
 
   useEffect(() => {
-    getRealTimePostData(1);
+    getRealTimePostData(0);
   }, []);
 
   console.log("select", selectSortMethod);
@@ -198,37 +375,43 @@ const Home = ({ userLocation }) => {
             <HomeStyle.SelectSortMethodItem
               onClick={() => {
                 console.log("카페 게시글 보기");
-                onclickSelectSortChange("카페 게시글 보기");
+                onclickSelectSortChange(0, "카페 게시글 보기");
               }}
             >
               카페 게시글 보기
             </HomeStyle.SelectSortMethodItem>
             <HomeStyle.SelectSortMethodItem
-              onClick={() => onclickSelectSortChange("음식 게시글 보기")}
+              onClick={() => onclickSelectSortChange(0, "음식 게시글 보기")}
             >
               음식 게시글 보기
             </HomeStyle.SelectSortMethodItem>
             <HomeStyle.SelectSortMethodItem
-              onClick={() => onclickSelectSortChange("마트 게시글 보기")}
+              onClick={() => onclickSelectSortChange(0, "마트 게시글 보기")}
             >
               마트 게시글 보기
             </HomeStyle.SelectSortMethodItem>
             <HomeStyle.SelectSortMethodItem
-              onClick={() => onclickSelectSortChange("좋아요 순으로 보기")}
+              onClick={() => onclickSelectSortChange(0, "좋아요 순으로 보기")}
             >
               좋아요 순으로 보기
             </HomeStyle.SelectSortMethodItem>
             <HomeStyle.SelectSortMethodItem
-              onClick={() => onclickSelectSortChange("나의 지역 게시글만 보기")}
+              onClick={() =>
+                onclickSelectSortChange(0, "나의 지역 게시글만 보기")
+              }
             >
               나의 지역 게시글만 보기
             </HomeStyle.SelectSortMethodItem>
           </HomeStyle.SelectSortMethodList>
         </HomeStyle.SelectSortMethodBox>
-        {/* {currentData.length < 4 ? null : (
-          <button onClick={() => getRealTimePostData(1)}>오른쪽으로</button>
+        {currentData.length < 4 ? null : (
+          <button onClick={() => onclickSelectSortChange(1, selectSortMethod)}>
+            오른쪽으로
+          </button>
         )}
-        <button onClick={() => getRealTimePostData(2)}>왼쪽으로</button> */}
+        <button onClick={() => onclickSelectSortChange(2, selectSortMethod)}>
+          왼쪽으로
+        </button>
 
         {currentData.length === 0 ? (
           <HomeStyle.EmptyPost>현재 게시물이 없습니다.</HomeStyle.EmptyPost>
