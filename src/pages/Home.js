@@ -120,7 +120,7 @@ const Home = ({ userLocation }) => {
         setCurrentData([]); // 새롭게 불러온 데이터를 저장하기 위해 현재 데이터를 초기화
         snapshot.forEach((doc) => postData.push({ ...doc.data(), id: doc.id }));
         setPostNumber(postData);
-        setCurrentData(postData.slice(0, 4));
+        setCurrentData(postData.slice(0, 8));
       });
     } catch (e) {
       console.log(e);
@@ -134,14 +134,14 @@ const Home = ({ userLocation }) => {
         q = query(
           collection(dbService, "test"),
           orderBy("createTime", "desc"), // createTime 기준으로 내림차순으로 정렬
-          limit(4),
+          limit(8),
           startAfter(currentData[currentData.length - 1].createTime)
         );
       } else if (mode === 2) {
         q = query(
           collection(dbService, "test"),
           orderBy("createTime"), // createTime 기준으로 내림차순으로 정렬
-          limit(4),
+          limit(8),
           startAfter(currentData[0].createTime)
         );
       }
@@ -171,8 +171,8 @@ const Home = ({ userLocation }) => {
       q = query(
         collection(dbService, "test"),
         orderBy("createTime", "desc"), // createTime 기준으로 내림차순으로 정렬
-        limit(4),
-        startAt(postNumber[pageNumber * 4].createTime)
+        limit(8),
+        startAt(postNumber[pageNumber * 8].createTime)
       );
       onSnapshot(q, (snapshot) => {
         const postData = [];
@@ -252,20 +252,6 @@ const Home = ({ userLocation }) => {
             </HomeStyle.SelectSortMethodItem>
           </HomeStyle.SelectSortMethodList>
         </HomeStyle.SelectSortMethodBox>
-        {currentData.length < 4 ? null : (
-          <button onClick={() => onclickPageHandler(1, selectSortMethod)}>
-            오른쪽으로
-          </button>
-        )}
-        {postNumber &&
-          new Array(Math.ceil(postNumber.length / 4))
-            .fill()
-            .map((i, l) => (
-              <div onClick={() => onclickPageNumber(l)}>{l + 1}</div>
-            ))}
-        <button onClick={() => onclickPageHandler(2, selectSortMethod)}>
-          왼쪽으로
-        </button>
 
         {currentData.length === 0 ? (
           <HomeStyle.EmptyPost>현재 게시물이 없습니다.</HomeStyle.EmptyPost>
@@ -283,6 +269,34 @@ const Home = ({ userLocation }) => {
             })}
           </HomeStyle.PostLayout>
         )}
+        <HomeStyle.PageNationBox>
+          <HomeStyle.PrevBtn
+            onClick={() => onclickPageHandler(2)}
+            clickDisable={
+              postNumber &&
+              currentData &&
+              postNumber[0].createTime !== currentData[0].createTime
+                ? true
+                : false
+            }
+          >
+            <span class="material-symbols-outlined">chevron_left</span>
+          </HomeStyle.PrevBtn>
+          {postNumber &&
+            new Array(Math.ceil(postNumber.length / 8))
+              .fill()
+              .map((i, l) => (
+                <HomeStyle.PageNumberBtn onClick={() => onclickPageNumber(l)}>
+                  {l + 1}
+                </HomeStyle.PageNumberBtn>
+              ))}
+          <HomeStyle.NextBtn
+            onClick={() => onclickPageHandler(1, selectSortMethod)}
+            clickDisable={currentData.length < 8 ? false : true}
+          >
+            <span class="material-symbols-outlined">chevron_right</span>
+          </HomeStyle.NextBtn>
+        </HomeStyle.PageNationBox>
       </HomeStyle.HomeBack>
     </>
   );

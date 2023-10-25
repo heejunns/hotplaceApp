@@ -57,6 +57,10 @@ html, css, styled-components, javascript, react, react-router react-spinners, uu
 
 <img src = "./images/profile.png">
 
+### 페이지 네이션 기능 : 게시글의 모든 데이터를 서버에서 한번에 불러와 화면에 보여주지 않고 게시글 데이터를 분리하여 화면에 보여줄 데이터만 서버에서 가지고 와서 화면에 보여주는 기능 입니다. 파이어베이스는 커서 기반의 페이지네이션 기능만 지원하기 때문에 오프셋 페이지네이션 기능은 직접 구현 하였습니다.
+
+<img src = "./images/pagination.png">
+
 ### 개발하면서 어려웠지만 좀 더 배웠던 부분
 
 1. 혼자 개발의 힘든 점
