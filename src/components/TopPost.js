@@ -15,7 +15,6 @@ const TopPost = () => {
   const onclickRightBtn = () => {
     if (topBoxPx > -2900) setTopBoxPx((prev) => prev - 1200);
   };
-  console.log("topPostPx", topBoxPx);
   useEffect(() => {
     const getTopPost = async () => {
       try {
@@ -46,8 +45,8 @@ const TopPost = () => {
       <TopPostStyle.TopPostBack>
         <TopPostStyle.TopPostBox topBoxPx={topBoxPx}>
           {topPostData.length > 0 &&
-            topPostData.map((item) => {
-              return <TopPostItem data={item} />;
+            topPostData.map((item, index) => {
+              return <TopPostItem data={item} ranking={index + 1} />;
             })}
         </TopPostStyle.TopPostBox>
         <TopPostStyle.TopPostPrevBtn

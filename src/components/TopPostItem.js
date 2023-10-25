@@ -4,7 +4,7 @@ import { clickPostItemData, userAtom } from "../recoils/UserAtom";
 import * as TopPostItemStyle from "../styles/componenet/TopPostItemStyle";
 import { useNavigate } from "react-router-dom";
 // word-break: break-all;
-const TopPostItem = ({ data, index, dataLen }) => {
+const TopPostItem = ({ data, ranking }) => {
   const user = useRecoilValue(userAtom);
   const [clickPostItem, setClickPostItem] = useRecoilState(clickPostItemData);
   const navigator = useNavigate();
@@ -39,6 +39,7 @@ const TopPostItem = ({ data, index, dataLen }) => {
         image={data.getUploadFileURL}
         onClick={() => onClickTopPostItem(data)}
       >
+        <h1>{ranking}위</h1>
         {data.uploadImgUrl && (
           <TopPostItemStyle.TopPostItemImgBox>
             <img src={data.uploadImgUrl} alt="사진 업로드" />
