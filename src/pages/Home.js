@@ -28,7 +28,8 @@ const Home = ({ userLocation }) => {
   const [endTime, setEndTime] = useState("");
   const selectSortMethodBtnRef = useRef();
   const selectSortMethodListRef = useRef();
-  // const [selectMethodText, setSelectMethodText] = useState("전체 게시글 보기");
+  const [postNumber, setPostNumber] = useState(null);
+  const [pageNationData, setPageNationData] = useState();
 
   useEffect(() => {
     const outSideClick = (e) => {
@@ -49,300 +50,149 @@ const Home = ({ userLocation }) => {
   const onclickSelectSortMethod = () => {
     setIsSelectSort((prev) => !prev);
   };
-  const queryMake = (number, selectMethod) => {
+  const queryMake = (selectMethod) => {
     let queryContent;
-    if (
-      currentData.length === 0 &&
-      number === 0 &&
-      selectMethod === "전체 게시글 보기"
-    ) {
+    if (selectMethod === "전체 게시글 보기") {
       queryContent = query(
         collection(dbService, "test"),
         orderBy("createTime", "desc"),
         limit(4)
       );
-    } else if (
-      currentData.length === 0 &&
-      number === 0 &&
-      selectMethod === "카페 게시글 보기"
-    ) {
+    } else if (selectMethod === "카페 게시글 보기") {
       queryContent = query(
         collection(dbService, "test"),
         where("category", "==", "카페"),
-        orderBy("createTime", "desc"),
-        limit(4)
+        orderBy("createTime", "desc")
       );
-    } else if (
-      currentData.length === 0 &&
-      number === 0 &&
-      selectMethod === "음식 게시글 보기"
-    ) {
+    } else if (selectMethod === "음식 게시글 보기") {
       queryContent = query(
         collection(dbService, "test"),
         where("category", "==", "음식"),
-        orderBy("createTime", "desc"),
-        limit(4)
+        orderBy("createTime", "desc")
       );
-    } else if (
-      currentData.length === 0 &&
-      number === 0 &&
-      selectMethod === "마트 게시글 보기"
-    ) {
+    } else if (selectMethod === "마트 게시글 보기") {
       queryContent = query(
         collection(dbService, "test"),
         where("category", "==", "마트"),
-        orderBy("createTime", "desc"),
-        limit(4)
+        orderBy("createTime", "desc")
       );
-    } else if (
-      currentData.length === 0 &&
-      number === 0 &&
-      selectMethod === "좋아요 순으로 보기"
-    ) {
+    } else if (selectMethod === "좋아요 순으로 보기") {
       queryContent = query(
         collection(dbService, "test"),
-        orderBy("likeNumber", "desc"),
-        limit(4)
+        orderBy("likeNumber", "desc")
       );
-    } else if (
-      currentData.length === 0 &&
-      number === 0 &&
-      selectMethod === "나의 지역 게시글만 보기"
-    ) {
+    } else if (selectMethod === "나의 지역 게시글만 보기") {
       queryContent = query(
         collection(dbService, "test"),
         where("userLocation", "==", userLocation),
-        orderBy("createTime", "desc"),
-        limit(4)
-      );
-    } else if (
-      currentData.length > 0 &&
-      number === 1 &&
-      selectMethod === "전체 게시글 보기"
-    ) {
-      queryContent = query(
-        collection(dbService, "test"),
-        orderBy("createTime", "desc"),
-        startAfter(currentData[currentData.length - 1].createTime),
-        limit(4)
-      );
-    } else if (
-      currentData.length > 0 &&
-      number === 1 &&
-      selectMethod === "카페 게시글 보기"
-    ) {
-      queryContent = query(
-        collection(dbService, "test"),
-        where("category", "==", "카페"),
-        orderBy("createTime", "desc"),
-        startAfter(currentData[currentData.length - 1].createTime),
-        limit(4)
-      );
-    } else if (
-      currentData.length > 0 &&
-      number === 1 &&
-      selectMethod === "음식 게시글 보기"
-    ) {
-      queryContent = query(
-        collection(dbService, "test"),
-        where("category", "==", "음식"),
-        orderBy("createTime", "desc"),
-        startAfter(currentData[currentData.length - 1].createTime),
-        limit(4)
-      );
-    } else if (
-      currentData.length > 0 &&
-      number === 1 &&
-      selectMethod === "마트 게시글 보기"
-    ) {
-      queryContent = query(
-        collection(dbService, "test"),
-        where("category", "==", "마트"),
-        orderBy("createTime", "desc"),
-        startAfter(currentData[currentData.length - 1].createTime),
-        limit(4)
-      );
-    } else if (
-      currentData.length > 0 &&
-      number === 1 &&
-      selectMethod === "좋아요 순으로 보기"
-    ) {
-      queryContent = query(
-        collection(dbService, "test"),
-        orderBy("likeNumber", "desc"),
-        startAfter(currentData[currentData.length - 1].createTime),
-        limit(4)
-      );
-    } else if (
-      currentData.length > 0 &&
-      number === 2 &&
-      selectMethod === "나의 지역 게시글만 보기"
-    ) {
-      queryContent = query(
-        collection(dbService, "test"),
-        where("userLocation", "==", userLocation),
-        orderBy("createTime", "desc"),
-        startAfter(currentData[0].createTime),
-        limit(4)
-      );
-    } else if (
-      currentData.length > 0 &&
-      number === 2 &&
-      selectMethod === "전체 게시글 보기"
-    ) {
-      queryContent = query(
-        collection(dbService, "test"),
-        orderBy("createTime", "desc"),
-        startAfter(currentData[0].createTime),
-        limit(4)
-      );
-    } else if (
-      currentData.length > 0 &&
-      number === 2 &&
-      selectMethod === "카페 게시글 보기"
-    ) {
-      queryContent = query(
-        collection(dbService, "test"),
-        where("category", "==", "카페"),
-        orderBy("createTime", "desc"),
-        startAfter(currentData[0].createTime),
-        limit(4)
-      );
-    } else if (
-      currentData.length > 0 &&
-      number === 2 &&
-      selectMethod === "음식 게시글 보기"
-    ) {
-      queryContent = query(
-        collection(dbService, "test"),
-        where("category", "==", "음식"),
-        orderBy("createTime", "desc"),
-        startAfter(currentData[0].createTime),
-        limit(4)
-      );
-    } else if (
-      currentData.length > 0 &&
-      number === 2 &&
-      selectMethod === "마트 게시글 보기"
-    ) {
-      queryContent = query(
-        collection(dbService, "test"),
-        where("category", "==", "마트"),
-        orderBy("createTime", "desc"),
-        startAfter(currentData[0].createTime),
-        limit(4)
-      );
-    } else if (
-      currentData.length > 0 &&
-      number === 2 &&
-      selectMethod === "좋아요 순으로 보기"
-    ) {
-      queryContent = query(
-        collection(dbService, "test"),
-        orderBy("likeNumber", "desc"),
-        startAfter(currentData[0].createTime),
-        limit(4)
-      );
-    } else if (
-      currentData.length > 0 &&
-      number === 2 &&
-      selectMethod === "나의 지역 게시글만 보기"
-    ) {
-      queryContent = query(
-        collection(dbService, "test"),
-        where("userLocation", "==", userLocation),
-        orderBy("createTime", "desc"),
-        startAfter(currentData[0].createTime),
-        limit(4)
+        orderBy("createTime", "desc")
       );
     }
+
     return queryContent;
   };
-  const onclickSelectSortChange = async (number, selectMethod) => {
+  const onclickSelectSortChange = async (selectMethod) => {
     console.log("select method", selectMethod);
     try {
       setSelectSortMethod(selectMethod);
       setIsSelectSort((prev) => !prev);
-      const q = queryMake(number, selectMethod);
+      const q = queryMake(selectMethod);
       const querySnapshot = await getDocs(q);
       const postData = [];
-      if (number === 0 && number === 1) {
-        querySnapshot.forEach((doc) => {
-          postData.push({ id: doc.id, ...doc.data() });
-        });
-      } else if (number === 2) {
-        querySnapshot.forEach((doc) => {
-          postData.push({ ...doc.data(), id: doc.id });
-        });
-      }
+      querySnapshot.forEach((doc) => {
+        postData.push({ id: doc.id, ...doc.data() });
+      });
       setCurrentData(postData);
     } catch (e) {
       console.log(e);
     }
   };
   // 실시간으로 데이터 베이스에 저장되어 있는 데이터를 가져온다.
-  const getRealTimePostData = useCallback(
-    async (number) => {
+  const getRealTimePostData = useCallback(async () => {
+    let q;
+    try {
+      q = query(
+        collection(dbService, "test"),
+        orderBy("createTime", "desc") // createTime 기준으로 내림차순으로 정렬
+      );
+      onSnapshot(q, (snapshot) => {
+        const postData = [];
+        setCurrentData([]); // 새롭게 불러온 데이터를 저장하기 위해 현재 데이터를 초기화
+        snapshot.forEach((doc) => postData.push({ ...doc.data(), id: doc.id }));
+        setPostNumber(postData);
+        setCurrentData(postData.slice(0, 4));
+      });
+    } catch (e) {
+      console.log(e);
+    }
+  }, []);
+
+  const onclickPageHandler = async (mode, selectMethod) => {
+    try {
       let q;
-      // setStartTime(currentData.length > 0 && currentData[0].createTime);
-      try {
-        if (currentData.length === 0 && number === 0) {
-          q = query(
-            collection(dbService, "test"),
-            orderBy("createTime", "desc"), // createTime 기준으로 내림차순으로 정렬
-            limit(4)
-          );
-        } else if (currentData.length > 0 && number === 1) {
-          console.log("응?");
-          q = query(
-            collection(dbService, "test"),
-            orderBy("createTime", "desc"), // createTime 기준으로 내림차순으로 정렬
-            startAfter(currentData[currentData.length - 1].createTime),
-            limit(4)
-          );
-        } else if (currentData.length > 0 && number === 2) {
-          q = query(
-            collection(dbService, "test"),
-            orderBy("createTime"), // createTime 기준으로 내림차순으로 정렬
-            startAfter(currentData[0].createTime),
-            limit(4)
-          );
-        }
-        if (number === 0 || number === 1) {
-          onSnapshot(q, (snapshot) => {
-            setCurrentData([]); // 새롭게 불러온 데이터를 저장하기 위해 현재 데이터를 초기화
-            snapshot.forEach((doc) =>
-              setCurrentData((prevDocData) => [
-                ...prevDocData,
-                { ...doc.data(), id: doc.id },
-              ])
-            );
-          });
-        } else if (number === 2) {
-          onSnapshot(q, (snapshot) => {
-            setCurrentData([]); // 새롭게 불러온 데이터를 저장하기 위해 현재 데이터를 초기화
-            snapshot.forEach((doc) =>
-              setCurrentData((prevDocData) => [
-                { ...doc.data(), id: doc.id },
-                ...prevDocData,
-              ])
-            );
-          });
-        }
-      } catch (e) {
-        console.log(e);
+      if (mode === 1) {
+        q = query(
+          collection(dbService, "test"),
+          orderBy("createTime", "desc"), // createTime 기준으로 내림차순으로 정렬
+          limit(4),
+          startAfter(currentData[currentData.length - 1].createTime)
+        );
+      } else if (mode === 2) {
+        q = query(
+          collection(dbService, "test"),
+          orderBy("createTime"), // createTime 기준으로 내림차순으로 정렬
+          limit(4),
+          startAfter(currentData[0].createTime)
+        );
       }
-    },
-    [currentData]
-  );
+      console.log("q", q);
+      const querySnapshot = await getDocs(q);
+      const postData = [];
+      querySnapshot.forEach((doc) => {
+        postData.push({ id: doc.id, ...doc.data() });
+      });
+      console.log("hello", postData);
+      // if (mode === 1) {
+      //   setCurrentData(postData);
+      // } else if (mode === 2) {
+      if (mode === 2) {
+        postData.reverse();
+      }
+      setCurrentData(postData);
+    } catch (e) {
+      console.log(e);
+    }
+  };
+
+  const onclickPageNumber = async (pageNumber) => {
+    let q;
+    console.log("왜", pageNumber);
+    try {
+      q = query(
+        collection(dbService, "test"),
+        orderBy("createTime", "desc"), // createTime 기준으로 내림차순으로 정렬
+        limit(4),
+        startAt(postNumber[pageNumber * 4].createTime)
+      );
+      onSnapshot(q, (snapshot) => {
+        const postData = [];
+        setCurrentData([]); // 새롭게 불러온 데이터를 저장하기 위해 현재 데이터를 초기화
+        snapshot.forEach((doc) => postData.push({ ...doc.data(), id: doc.id }));
+        setCurrentData(postData);
+      });
+    } catch (e) {
+      console.log(e);
+    }
+  };
 
   console.log("현재 데이터", currentData);
 
   console.log("시작 시간", startTime);
   console.log("끝 시간", endTime);
+  console.log("뭐 데이터", postNumber);
 
   useEffect(() => {
-    getRealTimePostData(0);
+    getRealTimePostData();
   }, []);
 
   console.log("select", selectSortMethod);
@@ -375,41 +225,45 @@ const Home = ({ userLocation }) => {
             <HomeStyle.SelectSortMethodItem
               onClick={() => {
                 console.log("카페 게시글 보기");
-                onclickSelectSortChange(0, "카페 게시글 보기");
+                onclickSelectSortChange("카페 게시글 보기");
               }}
             >
               카페 게시글 보기
             </HomeStyle.SelectSortMethodItem>
             <HomeStyle.SelectSortMethodItem
-              onClick={() => onclickSelectSortChange(0, "음식 게시글 보기")}
+              onClick={() => onclickSelectSortChange("음식 게시글 보기")}
             >
               음식 게시글 보기
             </HomeStyle.SelectSortMethodItem>
             <HomeStyle.SelectSortMethodItem
-              onClick={() => onclickSelectSortChange(0, "마트 게시글 보기")}
+              onClick={() => onclickSelectSortChange("마트 게시글 보기")}
             >
               마트 게시글 보기
             </HomeStyle.SelectSortMethodItem>
             <HomeStyle.SelectSortMethodItem
-              onClick={() => onclickSelectSortChange(0, "좋아요 순으로 보기")}
+              onClick={() => onclickSelectSortChange("좋아요 순으로 보기")}
             >
               좋아요 순으로 보기
             </HomeStyle.SelectSortMethodItem>
             <HomeStyle.SelectSortMethodItem
-              onClick={() =>
-                onclickSelectSortChange(0, "나의 지역 게시글만 보기")
-              }
+              onClick={() => onclickSelectSortChange("나의 지역 게시글만 보기")}
             >
               나의 지역 게시글만 보기
             </HomeStyle.SelectSortMethodItem>
           </HomeStyle.SelectSortMethodList>
         </HomeStyle.SelectSortMethodBox>
         {currentData.length < 4 ? null : (
-          <button onClick={() => onclickSelectSortChange(1, selectSortMethod)}>
+          <button onClick={() => onclickPageHandler(1, selectSortMethod)}>
             오른쪽으로
           </button>
         )}
-        <button onClick={() => onclickSelectSortChange(2, selectSortMethod)}>
+        {postNumber &&
+          new Array(Math.ceil(postNumber.length / 4))
+            .fill()
+            .map((i, l) => (
+              <div onClick={() => onclickPageNumber(l)}>{l + 1}</div>
+            ))}
+        <button onClick={() => onclickPageHandler(2, selectSortMethod)}>
           왼쪽으로
         </button>
 

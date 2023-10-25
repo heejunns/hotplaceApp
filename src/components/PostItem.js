@@ -11,7 +11,6 @@ const PostItem = ({ data, index, dataLen }) => {
   const [clickPostItem, setClickPostItem] = useRecoilState(clickPostItemData);
   const [isNoUserClickModal, setIsNoUserClickModal] = useState(false);
   const navigator = useNavigate();
-  console.log("user", user);
   // 게시글을 클릭하면 해당 게시글의 디테일 페이지로 이동
   const onClickPostItem = (data) => {
     if (user === null) {
