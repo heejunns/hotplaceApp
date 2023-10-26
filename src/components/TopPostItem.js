@@ -50,7 +50,8 @@ const TopPostItem = ({ data, ranking }) => {
         </TopPostItemStyle.TopPostItemPostName>
         <TopPostItemStyle.TopPostItemTitleBox>
           <TopPostItemStyle.TopPostItemLike>
-            &#9829;<span>{data.likeMember.length}</span>
+            <span class="material-symbols-outlined">favorite</span>
+            <span>{data.likeMember.length}</span>
           </TopPostItemStyle.TopPostItemLike>
           <div>
             <TopPostItemStyle.TopPostItemTime>

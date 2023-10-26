@@ -52,24 +52,6 @@ export const PostItemTime = styled.span`
 export const PostItemCategory = styled.span`
   white-space: nowrap;
 `;
-// 게시글의 게시자의 이름 스타일 태그
-// export const PostItemNickname = styled.span`
-//   white-space: nowrap;
-//   display: flex;
-//   justify-content: flex-start;
-//   & > span {
-//     white-space: nowrap;
-//     width: 100%;
-//     max-width: 60px;
-//     overflow: hidden;
-//     text-overflow: ellipsis;
-//     @media screen and (max-width: 768px) {
-//       width: auto;
-//       overflow: none;
-//       text-overflow: none;
-//     }
-//   }
-// `;
 // 게시글의 글 스타일 태그
 export const TopPostItemPostName = styled.div`
   margin-top: 10px;
@@ -90,6 +72,7 @@ export const PostItemLike = styled.div`
   color: black;
   cursor: pointer;
   font-size: 20px;
+  display: flex;
 `;
 
 export const ProfileImg = styled.div`

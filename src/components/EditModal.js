@@ -22,8 +22,7 @@ const EditModalBox = styled.div`
   display: flex;
   flex-direction: column;
   justify-content: center;
-  /* align-items: center; */
-  border: 3px solid mediumorchid;
+  border: 3px solid black;
   background-color: white;
   border-radius: 10px;
 `;
@@ -34,7 +33,7 @@ const EditModalText = styled.span`
 const EditModalInputText = styled.textarea`
   width: 100%;
   height: 130px;
-  border: 3px solid mediumorchid;
+  border: 3px solid #a0a0a0;
   border-radius: 10px;
   padding: 10px;
   margin-bottom: 10px;
@@ -54,20 +53,18 @@ const EditModalBtn = styled.button`
   justify-content: center;
   align-items: center;
   border-radius: 10px;
-  border: 3px solid mediumorchid;
+  border: none;
   font-size: 15px;
   background-color: transparent;
+  cursor: pointer;
 `;
 const EditModalCancelBtn = styled(EditModalBtn)`
-  &:hover {
-    background-color: red;
-    color: white;
-  }
+  background-color: #a0a0a0;
+  color: white;
 `;
 const EditModalConfirmBtn = styled(EditModalBtn)`
-  &:hover {
-    background-color: greenyellow;
-  }
+  background-color: black;
+  color: white;
 `;
 
 const EditModal = ({ setIsEditModal, editData }) => {
