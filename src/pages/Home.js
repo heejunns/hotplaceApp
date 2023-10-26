@@ -28,7 +28,7 @@ const Home = ({ userLocation }) => {
   const [endTime, setEndTime] = useState("");
   const selectSortMethodBtnRef = useRef();
   const selectSortMethodListRef = useRef();
-  const [postNumber, setPostNumber] = useState(null);
+  const [postData, setPostData] = useState(null);
   const [pageNationData, setPageNationData] = useState();
 
   useEffect(() => {
@@ -55,8 +55,7 @@ const Home = ({ userLocation }) => {
     if (selectMethod === "전체 게시글 보기") {
       queryContent = query(
         collection(dbService, "test"),
-        orderBy("createTime", "desc"),
-        limit(4)
+        orderBy("createTime", "desc")
       );
     } else if (selectMethod === "카페 게시글 보기") {
       queryContent = query(
@@ -98,11 +97,12 @@ const Home = ({ userLocation }) => {
       setIsSelectSort((prev) => !prev);
       const q = queryMake(selectMethod);
       const querySnapshot = await getDocs(q);
-      const postData = [];
+      const data = [];
       querySnapshot.forEach((doc) => {
-        postData.push({ id: doc.id, ...doc.data() });
+        data.push({ id: doc.id, ...doc.data() });
       });
-      setCurrentData(postData);
+      setPostData(data);
+      setCurrentData(data.slice(0, 8));
     } catch (e) {
       console.log(e);
     }
@@ -116,11 +116,11 @@ const Home = ({ userLocation }) => {
         orderBy("createTime", "desc") // createTime 기준으로 내림차순으로 정렬
       );
       onSnapshot(q, (snapshot) => {
-        const postData = [];
+        const data = [];
         setCurrentData([]); // 새롭게 불러온 데이터를 저장하기 위해 현재 데이터를 초기화
-        snapshot.forEach((doc) => postData.push({ ...doc.data(), id: doc.id }));
-        setPostNumber(postData);
-        setCurrentData(postData.slice(0, 8));
+        snapshot.forEach((doc) => data.push({ ...doc.data(), id: doc.id }));
+        setPostData(data);
+        setCurrentData(data.slice(0, 8));
       });
     } catch (e) {
       console.log(e);
@@ -152,9 +152,6 @@ const Home = ({ userLocation }) => {
         postData.push({ id: doc.id, ...doc.data() });
       });
       console.log("hello", postData);
-      // if (mode === 1) {
-      //   setCurrentData(postData);
-      // } else if (mode === 2) {
       if (mode === 2) {
         postData.reverse();
       }
@@ -172,7 +169,7 @@ const Home = ({ userLocation }) => {
         collection(dbService, "test"),
         orderBy("createTime", "desc"), // createTime 기준으로 내림차순으로 정렬
         limit(8),
-        startAt(postNumber[pageNumber * 8].createTime)
+        startAt(postData[pageNumber * 8].createTime)
       );
       onSnapshot(q, (snapshot) => {
         const postData = [];
@@ -185,11 +182,19 @@ const Home = ({ userLocation }) => {
     }
   };
 
+  const findCurrentPage = () => {
+    for (let i = 0; i < Math.ceil(postData.length / 8); ++i) {
+      if (postData[i * 8].createTime === currentData[0].createTime) {
+        return i;
+      }
+    }
+  };
+
   console.log("현재 데이터", currentData);
 
   console.log("시작 시간", startTime);
   console.log("끝 시간", endTime);
-  console.log("뭐 데이터", postNumber);
+  console.log("뭐 데이터", postData);
 
   useEffect(() => {
     getRealTimePostData();
@@ -273,23 +278,24 @@ const Home = ({ userLocation }) => {
           <HomeStyle.PrevBtn
             onClick={() => onclickPageHandler(2)}
             clickDisable={
-              postNumber &&
+              postData &&
               currentData &&
-              postNumber[0].createTime !== currentData[0].createTime
+              postData[0].createTime !== currentData[0].createTime
                 ? true
                 : false
             }
           >
             <span class="material-symbols-outlined">chevron_left</span>
           </HomeStyle.PrevBtn>
-          {postNumber &&
-            new Array(Math.ceil(postNumber.length / 8))
-              .fill()
-              .map((i, l) => (
-                <HomeStyle.PageNumberBtn onClick={() => onclickPageNumber(l)}>
-                  {l + 1}
-                </HomeStyle.PageNumberBtn>
-              ))}
+          {postData &&
+            new Array(Math.ceil(postData.length / 8)).fill().map((i, l) => (
+              <HomeStyle.PageNumberBtn
+                onClick={() => onclickPageNumber(l)}
+                currentPage={findCurrentPage() === l}
+              >
+                {l + 1}
+              </HomeStyle.PageNumberBtn>
+            ))}
           <HomeStyle.NextBtn
             onClick={() => onclickPageHandler(1, selectSortMethod)}
             clickDisable={currentData.length < 8 ? false : true}

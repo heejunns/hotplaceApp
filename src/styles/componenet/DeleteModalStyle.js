@@ -46,13 +46,14 @@ export const DeleteModalBtn = styled.button`
   display: flex;
   justify-content: center;
   align-items: center;
+  color: white;
+  cursor: pointer;
 `;
 
 export const DeleteModalCancelBtn = styled(DeleteModalBtn)`
-  background-color: red;
-  color: white;
+  background-color: #a0a0a0;
 `;
 
 export const DeleteModalConfirmBtn = styled(DeleteModalBtn)`
-  background-color: greenyellow;
+  background-color: black;
 `;

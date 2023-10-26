@@ -20,7 +20,7 @@ export const MarkerBtnBox = styled.div`
 // 마커 버튼 스타일 태그
 export const MarkerBtn = styled.button`
   border-radius: 10px;
-  background: #a0a0a0;
+  background: black;
   border: none;
   padding: 10px;
   font-size: 20px;

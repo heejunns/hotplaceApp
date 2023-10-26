@@ -113,9 +113,9 @@ export const UploadEmptyImg = styled.label`
   & > span {
     cursor: pointer;
     font-size: 90px;
-    color: #a0a0a0;
+    color: black;
     &:hover {
-      color: black;
+      color: #a0a0a0;
     }
   }
 `;
@@ -204,7 +204,7 @@ export const CategoryBtn = styled.label`
   white-space: nowrap;
   cursor: pointer;
   background-color: ${(props) =>
-    props.userSelectCategory !== "" ? props.userSelectCategory : "white"};
+    props.userSelectCategory !== "" ? props.userSelectCategory : "#a0a0a0"};
   color: ${(props) => (props.userSelectCategory !== "" ? "white" : "black")};
   & > span {
     margin-left: 5px;
@@ -226,7 +226,7 @@ export const SubmitBtn = styled.input`
   align-items: center;
   border-radius: 10px;
   border: none;
-  background-color: #a0a0a0;
+  background-color: black;
   font-size: 20px;
   cursor: pointer;
   color: white;
@@ -266,10 +266,11 @@ export const MapBox = styled.div`
   border-radius: 10px;
   & > span {
     cursor: pointer;
+    color: white;
     font-size: 100px;
-    color: #a0a0a0;
+    color: black;
     &:hover {
-      color: black;
+      color: #a0a0a0;
     }
   }
 `;

@@ -81,4 +81,5 @@ export const TopPostItemLike = styled.div`
   color: black;
   cursor: pointer;
   font-size: 20px;
+  display: flex;
 `;
