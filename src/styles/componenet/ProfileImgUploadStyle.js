@@ -69,7 +69,6 @@ export const ProfileImgUploadModalBtnBox = styled.div`
   justify-content: space-between;
   align-items: center;
   padding: 0 20px;
-  /* position: relative; */
 `;
 
 export const ProfileImgUploadModalBtn = styled.button`
@@ -104,7 +103,7 @@ export const CancelBtn = styled.button`
 export const UploadImgCancelBtn = styled.button`
   border-radius: 50%;
   border: none;
-  background-color: #a0a0a0;
+  background-color: black;
   color: white;
   padding: 0;
   position: absolute;
@@ -112,13 +111,16 @@ export const UploadImgCancelBtn = styled.button`
   justify-content: center;
   align-items: center;
   top: 0;
-  right: 4px;
+  right: 10px;
   cursor: pointer;
+  &:hover {
+    background-color: #a0a0a0;
+  }
 `;
 
 export const UploadImgBtn = styled(ProfileImgUploadModalBtn)`
   border: none;
-  background-color: #6edcdc;
+  background-color: black;
   color: white;
 `;
 
@@ -130,15 +132,15 @@ export const SelectImgBtn = styled.label`
   align-items: center;
   border: 2px solid white;
   border-radius: 50%;
-  background-color: #a0a0a0;
+  background-color: black;
   color: white;
   white-space: nowrap;
   position: absolute;
   bottom: 0;
   right: 1px;
+  border: none;
   cursor: pointer;
   &:hover {
-    background-color: #6edcdc;
-    border: none;
+    background-color: #a0a0a0;
   }
 `;

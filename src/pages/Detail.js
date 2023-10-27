@@ -9,14 +9,13 @@ import {
 import PostMap from "../components/PostMap";
 import { useState } from "react";
 import { useCallback } from "react";
-import DeleteModal from "../components/PostDeleteModal";
 import EditModal from "../components/EditModal";
 import Comments from "../components/Comment";
 import { useEffect } from "react";
 import { doc, getDoc, updateDoc } from "firebase/firestore";
 import { dbService } from "../reactfbase";
 import PostDeleteModal from "../components/PostDeleteModal";
-import { Loading } from "../styles/componenet/LoadingStyle";
+import ReportModal from "../components/ReportModal";
 const Detail = () => {
   const user = useRecoilValue(userAtom);
   const data = useRecoilValue(clickPostItemData);
@@ -27,6 +26,7 @@ const Detail = () => {
   const [editData, setEditData] = useState(null);
   const [detailData, setDetailData] = useState(data);
   const [isChangeData, setIsChangeData] = useState(false);
+  const [isReportModal, setIsReportModal] = useState(false);
 
   console.log("디테일 데이터", data);
   const calculateTime = (data) => {
@@ -47,14 +47,14 @@ const Detail = () => {
   };
 
   // 게시글 삭제 버튼을 클릭하면 호출되는 콜백함수
-  const onclickDeleteButton = (data) => {
+  const onclickDeleteBtn = (data) => {
     document.body.style.overflow = "hidden";
     setIsPostDeleteModal((prev) => !prev);
     setPostDeleteData(data);
   };
 
   // 게시글 수정 폼을 화면에 보여주고 안보여주고 해주는 함수, 게시글 수정 버튼을 클릭하면 호출하는 콜백함수
-  const onclickEditButton = useCallback((data) => {
+  const onclickEditBtn = useCallback((data) => {
     setIsEditModal((prev) => !prev);
     setEditData(data);
     document.body.style.overflow = "hidden";
@@ -97,6 +97,11 @@ const Detail = () => {
     });
     setIsChangeData((prev) => !prev);
   };
+
+  const onclickReportBtn = () => {
+    document.body.style.overflow = "hidden";
+    setIsReportModal((prev) => !prev);
+  };
   console.log("디테일 데이터 아이디", data);
   return (
     <>
@@ -115,15 +120,18 @@ const Detail = () => {
                 {detailData && user && detailData.writer === user.uid && (
                   <>
                     <DetailStyle.DetailBtn
-                      onClick={() => onclickDeleteButton(data)}
+                      onClick={() => onclickDeleteBtn(data)}
                     >
                       <span class="material-symbols-outlined">delete</span>
                     </DetailStyle.DetailBtn>
-                    <DetailStyle.DetailBtn onClick={() => onclickEditButton()}>
+                    <DetailStyle.DetailBtn onClick={() => onclickEditBtn(data)}>
                       <span class="material-symbols-outlined">edit</span>
                     </DetailStyle.DetailBtn>
                   </>
                 )}
+                <DetailStyle.DetailBtn onClick={onclickReportBtn}>
+                  <span class="material-symbols-outlined">problem</span>
+                </DetailStyle.DetailBtn>
               </DetailStyle.DetailBtnBox>
               <DetailStyle.DetailTitleText>
                 {detailData && calculateTime(detailData)} /
@@ -177,6 +185,13 @@ const Detail = () => {
           setIsEditModal={setIsEditModal}
           editData={editData}
         ></EditModal>
+      )}
+      {isReportModal && (
+        <ReportModal
+          setIsReportModal={setIsReportModal}
+          postWriter={data.nickname}
+          postName={data.postName}
+        />
       )}
     </>
   );
