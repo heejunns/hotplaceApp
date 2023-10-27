@@ -61,6 +61,12 @@ html, css, styled-components, javascript, react, react-router react-spinners, uu
 
 <img src = "./images/pagination.png">
 
+### 게시물 신고 기능 : 서비스와 관련이 없는 게시글을 올렸거나 지속적으로 글을 올린다면 사용자가 신고하는 기능
+
+<img src = "./images/report.png">
+신고 내용이 데이터 베이스에 쌓여 신고 내용, 신고자, 게시글을 올린 사용자 이름, 게시글 제목을 확인 할 수 있다.
+<img src = "./images/reportdata.png">
+
 ### 개발하면서 어려웠지만 좀 더 배웠던 부분
 
 1. 혼자 개발의 힘든 점

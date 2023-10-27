@@ -57,7 +57,6 @@ export const NicknameOverlapCheckText = styled.div`
 `;
 
 export const ProfileNameEditBtnBox = styled.div`
-  margin-top: 10px;
   width: 100%;
   height: 60px;
   display: flex;
@@ -70,6 +69,7 @@ export const ProfileNameEditBtnBox = styled.div`
 `;
 export const ProfileNameEditModalBtn = styled.button`
   width: 120px;
+  color: white;
   height: 35px;
   display: flex;
   justify-content: center;
@@ -78,7 +78,6 @@ export const ProfileNameEditModalBtn = styled.button`
   white-space: nowrap;
   cursor: pointer;
   border: none;
-  /* position: relative; */
   @media screen and (max-width: 768px) {
     width: 100px;
     font-size: 12px;
@@ -101,11 +100,9 @@ export const CancelBtn = styled.button`
 `;
 
 export const NicknameoverlapCheckBtn = styled(ProfileNameEditModalBtn)`
-  background-color: #00afff;
-  color: black;
+  background-color: #a0a0a0;
 `;
 
 export const EditBtn = styled(ProfileNameEditModalBtn)`
-  background-color: #5bffb0;
-  color: black;
+  background-color: black;
 `;
