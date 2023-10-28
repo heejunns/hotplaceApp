@@ -11,6 +11,17 @@ export const TopPostBack = styled.div`
   align-items: center;
   position: relative;
   border-bottom: 1px solid black;
+  @media screen and (max-width: 768px) {
+    overflow-x: scroll;
+    ::-webkit-scrollbar {
+      width: 8px;
+      height: 8px;
+    }
+    ::-webkit-scrollbar-thumb {
+      background-color: #969696;
+      border-radius: 10px;
+    }
+  }
 `;
 
 export const TopPostBox = styled.div`
@@ -54,6 +65,9 @@ export const TopPostPrevBtn = styled(TopPostBtn)`
   left: 0;
   display: ${(props) => (props.topBoxPx === 0 ? "none" : "block")};
   color: black;
+  @media screen and (max-width: 768px) {
+    display: none;
+  }
 `;
 
 export const TopPostNextBtn = styled(TopPostBtn)`
@@ -61,6 +75,9 @@ export const TopPostNextBtn = styled(TopPostBtn)`
   color: black;
   right: 15px;
   display: ${(props) => (props.topBoxPx === -2400 ? "none" : "bloack")};
+  @media screen and (max-width: 768px) {
+    display: none;
+  }
 `;
 
 export const TopPostTitleBox = styled.div`

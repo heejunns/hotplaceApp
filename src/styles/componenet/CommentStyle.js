@@ -39,6 +39,7 @@ export const CommentSubmitButton = styled.button`
   font-size: 20px;
   white-space: nowrap;
   cursor: pointer;
+  color: black;
 `;
 
 // 아무 댓글이 없다면 보여질 스타일 태그
