@@ -97,7 +97,11 @@ const Map = ({ setUserMarkerLocation }) => {
     <>
       <MapStyle.MapImage id="map">맵 불러오는 중</MapStyle.MapImage>
       <MapStyle.MarkerBtnBox>
-        <MapStyle.MarkerBtn type="button" onClick={() => marker("MARKER")}>
+        <MapStyle.MarkerBtn
+          type="button"
+          onClick={() => marker("MARKER")}
+          // onTouchStart={() => marker("MARKER")}
+        >
           장소 마커하기 <span class="material-symbols-outlined">push_pin</span>
         </MapStyle.MarkerBtn>
       </MapStyle.MarkerBtnBox>
