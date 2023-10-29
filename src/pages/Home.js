@@ -109,19 +109,19 @@ const Home = ({ userLocation }) => {
   };
   // 실시간으로 데이터 베이스에 저장되어 있는 데이터를 가져온다.
   const getRealTimePostData = useCallback(async () => {
-    let q;
     try {
-      q = query(
+      const q = query(
         collection(dbService, "test"),
         orderBy("createTime", "desc") // createTime 기준으로 내림차순으로 정렬
       );
-      onSnapshot(q, (snapshot) => {
-        const data = [];
-        setCurrentData([]); // 새롭게 불러온 데이터를 저장하기 위해 현재 데이터를 초기화
-        snapshot.forEach((doc) => data.push({ ...doc.data(), id: doc.id }));
-        setPostData(data);
-        setCurrentData(data.slice(0, 8));
+
+      const querySnapshot = await getDocs(q);
+      const data = [];
+      querySnapshot.forEach((doc) => {
+        data.push({ ...doc.data(), id: doc.id });
       });
+      setPostData(data);
+      setCurrentData(data.slice(0, 8));
     } catch (e) {
       console.log(e);
     }
