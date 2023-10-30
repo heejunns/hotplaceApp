@@ -117,7 +117,7 @@ const CommentPost = ({ commentInfo, data, dataId, setIsChangeData }) => {
     <>
       <CommentItemBox>
         <CommentDelete onClick={onclickDeleteCommentButton}>
-          {user.displayName === commentInfo.commentWriter && (
+          {user && user.displayName === commentInfo.commentWriter && (
             <span class="material-symbols-outlined">delete</span>
           )}
         </CommentDelete>

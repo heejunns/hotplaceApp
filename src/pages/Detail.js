@@ -110,6 +110,9 @@ const Detail = () => {
           <DetailStyle.DetailTitleBox>
             <DetailStyle.DetailTitleText>
               {detailData && detailData.nickname} 님의 게시물
+              <DetailStyle.DetailWriterImgBox>
+                <img src={user.providerData[0].photoURL} alt="writerImg" />
+              </DetailStyle.DetailWriterImgBox>
             </DetailStyle.DetailTitleText>
             <DetailStyle.DetailTitleBoxRight>
               <DetailStyle.DetailBtn onClick={onclickLike}>
