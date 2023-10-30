@@ -35,8 +35,10 @@ export const DetailTitleBox = styled.div`
   }
 `;
 // 디테일 페이지의 타이틀 박스 안에 텍스트
-export const DetailTitleText = styled.span`
+export const DetailTitleText = styled.div`
   white-space: nowrap;
+  display: flex;
+  align-items: center;
 `;
 // 디테일 페이지의 이미지 박스
 export const DetailImgBox = styled.div`
@@ -123,3 +125,14 @@ export const DetailPostNameBox = styled.div`
 `;
 
 export const DetailPostName = styled.span``;
+
+export const DetailWriterImgBox = styled.div`
+  margin-left: 5px;
+  width: 20px;
+  height: 20px;
+  & > img {
+    border-radius: 100%;
+    width: 100%;
+    height: 100%;
+  }
+`;
