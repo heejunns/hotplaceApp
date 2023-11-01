@@ -11,12 +11,9 @@ const Comment = ({ data, dataId, setIsChangeData }) => {
   const user = useRecoilValue(userAtom);
   const [commentInput, setCommentInput] = useState(""); // 댓글 입력 state
 
-  const onchangeCommentInput = (event) => {
+  const onchangeCommentInput = ({ target: { value } }) => {
     // input 태그에 댓글을 입력할면 onchange 이벤트 발생
-    const {
-      target: { value },
-    } = event;
-    setCommentInput(value);
+    if (value.length < 101) setCommentInput(value);
   };
 
   // 댓글을 입력하고 댓글 게시 버튼을 클릭하면 호출
@@ -46,7 +43,15 @@ const Comment = ({ data, dataId, setIsChangeData }) => {
 
   return (
     <CommentStyle.CommentBack>
-      <CommentStyle.CommentTitle>댓글</CommentStyle.CommentTitle>
+      <CommentStyle.CommentTitleBox>
+        <CommentStyle.CommentTitle>댓글</CommentStyle.CommentTitle>
+        <CommentStyle.CommentInputLimit>
+          <CommentStyle.CommentInputLen>
+            {commentInput.length}
+          </CommentStyle.CommentInputLen>
+          / 100
+        </CommentStyle.CommentInputLimit>
+      </CommentStyle.CommentTitleBox>
       <CommentStyle.CommentForm onSubmit={onclickCommentSubmit}>
         <CommentStyle.CommentInput
           type="text"

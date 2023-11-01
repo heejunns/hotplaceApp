@@ -39,6 +39,7 @@ const ProfileNameEditModal = ({ setIsProfileNameEditModal }) => {
         return;
       }
       if (user.displayName !== inputNewNickname) {
+        // 변경 전 닉네임으로 등록된 게시물 전부다 가져오기
         const prevNickname = user.displayName;
         const q = query(
           collection(dbService, "test"),
@@ -49,12 +50,16 @@ const ProfileNameEditModal = ({ setIsProfileNameEditModal }) => {
         querySnapshot.forEach((doc) => {
           sameNicknamePostData.push({ id: doc.id, ...doc.data() });
         });
+
+        // 가지고 온 데이터에 nickname 새로운 닉네임으로 업데이트
         const smaeDataFuncs = sameNicknamePostData.map((item) => {
           return updateDoc(doc(dbService, "test", item.id), {
             nickname: inputNewNickname,
           });
         });
         await axios.all(smaeDataFuncs);
+
+        // nicknameDB 에 변경한 닉네임 저장
         const docRef = doc(dbService, "test", "nicknameDB");
         const docSnap = await getDoc(docRef);
         const newNicknameData = [...docSnap.data().data, inputNewNickname];
@@ -65,11 +70,6 @@ const ProfileNameEditModal = ({ setIsProfileNameEditModal }) => {
           displayName: inputNewNickname,
         });
       }
-      // 현재 유저의 정보를 필요한것만 업로드 하기
-      // setCurrentUser({
-      //   uid: authService.currentUser.uid,
-      //   displayName: authService.currentUser.displayName,
-      // });
       const newUser = JSON.parse(JSON.stringify(authService.currentUser));
       setUser(newUser);
       setInputNewNickname("");
@@ -88,17 +88,13 @@ const ProfileNameEditModal = ({ setIsProfileNameEditModal }) => {
         return;
       }
       if (docSnap.exists()) {
-        console.log(
-          "Document data:",
-          docSnap.data().data.includes(inputNewNickname)
-        );
         if (docSnap.data().data.includes(inputNewNickname)) {
           setIsNicknameOverlapCheck(false);
         } else {
           setIsNicknameOverlapCheck(true);
         }
       } else {
-        console.log("No such document!");
+        console.log("document 를 찾을 수 없습니다.");
       }
     } catch (e) {
       console.log(e);

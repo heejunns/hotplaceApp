@@ -65,6 +65,7 @@ const PostUpload = ({ userLocation }) => {
         inputText, // 게시글
         createTime: Date.now(), // 생성 날짜
         writer: user.uid, // 작성한 작성자의 uid
+        writerProfileImg: user.providerData[0].photoURL,
         uploadImgUrl: getUploadFileURL, // 업로드한 이미지의 url
         nickname: user.displayName, // 작성자의 닉네임
         location: userMarkerLocation, // 작성자가 맵에 마커한 위치 정보

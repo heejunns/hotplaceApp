@@ -59,3 +59,17 @@ export const CommentBox = styled.div`
   overflow: auto;
   padding-right: 20px;
 `;
+
+export const CommentTitleBox = styled.div`
+  display: flex;
+`;
+
+export const CommentInputLimit = styled.div`
+  display: flex;
+  margin-left: 10px;
+  font-size: 30px;
+`;
+
+export const CommentInputLen = styled.div`
+  color: #a0a0a0;
+`;
