@@ -28,7 +28,6 @@ const Profile = () => {
   const [user, setUser] = useRecoilState(userAtom);
   console.log("user", user);
   const [userUploadData, setUserUploadData] = useState([]); // 해당 유저가 작성한 게시글만 가져와서 저장하는 state
-  const [newNickname, setNewNickname] = useState(user.displayName); // 해당 유저의 닉네임을 저장하는 state
   const profileImg = user.photoURL;
   const [selectMenu, setSelectMenu] = useState("1");
   const [isProfileImgUploadModal, setIsProfileImgUploadModal] = useState(false);
@@ -40,9 +39,7 @@ const Profile = () => {
 
   // 해당 유저가 작성한 글을 실시간으로 가져오기
 
-  const getRealtimeUserData = async () => {
-    console.log("hello");
-    console.log("user id", user.uid);
+  const getUserData = async () => {
     const q = query(
       collection(dbService, "test"),
       where("writer", "==", user.uid),
@@ -51,10 +48,8 @@ const Profile = () => {
     const docSnap = await getDocs(q);
     const profileData = [];
     docSnap.forEach((doc) => {
-      console.log("데이터", doc.data());
       profileData.push({ id: doc.id, ...doc.data() });
     });
-    console.log("프로필 데이터", profileData);
     setUserUploadData(profileData);
   };
   const getUserLikePost = async () => {
@@ -62,33 +57,28 @@ const Profile = () => {
     const q = query(
       collection(dbService, "test"),
       where("likeMember", "array-contains", user.uid)
-      // orderBy("createTime", "desc")
     );
-
     const docSnap = await getDocs(q);
     const profileData = [];
     docSnap.forEach((doc) => {
-      console.log("데이터", doc.data());
       profileData.push({ id: doc.id, ...doc.data() });
     });
     setUserUploadData(profileData);
   };
-  console.log("이미지 url", user.photoURL);
+
   const onclickSelectMenu = (e) => {
     const { id } = e.target;
     setSelectMenu(id);
-    console.log("type", typeof id);
     if (id === "1") {
-      getRealtimeUserData();
+      getUserData();
     } else if (id === "2") {
       getUserLikePost();
     }
   };
 
   useEffect(() => {
-    getRealtimeUserData();
+    getUserData();
   }, [isProfileNameEditModal]);
-  console.log("프로필 이미지", profileImg);
   return (
     <>
       {" "}

@@ -36,9 +36,13 @@ export const DetailTitleBox = styled.div`
 `;
 // 디테일 페이지의 타이틀 박스 안에 텍스트
 export const DetailTitleText = styled.div`
+  font-size: 30px;
   white-space: nowrap;
   display: flex;
   align-items: center;
+  @media screen and (max-width: 768px) {
+    font-size: 25px;
+  }
 `;
 // 디테일 페이지의 이미지 박스
 export const DetailImgBox = styled.div`
@@ -127,12 +131,17 @@ export const DetailPostNameBox = styled.div`
 export const DetailPostName = styled.span``;
 
 export const DetailWriterImgBox = styled.div`
-  margin-left: 5px;
-  width: 20px;
-  height: 20px;
+  margin-right: 5px;
+  width: 30px;
+  height: 30px;
+
   & > img {
     border-radius: 100%;
     width: 100%;
     height: 100%;
+  }
+  @media screen and (max-width: 768px) {
+    width: 25px;
+    height: 25px;
   }
 `;

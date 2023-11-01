@@ -110,8 +110,8 @@ export const UploadImgCancelBtn = styled.button`
   display: flex;
   justify-content: center;
   align-items: center;
-  top: 0;
-  right: 10px;
+  top: 8px;
+  right: 0;
   cursor: pointer;
   &:hover {
     background-color: #a0a0a0;
