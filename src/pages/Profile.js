@@ -26,13 +26,13 @@ import ProfileNameEditModal from "../components/ProfileNameEditModal";
 
 const Profile = () => {
   const [user, setUser] = useRecoilState(userAtom);
-  console.log("user", user);
+
   const [userUploadData, setUserUploadData] = useState([]); // 해당 유저가 작성한 게시글만 가져와서 저장하는 state
   const profileImg = user.photoURL;
   const [selectMenu, setSelectMenu] = useState("1");
   const [isProfileImgUploadModal, setIsProfileImgUploadModal] = useState(false);
   const [isProfileNameEditModal, setIsProfileNameEditModal] = useState(false);
-  console.log("유저 데이터", userUploadData);
+
   const onclickProfileImgUploadIcon = () => {
     setIsProfileImgUploadModal((prev) => !prev);
   };
@@ -53,7 +53,6 @@ const Profile = () => {
     setUserUploadData(profileData);
   };
   const getUserLikePost = async () => {
-    console.log("hello");
     const q = query(
       collection(dbService, "test"),
       where("likeMember", "array-contains", user.uid)

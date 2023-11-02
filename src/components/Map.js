@@ -53,7 +53,6 @@ const Map = ({ setUserMarkerLocation }) => {
       manager.addListener("remove", () => {
         // 마커를 삭제하면 이벤트 발생
         const data = manager.getData();
-        console.log("삭제", data);
         if (data.marker.length > 0) {
           // 불러온 데이터의 marker 에 데이터가 있다면
           setUserMarkerLocation([data.marker[0].y, data.marker[0].x]); // 마커로 지정한 좌표를 state 로 업데이트
@@ -84,15 +83,12 @@ const Map = ({ setUserMarkerLocation }) => {
   );
 
   useEffect(() => {
-    console.log("네비게이터", navigator.geolocation);
-
     if (navigator.geolocation) {
       // 위치가 있다면
       navigator.geolocation.getCurrentPosition(getLocation);
     }
   }, [getLocation]);
 
-  console.log(marker);
   return (
     <>
       <MapStyle.MapImage id="map">맵 불러오는 중</MapStyle.MapImage>

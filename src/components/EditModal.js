@@ -89,7 +89,6 @@ const EditModal = ({ setIsEditModal, editData }) => {
       console.log(e);
     }
   };
-  console.log("hello", inputText);
   return (
     <EditModalBack>
       <EditModalBox>

@@ -66,7 +66,6 @@ export const TopPostItemPostName = styled.div`
   margin-top: 10px;
   width: 100%;
   word-break: break-all;
-  /* height: 70px; */
   overflow: hidden;
   text-overflow: ellipsis;
   display: -webkit-box;
@@ -82,4 +81,7 @@ export const TopPostItemLike = styled.div`
   cursor: pointer;
   font-size: 20px;
   display: flex;
+  & > span {
+    margin-right: 5px;
+  }
 `;

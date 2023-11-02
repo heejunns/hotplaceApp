@@ -19,7 +19,6 @@ import ReportModal from "../components/ReportModal";
 const Detail = () => {
   const user = useRecoilValue(userAtom);
   const data = useRecoilValue(clickPostItemData);
-  console.log("data", data);
   const [isPostDeleteModal, setIsPostDeleteModal] = useState(false);
   const [postDeleteData, setPostDeleteData] = useState(null);
   const [isEditModal, setIsEditModal] = useState(false); // 게시글 수정 모드를 사용하고 있는지 여부 state
@@ -27,8 +26,6 @@ const Detail = () => {
   const [detailData, setDetailData] = useState(data);
   const [isChangeData, setIsChangeData] = useState(false);
   const [isReportModal, setIsReportModal] = useState(false);
-
-  console.log("디테일 데이터", data);
   const calculateTime = (data) => {
     // 게시글을 올린지 얼마나 지났는지 시간을 계산하는 함수
     const minute = (Date.now() - data.createTime) / 1000 / 60;
@@ -65,7 +62,6 @@ const Detail = () => {
       try {
         const docRef = doc(dbService, "test", data.id);
         const docSnap = await getDoc(docRef);
-        console.log("컴온", docSnap.data());
         setDetailData(docSnap.data());
       } catch (e) {
         console.log(e);
@@ -74,8 +70,6 @@ const Detail = () => {
     getDetailData();
   }, [isChangeData]);
   const onclickLike = async () => {
-    console.log("좋아요 클릭 멤버", detailData.likeMember);
-    console.log("유저 아이디", user);
     let newLikeMember;
     if (
       detailData.likeMember.length === 0 ||
@@ -88,9 +82,6 @@ const Detail = () => {
       });
     }
 
-    console.log("멤버", newLikeMember);
-    console.log("멤버 수", newLikeMember.length);
-
     await updateDoc(doc(dbService, "test", data.id), {
       likeMember: newLikeMember,
       likeNumber: newLikeMember.length,
@@ -102,7 +93,7 @@ const Detail = () => {
     document.body.style.overflow = "hidden";
     setIsReportModal((prev) => !prev);
   };
-  console.log("디테일 데이터 아이디", data);
+
   return (
     <>
       <DetailStyle.DetailBack>

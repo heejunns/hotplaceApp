@@ -1,16 +1,15 @@
 import { signOut } from "firebase/auth";
-import React, { useCallback, useState } from "react";
+import React, { useState } from "react";
 import { Link, useNavigate } from "react-router-dom";
 // import styled from "styled-components";
 import { authService } from "../reactfbase";
-import { useRecoilState, useRecoilValue, useSetRecoilState } from "recoil";
-import { hamburgerBtnClick, userAtom } from "../recoils/UserAtom";
+import { useRecoilValue } from "recoil";
+import { userAtom } from "../recoils/UserAtom";
 import * as HeaderStyle from "../styles/componenet/HeaderStyle";
 
 const Header = ({ userLocation }) => {
   const [clickHamburgerBtn, setClickHamburgerBtn] = useState(false);
   const user = useRecoilValue(userAtom);
-  console.log("user", user);
   const navigate = useNavigate(); // useNavigate 훅스를 사용해서 로그 아웃시 "/" 주소로 강제 이동
   // 로그아웃 버튼을 클릭하면 호출되는 콜백 함수
   const onclickLogoutButton = async () => {
