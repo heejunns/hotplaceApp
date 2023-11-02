@@ -18,6 +18,7 @@ export const CommentTitle = styled.h3`
 export const CommentForm = styled.form`
   display: flex;
   justify-content: center;
+  position: relative;
 `;
 // 댓글을 입력하는 input 의 스타일 태그
 export const CommentInput = styled.textarea`
@@ -31,12 +32,15 @@ export const CommentInput = styled.textarea`
 `;
 // 댓글을 입력하고 댓글을 게시하는 버튼의 스타일 태그
 export const CommentSubmitButton = styled.button`
+  position: absolute;
+  bottom: 10px;
+  right: 10px;
   border: 3px solid black;
   margin-left: 1rem;
   border-radius: 10px;
-  height: 100px;
+  padding: 5px;
   background: white;
-  font-size: 20px;
+  font-size: 18px;
   white-space: nowrap;
   cursor: pointer;
   color: black;

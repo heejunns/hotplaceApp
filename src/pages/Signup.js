@@ -49,15 +49,9 @@ const Signup = () => {
         return;
       }
       if (docSnap.exists()) {
-        console.log(
-          "Document data:",
-          docSnap.data().data.includes(inputNewNickname)
-        );
         if (docSnap.data().data.includes(inputNewNickname)) {
           setIsNicknameOverlap(false);
-          console.log("hello");
         } else {
-          console.log("하하호호");
           setIsNicknameOverlap(true);
         }
       } else {
@@ -69,7 +63,6 @@ const Signup = () => {
     }
   };
 
-  console.log("nickname", inputNewNickname);
   // 이메일과 비밀번호, 비밀번호확인을 입력하고 회원가입 버튼을 클릭하면 호출
   const onsubmitSignUpButton = async (e) => {
     try {
@@ -98,7 +91,6 @@ const Signup = () => {
       document.body.style.overflow = "";
       setIsSignSuccessModal((prev) => !prev);
       navigate("/login");
-      console.log(createData);
     } catch (e) {
       console.log(e.message);
       switch (e.code) {

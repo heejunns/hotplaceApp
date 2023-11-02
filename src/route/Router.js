@@ -3,7 +3,6 @@ import { HashRouter as Router, Route, Routes } from "react-router-dom";
 import Home from "../pages/Home";
 import LoginForm from "../pages/LoginForm";
 import Profile from "../pages/Profile";
-import PropTypes from "prop-types";
 import Signup from "../pages/Signup";
 import Header from "../components/Header";
 import { useRecoilValue } from "recoil";
@@ -14,7 +13,6 @@ import Detail from "../pages/Detail";
 
 const AppRouter = ({ userLocation }) => {
   const user = useRecoilValue(userAtom);
-  console.log(user);
   return (
     <>
       <Router>

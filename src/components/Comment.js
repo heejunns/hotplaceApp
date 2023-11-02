@@ -19,8 +19,6 @@ const Comment = ({ data, dataId, setIsChangeData }) => {
   // 댓글을 입력하고 댓글 게시 버튼을 클릭하면 호출
   const onclickCommentSubmit = async (e) => {
     e.preventDefault();
-    console.log(typeof dataId, "뭐요");
-    console.log("data id??????", dataId);
     if (commentInput.length === 0) {
       alert("댓글을 입력하세요!");
       return;
@@ -60,7 +58,7 @@ const Comment = ({ data, dataId, setIsChangeData }) => {
           onChange={onchangeCommentInput}
         />
         <CommentStyle.CommentSubmitButton>
-          댓글 게시
+          등록
         </CommentStyle.CommentSubmitButton>
       </CommentStyle.CommentForm>
       <CommentStyle.CommentBox>

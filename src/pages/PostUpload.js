@@ -58,7 +58,6 @@ const PostUpload = ({ userLocation }) => {
 
         getUploadFileURL = await getDownloadURL(storageRef); // 이미지 url 불러오기
       }
-      console.log("geturl", getUploadFileURL);
 
       await addDoc(collection(dbService, "test"), {
         // 데이터베이스에 저장
@@ -107,7 +106,6 @@ const PostUpload = ({ userLocation }) => {
     };
   }, []);
 
-  console.log("업로드", uploadImageFileURL);
   // 선택한 이미지를 삭제 버튼을 클릭하면 호출
   const onclickUploadFileDelete = useCallback(() => {
     setUploadImageFileURL("");

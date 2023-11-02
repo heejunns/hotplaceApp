@@ -12,24 +12,17 @@ import {
   startAfter,
   endBefore,
 } from "firebase/firestore";
-import { useRecoilValue } from "recoil";
-import { hamburgerBtnClick } from "../recoils/UserAtom";
 import * as HomeStyle from "../styles/pages/HomeStyle";
 import PostItem from "../components/PostItem";
-import DeleteModal from "../components/PostDeleteModal";
 import TopPost from "../components/TopPost";
-import NoUserClickModal from "../components/NoUserClickModal";
 
 const Home = ({ userLocation }) => {
   const [currentData, setCurrentData] = useState([]);
   const [selectSortMethod, setSelectSortMethod] = useState("전체 게시글 보기");
   const [isSelectSort, setIsSelectSort] = useState(false);
-  const [startTime, setStartTime] = useState("");
-  const [endTime, setEndTime] = useState("");
   const selectSortMethodBtnRef = useRef();
   const selectSortMethodListRef = useRef();
   const [postData, setPostData] = useState(null);
-  const [pageNationData, setPageNationData] = useState();
 
   useEffect(() => {
     const outSideClick = (e) => {
@@ -91,7 +84,6 @@ const Home = ({ userLocation }) => {
     return queryContent;
   };
   const onclickSelectSortChange = async (selectMethod) => {
-    console.log("select method", selectMethod);
     try {
       setSelectSortMethod(selectMethod);
       setIsSelectSort((prev) => !prev);
@@ -127,34 +119,21 @@ const Home = ({ userLocation }) => {
     }
   }, []);
 
-  const onclickPageHandler = async (mode, selectMethod) => {
+  const onclickPageHandler = async (mode) => {
     try {
-      let q;
-      if (mode === 1) {
-        q = query(
-          collection(dbService, "test"),
-          orderBy("createTime", "desc"), // createTime 기준으로 내림차순으로 정렬
-          limit(8),
-          startAfter(currentData[currentData.length - 1].createTime)
-        );
-      } else if (mode === 2) {
-        q = query(
-          collection(dbService, "test"),
-          orderBy("createTime"), // createTime 기준으로 내림차순으로 정렬
-          limit(8),
-          startAfter(currentData[0].createTime)
-        );
-      }
-      console.log("q", q);
+      let q = query(
+        collection(dbService, "test"),
+        orderBy("createTime", "desc"), // createTime 기준으로 내림차순으로 정렬
+        limit(8),
+        mode === 1
+          ? endBefore(currentData[0].createTime)
+          : startAfter(currentData[currentData.length - 1].createTime)
+      );
       const querySnapshot = await getDocs(q);
       const postData = [];
       querySnapshot.forEach((doc) => {
         postData.push({ id: doc.id, ...doc.data() });
       });
-      console.log("hello", postData);
-      if (mode === 2) {
-        postData.reverse();
-      }
       setCurrentData(postData);
     } catch (e) {
       console.log(e);
@@ -162,21 +141,19 @@ const Home = ({ userLocation }) => {
   };
 
   const onclickPageNumber = async (pageNumber) => {
-    let q;
-    console.log("왜", pageNumber);
     try {
-      q = query(
+      let q = query(
         collection(dbService, "test"),
         orderBy("createTime", "desc"), // createTime 기준으로 내림차순으로 정렬
         limit(8),
         startAt(postData[pageNumber * 8].createTime)
       );
-      onSnapshot(q, (snapshot) => {
-        const postData = [];
-        setCurrentData([]); // 새롭게 불러온 데이터를 저장하기 위해 현재 데이터를 초기화
-        snapshot.forEach((doc) => postData.push({ ...doc.data(), id: doc.id }));
-        setCurrentData(postData);
+      const querySnapshot = await getDocs(q);
+      const data = [];
+      querySnapshot.forEach((doc) => {
+        data.push({ id: doc.id, ...doc.data() });
       });
+      setCurrentData(data);
     } catch (e) {
       console.log(e);
     }
@@ -190,17 +167,9 @@ const Home = ({ userLocation }) => {
     }
   };
 
-  console.log("현재 데이터", currentData);
-
-  console.log("시작 시간", startTime);
-  console.log("끝 시간", endTime);
-  console.log("뭐 데이터", postData);
-
   useEffect(() => {
     getRealTimePostData();
   }, []);
-
-  console.log("select", selectSortMethod);
 
   return (
     <>
@@ -229,7 +198,6 @@ const Home = ({ userLocation }) => {
             </HomeStyle.SelectSortMethodItem>
             <HomeStyle.SelectSortMethodItem
               onClick={() => {
-                console.log("카페 게시글 보기");
                 onclickSelectSortChange("카페 게시글 보기");
               }}
             >
@@ -276,7 +244,7 @@ const Home = ({ userLocation }) => {
         )}
         <HomeStyle.PageNationBox>
           <HomeStyle.PrevBtn
-            onClick={() => onclickPageHandler(2)}
+            onClick={() => onclickPageHandler(1)}
             clickDisable={
               postData &&
               currentData &&
@@ -297,7 +265,7 @@ const Home = ({ userLocation }) => {
               </HomeStyle.PageNumberBtn>
             ))}
           <HomeStyle.NextBtn
-            onClick={() => onclickPageHandler(1, selectSortMethod)}
+            onClick={() => onclickPageHandler(2)}
             clickDisable={currentData.length < 8 ? false : true}
           >
             <span class="material-symbols-outlined">chevron_right</span>

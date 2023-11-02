@@ -8,7 +8,7 @@ import CommentDeleteModal from "./CommentDeleteModal";
 
 // 댓글 레이아웃 스타일 태그
 const CommentItemBox = styled.div`
-  border: 1px solid black;
+  border: 3px solid black;
   border-radius: 10px;
   width: 100%;
   padding: 10px;
@@ -21,13 +21,9 @@ const CommentItemBox = styled.div`
 const CommentDelete = styled.span`
   float: right;
   cursor: pointer;
-
   & > span {
-    &:hover {
-      color: red;
-    }
     font-size: 30px;
-    color: mediumorchid;
+    color: black;
   }
 `;
 // 댓글 작성자를 보여주는 스타일 태그
@@ -38,19 +34,21 @@ const CommentValue = styled.div`
 `;
 // 댓글에서 좋아요 스타일 태그
 const CommentLike = styled.div`
-  margin-top: 0.5rem;
-  color: mediumorchid;
-  &:hover {
-    color: red;
-  }
+  display: flex;
+  align-items: center;
+  font-size: 20px;
+  margin-top: 15px;
   cursor: pointer;
+  color: black;
+  & > span {
+    font-size: 20px;
+    margin-right: 10px;
+  }
 `;
 
 const CommentPost = ({ commentInfo, data, dataId, setIsChangeData }) => {
   const user = useRecoilValue(userAtom);
   // 댓글에서 좋아요 버튼을 클릭하면 호출
-  console.log("user", user);
-  console.log("commentInfo", commentInfo);
   const [isCommentDeleteModal, setIsCommentDeleteModal] = useState(false);
   const onclickLikeButton = async () => {
     const newComments = data.comments.map((comment) => {
@@ -126,7 +124,8 @@ const CommentPost = ({ commentInfo, data, dataId, setIsChangeData }) => {
         </CommentWriter>
         <CommentValue>{commentInfo.commentValue} </CommentValue>
         <CommentLike onClick={onclickLikeButton}>
-          &#9829; {commentInfo.commentLikeMember.length}
+          <span class="material-symbols-outlined">favorite</span>
+          {commentInfo.commentLikeMember.length}
         </CommentLike>
       </CommentItemBox>
       {isCommentDeleteModal && (

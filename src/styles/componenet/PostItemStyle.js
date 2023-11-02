@@ -73,6 +73,9 @@ export const PostItemLike = styled.div`
   cursor: pointer;
   font-size: 20px;
   display: flex;
+  & > span {
+    margin-right: 5px;
+  }
 `;
 
 export const ProfileImg = styled.div`

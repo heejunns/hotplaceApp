@@ -9,7 +9,6 @@ const ReportModal = ({ setIsReportModal, postWriter, postName }) => {
   const [inputReportText, setInputReportText] = useState("");
 
   const onchangeReportText = ({ target: { value } }) => {
-    console.log(value);
     setInputReportText(value);
   };
 
@@ -26,7 +25,6 @@ const ReportModal = ({ setIsReportModal, postWriter, postName }) => {
           reportText: inputReportText,
         },
       ];
-      console.log("신고 데이터", newReportData);
       await setDoc(reportdbRef, {
         data: newReportData,
       });
