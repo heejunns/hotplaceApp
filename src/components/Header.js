@@ -41,6 +41,12 @@ const Header = ({ userLocation }) => {
             </HeaderStyle.HeaderBoxItem>
           </Link>
         )}
+        <Link to="/certification" style={{ textDecoration: "none" }}>
+          <HeaderStyle.HeaderBoxItem>
+            사장님 인증하기
+            <span class="material-symbols-outlined">verified_user</span>
+          </HeaderStyle.HeaderBoxItem>
+        </Link>
       </HeaderStyle.HeaderMenuBox>
 
       <HeaderStyle.HeaderUserInfoBox>

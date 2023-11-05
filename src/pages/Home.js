@@ -2,7 +2,6 @@ import React, { useCallback, useEffect, useRef, useState } from "react";
 import { dbService } from "../reactfbase";
 import {
   collection,
-  onSnapshot,
   query,
   orderBy,
   where,
@@ -40,9 +39,6 @@ const Home = ({ userLocation }) => {
     document.addEventListener("mousedown", outSideClick);
   }, [isSelectSort]);
 
-  const onclickSelectSortMethod = () => {
-    setIsSelectSort((prev) => !prev);
-  };
   const queryMake = (selectMethod) => {
     let queryContent;
     if (selectMethod === "전체 게시글 보기") {
