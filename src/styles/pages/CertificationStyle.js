@@ -5,20 +5,27 @@ export const CertificationBack = styled.div`
   height: 100%;
   display: flex;
   justify-content: center;
+  padding: 0px 10px 20px 10px;
+  @media screen and (max-width: 768px) {
+    padding: 20px;
+  }
 `;
 
-export const CertificationBox = styled.div`
-  border: 1px solid black;
+export const CertificationFormBox = styled.form`
   width: 100%;
-  max-width: 1200px;
+  max-width: 1000px;
   display: flex;
   flex-direction: column;
+  @media screen and (max-width: 768px) {
+    margin-top: 30px;
+  }
 `;
 
 export const LabelElement = styled.label`
-  font-size: 20px;
+  font-size: 30px;
 `;
 export const InputElement = styled.input`
+  margin-top: 10px;
   border: 2px solid #a0a0a0;
   border-radius: 10px;
   height: 50px;
@@ -28,8 +35,11 @@ export const InputElement = styled.input`
   }
 `;
 export const CertificationItemBox = styled.div`
+  padding-bottom: 20px;
+  border-bottom: 1px solid grey;
   display: flex;
   flex-direction: column;
+  margin-top: 20px;
 `;
 
 export const CompanyNameLabel = styled(LabelElement)``;
@@ -47,6 +57,9 @@ export const CeoEmailLabel = styled(LabelElement)``;
 
 export const BusinessCategoryBox = styled.div`
   display: flex;
+  flex-direction: column;
+  margin-top: 20px;
+  width: 100%;
 `;
 
 export const BusinessCategoryInput = styled.input`
@@ -54,6 +67,7 @@ export const BusinessCategoryInput = styled.input`
 `;
 
 export const BusinessCategoryLabel = styled(LabelElement)`
+  font-size: 18px;
   width: 100px;
   padding: 10px;
   display: flex;
@@ -65,11 +79,11 @@ export const BusinessCategoryLabel = styled(LabelElement)`
   white-space: nowrap;
   cursor: pointer;
   background-color: ${(props) =>
-    props.currentSelecetCategory !== ""
+    props.currentSelectCategory === "black"
       ? props.currentSelectCategory
       : "#a0a0a0"};
   color: ${(props) =>
-    props.currentSelecetCategory !== "" ? "white" : "black"};
+    props.currentSelectCategory === "black" ? "white" : "black"};
   & > span {
     margin-left: 5px;
   }
@@ -77,4 +91,36 @@ export const BusinessCategoryLabel = styled(LabelElement)`
   &:nth-child(2) {
     margin-right: 10px;
   }
+`;
+
+export const BusinessCategoryTitle = styled.h1`
+  font-size: 30px;
+`;
+
+export const BusinessCategoryItemBox = styled.div`
+  padding-bottom: 20px;
+  border-bottom: 1px solid grey;
+  margin-top: 10px;
+  width: 100%;
+  display: flex;
+`;
+export const CertificationBtnBox = styled.div`
+  padding-top: 20px;
+  width: 100%;
+  display: flex;
+  justify-content: center;
+`;
+export const CertificationSubmitBtn = styled.button`
+  /* width: 100%; */
+  width: 150px;
+  height: 50px;
+  border-radius: 10px;
+  background-color: black;
+  color: white;
+  font-size: 25px;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  border: none;
+  cursor: pointer;
 `;
