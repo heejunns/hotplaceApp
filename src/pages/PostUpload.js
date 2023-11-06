@@ -23,8 +23,7 @@ const PostUpload = ({ userLocation }) => {
   const [isLoading, setIsLoading] = useState(false);
   const [inputPostTitle, setInputPostTitle] = useState("");
   // 매장 이름 작성하는 input 태그에 걸어 둔 onchange 함수
-  const onchangeInputPostTitle = (e) => {
-    const { value } = e.target;
+  const onchangeInputPostTitle = ({ target: { value } }) => {
     if (value.length > 20) {
       return;
     }
@@ -32,8 +31,7 @@ const PostUpload = ({ userLocation }) => {
   };
 
   // 자세한 설명 작성하는 textarea 태그에 걸어 둔 onchange 함수
-  const onchangeInputText = useCallback((event) => {
-    const { value } = event.target;
+  const onchangeInputText = useCallback(({ target: { value } }) => {
     if (value.length > 100) {
       return;
     }
@@ -41,8 +39,7 @@ const PostUpload = ({ userLocation }) => {
   }, []);
 
   // 게시글에 올리는 가게의 종류를 고르면 호출되는(라디오) onchange 콜백 함수
-  const onchangeUserSelectCategory = useCallback((event) => {
-    const { id } = event.target;
+  const onchangeUserSelectCategory = useCallback(({ target: { id } }) => {
     setUserSelectCategory(id);
   }, []);
   // 작성한 글을 등록하기 위해 버튼을 클릭했을때 호출되는 콜백함수
@@ -92,11 +89,8 @@ const PostUpload = ({ userLocation }) => {
     }
   };
 
-  const onchangeImageUpload = useCallback((event) => {
+  const onchangeImageUpload = useCallback(({ target: { files } }) => {
     // 사진 파일을 선택했을때 선택한 사진을 화면에 보여주는 코드
-    const {
-      target: { files },
-    } = event;
     const uploadFile = files[0];
     // 파일을 읽어오기 위해서 fileReader API 를 사용하기
     const reader = new FileReader(); // 파일리더 생성
@@ -188,7 +182,7 @@ const PostUpload = ({ userLocation }) => {
                 <PostUploadStyle.InputCategory
                   id="cafe"
                   type="radio"
-                  name="cafe"
+                  name="category"
                   onChange={onchangeUserSelectCategory}
                 />
               </PostUploadStyle.CategoryBtn>
@@ -202,7 +196,7 @@ const PostUpload = ({ userLocation }) => {
                 <PostUploadStyle.InputCategory
                   id="food"
                   type="radio"
-                  name="cafe"
+                  name="category"
                   onChange={onchangeUserSelectCategory}
                 />
               </PostUploadStyle.CategoryBtn>
@@ -216,7 +210,7 @@ const PostUpload = ({ userLocation }) => {
                 <PostUploadStyle.InputCategory
                   id="mart"
                   type="radio"
-                  name="cafe"
+                  name="category"
                   onChange={onchangeUserSelectCategory}
                 />
               </PostUploadStyle.CategoryBtn>

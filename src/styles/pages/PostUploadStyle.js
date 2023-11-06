@@ -1,13 +1,14 @@
 import styled from "styled-components";
 // 게시글 올리는 페이지의 배경 스타일 태그
 export const PostUploadBack = styled.div`
+  padding: 0px 10px 20px 10px;
   font-family: "Tilt Neon", sans-serif;
   width: 100%;
-  background-color: white;
-  padding: 30px 10px;
   display: flex;
   justify-content: center;
-  z-index: 100;
+  @media screen and (max-width: 768px) {
+    padding: 20px;
+  }
 `;
 
 // 게시글 올리기 폼 컨테이너
@@ -31,7 +32,7 @@ export const PostUploadPostNameBox = styled.div`
   flex-direction: column;
 `;
 export const PostUploadPostNameTitle = styled.h1`
-  font-size: 20px;
+  font-size: 30px;
 
   margin-right: 20px;
 `;
@@ -64,7 +65,7 @@ export const ImgFileSelectInput = styled.input`
 `;
 // 이미지 업로드 제목
 export const ImgFileSelectTitle = styled.h1`
-  font-size: 20px;
+  font-size: 30px;
 `;
 // 업로드 이미지
 export const UploadImg = styled.img`
@@ -154,7 +155,7 @@ export const InputPostText = styled.textarea`
 `;
 //
 export const InputTextBoxTitle = styled.h1`
-  font-size: 20px;
+  font-size: 30px;
   margin-right: 20px;
 `;
 // 현재 입력한 글자 수
@@ -180,7 +181,7 @@ export const PostUploadCategoryBox = styled.div`
 `;
 // 카테고리 선택 제목
 export const CategoryTitle = styled.h1`
-  font-size: 20px;
+  font-size: 30px;
 `;
 // 카테고리 선택 input
 export const InputCategory = styled.input`
@@ -240,7 +241,7 @@ export const PostUploadMapBox = styled.div`
 `;
 
 export const MapBoxTitle = styled.h1`
-  font-size: 20px;
+  font-size: 30px;
 `;
 
 export const PostUploadSubmitBox = styled.div`

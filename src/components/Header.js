@@ -41,12 +41,14 @@ const Header = ({ userLocation }) => {
             </HeaderStyle.HeaderBoxItem>
           </Link>
         )}
-        <Link to="/certification" style={{ textDecoration: "none" }}>
-          <HeaderStyle.HeaderBoxItem>
-            사장님 인증하기
-            <span class="material-symbols-outlined">verified_user</span>
-          </HeaderStyle.HeaderBoxItem>
-        </Link>
+        {user && user.displayName && (
+          <Link to="/certification" style={{ textDecoration: "none" }}>
+            <HeaderStyle.HeaderBoxItem>
+              사장님 인증하기
+              <span class="material-symbols-outlined">verified_user</span>
+            </HeaderStyle.HeaderBoxItem>
+          </Link>
+        )}
       </HeaderStyle.HeaderMenuBox>
 
       <HeaderStyle.HeaderUserInfoBox>
@@ -95,15 +97,6 @@ const Header = ({ userLocation }) => {
       </HeaderStyle.HamburgerButtonIcon>
       <HeaderStyle.HamburgerSideBar toggle={clickHamburgerBtn}>
         <HeaderStyle.HamburgerSideBarBox>
-          {user && (
-            <Link to="/postupload" onClick={() => setClickHamburgerBtn(false)}>
-              <HeaderStyle.HamburgerSideBarList>
-                게시글 올리기{" "}
-                <span class="material-symbols-outlined">upload_file</span>
-              </HeaderStyle.HamburgerSideBarList>
-            </Link>
-          )}
-
           {user ? (
             <Link to="/profile" onClick={() => setClickHamburgerBtn(false)}>
               <HeaderStyle.HamburgerSideBarList>
@@ -129,6 +122,25 @@ const Header = ({ userLocation }) => {
             <Link to="/signup" onClick={() => setClickHamburgerBtn(false)}>
               <HeaderStyle.HamburgerSideBarList>
                 회원가입
+              </HeaderStyle.HamburgerSideBarList>
+            </Link>
+          )}
+          {user && (
+            <Link to="/postupload" onClick={() => setClickHamburgerBtn(false)}>
+              <HeaderStyle.HamburgerSideBarList>
+                게시글 올리기{" "}
+                <span class="material-symbols-outlined">upload_file</span>
+              </HeaderStyle.HamburgerSideBarList>
+            </Link>
+          )}
+          {user && (
+            <Link
+              to="/certification"
+              onClick={() => setClickHamburgerBtn(false)}
+            >
+              <HeaderStyle.HamburgerSideBarList>
+                사장님 인증하기
+                <span class="material-symbols-outlined">verified_user</span>
               </HeaderStyle.HamburgerSideBarList>
             </Link>
           )}

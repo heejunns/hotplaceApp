@@ -36,7 +36,8 @@ export const HeaderMenuBox = styled.div`
   display: flex;
   align-items: center;
   @media screen and (max-width: 768px) {
-    & > a:nth-of-type(2) {
+    & > a:nth-of-type(2),
+    a:nth-of-type(3) {
       display: none;
     }
   }
@@ -60,6 +61,7 @@ export const HeaderBoxItem = styled.div`
   display: flex;
   align-items: center;
   margin-left: 10px;
+  white-space: nowrap;
 `;
 // 로그아웃 버튼 스타일 태그
 export const LogOutButton = styled.button`
