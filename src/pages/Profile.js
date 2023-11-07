@@ -115,16 +115,6 @@ const Profile = () => {
             </span>
           </ProfileStyle.ProfileUserInfoName>
         </ProfileStyle.ProfileUserInfoBox>
-        {/* <ProfileStyle.ProfileForm onSubmit={onsubmitNewNickname}>
-    <ProfileStyle.ProfileFormInput
-      type="text"
-      value={newNickname}
-      onChange={onchangeNewNickname}
-      maxLength="5"
-      placeholder="변경할 닉네임을 입력해주세요. 최대 5글자"
-    />
-    <ProfileStyle.ProfileFormSubmit type="submit" value="닉네임 변경" />
-  </ProfileStyle.ProfileForm> */}
         <ProfileStyle.ProfileBox>
           <ProfileStyle.ProfileSelectMenu>
             <ProfileStyle.ProfileMenuItem

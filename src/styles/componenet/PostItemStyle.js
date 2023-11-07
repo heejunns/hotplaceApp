@@ -74,7 +74,7 @@ export const PostItemLike = styled.div`
   font-size: 20px;
   display: flex;
   & > span {
-    margin-right: 5px;
+    margin-right: 3px;
   }
 `;
 

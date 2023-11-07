@@ -124,3 +124,23 @@ export const CertificationSubmitBtn = styled.button`
   border: none;
   cursor: pointer;
 `;
+
+export const CeoEmailInputTitleBox = styled.div`
+  width: 100%;
+  display: flex;
+  align-items: center;
+`;
+
+export const InputEmailCheckText = styled.h1`
+  margin-left: 10px;
+`;
+
+export const CeoPhoneNumberInputTitleBox = styled.div`
+  width: 100%;
+  display: flex;
+  align-items: center;
+`;
+
+export const InputCeoPhoneNumberCheckText = styled.h1`
+  font-size: 15px;
+`;

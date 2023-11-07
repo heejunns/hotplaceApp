@@ -8,6 +8,7 @@ import CommentDeleteModal from "./CommentDeleteModal";
 
 // 댓글 레이아웃 스타일 태그
 const CommentItemBox = styled.div`
+  color: black;
   border: 3px solid black;
   border-radius: 10px;
   width: 100%;

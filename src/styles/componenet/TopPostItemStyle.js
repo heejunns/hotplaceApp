@@ -2,6 +2,7 @@ import styled from "styled-components";
 
 // 게시글 하나의 전체 백그라운드 스타일 태그
 export const TopPostItemBack = styled.div`
+  color: black;
   width: 285px;
   display: flex;
   flex-direction: column;
@@ -12,12 +13,6 @@ export const TopPostItemBack = styled.div`
   padding: 10px;
   font-size: 20px;
   border-radius: 10px;
-  /* border: 2px solid black; */
-  /* @media (hover: hover) and (pointer: fine) {
-    &:hover {
-      border: 2px solid greenyellow;
-    }
-  } */
 `;
 
 // 게시글 하나의 박스 스타일 태그
@@ -50,10 +45,12 @@ export const TopPostItemCategory = styled.span`
 `;
 // 게시글의 게시자의 이름 스타일 태그
 export const TopPostItemNickname = styled.span`
+  color: white;
   white-space: nowrap;
   display: flex;
   justify-content: flex-start;
   & > span {
+    color: white;
     white-space: nowrap;
     width: 100%;
     max-width: 60px;
@@ -63,6 +60,7 @@ export const TopPostItemNickname = styled.span`
 `;
 // 게시글의 글 스타일 태그
 export const TopPostItemPostName = styled.div`
+  color: black;
   margin-top: 10px;
   width: 100%;
   word-break: break-all;
