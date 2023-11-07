@@ -55,9 +55,14 @@ const Certification = () => {
           />
         </CertificationStyle.CertificationItemBox>
         <CertificationStyle.CertificationItemBox>
-          <CertificationStyle.CeoEmailLabel htmlFor="email">
-            이메일
-          </CertificationStyle.CeoEmailLabel>
+          <CertificationStyle.CeoEmailInputTitleBox>
+            <CertificationStyle.CeoEmailLabel htmlFor="email">
+              이메일
+            </CertificationStyle.CeoEmailLabel>
+            <CertificationStyle.InputEmailCheckText>
+              {!inputEmail.includes("@") && "이메일을 다시 입력해주세요."}{" "}
+            </CertificationStyle.InputEmailCheckText>
+          </CertificationStyle.CeoEmailInputTitleBox>
           <CertificationStyle.CeoEmailInput
             id="email"
             value={inputEmail}
@@ -67,13 +72,19 @@ const Certification = () => {
           />
         </CertificationStyle.CertificationItemBox>
         <CertificationStyle.CertificationItemBox>
-          <CertificationStyle.CeoPhoneNumberLabel htmlFor="phonenumber">
-            휴대폰 번호
-          </CertificationStyle.CeoPhoneNumberLabel>
+          <CertificationStyle.CeoPhoneNumberInputTitleBox>
+            <CertificationStyle.CeoPhoneNumberLabel htmlFor="phonenumber">
+              휴대폰 번호
+            </CertificationStyle.CeoPhoneNumberLabel>
+            <CertificationStyle.InputCeoPhoneNumberCheckText>
+              {inputPhoneNumber}
+            </CertificationStyle.InputCeoPhoneNumberCheckText>
+          </CertificationStyle.CeoPhoneNumberInputTitleBox>
+
           <CertificationStyle.CeoPhoneNumberInput
             id="phonenumber"
             value={inputPhoneNumber}
-            type="text"
+            type="number"
             placeholder="대표님 휴대폰 전화번호를 적어주세요."
             onChange={onchangeInputText}
           />

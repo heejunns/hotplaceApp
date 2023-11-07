@@ -3,6 +3,7 @@ import styled from "styled-components";
 export const ProfileBack = styled.div`
   font-family: "Tilt Neon", sans-serif;
   width: 100%;
+  height: 100%;
   background-color: white;
   display: flex;
   flex-direction: column;
@@ -28,7 +29,7 @@ export const ProfileUserImgUploadIcon = styled.div`
   cursor: pointer;
   & > span {
     border-radius: 50%;
-    color: black;
+    color: white;
     background-color: #6edcdc;
   }
 `;
@@ -74,7 +75,6 @@ export const ProfileBox = styled.div`
   overflow-y: auto;
   display: flex;
   flex-direction: column;
-
   padding-bottom: 30px;
 `;
 export const ProfileMenuBox = styled.div`
@@ -82,7 +82,6 @@ export const ProfileMenuBox = styled.div`
   position: relative;
   height: 100px;
   display: flex;
-  /* align-items: center; */
   border: 1px solid black;
 `;
 export const ProfileSelectMenu = styled.ul`
@@ -114,12 +113,13 @@ export const NoPost = styled.div`
   align-items: center;
   font-size: 35px;
   margin-top: 10px;
-  color: black;
 `;
 export const ProfilePostBox = styled.div`
   display: grid;
   grid-template-columns: repeat(4, 1fr);
   gap: 20px;
+  height: 100%;
+  min-height: 550px;
   @media screen and (max-width: 1024px) {
     grid-template-columns: repeat(3, 1fr);
   }

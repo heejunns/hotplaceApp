@@ -6,11 +6,11 @@ export const HeaderBackground = styled.div`
   height: 50px;
   width: 100%;
   padding: 0 20px;
-  border-bottom: 1px solid black;
+  border-bottom: 1px solid white;
   display: flex;
   justify-content: space-between;
   align-items: center;
-  background-color: white;
+  background-color: black;
   @media screen and (max-width: 768px) {
     justify-content: space-between;
     position: fixed;
@@ -24,7 +24,7 @@ export const AppTitleName = styled.div`
   cursor: pointer;
   font-size: 25px;
   font-weight: 600;
-  color: black;
+  color: white;
   display: flex;
   align-items: center;
   margin-right: 20px;
@@ -56,7 +56,7 @@ export const HeaderUserInfoBox = styled.ul`
 `;
 // 네비게이션 요소들의 스타일 태그
 export const HeaderBoxItem = styled.div`
-  color: black;
+  color: white;
   font-size: 20px;
   display: flex;
   align-items: center;
@@ -70,12 +70,12 @@ export const LogOutButton = styled.button`
   border-style: none;
   background: transparent;
   margin-left: 20px;
-  color: black;
+  color: white;
   display: flex;
   align-items: center;
   & > span {
     font-size: 20px;
-    color: black;
+    color: white;
   }
 `;
 

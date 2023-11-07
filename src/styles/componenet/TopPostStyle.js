@@ -3,9 +3,7 @@ import styled from "styled-components";
 export const TopPostBack = styled.div`
   width: 100%;
   padding: 20px 0 30px 0;
-  /* border: 1px solid black; */
   max-width: 1200px;
-  /* height: 280px; */
   overflow: hidden;
   display: flex;
   align-items: center;
@@ -48,7 +46,6 @@ export const TopPostBtn = styled.button`
   opacity: 0.7;
   position: absolute;
   white-space: nowrap;
-  color: black;
   cursor: pointer;
   & > span {
     opacity: 1;
@@ -64,7 +61,6 @@ export const TopPostPrevBtn = styled(TopPostBtn)`
   top: 125px;
   left: 0;
   display: ${(props) => (props.topBoxPx === 0 ? "none" : "block")};
-  color: black;
   @media screen and (max-width: 768px) {
     display: none;
   }
@@ -72,7 +68,6 @@ export const TopPostPrevBtn = styled(TopPostBtn)`
 
 export const TopPostNextBtn = styled(TopPostBtn)`
   top: 125px;
-  color: black;
   right: 15px;
   display: ${(props) => (props.topBoxPx === -2400 ? "none" : "bloack")};
   @media screen and (max-width: 768px) {
@@ -92,7 +87,8 @@ export const TopPostTitleBox = styled.div`
 `;
 
 export const TopPostTitleText = styled.h1`
-  font-size: 20px;
+  color: black;
+  font-size: 25px;
   font-weight: 500;
   font-family: "Tilt Neon", sans-serif;
 `;

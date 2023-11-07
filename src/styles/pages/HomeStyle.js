@@ -2,13 +2,11 @@ import styled from "styled-components";
 
 export const HomeBack = styled.div`
   font-family: "Tilt Neon", sans-serif;
-
   width: 100%;
   background-color: white;
   display: flex;
   justify-content: center;
   align-items: center;
-  background: white;
   flex-direction: column;
   padding: 40px 20px;
 `;
@@ -17,6 +15,8 @@ export const PostLayout = styled.div`
   margin-top: 30px;
   width: 100%;
   max-width: 1200px;
+  height: 100%;
+  min-height: 522px;
   &::-webkit-scrollbar {
     display: none;
   }
@@ -55,6 +55,7 @@ export const SelectSortMethodBox = styled.div`
 `;
 
 export const SelectSortMethodBtn = styled.button`
+  color: black;
   border: 2px solid black;
   font-size: 16px;
   background-color: transparent;
@@ -67,7 +68,6 @@ export const SelectSortMethodBtn = styled.button`
   padding: 10px;
   white-space: nowrap;
   cursor: pointer;
-  color: black;
   & > span {
     color: black;
   }
@@ -85,10 +85,7 @@ export const SelectSortMethodList = styled.ul`
 `;
 
 export const SelectSortMethodItem = styled.li`
-  /* border-left: 2px solid mediumorchid;
-  border-right: 2px solid mediumorchid;
-  border-bottom: 2px solid mediumorchid;
-  border-radius: 3px; */
+  color: black;
   background-color: white;
   width: 100%;
   height: 30px;
