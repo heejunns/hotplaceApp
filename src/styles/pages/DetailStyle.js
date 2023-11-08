@@ -44,7 +44,7 @@ export const DetailTitleText = styled.div`
     font-size: 25px;
   }
 `;
-// 디테일 페이지의 이미지 박스
+// 디테일 페이지의 이미지 한개 박스
 export const DetailImgBox = styled.div`
   width: 100%;
   height: 700px;
@@ -56,13 +56,83 @@ export const DetailImgBox = styled.div`
     object-fit: cover;
   }
   @media screen and (max-width: 768px) {
-    height: 300px;
+    height: 200px;
   }
 `;
+// 디테일 이미지 한개 이상일때 박스
+export const DetailImgsBox = styled.div`
+  width: 100%;
+  position: relative;
+  height: 700px;
+  overflow: hidden;
+
+  margin-bottom: 20px;
+  @media screen and (max-width: 768px) {
+    height: 350px;
+    overflow-x: scroll;
+  }
+`;
+
+export const ImgsContainer = styled.div`
+  width: ${(props) => `${props.imgsMaxPx}px`};
+  height: 700px;
+  display: flex;
+  transition: 1s ease-in-out;
+  transform: ${(props) =>
+    props.detailImgBoxPx > 0
+      ? `translateX(${props.detailImgBoxPx}px)`
+      : `translateX(${props.detailImgBoxPx}px)`};
+  @media screen and (max-width: 768px) {
+    height: 350px;
+  }
+  & > img {
+    width: 100%;
+    max-width: 800px;
+    height: 700px;
+    object-fit: cover;
+    @media screen and (max-width: 768px) {
+      height: 350px;
+    }
+  }
+`;
+export const DetailImgBtn = styled.button`
+  position: absolute;
+  cursor: pointer;
+  border-radius: 50%;
+  top: 325px;
+  border: none;
+  background-color: #969696;
+  opacity: 0.7;
+  z-index: 10;
+  width: 50px;
+  height: 50px;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  & > span {
+    opacity: 1;
+    color: white;
+    font-size: 35px;
+  }
+  &:hover {
+    opacity: 1;
+  }
+`;
+
+export const DetailImgPrevBtn = styled(DetailImgBtn)`
+  left: 3px;
+  display: ${(props) => (props.detailImgBoxPx === 0 ? "none" : "block")};
+`;
+
+export const DetailImgNextBtn = styled(DetailImgBtn)`
+  right: 3px;
+  display: ${(props) =>
+    props.detailImgBoxPx === -props.imgsMaxPx + 800 ? "none" : "block"};
+`;
+
 // 디테일 페이지의 자세한 설명
 export const DetailMainText = styled.div`
   width: 100%;
-  height: 100%;
   min-height: 100px;
   font-size: 20px;
   padding: 30px 0;
@@ -110,8 +180,12 @@ export const DetailBtn = styled.button`
   align-items: center;
   & > span {
     cursor: pointer;
+
     color: black;
     font-size: 25px;
+  }
+  span:nth-of-type(1) {
+    color: ${(props) => (props.isLike ? "red" : "black")};
   }
   @media screen and (max-width: 768px) {
     padding: 0;
@@ -128,7 +202,9 @@ export const DetailPostNameBox = styled.div`
   margin-bottom: 20px;
 `;
 
-export const DetailPostName = styled.span``;
+export const DetailPostName = styled.span`
+  font-size: 25px;
+`;
 
 export const DetailWriterImgBox = styled.div`
   margin-right: 5px;

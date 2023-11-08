@@ -98,7 +98,8 @@ const Map = ({ setUserMarkerLocation }) => {
           onClick={() => marker("MARKER")}
           // onTouchStart={() => marker("MARKER")}
         >
-          장소 마커하기 <span class="material-symbols-outlined">push_pin</span>
+          장소 마커하기{" "}
+          <span className="material-symbols-outlined">push_pin</span>
         </MapStyle.MarkerBtn>
       </MapStyle.MarkerBtnBox>
     </>

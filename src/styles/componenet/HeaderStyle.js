@@ -85,7 +85,7 @@ export const HamburgerSideBar = styled.div`
   background: black;
   height: 100%;
   z-index: 100;
-  top: 50px;
+  top: 48px;
   position: fixed;
   transition: all ease 0.5s;
   transition: ${(props) => (props.toggle ? "all ease 0.5s" : "")};
@@ -110,7 +110,7 @@ export const HamburgerIconItem = styled.div`
   width: 33px;
   height: 6px;
   border-radius: 10px;
-  background-color: black;
+  background-color: white;
   z-index: 101;
   transition: all ease 0.3s;
   position: relative;

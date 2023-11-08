@@ -1,53 +1,11 @@
 import { doc, updateDoc } from "firebase/firestore";
 import React, { useState } from "react";
-import styled from "styled-components";
 import { dbService } from "../reactfbase";
 import { userAtom } from "../recoils/UserAtom";
 import { useRecoilValue } from "recoil";
 import CommentDeleteModal from "./CommentDeleteModal";
-
-// 댓글 레이아웃 스타일 태그
-const CommentItemBox = styled.div`
-  color: black;
-  border: 3px solid black;
-  border-radius: 10px;
-  width: 100%;
-  padding: 10px;
-  margin-top: 10px;
-  @media screen and (min-width: 820px) and (min-height: 1180px) {
-    font-size: 2rem;
-  }
-`;
-// 댓글 지우기 스타일 태그
-const CommentDelete = styled.span`
-  float: right;
-  cursor: pointer;
-  & > span {
-    font-size: 30px;
-    color: black;
-  }
-`;
-// 댓글 작성자를 보여주는 스타일 태그
-const CommentWriter = styled.div``;
-// 댓글을 보여주는 스타일 태그
-const CommentValue = styled.div`
-  margin-top: 10px;
-`;
-// 댓글에서 좋아요 스타일 태그
-const CommentLike = styled.div`
-  display: flex;
-  align-items: center;
-  font-size: 20px;
-  margin-top: 15px;
-  cursor: pointer;
-  color: black;
-  & > span {
-    font-size: 20px;
-    margin-right: 10px;
-  }
-`;
-
-const CommentPost = ({ commentInfo, data, dataId, setIsChangeData }) => {
+import * as CommentPostStyle from "../styles/componenet/CommentPostStyle";
+const CommentPost = ({ commentInfo, data, dataId, getDetailData }) => {
   const user = useRecoilValue(userAtom);
   // 댓글에서 좋아요 버튼을 클릭하면 호출
   const [isCommentDeleteModal, setIsCommentDeleteModal] = useState(false);
@@ -88,7 +46,7 @@ const CommentPost = ({ commentInfo, data, dataId, setIsChangeData }) => {
       // comment 에 새로운 comment 정보 업데이트
       comments: newComments,
     });
-    setIsChangeData((prev) => !prev);
+    getDetailData();
   };
 
   const onclickDeleteCommentButton = async () => {
@@ -114,27 +72,32 @@ const CommentPost = ({ commentInfo, data, dataId, setIsChangeData }) => {
   };
   return (
     <>
-      <CommentItemBox>
-        <CommentDelete onClick={onclickDeleteCommentButton}>
+      <CommentPostStyle.CommentItemBox>
+        <CommentPostStyle.CommentDelete onClick={onclickDeleteCommentButton}>
           {user && user.displayName === commentInfo.commentWriter && (
-            <span class="material-symbols-outlined">delete</span>
+            <span className="material-symbols-outlined">delete</span>
           )}
-        </CommentDelete>
-        <CommentWriter>
+        </CommentPostStyle.CommentDelete>
+        <CommentPostStyle.CommentWriter>
           {commentInfo.commentWriter} / {calculateTime(commentInfo)}
-        </CommentWriter>
-        <CommentValue>{commentInfo.commentValue} </CommentValue>
-        <CommentLike onClick={onclickLikeButton}>
-          <span class="material-symbols-outlined">favorite</span>
+        </CommentPostStyle.CommentWriter>
+        <CommentPostStyle.CommentValue>
+          {commentInfo.commentValue}
+        </CommentPostStyle.CommentValue>
+        <CommentPostStyle.CommentLike
+          onClick={onclickLikeButton}
+          isLike={user && commentInfo.commentLikeMember.includes(user.uid)}
+        >
+          <span className="material-symbols-outlined">favorite</span>
           {commentInfo.commentLikeMember.length}
-        </CommentLike>
-      </CommentItemBox>
+        </CommentPostStyle.CommentLike>
+      </CommentPostStyle.CommentItemBox>
       {isCommentDeleteModal && (
         <CommentDeleteModal
           setIsCommentDeleteModal={setIsCommentDeleteModal}
           data={data}
           dataId={dataId}
-          setIsChangeData={setIsChangeData}
+          getDetailData={getDetailData}
           commentInfo={commentInfo}
         />
       )}

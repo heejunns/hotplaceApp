@@ -15,6 +15,14 @@ const TopPost = () => {
   const onclickRightBtn = () => {
     if (topBoxPx > -2900) setTopBoxPx((prev) => prev - 1200);
   };
+  // useEffect(() => {
+  //   let key = setInterval(() => {
+  //     setTopBoxPx((prev) => prev - 1200);
+  //   }, 1000);
+  //   return () => {
+  //     clearInterval(key);
+  //   };
+  // }, []);
   useEffect(() => {
     const getTopPost = async () => {
       try {
@@ -28,7 +36,13 @@ const TopPost = () => {
           // doc.data() is never undefined for query doc snapshots
           postData.push({ id: doc.id, ...doc.data() });
         });
+        let data = [
+          ...postData.slice(0, 10),
+          ...postData.slice(0, 10),
+          ...postData.slice(0, 10),
+        ];
         setTopPostData(postData.slice(0, 10));
+        console.log(data);
       } catch (e) {
         console.log(e);
       }
@@ -46,20 +60,22 @@ const TopPost = () => {
         <TopPostStyle.TopPostBox topBoxPx={topBoxPx}>
           {topPostData.length > 0 &&
             topPostData.map((item, index) => {
-              return <TopPostItem data={item} ranking={index + 1} />;
+              return (
+                <TopPostItem key={index} data={item} ranking={index + 1} />
+              );
             })}
         </TopPostStyle.TopPostBox>
         <TopPostStyle.TopPostPrevBtn
           onClick={onclickLeftBtn}
           topBoxPx={topBoxPx}
         >
-          <span class="material-symbols-outlined">chevron_left</span>
+          <span className="material-symbols-outlined">chevron_left</span>
         </TopPostStyle.TopPostPrevBtn>
         <TopPostStyle.TopPostNextBtn
           onClick={onclickRightBtn}
           topBoxPx={topBoxPx}
         >
-          <span class="material-symbols-outlined">chevron_right</span>
+          <span className="material-symbols-outlined">chevron_right</span>
         </TopPostStyle.TopPostNextBtn>
       </TopPostStyle.TopPostBack>
     </>

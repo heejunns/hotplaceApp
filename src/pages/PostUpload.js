@@ -11,6 +11,7 @@ import { useRecoilValue } from "recoil";
 import * as PostUploadStyle from "../styles/pages/PostUploadStyle";
 import { Loading } from "../styles/componenet/LoadingStyle";
 import { PulseLoader } from "react-spinners";
+import axios from "axios";
 
 const PostUpload = ({ userLocation }) => {
   const user = useRecoilValue(userAtom);
@@ -47,14 +48,26 @@ const PostUpload = ({ userLocation }) => {
     e.preventDefault();
     setIsLoading(true);
     try {
-      let getUploadFileURL = "";
-      if (uploadImageFileURL !== "") {
+      let getUploadFileURL = [];
+      if (uploadImageFileURL.length > 0) {
         // 이미지 url 이 있다면 이미지가 있다는 뜻이니까
-        const storageRef = ref(storageService, `${user.uid}/${uuidv4()}`); // 이미지 storage 에 저장
-        await uploadString(storageRef, uploadImageFileURL, "data_url");
+        const storageRefArr = uploadImageFileURL.map((item) => {
+          return ref(storageService, `${user.uid}/${uuidv4()}`); // 이미지 storage 에 저장
+        });
+        const uploadFunc = storageRefArr.map((item, index) => {
+          return uploadString(item, uploadImageFileURL[index], "data_url");
+        });
+        await axios.all(uploadFunc);
+        const downloadFunc = storageRefArr.map((item) => {
+          return getDownloadURL(item);
+        }); // 이미지 url 불러오기
 
-        getUploadFileURL = await getDownloadURL(storageRef); // 이미지 url 불러오기
+        const hello = await axios.all(downloadFunc);
+        getUploadFileURL.push(...hello);
+
+        // getUploadFileURL = await getDownloadURL(storageRefArr[0]);
       }
+      console.log(getUploadFileURL);
 
       await addDoc(collection(dbService, "test"), {
         // 데이터베이스에 저장
@@ -91,18 +104,38 @@ const PostUpload = ({ userLocation }) => {
 
   const onchangeImageUpload = useCallback(({ target: { files } }) => {
     // 사진 파일을 선택했을때 선택한 사진을 화면에 보여주는 코드
-    const uploadFile = files[0];
-    // 파일을 읽어오기 위해서 fileReader API 를 사용하기
-    const reader = new FileReader(); // 파일리더 생성
-    reader.readAsDataURL(uploadFile); //  파일 url 생성
-    reader.onloadend = (fileLoadEndEvent) => {
-      setUploadImageFileURL(fileLoadEndEvent.target.result);
-    };
+    if (files.length === 1) {
+      const uploadFile = files[0];
+      // 파일을 읽어오기 위해서 fileReader API 를 사용하기
+      const reader = new FileReader(); // 파일리더 생성
+      reader.readAsDataURL(uploadFile); //  파일 url 생성
+      reader.onloadend = (fileLoadEndEvent) => {
+        setUploadImageFileURL((prev) => [
+          ...prev,
+          fileLoadEndEvent.target.result,
+        ]);
+      };
+    } else {
+      for (let i = 0; i < files.length; ++i) {
+        const uploadFile = files[i];
+        // 파일을 읽어오기 위해서 fileReader API 를 사용하기
+        const reader = new FileReader(); // 파일리더 생성
+        reader.readAsDataURL(uploadFile); //  파일 url 생성
+        reader.onloadend = (fileLoadEndEvent) => {
+          setUploadImageFileURL((prev) => [
+            ...prev,
+            fileLoadEndEvent.target.result,
+          ]);
+        };
+      }
+    }
   }, []);
 
   // 선택한 이미지를 삭제 버튼을 클릭하면 호출
-  const onclickUploadFileDelete = useCallback(() => {
-    setUploadImageFileURL("");
+  const onclickUploadFileDelete = useCallback((imageFileUrl) => {
+    setUploadImageFileURL((prev) =>
+      prev.filter((item) => item !== imageFileUrl)
+    );
   }, []);
   // 맵을 화면에 보여주기 위한 버튼을 클릭하였을 때 호출
   const onclickMapButton = useCallback(() => {
@@ -148,24 +181,27 @@ const PostUpload = ({ userLocation }) => {
               accept="image/*"
               onChange={onchangeImageUpload}
             />
-            {uploadImageFileURL ? (
-              <PostUploadStyle.UploadImgBox>
-                <PostUploadStyle.UploadImg
-                  src={uploadImageFileURL}
-                  alt="uploadImg"
-                />
-                <PostUploadStyle.UploadImgDeleteBtn
-                  type="button"
-                  onClick={onclickUploadFileDelete}
-                >
-                  <span class="material-symbols-outlined">close</span>
-                </PostUploadStyle.UploadImgDeleteBtn>
-              </PostUploadStyle.UploadImgBox>
-            ) : (
+            <PostUploadStyle.SelectImgBox>
               <PostUploadStyle.UploadEmptyImg htmlFor="imageUploadInput">
-                <span class="material-symbols-outlined">create_new_folder</span>
+                <span className="material-symbols-outlined">
+                  create_new_folder
+                </span>
               </PostUploadStyle.UploadEmptyImg>
-            )}
+              {uploadImageFileURL &&
+                uploadImageFileURL.map((item) => {
+                  return (
+                    <PostUploadStyle.ImgItem>
+                      <PostUploadStyle.UploadImg src={item} alt="uploadImg" />
+                      <PostUploadStyle.UploadImgDeleteBtn
+                        type="button"
+                        onClick={() => onclickUploadFileDelete(item)}
+                      >
+                        <span className="material-symbols-outlined">close</span>
+                      </PostUploadStyle.UploadImgDeleteBtn>
+                    </PostUploadStyle.ImgItem>
+                  );
+                })}
+            </PostUploadStyle.SelectImgBox>
           </PostUploadStyle.PostUploadImageBox>
           <PostUploadStyle.PostUploadCategoryBox>
             <PostUploadStyle.CategoryTitle>
@@ -178,7 +214,8 @@ const PostUpload = ({ userLocation }) => {
                   userSelectCategory === "cafe" ? "black" : ""
                 }
               >
-                카페 <span class="material-symbols-outlined">local_cafe</span>
+                카페{" "}
+                <span className="material-symbols-outlined">local_cafe</span>
                 <PostUploadStyle.InputCategory
                   id="cafe"
                   type="radio"
@@ -192,7 +229,8 @@ const PostUpload = ({ userLocation }) => {
                   userSelectCategory === "food" ? "black" : ""
                 }
               >
-                음식 <span class="material-symbols-outlined">restaurant</span>
+                음식{" "}
+                <span className="material-symbols-outlined">restaurant</span>
                 <PostUploadStyle.InputCategory
                   id="food"
                   type="radio"
@@ -206,7 +244,8 @@ const PostUpload = ({ userLocation }) => {
                   userSelectCategory === "mart" ? "black" : ""
                 }
               >
-                마트 <span class="material-symbols-outlined">storefront</span>
+                마트{" "}
+                <span className="material-symbols-outlined">storefront</span>
                 <PostUploadStyle.InputCategory
                   id="mart"
                   type="radio"
@@ -250,7 +289,7 @@ const PostUpload = ({ userLocation }) => {
                 <Map setUserMarkerLocation={setUserMarkerLocation} />
               ) : (
                 <span
-                  class="material-symbols-outlined"
+                  className="material-symbols-outlined"
                   onClick={onclickMapButton}
                 >
                   add_location_alt

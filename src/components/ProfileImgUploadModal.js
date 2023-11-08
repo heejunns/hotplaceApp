@@ -92,14 +92,16 @@ const ProfileImgUploadModal = ({ setIsProfileImgUploadModal }) => {
                   <ProfileImgUploadModalStyle.UploadImgCancelBtn
                     onClick={onclickUploadImgCancel}
                   >
-                    <span class="material-symbols-outlined">close</span>
+                    <span className="material-symbols-outlined">close</span>
                   </ProfileImgUploadModalStyle.UploadImgCancelBtn>
                 </>
               ) : (
                 <>
-                  <span class="material-symbols-outlined">person</span>
+                  <span className="material-symbols-outlined">person</span>
                   <ProfileImgUploadModalStyle.SelectImgBtn htmlFor="imgUploadInput">
-                    <span class="material-symbols-outlined">photo_camera</span>
+                    <span className="material-symbols-outlined">
+                      photo_camera
+                    </span>
                   </ProfileImgUploadModalStyle.SelectImgBtn>
                   <ProfileImgUploadModalStyle.ProfileImgUploadInput
                     type="file"
@@ -115,7 +117,7 @@ const ProfileImgUploadModal = ({ setIsProfileImgUploadModal }) => {
             <ProfileImgUploadModalStyle.CancelBtn
               onClick={onclickCancelUploadModal}
             >
-              <span class="material-symbols-outlined">close</span>
+              <span className="material-symbols-outlined">close</span>
             </ProfileImgUploadModalStyle.CancelBtn>
 
             <ProfileImgUploadModalStyle.UploadImgBtn
