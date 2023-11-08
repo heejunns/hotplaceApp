@@ -53,7 +53,7 @@ const ReportModal = ({ setIsReportModal, postWriter, postName }) => {
         </ReportModalStyle.ReportModalInputTextBox>
         <ReportModalStyle.ReportModalBtnBox>
           <ReportModalStyle.ReportModalCancelBtn onClick={onclickCloseBtn}>
-            <span class="material-symbols-outlined">close</span>
+            <span className="material-symbols-outlined">close</span>
           </ReportModalStyle.ReportModalCancelBtn>
           <ReportModalStyle.ReportModalReportBtn onClick={onclickReportBtn}>
             게시물 신고

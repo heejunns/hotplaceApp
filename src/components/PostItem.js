@@ -53,7 +53,7 @@ const PostItem = ({ data, index, dataLen }) => {
         </PostItemStyle.TopPostItemPostName>
         <PostItemStyle.PostItemTitleBox>
           <PostItemStyle.PostItemLike>
-            <span class="material-symbols-outlined">favorite</span>
+            <span className="material-symbols-outlined">favorite</span>
             <span>{data.likeMember.length}</span>
           </PostItemStyle.PostItemLike>
           <div>

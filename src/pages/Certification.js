@@ -101,7 +101,7 @@ const Certification = () => {
                 currentSelectCategory === "cafe" ? "black" : ""
               }
             >
-              카페 <span class="material-symbols-outlined">local_cafe</span>
+              카페 <span className="material-symbols-outlined">local_cafe</span>
               <CertificationStyle.BusinessCategoryInput
                 id="cafe"
                 name="category"
@@ -115,7 +115,7 @@ const Certification = () => {
                 currentSelectCategory === "food" ? "black" : ""
               }
             >
-              음식 <span class="material-symbols-outlined">restaurant</span>
+              음식 <span className="material-symbols-outlined">restaurant</span>
               <CertificationStyle.BusinessCategoryInput
                 id="food"
                 name="category"
@@ -129,7 +129,7 @@ const Certification = () => {
                 currentSelectCategory === "mart" ? "black" : ""
               }
             >
-              마트 <span class="material-symbols-outlined">storefront</span>
+              마트 <span className="material-symbols-outlined">storefront</span>
               <CertificationStyle.BusinessCategoryInput
                 id="mart"
                 name="category"

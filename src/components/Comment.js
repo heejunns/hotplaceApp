@@ -7,7 +7,7 @@ import { useRecoilValue } from "recoil";
 import { userAtom } from "../recoils/UserAtom";
 import * as CommentStyle from "../styles/componenet/CommentStyle";
 
-const Comment = ({ data, dataId, setIsChangeData }) => {
+const Comment = ({ data, dataId, getDetailData }) => {
   const user = useRecoilValue(userAtom);
   const [commentInput, setCommentInput] = useState(""); // 댓글 입력 state
 
@@ -36,7 +36,7 @@ const Comment = ({ data, dataId, setIsChangeData }) => {
         ...data.comments,
       ],
     });
-    setIsChangeData((prev) => !prev);
+    getDetailData();
   };
 
   return (
@@ -71,7 +71,7 @@ const Comment = ({ data, dataId, setIsChangeData }) => {
                 commentInfo={commentInfo}
                 data={data}
                 dataId={dataId}
-                setIsChangeData={setIsChangeData}
+                getDetailData={getDetailData}
               />
             );
           })

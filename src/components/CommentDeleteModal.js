@@ -6,7 +6,7 @@ const CommentDeleteModal = ({
   setIsCommentDeleteModal,
   data,
   commentInfo,
-  setIsChangeData,
+  getDetailData,
   dataId,
 }) => {
   const cancelBtnClick = () => {
@@ -25,7 +25,7 @@ const CommentDeleteModal = ({
         // 새로운 comment 정보 업데이트
         comments: newComments,
       });
-      setIsChangeData((prev) => !prev);
+      getDetailData();
     } catch (e) {
       console.log(e);
     }

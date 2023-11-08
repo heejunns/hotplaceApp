@@ -1,7 +1,6 @@
 import { signOut } from "firebase/auth";
 import React, { useState } from "react";
 import { Link, useNavigate } from "react-router-dom";
-// import styled from "styled-components";
 import { authService } from "../reactfbase";
 import { useRecoilValue } from "recoil";
 import { userAtom } from "../recoils/UserAtom";
@@ -37,18 +36,18 @@ const Header = ({ userLocation }) => {
           <Link to="/postupload" style={{ textDecoration: "none" }}>
             <HeaderStyle.HeaderBoxItem>
               게시글 올리기
-              <span class="material-symbols-outlined">upload_file</span>
+              <span className="material-symbols-outlined">upload_file</span>
             </HeaderStyle.HeaderBoxItem>
           </Link>
         )}
-        {user && user.displayName && (
+        {/* {user && user.displayName && (
           <Link to="/certification" style={{ textDecoration: "none" }}>
             <HeaderStyle.HeaderBoxItem>
               사장님 인증하기
-              <span class="material-symbols-outlined">verified_user</span>
+              <span className="material-symbols-outlined">verified_user</span>
             </HeaderStyle.HeaderBoxItem>
           </Link>
-        )}
+        )} */}
       </HeaderStyle.HeaderMenuBox>
 
       <HeaderStyle.HeaderUserInfoBox>
@@ -64,7 +63,7 @@ const Header = ({ userLocation }) => {
           ) : (
             <Link to="/login">
               <HeaderStyle.HeaderBoxItem>
-                로그인<span class="material-symbols-outlined">login</span>
+                로그인<span className="material-symbols-outlined">login</span>
               </HeaderStyle.HeaderBoxItem>
             </Link>
           )}
@@ -72,7 +71,7 @@ const Header = ({ userLocation }) => {
         <li>
           {user ? (
             <HeaderStyle.LogOutButton onClick={onclickLogoutButton}>
-              <span class="material-symbols-outlined">logout</span>
+              <span className="material-symbols-outlined">logout</span>
               로그아웃
             </HeaderStyle.LogOutButton>
           ) : (
@@ -108,7 +107,7 @@ const Header = ({ userLocation }) => {
           ) : (
             <Link to="/login" onClick={() => setClickHamburgerBtn(false)}>
               <HeaderStyle.HamburgerSideBarList>
-                로그인<span class="material-symbols-outlined">login</span>
+                로그인<span className="material-symbols-outlined">login</span>
               </HeaderStyle.HamburgerSideBarList>
             </Link>
           )}
@@ -116,7 +115,7 @@ const Header = ({ userLocation }) => {
           {user ? (
             <HeaderStyle.SideBarLogOutButton onClick={onclickLogoutButton}>
               로그아웃
-              <span class="material-symbols-outlined">logout</span>
+              <span className="material-symbols-outlined">logout</span>
             </HeaderStyle.SideBarLogOutButton>
           ) : (
             <Link to="/signup" onClick={() => setClickHamburgerBtn(false)}>
@@ -129,37 +128,21 @@ const Header = ({ userLocation }) => {
             <Link to="/postupload" onClick={() => setClickHamburgerBtn(false)}>
               <HeaderStyle.HamburgerSideBarList>
                 게시글 올리기{" "}
-                <span class="material-symbols-outlined">upload_file</span>
+                <span className="material-symbols-outlined">upload_file</span>
               </HeaderStyle.HamburgerSideBarList>
             </Link>
           )}
-          {user && (
+          {/* {user && (
             <Link
               to="/certification"
               onClick={() => setClickHamburgerBtn(false)}
             >
               <HeaderStyle.HamburgerSideBarList>
                 사장님 인증하기
-                <span class="material-symbols-outlined">verified_user</span>
+                <span className="material-symbols-outlined">verified_user</span>
               </HeaderStyle.HamburgerSideBarList>
             </Link>
-          )}
-
-          {/* <HeaderStyle.HamburgerSideBarList onClick={() => onclickPost("cafe")}>
-            카페 게시글
-          </HeaderStyle.HamburgerSideBarList>
-          <HeaderStyle.HamburgerSideBarList onClick={() => onclickPost("food")}>
-            food 게시글
-          </HeaderStyle.HamburgerSideBarList>
-          <HeaderStyle.HamburgerSideBarList onClick={() => onclickPost("mart")}>
-            마트 게시글
-          </HeaderStyle.HamburgerSideBarList>
-          <HeaderStyle.HamburgerSideBarList onClick={onclickPostLike}>
-            좋아요 순으로 보기
-          </HeaderStyle.HamburgerSideBarList>
-          <HeaderStyle.HamburgerSideBarList onClick={onclickPostAddress}>
-            나의 지역 게시글만 보기
-          </HeaderStyle.HamburgerSideBarList> */}
+          )} */}
         </HeaderStyle.HamburgerSideBarBox>
       </HeaderStyle.HamburgerSideBar>
     </HeaderStyle.HeaderBackground>

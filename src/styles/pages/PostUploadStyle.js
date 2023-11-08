@@ -55,7 +55,7 @@ export const PostUploadPostNameTitleBox = styled.div`
 export const PostUploadImageBox = styled.div`
   display: flex;
   flex-direction: column;
-  height: 180px;
+  height: 210px;
   padding: 30px 0;
   border-bottom: 1px solid grey;
 `;
@@ -73,6 +73,13 @@ export const UploadImg = styled.img`
   height: 90px;
   border-radius: 10px;
   object-fit: cover;
+`;
+// 선택한 이미지를 보여주는 박스
+export const SelectImgBox = styled.div`
+  /* width: 100%; */
+  height: 120px;
+  overflow-y: scroll;
+  display: flex;
 `;
 // 업로드 한 이미지 삭제 버튼
 export const UploadImgDeleteBtn = styled.button`
@@ -92,7 +99,7 @@ export const UploadImgDeleteBtn = styled.button`
   border: 2px solid black;
 `;
 // 업로드 한 이미지의 박스
-export const UploadImgBox = styled.div`
+export const ImgItem = styled.div`
   margin-top: 10px;
   display: flex;
   justify-content: center;

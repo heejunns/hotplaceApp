@@ -86,7 +86,7 @@ const Profile = () => {
           <ProfileStyle.ProfileUserImgBox>
             <ProfileStyle.ProfileUserInfoImg>
               {profileImg === undefined ? (
-                <span class="material-symbols-outlined">person</span>
+                <span className="material-symbols-outlined">person</span>
               ) : (
                 <img src={profileImg} alt="profileImg" />
               )}
@@ -94,7 +94,7 @@ const Profile = () => {
             <ProfileStyle.ProfileUserImgUploadIcon
               onClick={onclickProfileImgUploadIcon}
             >
-              <span class="material-symbols-outlined">add_circle</span>
+              <span className="material-symbols-outlined">add_circle</span>
             </ProfileStyle.ProfileUserImgUploadIcon>
             {/* <ProfileStyle.ProfileUserImgUploadInput
               type="file"
@@ -106,7 +106,7 @@ const Profile = () => {
           <ProfileStyle.ProfileUserInfoName>
             {user.displayName ? user.displayName : "닉네임을 만들어주세요."}
             <span
-              class="material-symbols-outlined"
+              className="material-symbols-outlined"
               onClick={() => {
                 setIsProfileNameEditModal((prev) => !prev);
               }}

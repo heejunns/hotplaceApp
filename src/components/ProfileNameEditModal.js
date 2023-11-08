@@ -124,7 +124,7 @@ const ProfileNameEditModal = ({ setIsProfileNameEditModal }) => {
         </ProfileNameEditModalStyle.NicknameOverlapCheckText>
         <ProfileNameEditModalStyle.ProfileNameEditBtnBox>
           <ProfileNameEditModalStyle.CancelBtn onClick={onclickCancelModal}>
-            <span class="material-symbols-outlined">close</span>
+            <span className="material-symbols-outlined">close</span>
           </ProfileNameEditModalStyle.CancelBtn>
           <ProfileNameEditModalStyle.NicknameoverlapCheckBtn
             onClick={onclickNicknameOverlapcheck}

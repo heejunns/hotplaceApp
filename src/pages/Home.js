@@ -15,14 +15,25 @@ import * as HomeStyle from "../styles/pages/HomeStyle";
 import PostItem from "../components/PostItem";
 import TopPost from "../components/TopPost";
 
+// ============================================ Home(메인) 페이지 ===================================
+// 사용자들이 게시한 게시물들을 한번에 볼 수 있고 사용자들이 좋아요를 눌러 좋아요를 가장 많이 받은 순서대로 1~10위까지 한번에 볼 수 있는 페이지 입니다.
+// 게시글들도 사용자가 드롭박스에서 분류 방법을 선택하여 원하는 분류 방식의 게시글들을 볼 수 있습니다.
+// ===============================================================================================
 const Home = ({ userLocation }) => {
+  // 현재 화면에 보여지는 게시글의 데이터를 담고 있는 state
   const [currentData, setCurrentData] = useState([]);
+  // 게시글 분류 방법을 담고 있는 state
   const [selectSortMethod, setSelectSortMethod] = useState("전체 게시글 보기");
+  // 드롭박스를 펼칠지에대한 여부 state
   const [isSelectSort, setIsSelectSort] = useState(false);
-  const selectSortMethodBtnRef = useRef();
-  const selectSortMethodListRef = useRef();
+  // 현재 분류 방법에 대한 전체 게시글 데이터를 담는 state
   const [postData, setPostData] = useState(null);
+  // 드롭박스 버튼 돔에 접근하기 위한 ref 객체 생성
+  const selectSortMethodBtnRef = useRef();
+  // 드롭박스를 클릭 후 펼쳐지는 분류방법 리스트 돔에 접근하기 위한 ref 객체 생성
+  const selectSortMethodListRef = useRef();
 
+  // 드롭박스 버튼을 클릭하여 드롭박스가 펼쳐져 있는 상태에서 다른 외부 화면을 클릭하고 있다면 드롭박스가 닫히는 코드
   useEffect(() => {
     const outSideClick = (e) => {
       const { target } = e;
@@ -39,6 +50,7 @@ const Home = ({ userLocation }) => {
     document.addEventListener("mousedown", outSideClick);
   }, [isSelectSort]);
 
+  // 사용자가 선택한 분류 방법에 따라 서버에 요청할 쿼리를 만드는 함수
   const queryMake = (selectMethod) => {
     let queryContent;
     if (selectMethod === "전체 게시글 보기") {
@@ -79,6 +91,7 @@ const Home = ({ userLocation }) => {
 
     return queryContent;
   };
+  // 사용자가 드롭박스에서 게시글 분류 방법을 선택해 클릭하면 호출되는 콜백함수, 사용자가 클릭한 분류 방법에 해당하는 데이터를 서버에 요청해 데이터를 받아오는 함수
   const onclickSelectSortChange = async (selectMethod) => {
     try {
       setSelectSortMethod(selectMethod);
@@ -95,8 +108,8 @@ const Home = ({ userLocation }) => {
       console.log(e);
     }
   };
-  // 실시간으로 데이터 베이스에 저장되어 있는 데이터를 가져온다.
-  const getRealTimePostData = useCallback(async () => {
+  // 화면에 Home 컴포넌트가 마운트 하면 호출되는 함수, 화면에 처음으로 보여지는 전체 게시글 데이터를 서버에 요청해서 받아오는 함수
+  const getFirstPostData = useCallback(async () => {
     try {
       const q = query(
         collection(dbService, "test"),
@@ -115,6 +128,7 @@ const Home = ({ userLocation }) => {
     }
   }, []);
 
+  // 왼쪽, 오른쪽 화살표를 클릭하면 호출되는 콜백함수, 화살표를 클릭했을때 해당하는 데이터를 서버에 요청해 받아오는 함수
   const onclickPageHandler = async (mode) => {
     try {
       let q = query(
@@ -135,7 +149,7 @@ const Home = ({ userLocation }) => {
       console.log(e);
     }
   };
-
+  // 페이지네이션에서 숫자를 클릭하면 호출되는 콜백함수, 클릭한 숫자에 해당하는 데이터를 서버에 요청해 받아오는 함수
   const onclickPageNumber = async (pageNumber) => {
     try {
       let q = query(
@@ -154,7 +168,7 @@ const Home = ({ userLocation }) => {
       console.log(e);
     }
   };
-
+  // 사용자에게 현재 페이지가 몇번째 페이지인지 보여주기 위해서 현재 화면에 보여질 데이터를 가지고 전체 데이터와 비교하여 현재 페이지가 몇번째 페이지인지 찾는 함수
   const findCurrentPage = () => {
     for (let i = 0; i < Math.ceil(postData.length / 8); ++i) {
       if (postData[i * 8].createTime === currentData[0].createTime) {
@@ -164,7 +178,7 @@ const Home = ({ userLocation }) => {
   };
 
   useEffect(() => {
-    getRealTimePostData();
+    getFirstPostData();
   }, []);
 
   return (
@@ -178,9 +192,11 @@ const Home = ({ userLocation }) => {
           >
             {selectSortMethod}
             {isSelectSort ? (
-              <span class="material-symbols-outlined">expand_less</span>
+              <span className="material-symbols-outlined">expand_less</span>
             ) : (
-              <span class="material-symbols-outlined">keyboard_arrow_down</span>
+              <span className="material-symbols-outlined">
+                keyboard_arrow_down
+              </span>
             )}
           </HomeStyle.SelectSortMethodBtn>
           <HomeStyle.SelectSortMethodList
@@ -249,11 +265,12 @@ const Home = ({ userLocation }) => {
                 : false
             }
           >
-            <span class="material-symbols-outlined">chevron_left</span>
+            <span className="material-symbols-outlined">chevron_left</span>
           </HomeStyle.PrevBtn>
           {postData &&
             new Array(Math.ceil(postData.length / 8)).fill().map((i, l) => (
               <HomeStyle.PageNumberBtn
+                key={l}
                 onClick={() => onclickPageNumber(l)}
                 currentPage={findCurrentPage() === l}
               >
@@ -264,7 +281,7 @@ const Home = ({ userLocation }) => {
             onClick={() => onclickPageHandler(2)}
             clickDisable={currentData.length < 8 ? false : true}
           >
-            <span class="material-symbols-outlined">chevron_right</span>
+            <span className="material-symbols-outlined">chevron_right</span>
           </HomeStyle.NextBtn>
         </HomeStyle.PageNationBox>
       </HomeStyle.HomeBack>
