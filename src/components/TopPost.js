@@ -36,13 +36,7 @@ const TopPost = () => {
           // doc.data() is never undefined for query doc snapshots
           postData.push({ id: doc.id, ...doc.data() });
         });
-        let data = [
-          ...postData.slice(0, 10),
-          ...postData.slice(0, 10),
-          ...postData.slice(0, 10),
-        ];
         setTopPostData(postData.slice(0, 10));
-        console.log(data);
       } catch (e) {
         console.log(e);
       }

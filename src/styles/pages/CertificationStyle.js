@@ -22,7 +22,7 @@ export const CertificationFormBox = styled.form`
 `;
 
 export const LabelElement = styled.label`
-  font-size: 30px;
+  font-size: 20px;
 `;
 export const InputElement = styled.input`
   margin-top: 10px;
@@ -31,12 +31,11 @@ export const InputElement = styled.input`
   height: 50px;
   padding: 10px;
   &:focus {
-    border: 2px solid #6edcdc;
+    border: 3px solid #6edcdc;
   }
 `;
 export const CertificationItemBox = styled.div`
   padding-bottom: 20px;
-  border-bottom: 1px solid grey;
   display: flex;
   flex-direction: column;
   margin-top: 20px;
@@ -94,12 +93,11 @@ export const BusinessCategoryLabel = styled(LabelElement)`
 `;
 
 export const BusinessCategoryTitle = styled.h1`
-  font-size: 30px;
+  font-size: 20px;
 `;
 
 export const BusinessCategoryItemBox = styled.div`
   padding-bottom: 20px;
-  border-bottom: 1px solid grey;
   margin-top: 10px;
   width: 100%;
   display: flex;
@@ -111,18 +109,20 @@ export const CertificationBtnBox = styled.div`
   justify-content: center;
 `;
 export const CertificationSubmitBtn = styled.button`
-  /* width: 100%; */
-  width: 150px;
+  width: 100%;
   height: 50px;
   border-radius: 10px;
   background-color: black;
   color: white;
-  font-size: 25px;
+  font-size: 20px;
   display: flex;
   justify-content: center;
   align-items: center;
   border: none;
   cursor: pointer;
+  &:hover {
+    opacity: 0.7;
+  }
 `;
 
 export const CeoEmailInputTitleBox = styled.div`

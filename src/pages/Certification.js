@@ -59,9 +59,6 @@ const Certification = () => {
             <CertificationStyle.CeoEmailLabel htmlFor="email">
               이메일
             </CertificationStyle.CeoEmailLabel>
-            <CertificationStyle.InputEmailCheckText>
-              {!inputEmail.includes("@") && "이메일을 다시 입력해주세요."}{" "}
-            </CertificationStyle.InputEmailCheckText>
           </CertificationStyle.CeoEmailInputTitleBox>
           <CertificationStyle.CeoEmailInput
             id="email"
@@ -76,16 +73,13 @@ const Certification = () => {
             <CertificationStyle.CeoPhoneNumberLabel htmlFor="phonenumber">
               휴대폰 번호
             </CertificationStyle.CeoPhoneNumberLabel>
-            <CertificationStyle.InputCeoPhoneNumberCheckText>
-              {inputPhoneNumber}
-            </CertificationStyle.InputCeoPhoneNumberCheckText>
           </CertificationStyle.CeoPhoneNumberInputTitleBox>
 
           <CertificationStyle.CeoPhoneNumberInput
             id="phonenumber"
             value={inputPhoneNumber}
             type="number"
-            placeholder="대표님 휴대폰 전화번호를 적어주세요."
+            placeholder="대표님 휴대폰 전화번호를 적어주세요. - 빼고 입력 해주세요."
             onChange={onchangeInputText}
           />
         </CertificationStyle.CertificationItemBox>

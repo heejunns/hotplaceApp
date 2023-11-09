@@ -127,11 +127,13 @@ const Detail = () => {
         <DetailStyle.DetailBox>
           <DetailStyle.DetailTitleBox>
             <DetailStyle.DetailTitleText>
-              {detailData && detailData.writerProfileImg && (
-                <DetailStyle.DetailWriterImgBox>
+              <DetailStyle.DetailWriterImgBox>
+                {detailData && detailData.writerProfileImg ? (
                   <img src={detailData.writerProfileImg} alt="writerImg" />
-                </DetailStyle.DetailWriterImgBox>
-              )}
+                ) : (
+                  <span className="material-symbols-outlined">person</span>
+                )}
+              </DetailStyle.DetailWriterImgBox>
               {detailData && detailData.nickname} 님의 게시물
             </DetailStyle.DetailTitleText>
             <DetailStyle.DetailTitleBoxRight>

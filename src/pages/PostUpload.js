@@ -299,7 +299,7 @@ const PostUpload = ({ userLocation }) => {
           </PostUploadStyle.PostUploadMapBox>
 
           <PostUploadStyle.PostUploadSubmitBox>
-            <PostUploadStyle.SubmitBtn type="submit" value="완료" />
+            <PostUploadStyle.SubmitBtn type="submit" value="게시글 올리기" />
           </PostUploadStyle.PostUploadSubmitBox>
         </PostUploadStyle.PostUploadFormContainer>
       </PostUploadStyle.PostUploadBack>

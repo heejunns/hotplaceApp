@@ -1,14 +1,32 @@
 import { signOut } from "firebase/auth";
-import React, { useState } from "react";
+import React, { useEffect, useRef, useState } from "react";
 import { Link, useNavigate } from "react-router-dom";
 import { authService } from "../reactfbase";
 import { useRecoilValue } from "recoil";
 import { userAtom } from "../recoils/UserAtom";
 import * as HeaderStyle from "../styles/componenet/HeaderStyle";
 
-const Header = ({ userLocation }) => {
+const Header = () => {
   const [clickHamburgerBtn, setClickHamburgerBtn] = useState(false);
+  console.log("엥", clickHamburgerBtn);
   const user = useRecoilValue(userAtom);
+  const sideBarRef = useRef();
+  const hamburgerRef = useRef();
+  useEffect(() => {
+    const outSideClick = ({ target }) => {
+      if (
+        sideBarRef &&
+        hamburgerRef &&
+        sideBarRef.current &&
+        hamburgerRef.current &&
+        !sideBarRef.current.contains(target) &&
+        !hamburgerRef.current.contains(target)
+      ) {
+        setClickHamburgerBtn(false);
+      }
+    };
+    document.addEventListener("mousedown", outSideClick);
+  }, []);
   const navigate = useNavigate(); // useNavigate 훅스를 사용해서 로그 아웃시 "/" 주소로 강제 이동
   // 로그아웃 버튼을 클릭하면 호출되는 콜백 함수
   const onclickLogoutButton = async () => {
@@ -40,14 +58,14 @@ const Header = ({ userLocation }) => {
             </HeaderStyle.HeaderBoxItem>
           </Link>
         )}
-        {/* {user && user.displayName && (
+        {user && user.displayName && (
           <Link to="/certification" style={{ textDecoration: "none" }}>
             <HeaderStyle.HeaderBoxItem>
               사장님 인증하기
               <span className="material-symbols-outlined">verified_user</span>
             </HeaderStyle.HeaderBoxItem>
           </Link>
-        )} */}
+        )}
       </HeaderStyle.HeaderMenuBox>
 
       <HeaderStyle.HeaderUserInfoBox>
@@ -83,6 +101,7 @@ const Header = ({ userLocation }) => {
       </HeaderStyle.HeaderUserInfoBox>
       <HeaderStyle.HamburgerButtonIcon
         onClick={() => setClickHamburgerBtn((prev) => !prev)}
+        ref={hamburgerRef}
       >
         <HeaderStyle.HamburgerIconItem
           toggle={clickHamburgerBtn}
@@ -94,7 +113,7 @@ const Header = ({ userLocation }) => {
           toggle={clickHamburgerBtn}
         ></HeaderStyle.HamburgerIconItem>
       </HeaderStyle.HamburgerButtonIcon>
-      <HeaderStyle.HamburgerSideBar toggle={clickHamburgerBtn}>
+      <HeaderStyle.HamburgerSideBar toggle={clickHamburgerBtn} ref={sideBarRef}>
         <HeaderStyle.HamburgerSideBarBox>
           {user ? (
             <Link to="/profile" onClick={() => setClickHamburgerBtn(false)}>
@@ -132,7 +151,7 @@ const Header = ({ userLocation }) => {
               </HeaderStyle.HamburgerSideBarList>
             </Link>
           )}
-          {/* {user && (
+          {user && (
             <Link
               to="/certification"
               onClick={() => setClickHamburgerBtn(false)}
@@ -142,7 +161,7 @@ const Header = ({ userLocation }) => {
                 <span className="material-symbols-outlined">verified_user</span>
               </HeaderStyle.HamburgerSideBarList>
             </Link>
-          )} */}
+          )}
         </HeaderStyle.HamburgerSideBarBox>
       </HeaderStyle.HamburgerSideBar>
     </HeaderStyle.HeaderBackground>
