@@ -56,7 +56,7 @@ export const DetailImgBox = styled.div`
     object-fit: cover;
   }
   @media screen and (max-width: 768px) {
-    height: 200px;
+    height: 300px;
   }
 `;
 // 디테일 이미지 한개 이상일때 박스
@@ -65,11 +65,18 @@ export const DetailImgsBox = styled.div`
   position: relative;
   height: 700px;
   overflow: hidden;
-
   margin-bottom: 20px;
   @media screen and (max-width: 768px) {
-    height: 350px;
+    height: 300px;
     overflow-x: scroll;
+    ::-webkit-scrollbar {
+      width: 8px;
+      height: 8px;
+    }
+    ::-webkit-scrollbar-thumb {
+      background-color: black;
+      border-radius: 10px;
+    }
   }
 `;
 
@@ -83,7 +90,7 @@ export const ImgsContainer = styled.div`
       ? `translateX(${props.detailImgBoxPx}px)`
       : `translateX(${props.detailImgBoxPx}px)`};
   @media screen and (max-width: 768px) {
-    height: 350px;
+    height: 300px;
   }
   & > img {
     width: 100%;
@@ -91,7 +98,8 @@ export const ImgsContainer = styled.div`
     height: 700px;
     object-fit: cover;
     @media screen and (max-width: 768px) {
-      height: 350px;
+      height: 300px;
+      object-fit: fill;
     }
   }
 `;
@@ -122,12 +130,18 @@ export const DetailImgBtn = styled.button`
 export const DetailImgPrevBtn = styled(DetailImgBtn)`
   left: 3px;
   display: ${(props) => (props.detailImgBoxPx === 0 ? "none" : "block")};
+  @media screen and (max-width: 768px) {
+    display: none;
+  }
 `;
 
 export const DetailImgNextBtn = styled(DetailImgBtn)`
   right: 3px;
   display: ${(props) =>
     props.detailImgBoxPx === -props.imgsMaxPx + 800 ? "none" : "block"};
+  @media screen and (max-width: 768px) {
+    display: none;
+  }
 `;
 
 // 디테일 페이지의 자세한 설명
@@ -210,11 +224,18 @@ export const DetailWriterImgBox = styled.div`
   margin-right: 5px;
   width: 30px;
   height: 30px;
-
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  border-radius: 100%;
+  border: 2px solid black;
   & > img {
-    border-radius: 100%;
     width: 100%;
     height: 100%;
+    border-radius: 100%;
+  }
+  & > span {
+    font-size: 15px;
   }
   @media screen and (max-width: 768px) {
     width: 25px;

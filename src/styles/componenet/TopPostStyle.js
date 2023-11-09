@@ -69,7 +69,7 @@ export const TopPostPrevBtn = styled(TopPostBtn)`
 export const TopPostNextBtn = styled(TopPostBtn)`
   top: 125px;
   right: 15px;
-  display: ${(props) => (props.topBoxPx === -2400 ? "none" : "bloack")};
+  display: ${(props) => (props.topBoxPx === -2400 ? "none" : "block")};
   @media screen and (max-width: 768px) {
     display: none;
   }

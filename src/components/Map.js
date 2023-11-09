@@ -1,7 +1,6 @@
 import React, { memo, useCallback, useEffect, useState } from "react";
 import * as MapStyle from "../styles/componenet/MapStyle";
 const Map = ({ setUserMarkerLocation }) => {
-  const [marker, setMarker] = useState(""); // 마커 버튼을 클릭하면 호출 될 함수를 저장할 state
   const getLocation = useCallback(
     async (position) => {
       const lat = await position.coords.latitude;
@@ -22,10 +21,6 @@ const Map = ({ setUserMarkerLocation }) => {
         drawingMode: [
           // drawing manager로 제공할 그리기 요소 모드입니다
           window.kakao.maps.drawing.OverlayType.MARKER,
-          window.kakao.maps.drawing.OverlayType.POLYLINE,
-          window.kakao.maps.drawing.OverlayType.RECTANGLE,
-          window.kakao.maps.drawing.OverlayType.CIRCLE,
-          window.kakao.maps.drawing.OverlayType.POLYGON,
         ],
         // 사용자에게 제공할 그리기 가이드 툴팁입니다
         // 사용자에게 도형을 그릴때, 드래그할때, 수정할때 가이드 툴팁을 표시하도록 설정합니다
@@ -40,16 +35,12 @@ const Map = ({ setUserMarkerLocation }) => {
       // 위에 작성한 옵션으로 Drawing Manager를 생성합니다
       var manager = new window.kakao.maps.drawing.DrawingManager(options);
 
-      // 버튼 클릭 시 호출되는 핸들러 입니다
-      setMarker(() => {
-        return (type) => {
-          // 그리기 중이면 그리기를 취소합니다
-          manager.cancel();
+      // 그리기 중이면 그리기를 취소합니다
+      manager.cancel();
 
-          // 클릭한 그리기 요소 타입을 선택합니다
-          manager.select(window.kakao.maps.drawing.OverlayType[type]);
-        };
-      });
+      // 클릭한 그리기 요소 타입을 선택합니다
+      manager.select(window.kakao.maps.drawing.OverlayType["MARKER"]);
+
       manager.addListener("remove", () => {
         // 마커를 삭제하면 이벤트 발생
         const data = manager.getData();
@@ -92,16 +83,6 @@ const Map = ({ setUserMarkerLocation }) => {
   return (
     <>
       <MapStyle.MapImage id="map">맵 불러오는 중</MapStyle.MapImage>
-      <MapStyle.MarkerBtnBox>
-        <MapStyle.MarkerBtn
-          type="button"
-          onClick={() => marker("MARKER")}
-          // onTouchStart={() => marker("MARKER")}
-        >
-          장소 마커하기{" "}
-          <span className="material-symbols-outlined">push_pin</span>
-        </MapStyle.MarkerBtn>
-      </MapStyle.MarkerBtnBox>
     </>
   );
 };

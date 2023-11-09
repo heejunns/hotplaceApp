@@ -1,19 +1,9 @@
-import React, { useCallback, useEffect, useState } from "react";
-import { updateProfile } from "firebase/auth";
-import { authService, dbService } from "../reactfbase";
-import {
-  collection,
-  doc,
-  getDoc,
-  getDocs,
-  onSnapshot,
-  orderBy,
-  query,
-  where,
-} from "firebase/firestore";
+import React, { useEffect, useState } from "react";
+import { dbService } from "../reactfbase";
+import { collection, getDocs, orderBy, query, where } from "firebase/firestore";
 import PostItem from "../components/PostItem";
-import { useRecoilState, useRecoilValue } from "recoil";
-import { hamburgerBtnClick, userAtom } from "../recoils/UserAtom";
+import { useRecoilValue } from "recoil";
+import { userAtom } from "../recoils/UserAtom";
 import * as ProfileStyle from "../styles/pages/ProfileStyle";
 import ProfileImgUploadModal from "../components/ProfileImgUploadModal";
 import ProfileNameEditModal from "../components/ProfileNameEditModal";
@@ -25,10 +15,9 @@ import ProfileNameEditModal from "../components/ProfileNameEditModal";
 // 또 다른 방법은 user 객체 자체를 복사해서 업데이트 하는 것이다. JSON.parse(JSON.stringify(객체)) , Object.assign({},객체)
 
 const Profile = () => {
-  const [user, setUser] = useRecoilState(userAtom);
-
+  const user = useRecoilValue(userAtom);
   const [userUploadData, setUserUploadData] = useState([]); // 해당 유저가 작성한 게시글만 가져와서 저장하는 state
-  const profileImg = user.photoURL;
+  const profileImg = user && user.photoURL;
   const [selectMenu, setSelectMenu] = useState("1");
   const [isProfileImgUploadModal, setIsProfileImgUploadModal] = useState(false);
   const [isProfileNameEditModal, setIsProfileNameEditModal] = useState(false);
@@ -80,7 +69,6 @@ const Profile = () => {
   }, [isProfileNameEditModal]);
   return (
     <>
-      {" "}
       <ProfileStyle.ProfileBack>
         <ProfileStyle.ProfileUserInfoBox>
           <ProfileStyle.ProfileUserImgBox>
@@ -104,7 +92,7 @@ const Profile = () => {
             /> */}
           </ProfileStyle.ProfileUserImgBox>
           <ProfileStyle.ProfileUserInfoName>
-            {user.displayName ? user.displayName : "닉네임을 만들어주세요."}
+            {user ? user.displayName : "닉네임을 만들어주세요."}
             <span
               className="material-symbols-outlined"
               onClick={() => {

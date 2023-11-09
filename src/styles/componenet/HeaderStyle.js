@@ -62,6 +62,9 @@ export const HeaderBoxItem = styled.div`
   align-items: center;
   margin-left: 10px;
   white-space: nowrap;
+  &:hover {
+    opacity: 0.7;
+  }
 `;
 // 로그아웃 버튼 스타일 태그
 export const LogOutButton = styled.button`

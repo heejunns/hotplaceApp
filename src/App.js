@@ -4,8 +4,9 @@ import { onAuthStateChanged } from "firebase/auth";
 import { authService } from "./reactfbase";
 import styled from "styled-components";
 import { useSetRecoilState } from "recoil";
-import { userAtom, userProfilePhotoUrl } from "./recoils/UserAtom";
+import { userAtom } from "./recoils/UserAtom";
 import { PulseLoader } from "react-spinners";
+import { useLocation } from "react-router-dom";
 
 // 처음 로딩 될때 화면을 보여줄 컴포넌트
 const Loading = styled.div`
