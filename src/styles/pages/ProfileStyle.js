@@ -8,7 +8,7 @@ export const ProfileBack = styled.div`
   display: flex;
   flex-direction: column;
   align-items: center;
-  padding: 20px;
+  padding: 60px 20px 40px 20px;
   @media screen and (max-width: 768px) {
     padding: 60px 20px 20px 20px;
   }
@@ -116,6 +116,7 @@ export const NoPost = styled.div`
 `;
 export const ProfilePostBox = styled.div`
   display: grid;
+  padding: 5px;
   grid-template-columns: repeat(4, 1fr);
   gap: 20px;
   height: 100%;

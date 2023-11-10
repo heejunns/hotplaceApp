@@ -1,7 +1,7 @@
 import styled from "styled-components";
 // 게시글 올리는 페이지의 배경 스타일 태그
 export const PostUploadBack = styled.div`
-  padding: 0px 10px 20px 10px;
+  padding: 60px 20px 40px 20px;
   font-family: "Tilt Neon", sans-serif;
   width: 100%;
   display: flex;

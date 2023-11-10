@@ -3,6 +3,9 @@ import styled from "styled-components";
 // 네이게이선 배경 스타일 태그
 export const HeaderBackground = styled.div`
   font-family: "Tilt Neon", sans-serif;
+  position: fixed;
+  top: 0;
+  z-index: 10;
   height: 50px;
   width: 100%;
   padding: 0 20px;
@@ -13,9 +16,6 @@ export const HeaderBackground = styled.div`
   background-color: black;
   @media screen and (max-width: 768px) {
     justify-content: space-between;
-    position: fixed;
-    top: 0;
-    z-index: 100;
   }
 `;
 
@@ -58,10 +58,13 @@ export const HeaderUserInfoBox = styled.ul`
 export const HeaderBoxItem = styled.div`
   color: white;
   font-size: 20px;
+  padding-bottom: 3px;
   display: flex;
   align-items: center;
   margin-left: 10px;
   white-space: nowrap;
+  opacity: ${(props) => (props.currentPath ? 0.7 : 1)};
+  border-bottom: ${(props) => (props.currentPath ? "1px solid white" : "none")};
   &:hover {
     opacity: 0.7;
   }

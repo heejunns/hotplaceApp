@@ -24,6 +24,8 @@ export const TopPostBack = styled.div`
 
 export const TopPostBox = styled.div`
   min-width: 2950px;
+  padding: 5px;
+  display: flex;
   display: grid;
   grid-template-columns: repeat(10, 1fr);
   gap: 15px;

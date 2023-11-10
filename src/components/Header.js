@@ -1,6 +1,6 @@
 import { signOut } from "firebase/auth";
 import React, { useEffect, useRef, useState } from "react";
-import { Link, useNavigate } from "react-router-dom";
+import { Link, useLocation, useNavigate } from "react-router-dom";
 import { authService } from "../reactfbase";
 import { useRecoilValue } from "recoil";
 import { userAtom } from "../recoils/UserAtom";
@@ -8,7 +8,8 @@ import * as HeaderStyle from "../styles/componenet/HeaderStyle";
 
 const Header = () => {
   const [clickHamburgerBtn, setClickHamburgerBtn] = useState(false);
-  console.log("엥", clickHamburgerBtn);
+  const { pathname } = useLocation();
+  console.log(pathname);
   const user = useRecoilValue(userAtom);
   const sideBarRef = useRef();
   const hamburgerRef = useRef();
@@ -52,17 +53,38 @@ const Header = () => {
         </Link>
         {user && user.displayName && (
           <Link to="/postupload" style={{ textDecoration: "none" }}>
-            <HeaderStyle.HeaderBoxItem>
+            <HeaderStyle.HeaderBoxItem currentPath={pathname === "/postupload"}>
               게시글 올리기
               <span className="material-symbols-outlined">upload_file</span>
             </HeaderStyle.HeaderBoxItem>
           </Link>
         )}
-        {user && user.displayName && (
+        {/* {user && user.displayName && (
           <Link to="/certification" style={{ textDecoration: "none" }}>
             <HeaderStyle.HeaderBoxItem>
               사장님 인증하기
               <span className="material-symbols-outlined">verified_user</span>
+            </HeaderStyle.HeaderBoxItem>
+          </Link>
+        )} */}
+        {user && user.displayName && (
+          <Link to="/cafe" style={{ textDecoration: "none" }}>
+            <HeaderStyle.HeaderBoxItem currentPath={pathname === "/cafe"}>
+              카페
+            </HeaderStyle.HeaderBoxItem>
+          </Link>
+        )}
+        {user && user.displayName && (
+          <Link to="/food" style={{ textDecoration: "none" }}>
+            <HeaderStyle.HeaderBoxItem currentPath={pathname === "/food"}>
+              음식
+            </HeaderStyle.HeaderBoxItem>
+          </Link>
+        )}
+        {user && user.displayName && (
+          <Link to="/mart" style={{ textDecoration: "none" }}>
+            <HeaderStyle.HeaderBoxItem currentPath={pathname === "/mart"}>
+              마트
             </HeaderStyle.HeaderBoxItem>
           </Link>
         )}
@@ -72,7 +94,7 @@ const Header = () => {
         <li>
           {user ? (
             <Link to="/profile">
-              <HeaderStyle.HeaderBoxItem>
+              <HeaderStyle.HeaderBoxItem currentPath={pathname === "/profile"}>
                 {user.displayName === undefined
                   ? "닉네임을 만들어주세요."
                   : `${user.displayName} 님 프로필`}
@@ -151,7 +173,7 @@ const Header = () => {
               </HeaderStyle.HamburgerSideBarList>
             </Link>
           )}
-          {user && (
+          {/* {user && (
             <Link
               to="/certification"
               onClick={() => setClickHamburgerBtn(false)}
@@ -161,7 +183,7 @@ const Header = () => {
                 <span className="material-symbols-outlined">verified_user</span>
               </HeaderStyle.HamburgerSideBarList>
             </Link>
-          )}
+          )} */}
         </HeaderStyle.HamburgerSideBarBox>
       </HeaderStyle.HamburgerSideBar>
     </HeaderStyle.HeaderBackground>
