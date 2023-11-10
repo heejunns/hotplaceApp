@@ -5,7 +5,7 @@ export const CertificationBack = styled.div`
   height: 100%;
   display: flex;
   justify-content: center;
-  padding: 0px 10px 20px 10px;
+  padding: 60px 20px 40px 20px;
   @media screen and (max-width: 768px) {
     padding: 20px;
   }

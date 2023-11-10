@@ -3,6 +3,7 @@ import styled from "styled-components";
 // 게시글 하나의 전체 백그라운드 스타일 태그
 export const TopPostItemBack = styled.div`
   color: black;
+  box-shadow: rgba(0, 0, 0, 0.2) 1px 1px 10px 0;
   width: 285px;
   display: flex;
   flex-direction: column;

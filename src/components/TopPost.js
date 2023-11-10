@@ -15,32 +15,28 @@ const TopPost = () => {
   const onclickRightBtn = () => {
     if (topBoxPx > -2900) setTopBoxPx((prev) => prev - 1200);
   };
-  // useEffect(() => {
-  //   let key = setInterval(() => {
-  //     setTopBoxPx((prev) => prev - 1200);
-  //   }, 1000);
-  //   return () => {
-  //     clearInterval(key);
-  //   };
-  // }, []);
+
+  const getTopPost = async () => {
+    try {
+      const q = query(
+        collection(dbService, "test"),
+        orderBy("likeNumber", "desc")
+      );
+      const querySnapshot = await getDocs(q);
+      const postData = [];
+      querySnapshot.forEach((doc) => {
+        // doc.data() is never undefined for query doc snapshots
+        postData.push({ id: doc.id, ...doc.data() });
+      });
+      setTopPostData(postData.slice(0, 10));
+    } catch (e) {
+      console.log(e);
+    }
+  };
+  // if (topBoxPx === -2400) {
+  //   setTopBoxPx(0);
+  // }
   useEffect(() => {
-    const getTopPost = async () => {
-      try {
-        const q = query(
-          collection(dbService, "test"),
-          orderBy("likeNumber", "desc")
-        );
-        const querySnapshot = await getDocs(q);
-        const postData = [];
-        querySnapshot.forEach((doc) => {
-          // doc.data() is never undefined for query doc snapshots
-          postData.push({ id: doc.id, ...doc.data() });
-        });
-        setTopPostData(postData.slice(0, 10));
-      } catch (e) {
-        console.log(e);
-      }
-    };
     getTopPost();
   }, []);
   return (

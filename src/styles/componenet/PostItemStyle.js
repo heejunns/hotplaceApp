@@ -3,6 +3,9 @@ import styled from "styled-components";
 // 게시글 하나의 전체 백그라운드 스타일 태그
 export const PostItemBack = styled.div`
   width: 100%;
+  height: 100%;
+  max-height: 250px;
+  box-shadow: rgba(0, 0, 0, 0.2) 1px 1px 10px 0;
   display: flex;
   flex-direction: column;
   cursor: pointer;
@@ -19,9 +22,6 @@ export const PostItemTitleBox = styled.div`
   width: 100%;
   display: flex;
   justify-content: space-between;
-  /* @media screen and (max-width: 768px) {
-    font-size: 15px;
-  } */
   & > div {
     display: flex;
     align-items: center;
@@ -33,15 +33,11 @@ export const PostItemImgBox = styled.div`
   margin-top: 10px;
   width: 100%;
   height: 150px;
-  /* border-radius: 10px; */
   & > img {
     width: 100%;
     height: 100%;
     border-radius: 10px;
     object-fit: fill;
-  }
-  @media screen and (max-width: 768px) {
-    height: 230px;
   }
 `;
 // 게시글을 게시한 시간을 보여주는 스타일 태그
