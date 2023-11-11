@@ -25,6 +25,7 @@ const PageTopScroll = () => {
   return null;
 };
 const AppRouter = ({ userLocation }) => {
+  console.log("응?", userLocation);
   return (
     <>
       <Router>
@@ -33,7 +34,7 @@ const AppRouter = ({ userLocation }) => {
         <Routes>
           <Route path="/" element={<Home userLocation={userLocation} />} />
           <Route path="/detail" element={<Detail />} />
-          <Route path=":id" element={<Page />} />
+          <Route path=":id" element={<Page useLocation={userLocation} />} />
           <Route path="/profile" element={<Profile />} />
           <Route
             path="/postupload"
