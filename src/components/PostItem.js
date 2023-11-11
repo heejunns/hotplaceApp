@@ -6,7 +6,7 @@ import { useNavigate } from "react-router-dom";
 import NoUserClickModal from "./NoUserClickModal";
 
 // word-break: break-all;
-const PostItem = ({ data, index, dataLen }) => {
+const PostItem = ({ data }) => {
   const user = useRecoilValue(userAtom);
   const [clickPostItem, setClickPostItem] = useRecoilState(clickPostItemData);
   const [isNoUserClickModal, setIsNoUserClickModal] = useState(false);
