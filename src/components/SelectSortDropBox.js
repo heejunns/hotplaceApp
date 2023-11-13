@@ -3,76 +3,19 @@ import { collection, getDocs, orderBy, query, where } from "firebase/firestore";
 import { dbService } from "../reactfbase";
 
 const SelectSortDropBox = ({
-  setCurrentData,
-  setPostData,
   selectSortMethod,
   setSelectSortMethod,
-  userLocation,
-  pageId,
+  setCurrentPage,
 }) => {
-  // 사용자가 선택한 분류 방법에 따라 서버에 요청할 쿼리를 만드는 함수
-  const queryMake = (selectMethod, pageId) => {
-    let queryContent;
-    let category =
-      pageId === "cafe"
-        ? "카페"
-        : pageId === "food"
-        ? "음식"
-        : pageId === "mart"
-        ? "마트"
-        : "전체";
-    if (selectMethod === "최신글 순으로 보기") {
-      queryContent = query(
-        collection(dbService, "test"),
-        category === "전체" ? null : where("category", "==", category),
-        orderBy("createTime", "desc")
-      );
-    } else if (selectMethod === "예전글 순으로 보기") {
-      queryContent = query(
-        collection(dbService, "test"),
-        category === "전체" ? null : where("category", "==", category),
-        orderBy("createTime")
-      );
-    } else if (selectMethod === "좋아요 순으로 보기") {
-      queryContent = query(
-        collection(dbService, "test"),
-        category === "전체" ? null : where("category", "==", category),
-        orderBy("likeNumber", "desc")
-      );
-    } else if (selectMethod === "나의 지역 글만 보기") {
-      queryContent = query(
-        collection(dbService, "test"),
-        category === "전체" ? null : where("category", "==", category),
-        where("userLocation", "==", userLocation),
-        orderBy("createTime", "desc")
-      );
-    }
-
-    return queryContent;
-  };
-
   // 사용자가 드롭박스에서 게시글 분류 방법을 선택해 클릭하면 호출되는 콜백함수, 사용자가 클릭한 분류 방법에 해당하는 데이터를 서버에 요청해 데이터를 받아오는 함수
-  const onclickSelectSortChange = async (selectMethod) => {
-    try {
-      setSelectSortMethod(selectMethod);
-      // setIsSelectSort((prev) => !prev);
-      const q = queryMake(selectMethod, pageId);
-      const querySnapshot = await getDocs(q);
-      const data = [];
-      querySnapshot.forEach((doc) => {
-        data.push({ id: doc.id, ...doc.data() });
-      });
-      setPostData(data);
-      setCurrentData(data.slice(0, 8));
-    } catch (e) {
-      console.log(e);
-    }
+  const onclickSelectSortChange = (selectMethod) => {
+    setSelectSortMethod(selectMethod);
+    setCurrentPage(0);
   };
   return (
     <SelectSortDropBoxStyle.SelectSortMethodBox>
       <SelectSortDropBoxStyle.SelectSortMethodBtn>
         {selectSortMethod}
-
         <span className="material-symbols-outlined">keyboard_arrow_down</span>
       </SelectSortDropBoxStyle.SelectSortMethodBtn>
       <SelectSortDropBoxStyle.SelectSortMethodList>

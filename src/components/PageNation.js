@@ -1,18 +1,10 @@
-import { collection, orderBy, query, where } from "firebase/firestore";
 import * as PageNationStyle from "../styles/componenet/PageNationStyle";
-import { dbService } from "../reactfbase";
 
-const PageNation = ({
-  onclickPageNumber,
-  onclickPageHandler,
-  currentData,
-  currentPage,
-  postData,
-}) => {
+const PageNation = ({ currentData, currentPage, postData, setCurrentPage }) => {
   return (
     <PageNationStyle.PageNationBox>
       <PageNationStyle.PrevBtn
-        onClick={() => onclickPageHandler(1)}
+        onClick={() => setCurrentPage((prev) => prev - 1)}
         clickDisable={
           postData &&
           currentData &&
@@ -27,14 +19,14 @@ const PageNation = ({
         new Array(Math.ceil(postData.length / 8)).fill().map((i, l) => (
           <PageNationStyle.PageNumberBtn
             key={l}
-            onClick={postData.length > 8 ? () => onclickPageNumber(l) : null}
+            onClick={postData.length > 8 ? () => setCurrentPage(l) : null}
             currentPage={l === currentPage}
           >
             {l + 1}
           </PageNationStyle.PageNumberBtn>
         ))}
       <PageNationStyle.NextBtn
-        onClick={() => onclickPageHandler(2)}
+        onClick={() => setCurrentPage((prev) => prev + 1)}
         clickDisable={currentData.length < 8 ? false : true}
       >
         <span className="material-symbols-outlined">chevron_right</span>

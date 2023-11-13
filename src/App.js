@@ -17,7 +17,7 @@ const Loading = styled.div`
   display: flex;
   justify-content: center;
   align-items: center;
-  background: rgba(0, 0, 0, 0.1);
+  background: rgba(0, 0, 0, 0.2);
 `;
 
 // 어플리케이션이 로드 될때 너무 빨라서 파이어 베이스는 사용자가 로그인 되었는지 확인할 시간이 없음.
@@ -72,7 +72,10 @@ const App = () => {
           <PulseLoader color="black" size={20} />
         </Loading>
       )}
-      <AppRouter userLocation={userLocation} />
+      <AppRouter
+        userLocation={userLocation}
+        firebaseInitialize={firebaseInitialize}
+      />
     </>
   );
 };
