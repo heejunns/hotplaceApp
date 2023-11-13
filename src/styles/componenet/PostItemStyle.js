@@ -13,7 +13,7 @@ export const PostItemBack = styled.div`
     display: none;
   }
   padding: 10px;
-  font-size: 20px;
+  font-size: 18px;
   border-radius: 10px;
 `;
 
@@ -53,7 +53,6 @@ export const TopPostItemPostName = styled.div`
   margin-top: 10px;
   width: 100%;
   word-break: break-all;
-  /* height: 70px; */
   overflow: hidden;
   text-overflow: ellipsis;
   display: -webkit-box;
@@ -67,10 +66,11 @@ export const PostItemLike = styled.div`
   width: 20px;
   color: black;
   cursor: pointer;
-  font-size: 20px;
+  font-size: 18px;
   display: flex;
   & > span {
     margin-right: 3px;
+    font-size: 18px;
   }
 `;
 

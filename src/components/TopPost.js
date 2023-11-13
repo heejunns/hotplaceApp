@@ -5,6 +5,7 @@ import { collection, getDocs, orderBy, query, where } from "firebase/firestore";
 import { dbService } from "../reactfbase";
 import { useState } from "react";
 import TopPostItem from "./TopPostItem";
+import { useQuery } from "react-query";
 const TopPost = () => {
   const [topPostData, setTopPostData] = useState([]);
   const [topBoxPx, setTopBoxPx] = useState(0);
@@ -29,16 +30,18 @@ const TopPost = () => {
         postData.push({ id: doc.id, ...doc.data() });
       });
       setTopPostData(postData.slice(0, 10));
+      return postData;
     } catch (e) {
       console.log(e);
     }
   };
+  const { data } = useQuery("topData", getTopPost);
   // if (topBoxPx === -2400) {
   //   setTopBoxPx(0);
   // }
-  useEffect(() => {
-    getTopPost();
-  }, []);
+  // useEffect(() => {
+  //   getTopPost();
+  // }, []);
   return (
     <>
       <TopPostStyle.TopPostTitleBox>

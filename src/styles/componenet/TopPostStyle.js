@@ -37,9 +37,10 @@ export const TopPostBox = styled.div`
 `;
 
 export const TopPostBtn = styled.button`
-  width: 50px;
-  height: 50px;
-  background-color: #969696;
+  width: 40px;
+  box-shadow: rgba(0, 0, 0, 0.2) 1px 1px 10px 0;
+  height: 40px;
+  background-color: white;
   display: flex;
   justify-content: center;
   align-items: center;
@@ -51,8 +52,8 @@ export const TopPostBtn = styled.button`
   cursor: pointer;
   & > span {
     opacity: 1;
-    color: white;
-    font-size: 35px;
+    color: black;
+    font-size: 25px;
   }
   &:hover {
     opacity: 1;
@@ -61,7 +62,7 @@ export const TopPostBtn = styled.button`
 
 export const TopPostPrevBtn = styled(TopPostBtn)`
   top: 125px;
-  left: 0;
+  left: 10px;
   display: ${(props) => (props.topBoxPx === 0 ? "none" : "block")};
   @media screen and (max-width: 768px) {
     display: none;
@@ -91,6 +92,6 @@ export const TopPostTitleBox = styled.div`
 export const TopPostTitleText = styled.h1`
   color: black;
   font-size: 25px;
-  font-weight: 500;
+  font-weight: 700;
   font-family: "Tilt Neon", sans-serif;
 `;

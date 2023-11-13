@@ -12,7 +12,7 @@ export const TopPostItemBack = styled.div`
     display: none;
   }
   padding: 10px;
-  font-size: 20px;
+  font-size: 18px;
   border-radius: 10px;
 `;
 
