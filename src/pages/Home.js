@@ -20,7 +20,7 @@ import TopPost from "../components/TopPost";
 import SelectSortDropBox from "../components/SelectSortDropBox";
 import PageNation from "../components/PageNation";
 import { useParams } from "react-router-dom";
-import { useQuery } from "react-query";
+import { useQueries, useQuery } from "react-query";
 
 // ============================================ Home(메인) 페이지 ===================================
 // 사용자들이 게시한 게시물들을 한번에 볼 수 있고 사용자들이 좋아요를 눌러 좋아요를 가장 많이 받은 순서대로 1~10위까지 한번에 볼 수 있는 페이지 입니다.
@@ -88,8 +88,9 @@ const Home = ({ userLocation, firebaseInitialize }) => {
       console.log(e);
     }
   };
-  const { data: postData } = useQuery(["postData", selectSortMethod], () =>
-    getPostData(selectSortMethod)
+  const { isLoading: postGetIsLoading, data: postData } = useQuery(
+    ["postData", selectSortMethod],
+    () => getPostData(selectSortMethod)
   );
 
   // ===========================
@@ -148,9 +149,23 @@ const Home = ({ userLocation, firebaseInitialize }) => {
   // 쿼리 코드
   const { data: currentData, refetch } = useQuery(
     ["pageHandle", selectSortMethod, currentPage],
-    () => getCurrentData(selectSortMethod, currentPage)
+    () => getCurrentData(selectSortMethod, currentPage),
+    {
+      enabled: !!postData,
+      keepPreviousData: true,
+    }
   );
 
+  // const hello = useQueries(
+  //   useQuery(["pageHandle", selectSortMethod, currentPage], () =>
+  //     getCurrentData(selectSortMethod, currentPage)
+  //   ),
+  //   useQuery(["postData", selectSortMethod], () =>
+  //     getPostData(selectSortMethod)
+  //   )
+  // );
+
+  // console.log("hello", hello);
   // =======================
   return (
     <>
@@ -161,7 +176,10 @@ const Home = ({ userLocation, firebaseInitialize }) => {
           setSelectSortMethod={setSelectSortMethod}
           setCurrentPage={setCurrentPage}
         />
-        {firebaseInitialize && currentData && currentData.length === 0 ? (
+        {firebaseInitialize &&
+        currentData &&
+        currentData.length === 0 &&
+        postGetIsLoading ? (
           <HomeStyle.EmptyPost>현재 게시물이 없습니다.</HomeStyle.EmptyPost>
         ) : (
           <HomeStyle.PostLayout>

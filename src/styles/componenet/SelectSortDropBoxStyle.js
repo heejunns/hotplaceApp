@@ -18,7 +18,7 @@ export const SelectSortMethodList = styled.ul`
   /* border-top: none; */
   width: 190px;
   z-index: 10;
-  top: 30px;
+  top: 35px;
   display: none;
   &:hover {
     display: block;
