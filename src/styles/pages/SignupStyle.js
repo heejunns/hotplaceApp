@@ -22,7 +22,7 @@ export const SignupBack = styled.div`
   flex-direction: column;
   align-items: center;
   justify-content: center;
-  padding: 50px 100px;
+  padding: 100px;
   & > a {
     text-decoration: none;
   }

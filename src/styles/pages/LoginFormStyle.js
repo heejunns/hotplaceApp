@@ -5,7 +5,7 @@ export const LoginFormBack = styled.div`
   font-family: "Tilt Neon", sans-serif;
   width: 100%;
   background-color: white;
-  padding: 30px 100px;
+  padding: 100px;
   display: flex;
   flex-direction: column;
   justify-content: center;

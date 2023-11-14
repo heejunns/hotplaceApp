@@ -282,7 +282,7 @@ const PostUpload = ({ userLocation }) => {
           </PostUploadStyle.PostUploadInputTextBox>
           <PostUploadStyle.PostUploadMapBox>
             <PostUploadStyle.MapBoxTitle>
-              장소 지정하기
+              장소 등록하기
             </PostUploadStyle.MapBoxTitle>
             <PostUploadStyle.MapBox>
               {mapStatus ? (
