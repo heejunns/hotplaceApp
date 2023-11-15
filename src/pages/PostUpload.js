@@ -6,7 +6,7 @@ import { v4 as uuidv4 } from "uuid";
 import { addDoc, collection } from "firebase/firestore";
 import Map from "../components/Map";
 import { useNavigate } from "react-router-dom";
-import { hamburgerBtnClick, userAtom } from "../recoils/UserAtom";
+import { userAtom } from "../recoils/UserAtom";
 import { useRecoilValue } from "recoil";
 import * as PostUploadStyle from "../styles/pages/PostUploadStyle";
 import { Loading } from "../styles/componenet/LoadingStyle";

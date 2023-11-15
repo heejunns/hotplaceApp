@@ -8,21 +8,13 @@ export const PageBack = styled.div`
   justify-content: center;
   align-items: center;
   flex-direction: column;
-  padding: 60px 20px 40px 20px;
+  padding: 40px 20px;
 `;
 
-// export const PageTitle = styled.h1`
-//   width: 100%;
-//   max-width: 1200px;
-//   display: flex;
-//   font-size: 30px;
-// `;
 export const PostBox = styled.div`
-  /* border: 1px solid black; */
   margin-top: 30px;
   width: 100%;
   max-width: 1200px;
-  /* height: 100%; */
   min-height: 522px;
   padding: 5px;
   &::-webkit-scrollbar {

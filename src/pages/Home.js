@@ -1,9 +1,4 @@
-import React, {
-  useCallback,
-  useEffect,
-  useLayoutEffect,
-  useState,
-} from "react";
+import React, { useState } from "react";
 import { dbService } from "../reactfbase";
 import {
   collection,
@@ -19,8 +14,8 @@ import PostItem from "../components/PostItem";
 import TopPost from "../components/TopPost";
 import SelectSortDropBox from "../components/SelectSortDropBox";
 import PageNation from "../components/PageNation";
-import { useParams } from "react-router-dom";
-import { useQueries, useQuery } from "react-query";
+import HomeSlide from "../components/HomeSlide";
+import { useQuery } from "react-query";
 
 // ============================================ Home(메인) 페이지 ===================================
 // 사용자들이 게시한 게시물들을 한번에 볼 수 있고 사용자들이 좋아요를 눌러 좋아요를 가장 많이 받은 순서대로 1~10위까지 한번에 볼 수 있는 페이지 입니다.
@@ -49,25 +44,21 @@ const Home = ({ userLocation, firebaseInitialize }) => {
     if (selectMethod === "최신글 순으로 보기") {
       queryContent = query(
         collection(dbService, "test"),
-        // category === "전체" ? null : where("category", "==", category),
         orderBy("createTime", "desc")
       );
     } else if (selectMethod === "예전글 순으로 보기") {
       queryContent = query(
         collection(dbService, "test"),
-        // category === "전체" ? null : where("category", "==", category),
         orderBy("createTime")
       );
     } else if (selectMethod === "좋아요 순으로 보기") {
       queryContent = query(
         collection(dbService, "test"),
-        // category === "전체" ? null : where("category", "==", category),
         orderBy("likeNumber", "desc")
       );
     } else if (selectMethod === "나의 지역 글만 보기") {
       queryContent = query(
         collection(dbService, "test"),
-        // category === "전체" ? null : where("category", "==", category),
         where("userLocation", "==", userLocation),
         orderBy("createTime", "desc")
       );
@@ -170,6 +161,7 @@ const Home = ({ userLocation, firebaseInitialize }) => {
   return (
     <>
       <HomeStyle.HomeBack>
+        <HomeSlide />
         <TopPost />
         <SelectSortDropBox
           selectSortMethod={selectSortMethod}

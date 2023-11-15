@@ -184,6 +184,39 @@ const Header = () => {
               </HeaderStyle.HamburgerSideBarList>
             </Link>
           )} */}
+          {user && user.displayName && (
+            <Link
+              to="/cafe"
+              style={{ textDecoration: "none" }}
+              onClick={() => setClickHamburgerBtn(false)}
+            >
+              <HeaderStyle.HamburgerSideBarList>
+                카페
+              </HeaderStyle.HamburgerSideBarList>
+            </Link>
+          )}
+          {user && user.displayName && (
+            <Link
+              to="/food"
+              style={{ textDecoration: "none" }}
+              onClick={() => setClickHamburgerBtn(false)}
+            >
+              <HeaderStyle.HamburgerSideBarList>
+                음식
+              </HeaderStyle.HamburgerSideBarList>
+            </Link>
+          )}
+          {user && user.displayName && (
+            <Link
+              to="/mart"
+              style={{ textDecoration: "none" }}
+              onClick={() => setClickHamburgerBtn(false)}
+            >
+              <HeaderStyle.HamburgerSideBarList>
+                마트
+              </HeaderStyle.HamburgerSideBarList>
+            </Link>
+          )}
         </HeaderStyle.HamburgerSideBarBox>
       </HeaderStyle.HamburgerSideBar>
     </HeaderStyle.HeaderBackground>

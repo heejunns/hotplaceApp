@@ -15,10 +15,9 @@ export const SelectSortMethodList = styled.ul`
   box-shadow: rgba(0, 0, 0, 0.2) 1px 1px 10px 0;
   position: absolute;
   border-radius: 5px;
-  /* border-top: none; */
   width: 190px;
   z-index: 10;
-  top: 35px;
+  top: 31px;
   display: none;
   &:hover {
     display: block;
@@ -61,5 +60,11 @@ export const SelectSortMethodItem = styled.li`
   cursor: pointer;
   &:hover {
     background-color: #c8c8c8;
+  }
+  &:nth-child(1) {
+    border-radius: 5px 5px 0 0;
+  }
+  &:last-child {
+    border-radius: 0 0 5px 5px;
   }
 `;

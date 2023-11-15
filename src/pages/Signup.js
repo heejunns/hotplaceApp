@@ -8,9 +8,7 @@ import {
 import { authService, dbService } from "../reactfbase";
 import * as SignupStyle from "../styles/pages/SignupStyle";
 import SignupSuccessModal from "../components/SignupSuccessModal";
-import { useRecoilValue, useSetRecoilState } from "recoil";
-import { hamburgerBtnClick } from "../recoils/UserAtom";
-import { addDoc, collection, doc, getDoc, setDoc } from "firebase/firestore";
+import { doc, getDoc, setDoc } from "firebase/firestore";
 import RejectSignupModal from "../components/RejectSignupModal";
 
 // 회원가입을 하면 바로 자동으로 로그인이 되고 페이지가 회원가입 페이지에 머물어 있는 문제가 있다.
