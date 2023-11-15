@@ -1,13 +1,11 @@
 import React from "react";
 import * as TopPostStyle from "../styles/componenet/TopPostStyle";
-import { useEffect } from "react";
-import { collection, getDocs, orderBy, query, where } from "firebase/firestore";
+import { collection, getDocs, orderBy, query } from "firebase/firestore";
 import { dbService } from "../reactfbase";
 import { useState } from "react";
 import TopPostItem from "./TopPostItem";
 import { useQuery } from "react-query";
 const TopPost = () => {
-  const [topPostData, setTopPostData] = useState([]);
   const [topBoxPx, setTopBoxPx] = useState(0);
   const onclickLeftBtn = () => {
     if (topBoxPx < 2900) setTopBoxPx((prev) => prev + 1200);
@@ -24,24 +22,16 @@ const TopPost = () => {
         orderBy("likeNumber", "desc")
       );
       const querySnapshot = await getDocs(q);
-      const postData = [];
+      const data = [];
       querySnapshot.forEach((doc) => {
-        // doc.data() is never undefined for query doc snapshots
-        postData.push({ id: doc.id, ...doc.data() });
+        data.push({ id: doc.id, ...doc.data() });
       });
-      setTopPostData(postData.slice(0, 10));
-      return postData;
+      return data.slice(0, 10);
     } catch (e) {
       console.log(e);
     }
   };
-  const { data } = useQuery("topData", getTopPost);
-  // if (topBoxPx === -2400) {
-  //   setTopBoxPx(0);
-  // }
-  // useEffect(() => {
-  //   getTopPost();
-  // }, []);
+  const { data: topPostData } = useQuery("topData", getTopPost);
   return (
     <>
       <TopPostStyle.TopPostTitleBox>
@@ -51,7 +41,8 @@ const TopPost = () => {
       </TopPostStyle.TopPostTitleBox>
       <TopPostStyle.TopPostBack>
         <TopPostStyle.TopPostBox topBoxPx={topBoxPx}>
-          {topPostData.length > 0 &&
+          {topPostData &&
+            topPostData.length > 0 &&
             topPostData.map((item, index) => {
               return (
                 <TopPostItem key={index} data={item} ranking={index + 1} />

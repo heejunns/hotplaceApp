@@ -9,7 +9,6 @@ export const HeaderBackground = styled.div`
   height: 50px;
   width: 100%;
   padding: 0 20px;
-  border-bottom: 1px solid white;
   display: flex;
   justify-content: space-between;
   align-items: center;
@@ -37,7 +36,9 @@ export const HeaderMenuBox = styled.div`
   align-items: center;
   @media screen and (max-width: 768px) {
     & > a:nth-of-type(2),
-    a:nth-of-type(3) {
+    a:nth-of-type(3),
+    a:nth-of-type(4),
+    a:nth-of-type(5) {
       display: none;
     }
   }
@@ -168,6 +169,7 @@ export const SideBarLogOutButton = styled.button`
 `;
 
 export const HamburgerSideBarList = styled.li`
+  font-weight: 600;
   margin-top: 10px;
   display: flex;
   align-items: center;

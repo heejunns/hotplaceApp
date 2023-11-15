@@ -7,15 +7,16 @@ import { useState } from "react";
 import { useCallback } from "react";
 import EditModal from "../components/EditModal";
 import Comments from "../components/Comment";
-import { useEffect } from "react";
 import { doc, getDoc, updateDoc } from "firebase/firestore";
 import { dbService } from "../reactfbase";
 import PostDeleteModal from "../components/PostDeleteModal";
 import ReportModal from "../components/ReportModal";
+import { useMutation, useQuery, useQueryClient } from "react-query";
 // =============================================== 디테일 페이지 ================================================
 // 사용자가 게시글을 클릭하면 게시글에대한 자세한 내용을 확인 할 수 있는 페이지 입니다.
 // ===========================================================================================================
 const Detail = () => {
+  const queryClient = useQueryClient();
   // 현재 로그인중인 사용자의 정보를 전역 상태에서 가져오기
   const user = useRecoilValue(userAtom);
   // 현재 사용자가 보고 있는 게시글 데이터를 전역 상태에서 가져오기
@@ -25,13 +26,28 @@ const Detail = () => {
   // 게시글의 내용을 수정하는 모달의 화면 존재 여부 state
   const [isEditModal, setIsEditModal] = useState(false);
   // 현재 게시글의 데이터를 저장하고 있는 state
-  const [detailData, setDetailData] = useState(data);
+  // const [detailData, setDetailData] = useState(data);
   // 신고하기 모달의 화면 존재 여부
   const [isReportModal, setIsReportModal] = useState(false);
   // 사용자가 올린 게시글의 사진의 개수가 한개 이상일때 화면에 보여지는 px 을 저장하는 state
   const [detailImgBoxPx, setDetailImgBoxPx] = useState(0);
+
+  // 서버에게 현재 사용자가 보고 있는 게시글의 데이터를 요청해서 받아오는 함수
+  const getDetailData = useCallback(async () => {
+    try {
+      const docRef = doc(dbService, "test", data.id);
+      const docSnap = await getDoc(docRef);
+      return docSnap.data();
+    } catch (e) {
+      console.log(e);
+    }
+  }, [data.id]);
+  // 서버에 데이터를 요청하는 쿼리
+  const { data: detailData } = useQuery(["detailData"], getDetailData);
+
   // 사용자가 올린 게시글의 사진의 개수글 가지고 이미지가 보여지는 화면의 최대 width px 을 계산하여 그 값을 저장하는 변수
   const imgsMaxPx =
+    detailData &&
     detailData.uploadImgUrl !== "" &&
     detailData.uploadImgUrl.length > 0 &&
     detailData.uploadImgUrl.length * 800;
@@ -79,22 +95,7 @@ const Detail = () => {
     setIsReportModal((prev) => !prev);
   }, []);
 
-  // 서버에게 현재 사용자가 보고 있는 게시글의 데이터를 요청해서 받아오는 함수
-  const getDetailData = useCallback(async () => {
-    try {
-      const docRef = doc(dbService, "test", data.id);
-      const docSnap = await getDoc(docRef);
-      setDetailData(docSnap.data());
-    } catch (e) {
-      console.log(e);
-    }
-  }, [data.id]);
-
-  useEffect(() => {
-    getDetailData();
-  }, [getDetailData]);
-
-  // 좋아요 버튼을 클릭하면 호출되는 콜백함수
+  // 좋아요 버튼을 클릭하면 호출하는 콜백함수, 서버에 변경 된 정보 업데이트 후 다시 디테일 게시글 데이터 받아오기
   const onclickLike = async () => {
     let newLikeMember;
     // 좋아요하기, 좋아요 취소하기 로직
@@ -118,8 +119,10 @@ const Detail = () => {
     });
 
     // 해당 게시글의 데이터를 업데이트 했으니까 다시 해당 게시글의 데이터를 받아오는 함수 호출
-    getDetailData();
+    queryClient.invalidateQueries(["detailData"]);
   };
+  // 좋아요 클릭하면 호출되는 쿼리
+  const { mutate: clickLike } = useMutation(onclickLike);
 
   return (
     <>
@@ -138,7 +141,7 @@ const Detail = () => {
             </DetailStyle.DetailTitleText>
             <DetailStyle.DetailTitleBoxRight>
               <DetailStyle.DetailBtn
-                onClick={onclickLike}
+                onClick={clickLike}
                 isLike={
                   detailData && user && detailData.likeMember.includes(user.uid)
                 }
@@ -185,9 +188,10 @@ const Detail = () => {
                 detailImgBoxPx={detailImgBoxPx}
                 imgsMaxPx={imgsMaxPx}
               >
-                {detailData.uploadImgUrl.map((item, index) => {
-                  return <img key={index} src={item} alt="게시글 이미지" />;
-                })}
+                {detailData &&
+                  detailData.uploadImgUrl.map((item, index) => {
+                    return <img key={index} src={item} alt="게시글 이미지" />;
+                  })}
               </DetailStyle.ImgsContainer>
               <DetailStyle.DetailImgPrevBtn
                 onClick={onclickPrevBtn}
@@ -205,7 +209,10 @@ const Detail = () => {
             </DetailStyle.DetailImgsBox>
           ) : (
             <DetailStyle.DetailImgBox>
-              <img src={detailData.uploadImgUrl} alt="게시글 이미지" />
+              <img
+                src={detailData && detailData.uploadImgUrl}
+                alt="게시글 이미지"
+              />
             </DetailStyle.DetailImgBox>
           )}
 

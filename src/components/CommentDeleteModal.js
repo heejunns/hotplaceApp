@@ -2,18 +2,19 @@ import React from "react";
 import * as DeleteModalStyle from "../styles/componenet/DeleteModalStyle";
 import { doc, updateDoc } from "firebase/firestore";
 import { dbService } from "../reactfbase";
+import { useMutation, useQueryClient } from "react-query";
 const CommentDeleteModal = ({
   setIsCommentDeleteModal,
   data,
   commentInfo,
-  getDetailData,
   dataId,
 }) => {
+  const queryClient = useQueryClient();
   const cancelBtnClick = () => {
     setIsCommentDeleteModal((prev) => !prev);
     document.body.style.overflow = "";
   };
-  const confirmBtnClick = async () => {
+  const onclickConfirmBtn = async () => {
     try {
       setIsCommentDeleteModal((prev) => !prev);
       document.body.style.overflow = "";
@@ -25,11 +26,13 @@ const CommentDeleteModal = ({
         // 새로운 comment 정보 업데이트
         comments: newComments,
       });
-      getDetailData();
+      queryClient.invalidateQueries(["detailData"]);
     } catch (e) {
       console.log(e);
     }
   };
+
+  const { mutate: clickConfirmBtn } = useMutation(onclickConfirmBtn);
   return (
     <DeleteModalStyle.DeleteModalBack>
       <DeleteModalStyle.DeleteModalBox>
@@ -40,7 +43,7 @@ const CommentDeleteModal = ({
           <DeleteModalStyle.DeleteModalCancelBtn onClick={cancelBtnClick}>
             취소
           </DeleteModalStyle.DeleteModalCancelBtn>
-          <DeleteModalStyle.DeleteModalConfirmBtn onClick={confirmBtnClick}>
+          <DeleteModalStyle.DeleteModalConfirmBtn onClick={clickConfirmBtn}>
             삭제
           </DeleteModalStyle.DeleteModalConfirmBtn>
         </DeleteModalStyle.DeleteModalBtnBox>

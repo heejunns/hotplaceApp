@@ -4,6 +4,7 @@ import { dbService, storageService } from "../reactfbase";
 import { deleteObject, ref } from "firebase/storage";
 import * as DeleteModalStyle from "../styles/componenet/DeleteModalStyle";
 import { useNavigate } from "react-router-dom";
+import { useMutation } from "react-query";
 
 const PostDeleteModal = ({ setIsPostDeleteModal, postDeleteData }) => {
   const navigate = useNavigate();
@@ -11,7 +12,7 @@ const PostDeleteModal = ({ setIsPostDeleteModal, postDeleteData }) => {
     setIsPostDeleteModal((prev) => !prev);
     document.body.style.overflow = "";
   };
-  const confirmBtnClick = async () => {
+  const onclickConfirmBtn = async () => {
     try {
       setIsPostDeleteModal((prev) => !prev);
       document.body.style.overflow = "";
@@ -27,6 +28,8 @@ const PostDeleteModal = ({ setIsPostDeleteModal, postDeleteData }) => {
     }
   };
 
+  const { mutate: clickConfirmBtn } = useMutation(onclickConfirmBtn);
+
   return (
     <>
       <DeleteModalStyle.DeleteModalBack>
@@ -38,7 +41,7 @@ const PostDeleteModal = ({ setIsPostDeleteModal, postDeleteData }) => {
             <DeleteModalStyle.DeleteModalCancelBtn onClick={cancelBtnClick}>
               취소
             </DeleteModalStyle.DeleteModalCancelBtn>
-            <DeleteModalStyle.DeleteModalConfirmBtn onClick={confirmBtnClick}>
+            <DeleteModalStyle.DeleteModalConfirmBtn onClick={clickConfirmBtn}>
               삭제
             </DeleteModalStyle.DeleteModalConfirmBtn>
           </DeleteModalStyle.DeleteModalBtnBox>

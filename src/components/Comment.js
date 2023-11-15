@@ -6,8 +6,10 @@ import { v4 as uuidv4 } from "uuid";
 import { useRecoilValue } from "recoil";
 import { userAtom } from "../recoils/UserAtom";
 import * as CommentStyle from "../styles/componenet/CommentStyle";
+import { useMutation, useQueryClient } from "react-query";
 
 const Comment = ({ data, dataId, getDetailData }) => {
+  const queryClient = useQueryClient();
   const user = useRecoilValue(userAtom);
   const [commentInput, setCommentInput] = useState(""); // 댓글 입력 state
 
@@ -36,8 +38,10 @@ const Comment = ({ data, dataId, getDetailData }) => {
         ...data.comments,
       ],
     });
-    getDetailData();
+    queryClient.invalidateQueries(["detailData"]);
   };
+
+  const { mutate: clickCommentSubmit } = useMutation(onclickCommentSubmit);
 
   return (
     <CommentStyle.CommentBack>
@@ -50,7 +54,7 @@ const Comment = ({ data, dataId, getDetailData }) => {
           / 100
         </CommentStyle.CommentInputLimit>
       </CommentStyle.CommentTitleBox>
-      <CommentStyle.CommentForm onSubmit={onclickCommentSubmit}>
+      <CommentStyle.CommentForm onSubmit={clickCommentSubmit}>
         <CommentStyle.CommentInput
           type="text"
           placeholder="댓글을 입력하세요."
@@ -65,9 +69,10 @@ const Comment = ({ data, dataId, getDetailData }) => {
         {data.comments.length === 0 ? (
           <CommentStyle.NoComment>댓글없음</CommentStyle.NoComment>
         ) : (
-          data.comments.map((commentInfo) => {
+          data.comments.map((commentInfo, index) => {
             return (
               <CommentPost
+                key={index}
                 commentInfo={commentInfo}
                 data={data}
                 dataId={dataId}

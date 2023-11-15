@@ -1,8 +1,5 @@
-import { collection, limit, orderBy, query } from "firebase/firestore";
-import React from "react";
-import { atom, selector } from "recoil";
+import { atom } from "recoil";
 import { recoilPersist } from "recoil-persist";
-import { dbService } from "../reactfbase";
 
 const { persistAtom } = recoilPersist();
 

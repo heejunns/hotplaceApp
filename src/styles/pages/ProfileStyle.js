@@ -97,6 +97,9 @@ export const ProfileMenuItem = styled.li`
     props.selectMenu === props.id ? "2px solid #6edcdc" : "2px solid #a0a0a0"};
   width: 150px;
   height: 30px;
+  font-size: 20px;
+  font-weight: 600;
+  padding-bottom: 3px;
   display: flex;
   justify-content: center;
   align-items: center;
