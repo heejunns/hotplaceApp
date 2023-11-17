@@ -7,6 +7,7 @@ import { userAtom } from "../recoils/UserAtom";
 import * as ProfileStyle from "../styles/pages/ProfileStyle";
 import ProfileImgUploadModal from "../components/ProfileImgUploadModal";
 import ProfileNameEditModal from "../components/ProfileNameEditModal";
+import { useQuery } from "react-query";
 
 // 현재 우리가 다양한 컴포넌트에 prop 로 전달해주고 있는 user 객체를 authService.currentUser 로 업데이트 해야한다. 하지만 set 함수로 업데이트 해도 리 랜더링이 되지 않는다. 왜일까?
 // react 는 복잡하고 큰 객체를 전에 상태와 바뀌었는지 판단하는것을 어려워한다.
@@ -16,9 +17,8 @@ import ProfileNameEditModal from "../components/ProfileNameEditModal";
 
 const Profile = () => {
   const user = useRecoilValue(userAtom);
-  const [userUploadData, setUserUploadData] = useState([]); // 해당 유저가 작성한 게시글만 가져와서 저장하는 state
   const profileImg = user && user.photoURL;
-  const [selectMenu, setSelectMenu] = useState("1");
+  const [selectMenu, setSelectMenu] = useState("userProfile");
   const [isProfileImgUploadModal, setIsProfileImgUploadModal] = useState(false);
   const [isProfileNameEditModal, setIsProfileNameEditModal] = useState(false);
 
@@ -28,45 +28,36 @@ const Profile = () => {
 
   // 해당 유저가 작성한 글을 실시간으로 가져오기
 
-  const getUserData = async () => {
-    const q = query(
-      collection(dbService, "test"),
-      where("writer", "==", user.uid),
-      orderBy("createTime")
-    );
-    const docSnap = await getDocs(q);
-    const profileData = [];
-    docSnap.forEach((doc) => {
-      profileData.push({ id: doc.id, ...doc.data() });
-    });
-    setUserUploadData(profileData);
-  };
-  const getUserLikePost = async () => {
-    const q = query(
-      collection(dbService, "test"),
-      where("likeMember", "array-contains", user.uid)
-    );
-    const docSnap = await getDocs(q);
-    const profileData = [];
-    docSnap.forEach((doc) => {
-      profileData.push({ id: doc.id, ...doc.data() });
-    });
-    setUserUploadData(profileData);
-  };
-
-  const onclickSelectMenu = (e) => {
-    const { id } = e.target;
-    setSelectMenu(id);
-    if (id === "1") {
-      getUserData();
-    } else if (id === "2") {
-      getUserLikePost();
+  const getUserData = async (selectMenu) => {
+    let q;
+    if (selectMenu === "userProfile") {
+      q = query(
+        collection(dbService, "test"),
+        where("writer", "==", user.uid),
+        orderBy("createTime")
+      );
+    } else if (selectMenu === "userLike") {
+      q = query(
+        collection(dbService, "test"),
+        where("likeMember", "array-contains", user.uid)
+      );
     }
+    const docSnap = await getDocs(q);
+    const profileData = [];
+    docSnap.forEach((doc) => {
+      profileData.push({ id: doc.id, ...doc.data() });
+    });
+    return profileData;
   };
 
-  useEffect(() => {
-    getUserData();
-  }, [isProfileNameEditModal]);
+  const { data: profileData } = useQuery(["uploadData", selectMenu], () =>
+    getUserData(selectMenu)
+  );
+
+  const onclickSelectMenu = ({ target: { id } }) => {
+    setSelectMenu(id);
+  };
+
   return (
     <>
       <ProfileStyle.ProfileBack>
@@ -106,35 +97,36 @@ const Profile = () => {
         <ProfileStyle.ProfileBox>
           <ProfileStyle.ProfileSelectMenu>
             <ProfileStyle.ProfileMenuItem
-              id="1"
+              id="userProfile"
               selectMenu={selectMenu}
               onClick={onclickSelectMenu}
             >
               내가 작성한 게시물
             </ProfileStyle.ProfileMenuItem>
             <ProfileStyle.ProfileMenuItem
-              id="2"
+              id="userLike"
               selectMenu={selectMenu}
               onClick={onclickSelectMenu}
             >
               좋아요한 게시물
             </ProfileStyle.ProfileMenuItem>
           </ProfileStyle.ProfileSelectMenu>
-          {userUploadData.length === 0 ? (
+          {profileData && profileData.length === 0 ? (
             <ProfileStyle.NoPost>현재 게시물이 없습니다.</ProfileStyle.NoPost>
           ) : (
             <ProfileStyle.ProfilePostBox>
-              {userUploadData.map((data, index) => {
-                return (
-                  <PostItem
-                    key={index}
-                    data={data}
-                    user={user}
-                    index={index}
-                    dataLen={userUploadData.length}
-                  />
-                );
-              })}
+              {profileData &&
+                profileData.map((data, index) => {
+                  return (
+                    <PostItem
+                      key={index}
+                      data={data}
+                      user={user}
+                      index={index}
+                      dataLen={profileData.length}
+                    />
+                  );
+                })}
             </ProfileStyle.ProfilePostBox>
           )}
         </ProfileStyle.ProfileBox>

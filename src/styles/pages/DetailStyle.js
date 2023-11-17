@@ -7,7 +7,10 @@ export const DetailBack = styled.div`
   display: flex;
   background-color: white;
   justify-content: center;
-  padding: 30px 20px;
+  padding: 50px 20px;
+  @media screen and (max-width: 768px) {
+    padding: 30px 20px;
+  }
 `;
 // 디테일 페이지 전체 박스
 export const DetailBox = styled.div`

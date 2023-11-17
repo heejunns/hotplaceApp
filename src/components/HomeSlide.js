@@ -38,12 +38,13 @@ const HomeSlide = () => {
         homeSlideBoxRef.current.style.transition = "";
       }
       setCurrentNum(1);
-      if (homeSlideBoxRef.current) {
-        timeKey = setTimeout(() => {
-          homeSlideBoxRef.current.style.transition = "all 2s ease-in-out";
-        }, 3000);
-      }
     }
+    if (currentNum === 1) {
+      timeKey = setTimeout(() => {
+        homeSlideBoxRef.current.style.transition = "all 2s ease-in-out";
+      }, 1000);
+    }
+
     return () => clearTimeout(timeKey);
   }, [currentNum]);
   useEffect(() => {

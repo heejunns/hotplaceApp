@@ -3,6 +3,7 @@ import React from "react";
 import { useState } from "react";
 import styled from "styled-components";
 import { dbService } from "../reactfbase";
+import { useMutation, useQueryClient } from "react-query";
 
 const EditModalBack = styled.div`
   width: 100%;
@@ -68,27 +69,32 @@ const EditModalConfirmBtn = styled(EditModalBtn)`
 `;
 
 const EditModal = ({ setIsEditModal, editData }) => {
+  const queryClient = useQueryClient();
   const [inputText, setInputText] = useState("");
   const onchangeInputText = (e) => {
     const { value } = e.target;
     setInputText(value);
   };
-  const cancelBtnClick = () => {
+  const onclickEditCancelBtn = () => {
     setIsEditModal((prev) => !prev);
     document.body.style.overflow = "";
   };
-  const confirmBtnClick = async (e) => {
+  const onclickEditConfirmBtn = async (e) => {
     try {
       e.preventDefault();
       setInputText("");
       setIsEditModal((prev) => !prev);
+      document.body.style.overflow = "";
       await updateDoc(doc(dbService, "test", editData.id), {
         inputText: inputText,
       }); // 데이터 베이스 업데이트
+      queryClient.invalidateQueries(["detailData"]);
     } catch (e) {
       console.log(e);
     }
   };
+
+  const { mutate: clickEditConfirm } = useMutation(onclickEditConfirmBtn);
   return (
     <EditModalBack>
       <EditModalBox>
@@ -96,10 +102,10 @@ const EditModal = ({ setIsEditModal, editData }) => {
         <EditModalForm>
           <EditModalInputText value={inputText} onChange={onchangeInputText} />
           <EditModalBtnBox>
-            <EditModalCancelBtn onClick={cancelBtnClick}>
+            <EditModalCancelBtn onClick={onclickEditCancelBtn}>
               취소
             </EditModalCancelBtn>
-            <EditModalConfirmBtn onClick={confirmBtnClick}>
+            <EditModalConfirmBtn onClick={clickEditConfirm}>
               확인
             </EditModalConfirmBtn>
           </EditModalBtnBox>

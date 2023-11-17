@@ -1,6 +1,9 @@
+import { useRecoilState } from "recoil";
 import * as PageNationStyle from "../styles/componenet/PageNationStyle";
+import { currentPageAtom } from "../recoils/UserAtom";
 
-const PageNation = ({ currentData, currentPage, postData, setCurrentPage }) => {
+const PageNation = ({ currentData, postData }) => {
+  const [currentPage, setCurrentPage] = useRecoilState(currentPageAtom);
   return (
     <PageNationStyle.PageNationBox>
       <PageNationStyle.PrevBtn

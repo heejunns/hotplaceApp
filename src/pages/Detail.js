@@ -122,7 +122,7 @@ const Detail = () => {
     queryClient.invalidateQueries(["detailData"]);
   };
   // 좋아요 클릭하면 호출되는 쿼리
-  const { mutate: clickLike } = useMutation(onclickLike);
+  const { mutate: clickLike } = useMutation(onclickLike, {});
 
   return (
     <>

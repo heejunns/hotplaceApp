@@ -12,8 +12,10 @@ import * as PostUploadStyle from "../styles/pages/PostUploadStyle";
 import { Loading } from "../styles/componenet/LoadingStyle";
 import { PulseLoader } from "react-spinners";
 import axios from "axios";
+import { useMutation, useQueryClient } from "react-query";
 
 const PostUpload = ({ userLocation }) => {
+  const queryClient = useQueryClient();
   const user = useRecoilValue(userAtom);
   const navigate = useNavigate(); // useNavigate 훅스를 사용해서 게시글을 올리면 "/" 주소로 강제 이동
   const [inputText, setInputText] = useState(""); // input 태그에 입력하는 value 의 state
@@ -21,7 +23,6 @@ const PostUpload = ({ userLocation }) => {
   const [mapStatus, setMapStatus] = useState(false); // 게시글을 작성할 때 매장의 주소를 기록할지 여부
   const [userSelectCategory, setUserSelectCategory] = useState("cafe"); // 사용자가 글을 게시할때 사용자의 주소
   const [userMarkerLocation, setUserMarkerLocation] = useState([]); // 사용자가 맵에 마커한 매장의 주소
-  const [isLoading, setIsLoading] = useState(false);
   const [inputPostTitle, setInputPostTitle] = useState("");
   // 매장 이름 작성하는 input 태그에 걸어 둔 onchange 함수
   const onchangeInputPostTitle = ({ target: { value } }) => {
@@ -44,9 +45,8 @@ const PostUpload = ({ userLocation }) => {
     setUserSelectCategory(id);
   }, []);
   // 작성한 글을 등록하기 위해 버튼을 클릭했을때 호출되는 콜백함수
-  const onsubmitButtonClick = async (e) => {
+  const onSubmitBtn = async (e) => {
     e.preventDefault();
-    setIsLoading(true);
     try {
       let getUploadFileURL = [];
       if (uploadImageFileURL.length > 0) {
@@ -62,13 +62,9 @@ const PostUpload = ({ userLocation }) => {
           return getDownloadURL(item);
         }); // 이미지 url 불러오기
 
-        const hello = await axios.all(downloadFunc);
-        getUploadFileURL.push(...hello);
-
-        // getUploadFileURL = await getDownloadURL(storageRefArr[0]);
+        const uploadUrls = await axios.all(downloadFunc);
+        getUploadFileURL.push(...uploadUrls);
       }
-      console.log(getUploadFileURL);
-
       await addDoc(collection(dbService, "test"), {
         // 데이터베이스에 저장
         inputText, // 게시글
@@ -92,16 +88,23 @@ const PostUpload = ({ userLocation }) => {
         userLocation, // 유저 주소, 이 정보로 지역 게시물만 보기 기능 만들거임
         postName: inputPostTitle,
       });
+      // queryClient.invalidateQueries(["postData"]);
       setInputPostTitle("");
       setInputText("");
       setUploadImageFileURL("");
-      setIsLoading(false);
       navigate("/");
     } catch (error) {
       console.error("Error adding document: ", error);
     }
   };
-
+  const { isLoading: submitIsLoading, mutate: submitBtnClick } = useMutation(
+    onSubmitBtn
+    // {
+    //   onSuccess: () => {
+    //     queryClient.invalidateQueries(["postData"]);
+    //   },
+    // }
+  );
   const onchangeImageUpload = useCallback(({ target: { files } }) => {
     // 사진 파일을 선택했을때 선택한 사진을 화면에 보여주는 코드
     if (files.length === 1) {
@@ -144,7 +147,7 @@ const PostUpload = ({ userLocation }) => {
   return (
     <>
       <PostUploadStyle.PostUploadBack>
-        <PostUploadStyle.PostUploadFormContainer onSubmit={onsubmitButtonClick}>
+        <PostUploadStyle.PostUploadFormContainer onSubmit={submitBtnClick}>
           <PostUploadStyle.PostUploadPostNameBox>
             <PostUploadStyle.PostUploadPostNameTitleBox>
               <PostUploadStyle.PostUploadPostNameTitle>
@@ -303,7 +306,7 @@ const PostUpload = ({ userLocation }) => {
           </PostUploadStyle.PostUploadSubmitBox>
         </PostUploadStyle.PostUploadFormContainer>
       </PostUploadStyle.PostUploadBack>
-      {isLoading && (
+      {submitIsLoading && (
         <Loading>
           <PulseLoader color="black" size={20} />
         </Loading>
