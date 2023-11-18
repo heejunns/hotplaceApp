@@ -26,13 +26,16 @@ const CommentDeleteModal = ({
         // 새로운 comment 정보 업데이트
         comments: newComments,
       });
-      queryClient.invalidateQueries(["detailData"]);
     } catch (e) {
       console.log(e);
     }
   };
 
-  const { mutate: clickConfirmBtn } = useMutation(onclickConfirmBtn);
+  const { mutate: clickConfirmBtn } = useMutation(onclickConfirmBtn, {
+    onSuccess: () => {
+      queryClient.invalidateQueries(["detailData"]);
+    },
+  });
   return (
     <DeleteModalStyle.DeleteModalBack>
       <DeleteModalStyle.DeleteModalBox>

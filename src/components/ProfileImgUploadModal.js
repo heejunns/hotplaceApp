@@ -17,10 +17,11 @@ import {
   where,
 } from "firebase/firestore";
 import axios from "axios";
+import { useMutation } from "react-query";
 const ProfileImgUploadModal = ({ setIsProfileImgUploadModal }) => {
   const [user, setUser] = useRecoilState(userAtom);
   const [profileImgUploadUrl, setProfileImgUploadUrl] = useState("");
-  const [isLoading, setIsLoading] = useState(false);
+  // const [isLoading, setIsLoading] = useState(false);
   const onchangeImageUpload = async (e) => {
     try {
       const { files } = e.target;
@@ -46,11 +47,10 @@ const ProfileImgUploadModal = ({ setIsProfileImgUploadModal }) => {
 
   const onclickProfileImgUpload = async () => {
     try {
-      setIsLoading(true);
       const storageRef = ref(storageService, `${user.uid}/${uuidv4()}`); // 이미지 storage 에 저장
       await uploadString(storageRef, profileImgUploadUrl, "data_url");
       const getUploadFileURL = await getDownloadURL(storageRef); // 이미지 url 불러오기
-      const res = await updateProfile(authService.currentUser, {
+      await updateProfile(authService.currentUser, {
         photoURL: getUploadFileURL,
       });
       // 게시글 데이터 중 현재 로그인 중인 유저와 같은 닉네임을 가진 데이터 모두 가지고 오기
@@ -74,11 +74,13 @@ const ProfileImgUploadModal = ({ setIsProfileImgUploadModal }) => {
       const newUser = JSON.parse(JSON.stringify(authService.currentUser));
       setUser(newUser);
       setIsProfileImgUploadModal((prev) => !prev);
-      setIsLoading(false);
     } catch (e) {
       console.log(e);
     }
   };
+
+  const { mutate: profileImgUpload, isLoading: profileImgUploadIsLoading } =
+    useMutation(onclickProfileImgUpload);
 
   return (
     <>
@@ -120,13 +122,11 @@ const ProfileImgUploadModal = ({ setIsProfileImgUploadModal }) => {
               <span className="material-symbols-outlined">close</span>
             </ProfileImgUploadModalStyle.CancelBtn>
 
-            <ProfileImgUploadModalStyle.UploadImgBtn
-              onClick={onclickProfileImgUpload}
-            >
-              upload
+            <ProfileImgUploadModalStyle.UploadImgBtn onClick={profileImgUpload}>
+              변경
             </ProfileImgUploadModalStyle.UploadImgBtn>
           </ProfileImgUploadModalStyle.ProfileImgUploadModalBtnBox>
-          {isLoading && (
+          {profileImgUploadIsLoading && (
             <Loading>
               <PulseLoader color="black" size={20} />
             </Loading>

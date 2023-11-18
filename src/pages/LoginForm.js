@@ -4,6 +4,7 @@ import { Link, useNavigate } from "react-router-dom";
 import { signInWithPopup, GoogleAuthProvider } from "firebase/auth";
 import Login from "../components/Login";
 import * as LoginFormStyle from "../styles/pages/LoginFormStyle";
+import { useMutation } from "react-query";
 
 const LoginForm = () => {
   const provider = useMemo(() => new GoogleAuthProvider(), []); // 구글로 로그인하기 위해서 구글 인증 프로바이더 가져오기
@@ -17,7 +18,9 @@ const LoginForm = () => {
     } catch (e) {
       console.log(e);
     }
-  }, [provider]);
+  }, [provider, navigator]);
+
+  const { mutate: clickGoogleLogin } = useMutation(onclickGoogleLogin);
 
   return (
     <LoginFormStyle.LoginFormBack>
@@ -30,7 +33,7 @@ const LoginForm = () => {
       <LoginFormStyle.LoginFormBox>
         <Login />
         <LoginFormStyle.LoginBtnBox>
-          <LoginFormStyle.LoginFormGoogleLoginBtn onClick={onclickGoogleLogin}>
+          <LoginFormStyle.LoginFormGoogleLoginBtn onClick={clickGoogleLogin}>
             구글로 로그인하기
           </LoginFormStyle.LoginFormGoogleLoginBtn>
 

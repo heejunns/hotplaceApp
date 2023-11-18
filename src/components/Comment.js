@@ -38,10 +38,13 @@ const Comment = ({ data, dataId, getDetailData }) => {
         ...data.comments,
       ],
     });
-    queryClient.invalidateQueries(["detailData"]);
   };
 
-  const { mutate: clickCommentSubmit } = useMutation(onclickCommentSubmit);
+  const { mutate: clickCommentSubmit } = useMutation(onclickCommentSubmit, {
+    onSuccess: () => {
+      queryClient.invalidateQueries(["detailData"]);
+    },
+  });
 
   return (
     <CommentStyle.CommentBack>

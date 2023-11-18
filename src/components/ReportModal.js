@@ -4,6 +4,7 @@ import { dbService } from "../reactfbase";
 import { doc, getDoc, setDoc } from "firebase/firestore";
 import { useRecoilValue } from "recoil";
 import { userAtom } from "../recoils/UserAtom";
+import { useMutation } from "react-query";
 const ReportModal = ({ setIsReportModal, postWriter, postName }) => {
   const user = useRecoilValue(userAtom);
   const [inputReportText, setInputReportText] = useState("");
@@ -33,6 +34,8 @@ const ReportModal = ({ setIsReportModal, postWriter, postName }) => {
       console.log(e);
     }
   };
+
+  const { mutate: reportBtnClick } = useMutation(onclickReportBtn);
   const onclickCloseBtn = () => {
     document.body.style.overflow = "";
     setIsReportModal((prev) => !prev);
@@ -55,7 +58,7 @@ const ReportModal = ({ setIsReportModal, postWriter, postName }) => {
           <ReportModalStyle.ReportModalCancelBtn onClick={onclickCloseBtn}>
             <span className="material-symbols-outlined">close</span>
           </ReportModalStyle.ReportModalCancelBtn>
-          <ReportModalStyle.ReportModalReportBtn onClick={onclickReportBtn}>
+          <ReportModalStyle.ReportModalReportBtn onClick={reportBtnClick}>
             게시물 신고
           </ReportModalStyle.ReportModalReportBtn>
         </ReportModalStyle.ReportModalBtnBox>

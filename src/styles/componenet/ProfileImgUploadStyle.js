@@ -72,8 +72,9 @@ export const ProfileImgUploadModalBtnBox = styled.div`
 `;
 
 export const ProfileImgUploadModalBtn = styled.button`
+  font-size: 18px;
   width: 100%;
-  height: 30px;
+  height: 35px;
   display: flex;
   justify-content: center;
   align-items: center;
@@ -125,8 +126,8 @@ export const UploadImgBtn = styled(ProfileImgUploadModalBtn)`
 `;
 
 export const SelectImgBtn = styled.label`
-  width: 35px;
-  height: 35px;
+  width: 30px;
+  height: 30px;
   display: flex;
   justify-content: center;
   align-items: center;
@@ -137,9 +138,12 @@ export const SelectImgBtn = styled.label`
   white-space: nowrap;
   position: absolute;
   bottom: 0;
-  right: 1px;
+  right: 3px;
   border: none;
   cursor: pointer;
+  & > span {
+    font-size: 20px;
+  }
   &:hover {
     background-color: #a0a0a0;
   }

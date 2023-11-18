@@ -5,7 +5,7 @@ export const HomeSlideBack = styled.div`
   overflow: hidden;
   width: 100%;
   padding-bottom: 30px;
-  max-width: 1200px;
+  /* max-width: 1200px; */
   @media screen and (max-width: 768px) {
     height: 300px;
   }
@@ -14,16 +14,17 @@ export const HomeSlideBack = styled.div`
 export const HomeSlideBox = styled.div`
   height: 100%;
   transform: ${(props) =>
-    props.currentNum && `translateX(-${props.currentNum * 1200}px)`};
+    props.currentNum && `translateX(-${props.currentNum * 20}%)`};
   display: flex;
   width: 100%;
-  min-width: 6000px;
+  min-width: 10000px;
 `;
 
 export const HomeSlideItem = styled.div`
+  display: inline;
   position: relative;
   width: 100%;
-  max-width: 1200px;
+  /* max-width: 1200px; */
   height: 100%;
   & > img {
     width: 100%;

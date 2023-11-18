@@ -25,7 +25,7 @@ export const ProfileUserInfoBox = styled.div`
 export const ProfileUserImgUploadIcon = styled.div`
   position: absolute;
   bottom: 0;
-  right: 0;
+  right: 3px;
   cursor: pointer;
   & > span {
     border-radius: 50%;
