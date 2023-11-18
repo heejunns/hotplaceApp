@@ -5,7 +5,9 @@ import { userAtom } from "../recoils/UserAtom";
 import { useRecoilValue } from "recoil";
 import CommentDeleteModal from "./CommentDeleteModal";
 import * as CommentPostStyle from "../styles/componenet/CommentPostStyle";
+import { useMutation, useQueryClient } from "react-query";
 const CommentPost = ({ commentInfo, data, dataId, getDetailData }) => {
+  const queryClient = useQueryClient();
   const user = useRecoilValue(userAtom);
   // 댓글에서 좋아요 버튼을 클릭하면 호출
   const [isCommentDeleteModal, setIsCommentDeleteModal] = useState(false);
@@ -46,16 +48,21 @@ const CommentPost = ({ commentInfo, data, dataId, getDetailData }) => {
       // comment 에 새로운 comment 정보 업데이트
       comments: newComments,
     });
-    getDetailData();
   };
 
+  const { mutate: likeBtnClick } = useMutation(onclickLikeButton, {
+    onSuccess: () => {
+      queryClient.invalidateQueries(["detailData"]);
+    },
+  });
   const onclickDeleteCommentButton = async () => {
     // 삭제 버튼 클릭
     document.body.style.overflow = "hidden";
     setIsCommentDeleteModal((prev) => !prev);
   };
+
+  // 게시글 게시 시간이 얼마나 지났는지 계산하는 함수
   const calculateTime = (data) => {
-    // 게시글을 올린지 얼마나 지났는지 시간을 계산하는 함수
     const minute = (Date.now() - data.commentCreateTime) / 1000 / 60;
     if (Math.round(minute) < 60) {
       return Math.round(minute) === 0 ? "지금" : `${Math.round(minute)} 분 전`;
@@ -85,7 +92,7 @@ const CommentPost = ({ commentInfo, data, dataId, getDetailData }) => {
           {commentInfo.commentValue}
         </CommentPostStyle.CommentValue>
         <CommentPostStyle.CommentLike
-          onClick={onclickLikeButton}
+          onClick={likeBtnClick}
           isLike={user && commentInfo.commentLikeMember.includes(user.uid)}
         >
           <span className="material-symbols-outlined">favorite</span>

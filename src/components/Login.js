@@ -3,9 +3,12 @@ import { authService } from "../reactfbase";
 import { signInWithEmailAndPassword } from "firebase/auth";
 import * as LoginStyle from "../styles/componenet/LoginStyle";
 import { useNavigate } from "react-router-dom";
+import { useMutation } from "react-query";
+import LoginFailModal from "./LoginFailModal";
 const Login = () => {
   const [inputEmail, setInputEmail] = useState(""); // 입력하는 이메일을 저장하는 state
   const [inputPassword, setInputPassword] = useState(""); // 입력하는 비밀번호를 저장하는 state
+  const [isLoginFailModal, setIsLoginFailModal] = useState(false);
   const navigator = useNavigate();
   // 이메일과 비밀번호를 입력하면 input 태그에서 onchange 이벤트가 발생하면 호출
   const onchangeInput = useCallback((e) => {
@@ -15,11 +18,11 @@ const Login = () => {
   }, []);
 
   // 로그인 버튼 클릭 했을 때 호출
-  const onsubmitLoginButton = useCallback(
+  const onsubmitLoginBtn = useCallback(
     async (e) => {
+      e.preventDefault();
       try {
         // 로그인
-        e.preventDefault();
         await signInWithEmailAndPassword(
           authService,
           inputEmail,
@@ -27,18 +30,20 @@ const Login = () => {
         );
         navigator("/");
       } catch (error) {
-        console.log(error.message);
-        alert("이메일 또는 비밀번호가 일치하지 않습니다. 다시 입력해 주세요.");
-        navigator("/login");
+        setIsLoginFailModal(true);
+        console.log("여기 아니야?");
+        // console.log(error.message);
         setInputEmail("");
         setInputPassword("");
       }
     },
-    [inputEmail, inputPassword]
+    [inputEmail, inputPassword, navigator]
   );
+
+  const { mutate: submitLogin } = useMutation(onsubmitLoginBtn);
   return (
     <>
-      <LoginStyle.LoginForm onSubmit={onsubmitLoginButton}>
+      <LoginStyle.LoginForm onSubmit={submitLogin}>
         <LoginStyle.LoginFormInput
           name="email"
           type="email"
@@ -57,6 +62,9 @@ const Login = () => {
         />
         <LoginStyle.LoginBtn type="submit">로그인</LoginStyle.LoginBtn>
       </LoginStyle.LoginForm>
+      {isLoginFailModal && (
+        <LoginFailModal setIsLoginFailModal={setIsLoginFailModal} />
+      )}
     </>
   );
 };

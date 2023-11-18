@@ -37,6 +37,7 @@ export const ReportModalTitle = styled.h1`
 export const ReportModalInputTextBox = styled.div``;
 
 export const ReportModalInput = styled.textarea`
+  padding: 10px;
   width: 320px;
   border-radius: 5px;
   height: 120px;

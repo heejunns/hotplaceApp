@@ -10,6 +10,7 @@ import * as SignupStyle from "../styles/pages/SignupStyle";
 import SignupSuccessModal from "../components/SignupSuccessModal";
 import { doc, getDoc, setDoc } from "firebase/firestore";
 import RejectSignupModal from "../components/RejectSignupModal";
+import { useMutation } from "react-query";
 
 // 회원가입을 하면 바로 자동으로 로그인이 되고 페이지가 회원가입 페이지에 머물어 있는 문제가 있다.
 // 회원가입 하면 자동으로 홈 페이지로 이동하고 로그아웃되며 회원가입 때 입력한 이메일과 비밀번호로 로그인 하도록 만들기.
@@ -53,7 +54,6 @@ const Signup = () => {
           setIsNicknameOverlap(true);
         }
       } else {
-        // docSnap.data() will be undefined in this case
         console.log("No such document!");
       }
     } catch (e) {
@@ -61,30 +61,38 @@ const Signup = () => {
     }
   };
 
+  const { mutate: nicknameOverlapCheckClick } = useMutation(
+    onclickNicknameOverlapCheck
+  );
+
   // 이메일과 비밀번호, 비밀번호확인을 입력하고 회원가입 버튼을 클릭하면 호출
   const onsubmitSignUpButton = async (e) => {
     try {
       e.preventDefault();
       document.body.style.overflow = "hidden";
+      // 닉네임 중복 검사, 비밀번호 확인을 하였는지 여부 확인
       if (isNicknameOverlap !== true || checkPasswordApproval !== true) {
         setIsRejectSignupModal((prev) => !prev);
         return;
       }
       setIsSignSuccessModal((prev) => !prev);
+      // 새로운 닉네임 업데이트
       const docRef = doc(dbService, "test", "nicknameDB");
       const docSnap = await getDoc(docRef);
       const newNicknameData = [...docSnap.data().data, inputNewNickname];
       await setDoc(doc(dbService, "test", "nicknameDB"), {
         data: newNicknameData,
       });
-      const createData = await createUserWithEmailAndPassword(
-        authService,
-        inputNewEmail,
-        inputNewPassword
-      );
+      // const createData = await createUserWithEmailAndPassword(
+      //   authService,
+      //   inputNewEmail,
+      //   inputNewPassword
+      // );
       await updateProfile(authService.currentUser, {
         displayName: inputNewNickname,
       });
+
+      // 회원가입
       await signOut(authService);
       document.body.style.overflow = "";
       setIsSignSuccessModal((prev) => !prev);
@@ -109,6 +117,8 @@ const Signup = () => {
       setInputNewPasswordCheck("");
     }
   };
+
+  const { mutate: submitSignUpBtnClick } = useMutation(onsubmitSignUpButton);
   // 비밀번호 확인 input 에서 onchange 이벤트가 발생하면 호출, 입력한 비밀번호와 같은 판단
   const onchangePasswordCheck = useCallback(
     (event) => {
@@ -129,14 +139,14 @@ const Signup = () => {
           {" "}
           <SignupStyle.SignupTitle>우리동네핫플</SignupStyle.SignupTitle>
         </Link>
-        <SignupStyle.SignupForm onSubmit={onsubmitSignUpButton}>
+        <SignupStyle.SignupForm onSubmit={submitSignUpBtnClick}>
           <SignupStyle.InputBox>
             <SignupStyle.NicknameInputTitleBox>
               <SignupStyle.InputText htmlFor="newNickname">
                 닉네임
               </SignupStyle.InputText>
               <SignupStyle.OverlapNicknameCheckBtn
-                onClick={onclickNicknameOverlapCheck}
+                onClick={nicknameOverlapCheckClick}
                 type="button"
               >
                 닉네임 중복확인

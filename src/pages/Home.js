@@ -86,7 +86,7 @@ const Home = ({ userLocation, firebaseInitialize }) => {
   const { isLoading: postGetIsLoading, data: postData } = useQuery(
     ["postData", currentSelectSort],
     () => getPostData(currentSelectSort),
-    { staleTime: 500, cacheTime: 1000 }
+    { staleTime: 500, cacheTime: 1000, keepPreviousData: true }
   );
 
   // ===========================
@@ -165,8 +165,8 @@ const Home = ({ userLocation, firebaseInitialize }) => {
   // =======================
   return (
     <>
+      <HomeSlide />
       <HomeStyle.HomeBack>
-        <HomeSlide />
         <TopPost />
         <SelectSortDropBox />
         {firebaseInitialize &&

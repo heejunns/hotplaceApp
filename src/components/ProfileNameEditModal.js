@@ -12,13 +12,12 @@ import {
   getDocs,
   orderBy,
   query,
-  runTransaction,
   setDoc,
   updateDoc,
   where,
-  writeBatch,
 } from "firebase/firestore";
 import axios from "axios";
+import { useMutation } from "react-query";
 const ProfileNameEditModal = ({ setIsProfileNameEditModal }) => {
   const [user, setUser] = useRecoilState(userAtom);
   const [inputNewNickname, setInputNewNickname] = useState("");
@@ -101,6 +100,11 @@ const ProfileNameEditModal = ({ setIsProfileNameEditModal }) => {
     }
   };
 
+  const { mutate: submitNewName } = useMutation(onsubmitNewName);
+  const { mutate: nicknameOverlapCheck } = useMutation(
+    onclickNicknameOverlapcheck
+  );
+
   return (
     <ProfileNameEditModalStyle.ProfileNameEditBack>
       <ProfileNameEditModalStyle.ProfileNameEditBox>
@@ -127,11 +131,11 @@ const ProfileNameEditModal = ({ setIsProfileNameEditModal }) => {
             <span className="material-symbols-outlined">close</span>
           </ProfileNameEditModalStyle.CancelBtn>
           <ProfileNameEditModalStyle.NicknameoverlapCheckBtn
-            onClick={onclickNicknameOverlapcheck}
+            onClick={nicknameOverlapCheck}
           >
             닉네임 중복 검사
           </ProfileNameEditModalStyle.NicknameoverlapCheckBtn>
-          <ProfileNameEditModalStyle.EditBtn onClick={onsubmitNewName}>
+          <ProfileNameEditModalStyle.EditBtn onClick={submitNewName}>
             닉네임 변경
           </ProfileNameEditModalStyle.EditBtn>
         </ProfileNameEditModalStyle.ProfileNameEditBtnBox>

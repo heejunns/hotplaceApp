@@ -88,13 +88,16 @@ const EditModal = ({ setIsEditModal, editData }) => {
       await updateDoc(doc(dbService, "test", editData.id), {
         inputText: inputText,
       }); // 데이터 베이스 업데이트
-      queryClient.invalidateQueries(["detailData"]);
     } catch (e) {
       console.log(e);
     }
   };
 
-  const { mutate: clickEditConfirm } = useMutation(onclickEditConfirmBtn);
+  const { mutate: clickEditConfirm } = useMutation(onclickEditConfirmBtn, {
+    onSuccess: () => {
+      queryClient.invalidateQueries(["detailData"]);
+    },
+  });
   return (
     <EditModalBack>
       <EditModalBox>
