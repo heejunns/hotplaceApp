@@ -19,7 +19,6 @@ import { Loading } from "../styles/componenet/LoadingStyle";
 
 const PageTopScroll = () => {
   const { pathname } = useLocation();
-
   useEffect(() => {
     window.scrollTo(0, 0);
   }, [pathname]);
@@ -30,7 +29,6 @@ const PageTopScroll = () => {
 
 // const Home = React.lazy(() => import("../pages/Home"));
 const AppRouter = ({ userLocation, firebaseInitialize }) => {
-  console.log("응?", userLocation);
   return (
     <>
       <Router>
@@ -48,7 +46,15 @@ const AppRouter = ({ userLocation, firebaseInitialize }) => {
             }
           />
           <Route path="/detail" element={<Detail />} />
-          <Route path=":id" element={<Page useLocation={userLocation} />} />
+          <Route
+            path=":id"
+            element={
+              <Page
+                useLocation={userLocation}
+                firebaseInitialize={firebaseInitialize}
+              />
+            }
+          />
           <Route path="/profile" element={<Profile />} />
           <Route
             path="/postupload"

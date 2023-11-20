@@ -1,9 +1,7 @@
-import React, { useCallback, useState } from "react";
 import { useRecoilState, useRecoilValue } from "recoil";
 import { clickPostItemData, userAtom } from "../recoils/UserAtom";
 import * as TopPostItemStyle from "../styles/componenet/TopPostItemStyle";
 import { useNavigate } from "react-router-dom";
-// word-break: break-all;
 const TopPostItem = ({ data, ranking }) => {
   const user = useRecoilValue(userAtom);
   const [clickPostItem, setClickPostItem] = useRecoilState(clickPostItemData);
@@ -62,11 +60,6 @@ const TopPostItem = ({ data, ranking }) => {
             </TopPostItemStyle.TopPostItemCategory>
           </div>
         </TopPostItemStyle.TopPostItemTitleBox>
-
-        {/* {mapMode && <PostMap data={data} />}
-        {commentMode && (
-          <Comments setCommentMode={setCommentMode} data={data} />
-        )} */}
       </TopPostItemStyle.TopPostItemBack>
     </>
   );

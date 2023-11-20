@@ -1,4 +1,4 @@
-import React, { useEffect, useState } from "react";
+import React, { useState } from "react";
 import { dbService } from "../reactfbase";
 import { collection, getDocs, orderBy, query, where } from "firebase/firestore";
 import PostItem from "../components/PostItem";
@@ -8,6 +8,8 @@ import * as ProfileStyle from "../styles/pages/ProfileStyle";
 import ProfileImgUploadModal from "../components/ProfileImgUploadModal";
 import ProfileNameEditModal from "../components/ProfileNameEditModal";
 import { useQuery } from "react-query";
+import { Loading } from "../styles/componenet/LoadingStyle";
+import { PulseLoader } from "react-spinners";
 
 // 현재 우리가 다양한 컴포넌트에 prop 로 전달해주고 있는 user 객체를 authService.currentUser 로 업데이트 해야한다. 하지만 set 함수로 업데이트 해도 리 랜더링이 되지 않는다. 왜일까?
 // react 는 복잡하고 큰 객체를 전에 상태와 바뀌었는지 판단하는것을 어려워한다.
@@ -50,8 +52,9 @@ const Profile = () => {
     return profileData;
   };
 
-  const { data: profileData } = useQuery(["uploadData", selectMenu], () =>
-    getUserData(selectMenu)
+  const { data: profileData, isLoading: getProfileDataIsLoading } = useQuery(
+    ["uploadData", selectMenu],
+    () => getUserData(selectMenu)
   );
 
   const onclickSelectMenu = ({ target: { id } }) => {
@@ -140,6 +143,11 @@ const Profile = () => {
         <ProfileNameEditModal
           setIsProfileNameEditModal={setIsProfileNameEditModal}
         />
+      )}
+      {getProfileDataIsLoading && (
+        <Loading>
+          <PulseLoader color="black" size={20} />
+        </Loading>
       )}
     </>
   );

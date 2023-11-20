@@ -1,4 +1,3 @@
-import React from "react";
 import * as RejectSignupModalStyle from "../styles/componenet/RejectSignupModalStyle";
 const RejectSignupModal = ({ setIsRejectSignupModal }) => {
   const onclickConfirmBtn = () => {

@@ -1,4 +1,3 @@
-import React from "react";
 import * as ProfileNameEditModalStyle from "../styles/componenet/ProfileNameEditModalStyle";
 import { useState } from "react";
 import { authService, dbService } from "../reactfbase";
@@ -10,7 +9,6 @@ import {
   doc,
   getDoc,
   getDocs,
-  orderBy,
   query,
   setDoc,
   updateDoc,
@@ -18,6 +16,8 @@ import {
 } from "firebase/firestore";
 import axios from "axios";
 import { useMutation } from "react-query";
+import { Loading } from "../styles/componenet/LoadingStyle";
+import { PulseLoader } from "react-spinners";
 const ProfileNameEditModal = ({ setIsProfileNameEditModal }) => {
   const [user, setUser] = useRecoilState(userAtom);
   const [inputNewNickname, setInputNewNickname] = useState("");
@@ -100,47 +100,55 @@ const ProfileNameEditModal = ({ setIsProfileNameEditModal }) => {
     }
   };
 
-  const { mutate: submitNewName } = useMutation(onsubmitNewName);
+  const { mutate: submitNewName, isLoading: submitNewNameIsLoading } =
+    useMutation(onsubmitNewName);
   const { mutate: nicknameOverlapCheck } = useMutation(
     onclickNicknameOverlapcheck
   );
 
   return (
-    <ProfileNameEditModalStyle.ProfileNameEditBack>
-      <ProfileNameEditModalStyle.ProfileNameEditBox>
-        <ProfileNameEditModalStyle.ProfileNameEditInput
-          type="text"
-          value={inputNewNickname}
-          onChange={onchangeNewName}
-          maxLength="10"
-          placeholder="변경할 닉네임을 입력해주세요. 최대 10글자"
-        />
-        <ProfileNameEditModalStyle.NicknameOverlapCheckText>
-          {isNicknameOverlapCheck === ""
-            ? ""
-            : isNicknameOverlapCheck === null
-            ? "닉네임을 입력 해주세요."
-            : isNicknameOverlapCheck === true
-            ? "닉네임이 사용 가능 합니다."
-            : isNicknameOverlapCheck === false
-            ? "입력하신 닉네임은 사용 중입니다."
-            : null}
-        </ProfileNameEditModalStyle.NicknameOverlapCheckText>
-        <ProfileNameEditModalStyle.ProfileNameEditBtnBox>
-          <ProfileNameEditModalStyle.CancelBtn onClick={onclickCancelModal}>
-            <span className="material-symbols-outlined">close</span>
-          </ProfileNameEditModalStyle.CancelBtn>
-          <ProfileNameEditModalStyle.NicknameoverlapCheckBtn
-            onClick={nicknameOverlapCheck}
-          >
-            닉네임 중복 검사
-          </ProfileNameEditModalStyle.NicknameoverlapCheckBtn>
-          <ProfileNameEditModalStyle.EditBtn onClick={submitNewName}>
-            닉네임 변경
-          </ProfileNameEditModalStyle.EditBtn>
-        </ProfileNameEditModalStyle.ProfileNameEditBtnBox>
-      </ProfileNameEditModalStyle.ProfileNameEditBox>
-    </ProfileNameEditModalStyle.ProfileNameEditBack>
+    <>
+      <ProfileNameEditModalStyle.ProfileNameEditBack>
+        <ProfileNameEditModalStyle.ProfileNameEditBox>
+          <ProfileNameEditModalStyle.ProfileNameEditInput
+            type="text"
+            value={inputNewNickname}
+            onChange={onchangeNewName}
+            maxLength="10"
+            placeholder="변경할 닉네임을 입력해주세요. 최대 10글자"
+          />
+          <ProfileNameEditModalStyle.NicknameOverlapCheckText>
+            {isNicknameOverlapCheck === ""
+              ? ""
+              : isNicknameOverlapCheck === null
+              ? "닉네임을 입력 해주세요."
+              : isNicknameOverlapCheck === true
+              ? "닉네임이 사용 가능 합니다."
+              : isNicknameOverlapCheck === false
+              ? "입력하신 닉네임은 사용 중입니다."
+              : null}
+          </ProfileNameEditModalStyle.NicknameOverlapCheckText>
+          <ProfileNameEditModalStyle.ProfileNameEditBtnBox>
+            <ProfileNameEditModalStyle.CancelBtn onClick={onclickCancelModal}>
+              <span className="material-symbols-outlined">close</span>
+            </ProfileNameEditModalStyle.CancelBtn>
+            <ProfileNameEditModalStyle.NicknameoverlapCheckBtn
+              onClick={nicknameOverlapCheck}
+            >
+              닉네임 중복 검사
+            </ProfileNameEditModalStyle.NicknameoverlapCheckBtn>
+            <ProfileNameEditModalStyle.EditBtn onClick={submitNewName}>
+              닉네임 변경
+            </ProfileNameEditModalStyle.EditBtn>
+          </ProfileNameEditModalStyle.ProfileNameEditBtnBox>
+        </ProfileNameEditModalStyle.ProfileNameEditBox>
+      </ProfileNameEditModalStyle.ProfileNameEditBack>
+      {submitNewName && (
+        <Loading>
+          <PulseLoader color="black" size={20} />
+        </Loading>
+      )}
+    </>
   );
 };
 

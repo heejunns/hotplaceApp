@@ -1,10 +1,12 @@
-import React, { useCallback, useMemo } from "react";
+import { useCallback, useMemo } from "react";
 import { authService } from "../reactfbase";
 import { Link, useNavigate } from "react-router-dom";
 import { signInWithPopup, GoogleAuthProvider } from "firebase/auth";
 import Login from "../components/Login";
 import * as LoginFormStyle from "../styles/pages/LoginFormStyle";
 import { useMutation } from "react-query";
+import { Loading } from "../styles/componenet/LoadingStyle";
+import { PulseLoader } from "react-spinners";
 
 const LoginForm = () => {
   const provider = useMemo(() => new GoogleAuthProvider(), []); // 구글로 로그인하기 위해서 구글 인증 프로바이더 가져오기
@@ -20,31 +22,39 @@ const LoginForm = () => {
     }
   }, [provider, navigator]);
 
-  const { mutate: clickGoogleLogin } = useMutation(onclickGoogleLogin);
+  const { mutate: clickGoogleLogin, isLoading: googleLoginIsLoading } =
+    useMutation(onclickGoogleLogin);
 
   return (
-    <LoginFormStyle.LoginFormBack>
-      <Link to="/">
-        <LoginFormStyle.LoginFormTitle>
-          우리동네핫플
-        </LoginFormStyle.LoginFormTitle>
-      </Link>
+    <>
+      <LoginFormStyle.LoginFormBack>
+        <Link to="/">
+          <LoginFormStyle.LoginFormTitle>
+            우리동네핫플
+          </LoginFormStyle.LoginFormTitle>
+        </Link>
 
-      <LoginFormStyle.LoginFormBox>
-        <Login />
-        <LoginFormStyle.LoginBtnBox>
-          <LoginFormStyle.LoginFormGoogleLoginBtn onClick={clickGoogleLogin}>
-            구글로 로그인하기
-          </LoginFormStyle.LoginFormGoogleLoginBtn>
+        <LoginFormStyle.LoginFormBox>
+          <Login />
+          <LoginFormStyle.LoginBtnBox>
+            <LoginFormStyle.LoginFormGoogleLoginBtn onClick={clickGoogleLogin}>
+              구글로 로그인하기
+            </LoginFormStyle.LoginFormGoogleLoginBtn>
 
-          <Link to="/signup" style={{ textDecoration: "none" }}>
-            <LoginFormStyle.LoginFormSignUpBtn>
-              회원가입하기
-            </LoginFormStyle.LoginFormSignUpBtn>
-          </Link>
-        </LoginFormStyle.LoginBtnBox>
-      </LoginFormStyle.LoginFormBox>
-    </LoginFormStyle.LoginFormBack>
+            <Link to="/signup" style={{ textDecoration: "none" }}>
+              <LoginFormStyle.LoginFormSignUpBtn>
+                회원가입하기
+              </LoginFormStyle.LoginFormSignUpBtn>
+            </Link>
+          </LoginFormStyle.LoginBtnBox>
+        </LoginFormStyle.LoginFormBox>
+      </LoginFormStyle.LoginFormBack>
+      {googleLoginIsLoading && (
+        <Loading>
+          <PulseLoader color="black" size={20} />
+        </Loading>
+      )}
+    </>
   );
 };
 

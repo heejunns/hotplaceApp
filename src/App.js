@@ -8,18 +8,6 @@ import { userAtom } from "./recoils/UserAtom";
 import { PulseLoader } from "react-spinners";
 import { useLocation } from "react-router-dom";
 
-// 처음 로딩 될때 화면을 보여줄 컴포넌트
-const Loading = styled.div`
-  width: 100%;
-  height: 100%;
-  font-size: 100px;
-  position: fixed;
-  display: flex;
-  justify-content: center;
-  align-items: center;
-  background: rgba(0, 0, 0, 0.2);
-`;
-
 // 어플리케이션이 로드 될때 너무 빨라서 파이어 베이스는 사용자가 로그인 되었는지 확인할 시간이 없음.
 // 그럼 항상 애플리케이션은 항상 로그아웃 되어 있어서 로그인 폼이 브라우저 화면에 보일 것이다.
 // 파이어 베이스가 초기화되고 모든 걸 로드할때까지 기다려 줘야 한다.
@@ -67,11 +55,11 @@ const App = () => {
 
   return (
     <>
-      {!firebaseInitialize && (
+      {/* {!firebaseInitialize && (
         <Loading>
           <PulseLoader color="black" size={20} />
         </Loading>
-      )}
+      )} */}
       <AppRouter
         userLocation={userLocation}
         firebaseInitialize={firebaseInitialize}

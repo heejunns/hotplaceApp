@@ -12,10 +12,9 @@ import * as PostUploadStyle from "../styles/pages/PostUploadStyle";
 import { Loading } from "../styles/componenet/LoadingStyle";
 import { PulseLoader } from "react-spinners";
 import axios from "axios";
-import { useMutation, useQueryClient } from "react-query";
+import { useMutation } from "react-query";
 
 const PostUpload = ({ userLocation }) => {
-  const queryClient = useQueryClient();
   const user = useRecoilValue(userAtom);
   const navigate = useNavigate(); // useNavigate 훅스를 사용해서 게시글을 올리면 "/" 주소로 강제 이동
   const [inputText, setInputText] = useState(""); // input 태그에 입력하는 value 의 state
@@ -88,7 +87,6 @@ const PostUpload = ({ userLocation }) => {
         userLocation, // 유저 주소, 이 정보로 지역 게시물만 보기 기능 만들거임
         postName: inputPostTitle,
       });
-      // queryClient.invalidateQueries(["postData"]);
       setInputPostTitle("");
       setInputText("");
       setUploadImageFileURL("");

@@ -14,7 +14,7 @@ export const RejectSignupModalBack = styled.div`
 
 export const RejectSignupModalBox = styled.div`
   width: 450px;
-  height: 120px;
+  height: 130px;
   border-radius: 10px;
   border: 3px solid black;
   background-color: white;
@@ -22,15 +22,16 @@ export const RejectSignupModalBox = styled.div`
   flex-direction: column;
   align-items: center;
   justify-content: center;
-  padding: 20px 10px;
+  padding: 20px;
   @media screen and (max-width: 768px) {
     width: 300px;
   }
 `;
 
 export const RejectSignupModalTextBox = styled.div`
+  line-height: 140%;
   width: 100%;
-  height: 50px;
+  height: 30px;
   display: flex;
   justify-content: center;
   align-items: center;
@@ -51,15 +52,15 @@ export const RejectSignupModalBtnBox = styled.div`
 `;
 
 export const RejectSignupModalConfirmBtn = styled.button`
+  color: white;
+  background-color: black;
   width: 100px;
   height: 35px;
   border: none;
   border-radius: 10px;
   font-size: 15px;
-  background-color: #a0a0a0;
   display: flex;
   justify-content: center;
   align-items: center;
-  color: white;
   cursor: pointer;
 `;

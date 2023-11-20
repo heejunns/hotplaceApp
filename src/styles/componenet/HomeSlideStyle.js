@@ -1,10 +1,11 @@
 import styled from "styled-components";
 
 export const HomeSlideBack = styled.div`
+  font-family: "Gaegu", sans-serif;
   height: 500px;
   overflow: hidden;
   width: 100%;
-  padding-bottom: 30px;
+  padding-bottom: 10px;
   /* max-width: 1200px; */
   @media screen and (max-width: 768px) {
     height: 300px;
@@ -17,14 +18,13 @@ export const HomeSlideBox = styled.div`
     props.currentNum && `translateX(-${props.currentNum * 20}%)`};
   display: flex;
   width: 100%;
-  min-width: 10000px;
+  min-width: ${(props) => props.width && `${props.width * 5}px`};
 `;
 
 export const HomeSlideItem = styled.div`
-  display: inline;
+  /* display: inline; */
   position: relative;
   width: 100%;
-  /* max-width: 1200px; */
   height: 100%;
   & > img {
     width: 100%;
@@ -45,7 +45,7 @@ export const HomeSlideText = styled.h1`
   left: 10px;
   @media screen and (max-width: 768px) {
     line-height: 130%;
-    bottom: 80px;
+    bottom: 65px;
     font-size: 18px;
   }
 `;

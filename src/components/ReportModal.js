@@ -5,6 +5,8 @@ import { doc, getDoc, setDoc } from "firebase/firestore";
 import { useRecoilValue } from "recoil";
 import { userAtom } from "../recoils/UserAtom";
 import { useMutation } from "react-query";
+import { Loading } from "../styles/componenet/LoadingStyle";
+import { PulseLoader } from "react-spinners";
 const ReportModal = ({ setIsReportModal, postWriter, postName }) => {
   const user = useRecoilValue(userAtom);
   const [inputReportText, setInputReportText] = useState("");
@@ -35,35 +37,43 @@ const ReportModal = ({ setIsReportModal, postWriter, postName }) => {
     }
   };
 
-  const { mutate: reportBtnClick } = useMutation(onclickReportBtn);
+  const { mutate: reportBtnClick, isLoading: reportIsLoading } =
+    useMutation(onclickReportBtn);
   const onclickCloseBtn = () => {
     document.body.style.overflow = "";
     setIsReportModal((prev) => !prev);
   };
   return (
-    <ReportModalStyle.ReportModalBack>
-      <ReportModalStyle.ReportModalBox>
-        <ReportModalStyle.ReportModalTitle>
-          신고 글 작성
-        </ReportModalStyle.ReportModalTitle>
-        <ReportModalStyle.ReportModalInputTextBox>
-          <ReportModalStyle.ReportModalInput
-            type="text"
-            onChange={onchangeReportText}
-            value={inputReportText}
-            placeholder="신고내용을 입력 해주세요."
-          />
-        </ReportModalStyle.ReportModalInputTextBox>
-        <ReportModalStyle.ReportModalBtnBox>
-          <ReportModalStyle.ReportModalCancelBtn onClick={onclickCloseBtn}>
-            <span className="material-symbols-outlined">close</span>
-          </ReportModalStyle.ReportModalCancelBtn>
-          <ReportModalStyle.ReportModalReportBtn onClick={reportBtnClick}>
-            게시물 신고
-          </ReportModalStyle.ReportModalReportBtn>
-        </ReportModalStyle.ReportModalBtnBox>
-      </ReportModalStyle.ReportModalBox>
-    </ReportModalStyle.ReportModalBack>
+    <>
+      <ReportModalStyle.ReportModalBack>
+        <ReportModalStyle.ReportModalBox>
+          <ReportModalStyle.ReportModalTitle>
+            신고 글 작성
+          </ReportModalStyle.ReportModalTitle>
+          <ReportModalStyle.ReportModalInputTextBox>
+            <ReportModalStyle.ReportModalInput
+              type="text"
+              onChange={onchangeReportText}
+              value={inputReportText}
+              placeholder="신고내용을 입력 해주세요."
+            />
+          </ReportModalStyle.ReportModalInputTextBox>
+          <ReportModalStyle.ReportModalBtnBox>
+            <ReportModalStyle.ReportModalCancelBtn onClick={onclickCloseBtn}>
+              <span className="material-symbols-outlined">close</span>
+            </ReportModalStyle.ReportModalCancelBtn>
+            <ReportModalStyle.ReportModalReportBtn onClick={reportBtnClick}>
+              게시물 신고
+            </ReportModalStyle.ReportModalReportBtn>
+          </ReportModalStyle.ReportModalBtnBox>
+        </ReportModalStyle.ReportModalBox>
+      </ReportModalStyle.ReportModalBack>
+      {reportIsLoading && (
+        <Loading>
+          <PulseLoader color="black" size={20} />
+        </Loading>
+      )}
+    </>
   );
 };
 

@@ -8,9 +8,6 @@ export const CommentItemBox = styled.div`
   width: 100%;
   padding: 10px;
   margin-top: 10px;
-  @media screen and (min-width: 820px) and (min-height: 1180px) {
-    font-size: 2rem;
-  }
 `;
 // 댓글을 삭제하는 삭제 버튼
 export const CommentDelete = styled.span`
@@ -37,7 +34,7 @@ export const CommentLike = styled.div`
   color: black;
   & > span {
     font-size: 20px;
-    margin-right: 10px;
+    margin-right: 5px;
     color: ${(props) => (props.isLike ? "red" : "black")};
   }
 `;

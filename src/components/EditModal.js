@@ -1,9 +1,10 @@
 import { doc, updateDoc } from "firebase/firestore";
-import React from "react";
 import { useState } from "react";
 import styled from "styled-components";
 import { dbService } from "../reactfbase";
 import { useMutation, useQueryClient } from "react-query";
+import { Loading } from "../styles/componenet/LoadingStyle";
+import { PulseLoader } from "react-spinners";
 
 const EditModalBack = styled.div`
   width: 100%;
@@ -39,16 +40,19 @@ const EditModalInputText = styled.textarea`
   padding: 10px;
   margin-bottom: 10px;
   resize: none;
+  &:focus {
+    border: 2px solid #6edcdc;
+  }
 `;
 const EditModalForm = styled.form``;
 const EditModalBtnBox = styled.div`
   width: 100%;
   height: 50px;
   display: flex;
-  justify-content: space-around;
+  justify-content: space-between;
 `;
 const EditModalBtn = styled.button`
-  width: 80px;
+  width: 120px;
   height: 35px;
   display: flex;
   justify-content: center;
@@ -93,28 +97,39 @@ const EditModal = ({ setIsEditModal, editData }) => {
     }
   };
 
-  const { mutate: clickEditConfirm } = useMutation(onclickEditConfirmBtn, {
-    onSuccess: () => {
-      queryClient.invalidateQueries(["detailData"]);
-    },
-  });
+  const { mutate: clickEditConfirm, isLoading: editConfirmIsLoading } =
+    useMutation(onclickEditConfirmBtn, {
+      onSuccess: () => {
+        queryClient.invalidateQueries(["detailData"]);
+      },
+    });
   return (
-    <EditModalBack>
-      <EditModalBox>
-        <EditModalText>게시글 수정</EditModalText>
-        <EditModalForm>
-          <EditModalInputText value={inputText} onChange={onchangeInputText} />
-          <EditModalBtnBox>
-            <EditModalCancelBtn onClick={onclickEditCancelBtn}>
-              취소
-            </EditModalCancelBtn>
-            <EditModalConfirmBtn onClick={clickEditConfirm}>
-              확인
-            </EditModalConfirmBtn>
-          </EditModalBtnBox>
-        </EditModalForm>
-      </EditModalBox>
-    </EditModalBack>
+    <>
+      <EditModalBack>
+        <EditModalBox>
+          <EditModalText>게시글 수정</EditModalText>
+          <EditModalForm>
+            <EditModalInputText
+              value={inputText}
+              onChange={onchangeInputText}
+            />
+            <EditModalBtnBox>
+              <EditModalCancelBtn onClick={onclickEditCancelBtn}>
+                취소
+              </EditModalCancelBtn>
+              <EditModalConfirmBtn onClick={clickEditConfirm}>
+                확인
+              </EditModalConfirmBtn>
+            </EditModalBtnBox>
+          </EditModalForm>
+        </EditModalBox>
+      </EditModalBack>
+      {editConfirmIsLoading && (
+        <Loading>
+          <PulseLoader color="black" size={20} />
+        </Loading>
+      )}
+    </>
   );
 };
 

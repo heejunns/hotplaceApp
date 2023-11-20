@@ -1,4 +1,3 @@
-import React from "react";
 import * as NoUserClickModalStyle from "../styles/componenet/NoUserClickModalStyle";
 import { useNavigate } from "react-router-dom";
 const NoUserClickModal = ({ setIsNoUserClickModal }) => {

@@ -8,9 +8,9 @@ export const TopPostItemBack = styled.div`
   display: flex;
   flex-direction: column;
   cursor: pointer;
-  .scroll::-webkit-scrollbar {
+  /* .scroll::-webkit-scrollbar {
     display: none;
-  }
+  } */
   padding: 10px;
   font-size: 18px;
   border-radius: 10px;

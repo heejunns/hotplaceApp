@@ -1,4 +1,3 @@
-import React from "react";
 import * as SignupSuccessModalStyle from "../styles/componenet/SignupSuccessModalStyle";
 
 const SignupSuccessModal = () => {

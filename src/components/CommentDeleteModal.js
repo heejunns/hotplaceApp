@@ -1,8 +1,9 @@
-import React from "react";
 import * as DeleteModalStyle from "../styles/componenet/DeleteModalStyle";
 import { doc, updateDoc } from "firebase/firestore";
 import { dbService } from "../reactfbase";
 import { useMutation, useQueryClient } from "react-query";
+import { Loading } from "../styles/componenet/LoadingStyle";
+import { PulseLoader } from "react-spinners";
 const CommentDeleteModal = ({
   setIsCommentDeleteModal,
   data,
@@ -31,27 +32,37 @@ const CommentDeleteModal = ({
     }
   };
 
-  const { mutate: clickConfirmBtn } = useMutation(onclickConfirmBtn, {
-    onSuccess: () => {
-      queryClient.invalidateQueries(["detailData"]);
-    },
-  });
+  const { mutate: clickConfirmBtn, isLoading: deleteIsLoading } = useMutation(
+    onclickConfirmBtn,
+    {
+      onSuccess: () => {
+        queryClient.invalidateQueries(["detailData"]);
+      },
+    }
+  );
   return (
-    <DeleteModalStyle.DeleteModalBack>
-      <DeleteModalStyle.DeleteModalBox>
-        <DeleteModalStyle.DeleteModalText>
-          댓글을 삭제 하시겠습니까?
-        </DeleteModalStyle.DeleteModalText>
-        <DeleteModalStyle.DeleteModalBtnBox>
-          <DeleteModalStyle.DeleteModalCancelBtn onClick={cancelBtnClick}>
-            취소
-          </DeleteModalStyle.DeleteModalCancelBtn>
-          <DeleteModalStyle.DeleteModalConfirmBtn onClick={clickConfirmBtn}>
-            삭제
-          </DeleteModalStyle.DeleteModalConfirmBtn>
-        </DeleteModalStyle.DeleteModalBtnBox>
-      </DeleteModalStyle.DeleteModalBox>
-    </DeleteModalStyle.DeleteModalBack>
+    <>
+      <DeleteModalStyle.DeleteModalBack>
+        <DeleteModalStyle.DeleteModalBox>
+          <DeleteModalStyle.DeleteModalText>
+            댓글을 삭제 하시겠습니까?
+          </DeleteModalStyle.DeleteModalText>
+          <DeleteModalStyle.DeleteModalBtnBox>
+            <DeleteModalStyle.DeleteModalCancelBtn onClick={cancelBtnClick}>
+              취소
+            </DeleteModalStyle.DeleteModalCancelBtn>
+            <DeleteModalStyle.DeleteModalConfirmBtn onClick={clickConfirmBtn}>
+              삭제
+            </DeleteModalStyle.DeleteModalConfirmBtn>
+          </DeleteModalStyle.DeleteModalBtnBox>
+        </DeleteModalStyle.DeleteModalBox>
+      </DeleteModalStyle.DeleteModalBack>
+      {deleteIsLoading && (
+        <Loading>
+          <PulseLoader color="black" size={20} />
+        </Loading>
+      )}
+    </>
   );
 };
 

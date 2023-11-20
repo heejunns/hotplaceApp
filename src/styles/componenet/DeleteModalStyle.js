@@ -17,7 +17,7 @@ export const DeleteModalBox = styled.div`
   background-color: white;
   padding: 20px;
   width: 280px;
-  height: 150px;
+  height: 125px;
   display: flex;
   flex-direction: column;
   justify-content: center;

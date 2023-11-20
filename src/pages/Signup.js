@@ -1,10 +1,6 @@
 import React, { useCallback, useState } from "react";
 import { Link, useNavigate } from "react-router-dom";
-import {
-  createUserWithEmailAndPassword,
-  signOut,
-  updateProfile,
-} from "firebase/auth";
+import { signOut, updateProfile } from "firebase/auth";
 import { authService, dbService } from "../reactfbase";
 import * as SignupStyle from "../styles/pages/SignupStyle";
 import SignupSuccessModal from "../components/SignupSuccessModal";

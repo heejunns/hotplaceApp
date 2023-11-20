@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import { useState } from "react";
 import * as ProfileImgUploadModalStyle from "../styles/componenet/ProfileImgUploadStyle";
 import { updateProfile } from "firebase/auth";
 import { authService, dbService, storageService } from "../reactfbase";
@@ -21,7 +21,6 @@ import { useMutation } from "react-query";
 const ProfileImgUploadModal = ({ setIsProfileImgUploadModal }) => {
   const [user, setUser] = useRecoilState(userAtom);
   const [profileImgUploadUrl, setProfileImgUploadUrl] = useState("");
-  // const [isLoading, setIsLoading] = useState(false);
   const onchangeImageUpload = async (e) => {
     try {
       const { files } = e.target;
