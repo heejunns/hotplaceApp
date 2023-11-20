@@ -5,6 +5,8 @@ import { deleteObject, ref } from "firebase/storage";
 import * as DeleteModalStyle from "../styles/componenet/DeleteModalStyle";
 import { useNavigate } from "react-router-dom";
 import { useMutation } from "react-query";
+import { Loading } from "../styles/componenet/LoadingStyle";
+import { PulseLoader } from "react-spinners";
 
 const PostDeleteModal = ({ setIsPostDeleteModal, postDeleteData }) => {
   const navigate = useNavigate();
@@ -28,7 +30,8 @@ const PostDeleteModal = ({ setIsPostDeleteModal, postDeleteData }) => {
     }
   };
 
-  const { mutate: clickConfirmBtn } = useMutation(onclickConfirmBtn);
+  const { mutate: clickConfirmBtn, isLoading: deletePostIsLoading } =
+    useMutation(onclickConfirmBtn);
 
   return (
     <>
@@ -47,6 +50,11 @@ const PostDeleteModal = ({ setIsPostDeleteModal, postDeleteData }) => {
           </DeleteModalStyle.DeleteModalBtnBox>
         </DeleteModalStyle.DeleteModalBox>
       </DeleteModalStyle.DeleteModalBack>
+      {deletePostIsLoading && (
+        <Loading>
+          <PulseLoader color="black" size={20} />
+        </Loading>
+      )}
     </>
   );
 };

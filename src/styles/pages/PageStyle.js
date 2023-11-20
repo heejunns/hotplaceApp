@@ -20,7 +20,7 @@ export const PostBox = styled.div`
   &::-webkit-scrollbar {
     display: none;
   }
-  overflow-y: auto;
+  overflow: auto;
   display: grid;
   grid-template-columns: repeat(4, 1fr);
   gap: 20px;
@@ -31,4 +31,14 @@ export const PostBox = styled.div`
     grid-template-columns: repeat(1, 1fr);
     margin-top: 30px;
   }
+`;
+export const EmptyPost = styled.div`
+  font-size: 25px;
+  font-weight: 600;
+  width: 100%;
+  height: 100vh;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  color: black;
 `;

@@ -31,18 +31,18 @@ export const CommentInput = styled.textarea`
 `;
 // 댓글을 입력하고 댓글을 게시하는 버튼의 스타일 태그
 export const CommentSubmitButton = styled.button`
+  font-size: 15px;
+  color: white;
+  background-color: black;
   position: absolute;
   border: none;
   bottom: 10px;
   right: 10px;
   margin-left: 1rem;
   border-radius: 10px;
-  padding: 5px;
-  background: white;
-  font-size: 18px;
+  padding: 8px;
   white-space: nowrap;
   cursor: pointer;
-  color: black;
 `;
 
 // 아무 댓글이 없다면 보여질 스타일 태그

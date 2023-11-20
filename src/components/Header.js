@@ -1,5 +1,5 @@
 import { signOut } from "firebase/auth";
-import React, { useEffect, useRef, useState } from "react";
+import { useEffect, useRef, useState } from "react";
 import { Link, useLocation, useNavigate } from "react-router-dom";
 import { authService } from "../reactfbase";
 import { useRecoilValue } from "recoil";
@@ -9,7 +9,6 @@ import * as HeaderStyle from "../styles/componenet/HeaderStyle";
 const Header = () => {
   const [clickHamburgerBtn, setClickHamburgerBtn] = useState(false);
   const { pathname } = useLocation();
-  console.log(pathname);
   const user = useRecoilValue(userAtom);
   const sideBarRef = useRef();
   const hamburgerRef = useRef();

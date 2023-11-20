@@ -2,13 +2,12 @@ import styled from "styled-components";
 
 export const TopPostBack = styled.div`
   width: 100%;
-  padding: 20px 0 30px 0;
+  padding: 20px 0 10px 0;
   max-width: 1200px;
   overflow: hidden;
   display: flex;
   align-items: center;
   position: relative;
-  border-bottom: 1px solid black;
   @media screen and (max-width: 768px) {
     overflow-x: scroll;
     ::-webkit-scrollbar {
@@ -79,14 +78,12 @@ export const TopPostNextBtn = styled(TopPostBtn)`
 `;
 
 export const TopPostTitleBox = styled.div`
+  margin-top: 20px;
   width: 100%;
   max-width: 1200px;
   height: 30px;
   display: flex;
   align-items: center;
-  @media screen and (max-width: 768px) {
-    margin-top: 20px;
-  }
 `;
 
 export const TopPostTitleText = styled.h1`

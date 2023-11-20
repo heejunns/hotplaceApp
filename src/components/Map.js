@@ -1,4 +1,4 @@
-import React, { memo, useCallback, useEffect, useState } from "react";
+import React, { memo, useCallback, useEffect } from "react";
 import * as MapStyle from "../styles/componenet/MapStyle";
 const Map = ({ setUserMarkerLocation }) => {
   const getLocation = useCallback(

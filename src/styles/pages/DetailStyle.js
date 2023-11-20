@@ -9,7 +9,7 @@ export const DetailBack = styled.div`
   justify-content: center;
   padding: 50px 20px;
   @media screen and (max-width: 768px) {
-    padding: 30px 20px;
+    padding: 20px;
   }
 `;
 // 디테일 페이지 전체 박스
@@ -107,12 +107,12 @@ export const ImgsContainer = styled.div`
   }
 `;
 export const DetailImgBtn = styled.button`
+  background-color: white;
   position: absolute;
   cursor: pointer;
   border-radius: 50%;
   top: 325px;
   border: none;
-  background-color: #969696;
   opacity: 0.7;
   z-index: 10;
   width: 50px;
@@ -121,8 +121,8 @@ export const DetailImgBtn = styled.button`
   justify-content: center;
   align-items: center;
   & > span {
+    color: black;
     opacity: 1;
-    color: white;
     font-size: 35px;
   }
   &:hover {

@@ -1,4 +1,3 @@
-import React from "react";
 import * as DetailStyle from "../styles/pages/DetailStyle";
 import { useRecoilValue } from "recoil";
 import { clickPostItemData, userAtom } from "../recoils/UserAtom";
@@ -12,6 +11,8 @@ import { dbService } from "../reactfbase";
 import PostDeleteModal from "../components/PostDeleteModal";
 import ReportModal from "../components/ReportModal";
 import { useMutation, useQuery, useQueryClient } from "react-query";
+import { Loading } from "../styles/componenet/LoadingStyle";
+import { PulseLoader } from "react-spinners";
 // =============================================== 디테일 페이지 ================================================
 // 사용자가 게시글을 클릭하면 게시글에대한 자세한 내용을 확인 할 수 있는 페이지 입니다.
 // ===========================================================================================================
@@ -43,7 +44,10 @@ const Detail = () => {
     }
   }, [data.id]);
   // 서버에 데이터를 요청하는 쿼리
-  const { data: detailData } = useQuery(["detailData"], getDetailData);
+  const { data: detailData, isLoading: getDetailDataIsLoading } = useQuery(
+    ["detailData"],
+    getDetailData
+  );
 
   // 사용자가 올린 게시글의 사진의 개수글 가지고 이미지가 보여지는 화면의 최대 width px 을 계산하여 그 값을 저장하는 변수
   const imgsMaxPx =
@@ -250,6 +254,11 @@ const Detail = () => {
           postWriter={data.nickname}
           postName={data.postName}
         />
+      )}
+      {getDetailDataIsLoading && (
+        <Loading>
+          <PulseLoader color="black" size={20} />
+        </Loading>
       )}
     </>
   );

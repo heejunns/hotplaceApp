@@ -1,4 +1,4 @@
-import React, { useCallback, useState } from "react";
+import { useState } from "react";
 import CommentPost from "./CommentPost";
 import { doc, updateDoc } from "firebase/firestore";
 import { dbService } from "../reactfbase";
@@ -7,6 +7,8 @@ import { useRecoilValue } from "recoil";
 import { userAtom } from "../recoils/UserAtom";
 import * as CommentStyle from "../styles/componenet/CommentStyle";
 import { useMutation, useQueryClient } from "react-query";
+import { Loading } from "../styles/componenet/LoadingStyle";
+import { PulseLoader } from "react-spinners";
 
 const Comment = ({ data, dataId, getDetailData }) => {
   const queryClient = useQueryClient();
@@ -40,52 +42,60 @@ const Comment = ({ data, dataId, getDetailData }) => {
     });
   };
 
-  const { mutate: clickCommentSubmit } = useMutation(onclickCommentSubmit, {
-    onSuccess: () => {
-      queryClient.invalidateQueries(["detailData"]);
-    },
-  });
+  const { mutate: clickCommentSubmit, isLoading: commentSubmitIsLoading } =
+    useMutation(onclickCommentSubmit, {
+      onSuccess: () => {
+        queryClient.invalidateQueries(["detailData"]);
+      },
+    });
 
   return (
-    <CommentStyle.CommentBack>
-      <CommentStyle.CommentTitleBox>
-        <CommentStyle.CommentTitle>댓글</CommentStyle.CommentTitle>
-        <CommentStyle.CommentInputLimit>
-          <CommentStyle.CommentInputLen>
-            {commentInput.length}
-          </CommentStyle.CommentInputLen>
-          / 100
-        </CommentStyle.CommentInputLimit>
-      </CommentStyle.CommentTitleBox>
-      <CommentStyle.CommentForm onSubmit={clickCommentSubmit}>
-        <CommentStyle.CommentInput
-          type="text"
-          placeholder="댓글을 입력하세요."
-          value={commentInput}
-          onChange={onchangeCommentInput}
-        />
-        <CommentStyle.CommentSubmitButton>
-          등록
-        </CommentStyle.CommentSubmitButton>
-      </CommentStyle.CommentForm>
-      <CommentStyle.CommentBox>
-        {data.comments.length === 0 ? (
-          <CommentStyle.NoComment>댓글없음</CommentStyle.NoComment>
-        ) : (
-          data.comments.map((commentInfo, index) => {
-            return (
-              <CommentPost
-                key={index}
-                commentInfo={commentInfo}
-                data={data}
-                dataId={dataId}
-                getDetailData={getDetailData}
-              />
-            );
-          })
-        )}
-      </CommentStyle.CommentBox>
-    </CommentStyle.CommentBack>
+    <>
+      <CommentStyle.CommentBack>
+        <CommentStyle.CommentTitleBox>
+          <CommentStyle.CommentTitle>댓글</CommentStyle.CommentTitle>
+          <CommentStyle.CommentInputLimit>
+            <CommentStyle.CommentInputLen>
+              {commentInput.length}
+            </CommentStyle.CommentInputLen>
+            / 100
+          </CommentStyle.CommentInputLimit>
+        </CommentStyle.CommentTitleBox>
+        <CommentStyle.CommentForm onSubmit={clickCommentSubmit}>
+          <CommentStyle.CommentInput
+            type="text"
+            placeholder="댓글을 입력하세요."
+            value={commentInput}
+            onChange={onchangeCommentInput}
+          />
+          <CommentStyle.CommentSubmitButton>
+            등록
+          </CommentStyle.CommentSubmitButton>
+        </CommentStyle.CommentForm>
+        <CommentStyle.CommentBox>
+          {data.comments.length === 0 ? (
+            <CommentStyle.NoComment>댓글없음</CommentStyle.NoComment>
+          ) : (
+            data.comments.map((commentInfo, index) => {
+              return (
+                <CommentPost
+                  key={index}
+                  commentInfo={commentInfo}
+                  data={data}
+                  dataId={dataId}
+                  getDetailData={getDetailData}
+                />
+              );
+            })
+          )}
+        </CommentStyle.CommentBox>
+      </CommentStyle.CommentBack>
+      {commentSubmitIsLoading && (
+        <Loading>
+          <PulseLoader color="black" size={20} />
+        </Loading>
+      )}
+    </>
   );
 };
 

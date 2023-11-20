@@ -1,11 +1,12 @@
 import * as HomeSlideStyle from "../styles/componenet/HomeSlideStyle";
-import { collection, getDocs, orderBy, query } from "firebase/firestore";
+import { collection, getDocs, limit, orderBy, query } from "firebase/firestore";
 import { dbService } from "../reactfbase";
 import { useEffect, useRef, useState } from "react";
 import { useQuery } from "react-query";
 
 const HomeSlide = () => {
   const [currentNum, setCurrentNum] = useState(1);
+  const [width, setWidth] = useState(window.innerWidth);
 
   const homeSlideBoxRef = useRef();
 
@@ -13,6 +14,7 @@ const HomeSlide = () => {
     try {
       const q = query(
         collection(dbService, "test"),
+        limit(3),
         orderBy("likeNumber", "desc")
       );
       const querySnapshot = await getDocs(q);
@@ -20,8 +22,7 @@ const HomeSlide = () => {
       querySnapshot.forEach((doc) => {
         data.push({ id: doc.id, ...doc.data() });
       });
-
-      return data.slice(0, 3);
+      return data;
     } catch (e) {}
   };
   const { data: homeSlideData } = useQuery(["homeSlideData"], getHomeSlideData);
@@ -51,16 +52,24 @@ const HomeSlide = () => {
     homeSlideBoxRef.current.style.transition = "all 2s ease-in-out";
     const key = setInterval(() => {
       setCurrentNum((prev) => prev + 1);
-    }, 5000);
+    }, 7000);
     return () => clearInterval(key);
   }, []);
+  const changeWidth = () => {
+    setWidth(window.innerWidth);
+  };
+  useEffect(() => {
+    window.addEventListener("resize", changeWidth);
 
-  console.log("current", currentNum);
+    return () => window.removeEventListener("resize", changeWidth);
+  }, []);
+
   return (
     <HomeSlideStyle.HomeSlideBack>
       <HomeSlideStyle.HomeSlideBox
         ref={homeSlideBoxRef}
         currentNum={currentNum}
+        width={width}
       >
         {imgArr &&
           imgArr.map((item) => (

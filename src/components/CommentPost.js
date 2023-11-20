@@ -1,5 +1,5 @@
 import { doc, updateDoc } from "firebase/firestore";
-import React, { useState } from "react";
+import { useState } from "react";
 import { dbService } from "../reactfbase";
 import { userAtom } from "../recoils/UserAtom";
 import { useRecoilValue } from "recoil";

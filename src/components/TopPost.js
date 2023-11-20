@@ -1,4 +1,3 @@
-import React from "react";
 import * as TopPostStyle from "../styles/componenet/TopPostStyle";
 import { collection, getDocs, orderBy, query } from "firebase/firestore";
 import { dbService } from "../reactfbase";
