@@ -2,11 +2,12 @@ import { signOut } from "firebase/auth";
 import { useEffect, useRef, useState } from "react";
 import { Link, useLocation, useNavigate } from "react-router-dom";
 import { authService } from "../reactfbase";
-import { useRecoilValue } from "recoil";
-import { userAtom } from "../recoils/UserAtom";
+import { useRecoilState, useRecoilValue } from "recoil";
+import { currentPageAtom, userAtom } from "../recoils/UserAtom";
 import * as HeaderStyle from "../styles/componenet/HeaderStyle";
 
 const Header = () => {
+  const [currentPage, setCurrentPage] = useRecoilState(currentPageAtom);
   const [clickHamburgerBtn, setClickHamburgerBtn] = useState(false);
   const { pathname } = useLocation();
   const user = useRecoilValue(userAtom);
@@ -39,14 +40,19 @@ const Header = () => {
       console.log(e);
     }
   };
-
+  const onclickPageReset = () => {
+    setCurrentPage(0);
+  };
   return (
     <HeaderStyle.HeaderBackground>
       <HeaderStyle.HeaderMenuBox>
         <Link
           to="/"
           style={{ textDecoration: "none" }}
-          onClick={() => setClickHamburgerBtn(false)}
+          onClick={() => {
+            setCurrentPage(0);
+            setClickHamburgerBtn(false);
+          }}
         >
           <HeaderStyle.AppTitleName>우리동네핫플</HeaderStyle.AppTitleName>
         </Link>
@@ -67,21 +73,33 @@ const Header = () => {
           </Link>
         )} */}
         {user && user.displayName && (
-          <Link to="/cafe" style={{ textDecoration: "none" }}>
+          <Link
+            to="/cafe"
+            style={{ textDecoration: "none" }}
+            onClick={onclickPageReset}
+          >
             <HeaderStyle.HeaderBoxItem currentPath={pathname === "/cafe"}>
               카페
             </HeaderStyle.HeaderBoxItem>
           </Link>
         )}
         {user && user.displayName && (
-          <Link to="/food" style={{ textDecoration: "none" }}>
+          <Link
+            to="/food"
+            style={{ textDecoration: "none" }}
+            onClick={onclickPageReset}
+          >
             <HeaderStyle.HeaderBoxItem currentPath={pathname === "/food"}>
               음식
             </HeaderStyle.HeaderBoxItem>
           </Link>
         )}
         {user && user.displayName && (
-          <Link to="/mart" style={{ textDecoration: "none" }}>
+          <Link
+            to="/mart"
+            style={{ textDecoration: "none" }}
+            onClick={onclickPageReset}
+          >
             <HeaderStyle.HeaderBoxItem currentPath={pathname === "/mart"}>
               마트
             </HeaderStyle.HeaderBoxItem>
@@ -187,7 +205,10 @@ const Header = () => {
             <Link
               to="/cafe"
               style={{ textDecoration: "none" }}
-              onClick={() => setClickHamburgerBtn(false)}
+              onClick={() => {
+                setClickHamburgerBtn(false);
+                setCurrentPage(0);
+              }}
             >
               <HeaderStyle.HamburgerSideBarList>
                 카페
@@ -198,7 +219,10 @@ const Header = () => {
             <Link
               to="/food"
               style={{ textDecoration: "none" }}
-              onClick={() => setClickHamburgerBtn(false)}
+              onClick={() => {
+                setClickHamburgerBtn(false);
+                setCurrentPage(0);
+              }}
             >
               <HeaderStyle.HamburgerSideBarList>
                 음식
@@ -209,7 +233,10 @@ const Header = () => {
             <Link
               to="/mart"
               style={{ textDecoration: "none" }}
-              onClick={() => setClickHamburgerBtn(false)}
+              onClick={() => {
+                setClickHamburgerBtn(false);
+                setCurrentPage(0);
+              }}
             >
               <HeaderStyle.HamburgerSideBarList>
                 마트

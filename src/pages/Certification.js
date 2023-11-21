@@ -1,11 +1,13 @@
 import { useState } from "react";
 import * as CertificationStyle from "../styles/pages/CertificationStyle";
+import { useCallback } from "react";
 const Certification = () => {
   const [currentSelectCategory, setCurrentSelectCategory] = useState("cafe");
   const [inputCompanyName, setInputCompanyName] = useState("");
   const [inputName, setInputName] = useState("");
   const [inputEmail, setInputEmail] = useState("");
   const [inputPhoneNumber, setInputPhoneNumber] = useState("");
+  const [certificationImageUrl, setCertificationImageUrl] = useState("");
 
   const onchangeInputText = ({ target: { id, value } }) => {
     if (id === "companyname") {
@@ -27,6 +29,42 @@ const Certification = () => {
   console.log("이메일", inputEmail);
   console.log("휴대폰번호", inputPhoneNumber);
 
+  const onchangeCertificationImageUpload = useCallback(
+    ({ target: { files } }) => {
+      // 사진 파일을 선택했을때 선택한 사진을 화면에 보여주는 코드
+      if (files.length === 1) {
+        const uploadFile = files[0];
+        // 파일을 읽어오기 위해서 fileReader API 를 사용하기
+        const reader = new FileReader(); // 파일리더 생성
+        reader.readAsDataURL(uploadFile); //  파일 url 생성
+        reader.onloadend = (fileLoadEndEvent) => {
+          setCertificationImageUrl((prev) => [
+            ...prev,
+            fileLoadEndEvent.target.result,
+          ]);
+        };
+      } else {
+        for (let i = 0; i < files.length; ++i) {
+          const uploadFile = files[i];
+          // 파일을 읽어오기 위해서 fileReader API 를 사용하기
+          const reader = new FileReader(); // 파일리더 생성
+          reader.readAsDataURL(uploadFile); //  파일 url 생성
+          reader.onloadend = (fileLoadEndEvent) => {
+            setCertificationImageUrl((prev) => [
+              ...prev,
+              fileLoadEndEvent.target.result,
+            ]);
+          };
+        }
+      }
+    },
+    []
+  );
+  const onclickImageDeleteBtn = useCallback((imageFileUrl) => {
+    setCertificationImageUrl((prev) =>
+      prev.filter((item) => item !== imageFileUrl)
+    );
+  }, []);
   return (
     <CertificationStyle.CertificationBack>
       <CertificationStyle.CertificationFormBox>
@@ -133,6 +171,39 @@ const Certification = () => {
             </CertificationStyle.BusinessCategoryLabel>
           </CertificationStyle.BusinessCategoryItemBox>
         </CertificationStyle.BusinessCategoryBox>
+        <CertificationStyle.PostUploadImageBox>
+          <CertificationStyle.ImgFileSelectTitle>
+            이미지 추가하기
+          </CertificationStyle.ImgFileSelectTitle>
+
+          <CertificationStyle.ImgFileSelectInput
+            id="imageUploadInput"
+            type="file"
+            accept="image/*"
+            onChange={onchangeCertificationImageUpload}
+          />
+          <CertificationStyle.SelectImgBox>
+            <CertificationStyle.UploadEmptyImg htmlFor="imageUploadInput">
+              <span className="material-symbols-outlined">
+                create_new_folder
+              </span>
+            </CertificationStyle.UploadEmptyImg>
+            {certificationImageUrl &&
+              certificationImageUrl.map((item) => {
+                return (
+                  <CertificationStyle.ImgItem>
+                    <CertificationStyle.UploadImg src={item} alt="uploadImg" />
+                    <CertificationStyle.UploadImgDeleteBtn
+                      type="button"
+                      onClick={() => onclickImageDeleteBtn(item)}
+                    >
+                      <span className="material-symbols-outlined">close</span>
+                    </CertificationStyle.UploadImgDeleteBtn>
+                  </CertificationStyle.ImgItem>
+                );
+              })}
+          </CertificationStyle.SelectImgBox>
+        </CertificationStyle.PostUploadImageBox>
         <CertificationStyle.CertificationBtnBox>
           <CertificationStyle.CertificationSubmitBtn>
             제출하기

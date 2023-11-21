@@ -144,3 +144,78 @@ export const CeoPhoneNumberInputTitleBox = styled.div`
 export const InputCeoPhoneNumberCheckText = styled.h1`
   font-size: 15px;
 `;
+// 이미지 업로드 부분 박스
+export const PostUploadImageBox = styled.div`
+  margin-top: 10px;
+  display: flex;
+  flex-direction: column;
+  height: 160px;
+  padding: 10px 0;
+`;
+// 이미지 업로드 버튼 인풋 태그
+export const ImgFileSelectInput = styled.input`
+  display: none;
+`;
+// 이미지 업로드 제목
+export const ImgFileSelectTitle = styled.h1`
+  font-size: 20px;
+`;
+// 업로드 이미지
+export const UploadImg = styled.img`
+  width: 90px;
+  height: 90px;
+  border-radius: 10px;
+  object-fit: cover;
+`;
+// 선택한 이미지를 보여주는 박스
+export const SelectImgBox = styled.div`
+  height: 120px;
+  overflow-y: scroll;
+  display: flex;
+`;
+// 업로드 한 이미지 삭제 버튼
+export const UploadImgDeleteBtn = styled.button`
+  font-size: 25px;
+  border: none;
+  cursor: pointer;
+  position: absolute;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  top: 0;
+  right: 0;
+  width: 25px;
+  height: 25px;
+  border-radius: 50%;
+  color: white;
+  background-color: black;
+`;
+// 업로드 한 이미지의 박스
+export const ImgItem = styled.div`
+  margin-top: 10px;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  padding: 5px;
+  width: 100px;
+  height: 100px;
+  position: relative;
+`;
+// 업로드 이미지가 없을때
+export const UploadEmptyImg = styled.label`
+  margin-top: 10px;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  padding: 5px;
+  width: 100px;
+  height: 100px;
+  & > span {
+    cursor: pointer;
+    font-size: 90px;
+    color: black;
+    &:hover {
+      color: #a0a0a0;
+    }
+  }
+`;
