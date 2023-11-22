@@ -8,6 +8,7 @@ const Certification = () => {
   const [inputEmail, setInputEmail] = useState("");
   const [inputPhoneNumber, setInputPhoneNumber] = useState("");
   const [certificationImageUrl, setCertificationImageUrl] = useState("");
+  const [inputIntroduce, setInputIntroduce] = useState("");
 
   const onchangeInputText = ({ target: { id, value } }) => {
     if (id === "companyname") {
@@ -18,6 +19,8 @@ const Certification = () => {
       setInputEmail(value);
     } else if (id === "phonenumber") {
       setInputPhoneNumber(value);
+    } else if (id === "introduce") {
+      setInputIntroduce(value);
     }
   };
   const onchangeSelectCategory = ({ target: { id } }) => {
@@ -28,6 +31,7 @@ const Certification = () => {
   console.log("이름", inputName);
   console.log("이메일", inputEmail);
   console.log("휴대폰번호", inputPhoneNumber);
+  console.log("회사 소개 글", inputIntroduce);
 
   const onchangeCertificationImageUpload = useCallback(
     ({ target: { files } }) => {
@@ -204,6 +208,18 @@ const Certification = () => {
               })}
           </CertificationStyle.SelectImgBox>
         </CertificationStyle.PostUploadImageBox>
+        <CertificationStyle.IntroduceBox>
+          <CertificationStyle.IntroduceTitle htmlFor="introduce">
+            매장 소개 글
+          </CertificationStyle.IntroduceTitle>
+          <CertificationStyle.IntroduceTextInput
+            id="introduce"
+            placeholder="매장 소개글을 작성해주세요."
+            type="text"
+            value={inputIntroduce}
+            onChange={onchangeInputText}
+          />
+        </CertificationStyle.IntroduceBox>
         <CertificationStyle.CertificationBtnBox>
           <CertificationStyle.CertificationSubmitBtn>
             제출하기
