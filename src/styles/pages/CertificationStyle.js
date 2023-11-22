@@ -219,3 +219,20 @@ export const UploadEmptyImg = styled.label`
     }
   }
 `;
+
+export const IntroduceBox = styled(CertificationItemBox)``;
+
+export const IntroduceTitle = styled(LabelElement)``;
+
+export const IntroduceTextInput = styled.textarea`
+  padding: 10px;
+  border-radius: 10px;
+  margin-top: 10px;
+  border: 2px solid #a0a0a0;
+  resize: none;
+  width: 100%;
+  height: 300px;
+  &:focus {
+    border: 3px solid #6edcdc;
+  }
+`;
