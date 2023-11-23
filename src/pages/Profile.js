@@ -1,15 +1,24 @@
 import React, { useState } from "react";
 import { dbService } from "../reactfbase";
-import { collection, getDocs, orderBy, query, where } from "firebase/firestore";
+import {
+  collection,
+  getDocs,
+  limit,
+  orderBy,
+  query,
+  startAt,
+  where,
+} from "firebase/firestore";
 import PostItem from "../components/PostItem";
-import { useRecoilValue } from "recoil";
-import { userAtom } from "../recoils/UserAtom";
+import { useRecoilState, useRecoilValue } from "recoil";
+import { currentPageAtom, userAtom } from "../recoils/UserAtom";
 import * as ProfileStyle from "../styles/pages/ProfileStyle";
 import ProfileImgUploadModal from "../components/ProfileImgUploadModal";
 import ProfileNameEditModal from "../components/ProfileNameEditModal";
 import { useQuery } from "react-query";
 import { Loading } from "../styles/componenet/LoadingStyle";
 import { PulseLoader } from "react-spinners";
+import PageNation from "../components/PageNation";
 
 // 현재 우리가 다양한 컴포넌트에 prop 로 전달해주고 있는 user 객체를 authService.currentUser 로 업데이트 해야한다. 하지만 set 함수로 업데이트 해도 리 랜더링이 되지 않는다. 왜일까?
 // react 는 복잡하고 큰 객체를 전에 상태와 바뀌었는지 판단하는것을 어려워한다.
@@ -18,6 +27,7 @@ import { PulseLoader } from "react-spinners";
 // 또 다른 방법은 user 객체 자체를 복사해서 업데이트 하는 것이다. JSON.parse(JSON.stringify(객체)) , Object.assign({},객체)
 
 const Profile = () => {
+  const [currentPage, setCurrentPage] = useRecoilState(currentPageAtom);
   const user = useRecoilValue(userAtom);
   const profileImg = user && user.photoURL;
   const [selectMenu, setSelectMenu] = useState("userProfile");
@@ -36,12 +46,13 @@ const Profile = () => {
       q = query(
         collection(dbService, "test"),
         where("writer", "==", user.uid),
-        orderBy("createTime")
+        orderBy("createTime", "desc")
       );
     } else if (selectMenu === "userLike") {
       q = query(
         collection(dbService, "test"),
-        where("likeMember", "array-contains", user.uid)
+        where("likeMember", "array-contains", user.uid),
+        orderBy("createTime", "desc")
       );
     }
     const docSnap = await getDocs(q);
@@ -56,9 +67,50 @@ const Profile = () => {
     ["uploadData", selectMenu],
     () => getUserData(selectMenu)
   );
+  // 쿼리 함수
+  const getCurrentData = async (selectMenu, currentPage) => {
+    try {
+      let q;
+      if (selectMenu === "userProfile") {
+        q = query(
+          collection(dbService, "test"),
+          where("writer", "==", user.uid),
+          orderBy("createTime", "desc"),
+          limit(8),
+          startAt(profileData[currentPage * 8].createTime)
+        );
+      } else if (selectMenu === "userLike") {
+        q = query(
+          collection(dbService, "test"),
+          where("likeMember", "array-contains", user.uid),
+          orderBy("createTime", "desc"),
+          limit(8),
+          startAt(profileData[currentPage * 8].createTime)
+        );
+      }
+      const querySnapshot = await getDocs(q);
+      const data = [];
+      querySnapshot.forEach((doc) => {
+        data.push({ id: doc.id, ...doc.data() });
+      });
+      return data;
+    } catch (e) {
+      console.log(e);
+    }
+  };
+  // 쿼리 코드
+  const { data: currentData, isLoading: currentDataIsLoading } = useQuery(
+    ["pageHandle", currentPage, selectMenu],
+    () => getCurrentData(selectMenu, currentPage),
+    {
+      enabled: !!profileData,
+      keepPreviousData: true,
+    }
+  );
 
   const onclickSelectMenu = ({ target: { id } }) => {
     setSelectMenu(id);
+    setCurrentPage(0);
   };
 
   return (
@@ -114,25 +166,20 @@ const Profile = () => {
               좋아요한 게시물
             </ProfileStyle.ProfileMenuItem>
           </ProfileStyle.ProfileSelectMenu>
-          {profileData && profileData.length === 0 ? (
+          {profileData && currentData && currentData.length === 0 ? (
             <ProfileStyle.NoPost>현재 게시물이 없습니다.</ProfileStyle.NoPost>
           ) : (
             <ProfileStyle.ProfilePostBox>
-              {profileData &&
-                profileData.map((data, index) => {
-                  return (
-                    <PostItem
-                      key={index}
-                      data={data}
-                      user={user}
-                      index={index}
-                      dataLen={profileData.length}
-                    />
-                  );
+              {currentData &&
+                currentData.map((data, index) => {
+                  return <PostItem key={index} data={data} />;
                 })}
             </ProfileStyle.ProfilePostBox>
           )}
         </ProfileStyle.ProfileBox>
+        {currentData && profileData && (
+          <PageNation currentData={currentData} postData={profileData} />
+        )}
       </ProfileStyle.ProfileBack>
       {isProfileImgUploadModal && (
         <ProfileImgUploadModal

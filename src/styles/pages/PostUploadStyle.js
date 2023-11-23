@@ -195,18 +195,18 @@ export const CategoryMenuBox = styled.div`
 `;
 // 카테고리 선택 버튼
 export const CategoryBtn = styled.label`
+  border: none;
   width: 100px;
   padding: 10px;
   display: flex;
   justify-content: center;
   align-items: center;
   border-radius: 10px;
-  border: 1px solid #a0a0a0;
   font-weight: 800;
   white-space: nowrap;
   cursor: pointer;
   background-color: ${(props) =>
-    props.userSelectCategory !== "" ? props.userSelectCategory : "#a0a0a0"};
+    props.userSelectCategory !== "" ? props.userSelectCategory : "#dcdcdc"};
   color: ${(props) => (props.userSelectCategory !== "" ? "white" : "black")};
   & > span {
     margin-left: 5px;
@@ -266,7 +266,6 @@ export const MapBox = styled.div`
   flex-direction: column;
   justify-content: center;
   align-items: center;
-  padding: 10px;
   border-radius: 10px;
   & > span {
     cursor: pointer;
