@@ -15,14 +15,14 @@ import PostItem from "../components/PostItem";
 import PageNation from "../components/PageNation";
 import SelectSortDropBox from "../components/SelectSortDropBox";
 import { useQuery } from "react-query";
-import { currentSelectSortAtom } from "../recoils/UserAtom";
-import { useRecoilState } from "recoil";
+import { currentPageAtom, currentSelectSortAtom } from "../recoils/UserAtom";
+import { useRecoilState, useRecoilValue } from "recoil";
 import { Loading } from "../styles/componenet/LoadingStyle";
 import { PulseLoader } from "react-spinners";
 const Page = ({ userLocation, firebaseInitialize }) => {
   const { id } = useParams();
   // const [pagePostData, setPagePostData] = useState(null);
-  const [pageCurrentPage, setPageCurrentPage] = useState(0);
+  const currentPage = useRecoilValue(currentPageAtom);
   // 게시글 분류 방법을 담고 있는 state
   const [currentSelectSort, setCurrentSelectSort] = useRecoilState(
     currentSelectSortAtom
@@ -153,8 +153,8 @@ const Page = ({ userLocation, firebaseInitialize }) => {
 
   const { data: pageCurrentData, isLoading: pageCurrentDataIsLoading } =
     useQuery(
-      ["pageHandle", currentSelectSort, pageCurrentPage, id],
-      () => getPageCurrentData(currentSelectSort, pageCurrentPage, id),
+      ["pageHandle", currentSelectSort, currentPage, id],
+      () => getPageCurrentData(currentSelectSort, currentPage, id),
       {
         enabled: !!pagePostData,
         keepPreviousData: true,

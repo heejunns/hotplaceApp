@@ -64,14 +64,14 @@ const Header = () => {
             </HeaderStyle.HeaderBoxItem>
           </Link>
         )}
-        {user && user.displayName && (
+        {/* {user && user.displayName && (
           <Link to="/certification" style={{ textDecoration: "none" }}>
             <HeaderStyle.HeaderBoxItem>
               사장님 인증하기
               <span className="material-symbols-outlined">verified_user</span>
             </HeaderStyle.HeaderBoxItem>
           </Link>
-        )}
+        )} */}
         {user && user.displayName && (
           <Link
             to="/cafe"
@@ -110,7 +110,12 @@ const Header = () => {
       <HeaderStyle.HeaderUserInfoBox>
         <li>
           {user ? (
-            <Link to="/profile">
+            <Link
+              to="/profile"
+              onClick={() => {
+                setCurrentPage(0);
+              }}
+            >
               <HeaderStyle.HeaderBoxItem currentPath={pathname === "/profile"}>
                 {user.displayName === undefined
                   ? "닉네임을 만들어주세요."
@@ -155,7 +160,13 @@ const Header = () => {
       <HeaderStyle.HamburgerSideBar toggle={clickHamburgerBtn} ref={sideBarRef}>
         <HeaderStyle.HamburgerSideBarBox>
           {user ? (
-            <Link to="/profile" onClick={() => setClickHamburgerBtn(false)}>
+            <Link
+              to="/profile"
+              onClick={() => {
+                setClickHamburgerBtn(false);
+                setCurrentPage(0);
+              }}
+            >
               <HeaderStyle.HamburgerSideBarList>
                 {user.displayName === undefined
                   ? "닉네임을 만들어주세요."

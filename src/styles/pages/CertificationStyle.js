@@ -66,6 +66,7 @@ export const BusinessCategoryInput = styled.input`
 `;
 
 export const BusinessCategoryLabel = styled(LabelElement)`
+  border: none;
   font-size: 18px;
   width: 100px;
   padding: 10px;
@@ -73,14 +74,13 @@ export const BusinessCategoryLabel = styled(LabelElement)`
   justify-content: center;
   align-items: center;
   border-radius: 10px;
-  border: 1px solid #a0a0a0;
   font-weight: 800;
   white-space: nowrap;
   cursor: pointer;
   background-color: ${(props) =>
     props.currentSelectCategory === "black"
       ? props.currentSelectCategory
-      : "#a0a0a0"};
+      : "#dcdcdc"};
   color: ${(props) =>
     props.currentSelectCategory === "black" ? "white" : "black"};
   & > span {

@@ -1,5 +1,7 @@
 import React, { memo, useCallback, useEffect } from "react";
 import * as MapStyle from "../styles/componenet/MapStyle";
+import { Loading } from "../styles/componenet/LoadingStyle";
+import { PulseLoader } from "react-spinners";
 const Map = ({ setUserMarkerLocation }) => {
   const getLocation = useCallback(
     async (position) => {

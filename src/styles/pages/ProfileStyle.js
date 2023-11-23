@@ -43,7 +43,6 @@ export const ProfileUserInfoImg = styled.div`
   justify-content: center;
   align-items: center;
   border-radius: 100%;
-  border: 2px solid black;
   width: 100px;
   height: 100px;
   & > img {
