@@ -30,3 +30,13 @@ export const currentSelectSortAtom = atom({
   default: "최신글 순으로 보기",
   effects_UNSTABLE: [persistAtom],
 });
+
+export const userLocation = atom({
+  key: "userLocation",
+  default: "",
+});
+
+export const firebaseInitialize = atom({
+  key: "firebaseInitialize",
+  default: null,
+});

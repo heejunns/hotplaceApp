@@ -3,10 +3,18 @@ import { useEffect, useRef, useState } from "react";
 import { Link, useLocation, useNavigate } from "react-router-dom";
 import { authService } from "../reactfbase";
 import { useRecoilState, useRecoilValue } from "recoil";
-import { currentPageAtom, userAtom } from "../recoils/UserAtom";
+import {
+  currentPageAtom,
+  currentSelectSortAtom,
+  userAtom,
+  userLocation,
+} from "../recoils/UserAtom";
 import * as HeaderStyle from "../styles/componenet/HeaderStyle";
 
 const Header = () => {
+  const [currentSelectSort, setCurrentSelectSort] = useRecoilState(
+    currentSelectSortAtom
+  );
   const [currentPage, setCurrentPage] = useRecoilState(currentPageAtom);
   const [clickHamburgerBtn, setClickHamburgerBtn] = useState(false);
   const { pathname } = useLocation();
@@ -41,6 +49,7 @@ const Header = () => {
     }
   };
   const onclickPageReset = () => {
+    setCurrentSelectSort("최신글 순으로 보기");
     setCurrentPage(0);
   };
   return (
@@ -50,6 +59,7 @@ const Header = () => {
           to="/"
           style={{ textDecoration: "none" }}
           onClick={() => {
+            setCurrentSelectSort("최신글 순으로 보기");
             setCurrentPage(0);
             setClickHamburgerBtn(false);
           }}

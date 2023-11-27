@@ -25,12 +25,12 @@ export const ProfileUserInfoBox = styled.div`
 export const ProfileUserImgUploadIcon = styled.div`
   position: absolute;
   bottom: 0;
-  right: 3px;
+  right: 5px;
   cursor: pointer;
   & > span {
     border-radius: 50%;
     color: white;
-    background-color: #6edcdc;
+    background-color: black;
   }
 `;
 

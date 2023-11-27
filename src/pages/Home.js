@@ -16,7 +16,12 @@ import PageNation from "../components/PageNation";
 import HomeSlide from "../components/HomeSlide";
 import { useQuery } from "react-query";
 import { useRecoilState, useRecoilValue } from "recoil";
-import { currentPageAtom, currentSelectSortAtom } from "../recoils/UserAtom";
+import {
+  currentPageAtom,
+  currentSelectSortAtom,
+  firebaseInitialize,
+  userLocation,
+} from "../recoils/UserAtom";
 import { Loading } from "../styles/componenet/LoadingStyle";
 import { PulseLoader } from "react-spinners";
 
@@ -24,7 +29,9 @@ import { PulseLoader } from "react-spinners";
 // 사용자들이 게시한 게시물들을 한번에 볼 수 있고 사용자들이 좋아요를 눌러 좋아요를 가장 많이 받은 순서대로 1~10위까지 한번에 볼 수 있는 페이지 입니다.
 // 게시글들도 사용자가 드롭박스에서 분류 방법을 선택하여 원하는 분류 방식의 게시글들을 볼 수 있습니다.
 // ===============================================================================================
-const Home = ({ userLocation, firebaseInitialize }) => {
+const Home = () => {
+  const firebaseInitial = useRecoilValue(firebaseInitialize);
+  const location = useRecoilValue(userLocation);
   const currentPage = useRecoilValue(currentPageAtom);
   // 게시글 분류 방법을 담고 있는 state
   const [currentSelectSort, setCurrentSelectSort] = useRecoilState(
@@ -109,7 +116,7 @@ const Home = ({ userLocation, firebaseInitialize }) => {
     } else if (currentSelectSort === "나의 지역 글만 보기") {
       queryContent = query(
         collection(dbService, "test"),
-        where("userLocation", "==", userLocation),
+        where("userLocation", "==", location),
         orderBy("createTime", "desc"), // createTime 기준으로 내림차순으로 정렬
         limit(8),
         startAt(postData[currentPage * 8].createTime)
@@ -147,7 +154,7 @@ const Home = ({ userLocation, firebaseInitialize }) => {
       <HomeStyle.HomeBack>
         <TopPost />
         <SelectSortDropBox />
-        {firebaseInitialize && currentDataIsLoading ? (
+        {firebaseInitial && currentDataIsLoading ? (
           <Loading>
             <PulseLoader color="black" size={20} />
           </Loading>
