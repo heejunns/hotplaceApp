@@ -15,11 +15,18 @@ import PostItem from "../components/PostItem";
 import PageNation from "../components/PageNation";
 import SelectSortDropBox from "../components/SelectSortDropBox";
 import { useQuery } from "react-query";
-import { currentPageAtom, currentSelectSortAtom } from "../recoils/UserAtom";
+import {
+  currentPageAtom,
+  currentSelectSortAtom,
+  firebaseInitialize,
+  userLocation,
+} from "../recoils/UserAtom";
 import { useRecoilState, useRecoilValue } from "recoil";
 import { Loading } from "../styles/componenet/LoadingStyle";
 import { PulseLoader } from "react-spinners";
-const Page = ({ userLocation, firebaseInitialize }) => {
+const Page = () => {
+  const firebaseInitial = useRecoilValue(firebaseInitialize);
+  const location = useRecoilValue(userLocation);
   const { id } = useParams();
   // const [pagePostData, setPagePostData] = useState(null);
   const currentPage = useRecoilValue(currentPageAtom);
@@ -60,7 +67,8 @@ const Page = ({ userLocation, firebaseInitialize }) => {
     } else if (currentSelectSort === "나의 지역 글만 보기") {
       queryContent = query(
         collection(dbService, "test"),
-        where("userLocation", "==", userLocation),
+        category === "전체" ? null : where("category", "==", category),
+        where("userLocation", "==", location),
         orderBy("createTime", "desc")
       );
     }
@@ -128,8 +136,9 @@ const Page = ({ userLocation, firebaseInitialize }) => {
     } else if (currentSelectSort === "나의 지역 게시글만 보기") {
       queryContent = query(
         collection(dbService, "test"),
-        orderBy("createTime", "desc"), // createTime 기준으로 내림차순으로 정렬
         category === "전체" ? null : where("category", "==", category),
+        where("userLocation", "==", location),
+        orderBy("createTime", "desc"), // createTime 기준으로 내림차순으로 정렬
         limit(8),
         startAt(pagePostData[currentPage * 8].createTime)
       );
@@ -164,7 +173,7 @@ const Page = ({ userLocation, firebaseInitialize }) => {
     <PageStyle.PageBack>
       <SelectSortDropBox />
 
-      {firebaseInitialize && pageCurrentDataIsLoading ? (
+      {firebaseInitial && pageCurrentDataIsLoading ? (
         <Loading>
           <PulseLoader color="black" size={20} />
         </Loading>

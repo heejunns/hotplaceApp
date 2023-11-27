@@ -6,7 +6,6 @@ export const HomeSlideBack = styled.div`
   overflow: hidden;
   width: 100%;
   padding-bottom: 10px;
-  /* max-width: 1200px; */
   @media screen and (max-width: 768px) {
     height: 300px;
   }
@@ -22,14 +21,13 @@ export const HomeSlideBox = styled.div`
 `;
 
 export const HomeSlideItem = styled.div`
-  /* display: inline; */
   position: relative;
   width: 100%;
   height: 100%;
   & > img {
     width: 100%;
     height: 100%;
-    object-fit: cover;
+    object-fit: fill;
   }
 `;
 

@@ -19,7 +19,6 @@ export const DetailBox = styled.div`
   max-width: 800px;
   display: flex;
   flex-direction: column;
-  /* padding: 20px; */
   @media screen and (max-width: 768px) {
     margin-top: 50px;
   }
@@ -31,7 +30,6 @@ export const DetailTitleBox = styled.div`
   margin-bottom: 20px;
   align-items: center;
   padding-bottom: 10px;
-  border-bottom: 2px solid black;
   @media screen and (max-width: 768px) {
     align-items: flex-start;
     flex-direction: column;
@@ -153,8 +151,6 @@ export const DetailMainText = styled.div`
   min-height: 100px;
   font-size: 20px;
   padding: 30px 0;
-  border-top: 2px solid black;
-  border-bottom: 2px solid black;
   display: flex;
   flex-direction: column;
 `;
@@ -166,7 +162,6 @@ export const DetailMap = styled.div`
   display: flex;
   flex-direction: column;
   padding: 30px 0;
-  border-bottom: 2px solid black;
 `;
 // 디테일 페이지의 각각의 요소들의 제목
 export const DetailItemTitle = styled.span`
@@ -214,7 +209,6 @@ export const DetailPostNameBox = styled.div`
   height: 100px;
   display: flex;
   flex-direction: column;
-  border-bottom: 2px solid black;
   padding-bottom: 20px;
   margin-bottom: 20px;
 `;
@@ -224,20 +218,22 @@ export const DetailPostName = styled.span`
 `;
 
 export const DetailWriterImgBox = styled.div`
-  margin-right: 5px;
+  margin-right: 10px;
   width: 30px;
   height: 30px;
   display: flex;
   justify-content: center;
   align-items: center;
-  border-radius: 100%;
   & > img {
     width: 100%;
     height: 100%;
     border-radius: 100%;
   }
   & > span {
-    font-size: 15px;
+    padding: 5px;
+    border: 1px solid black;
+    border-radius: 100%;
+    font-size: 25px;
   }
   @media screen and (max-width: 768px) {
     width: 25px;
