@@ -35,7 +35,6 @@ const Page = () => {
     currentSelectSortAtom
   );
   // const [pageCurrentData, setPageCurrentData] = useState(null);
-  console.log("최신글", currentSelectSort);
   const pagePostDataQueryMake = (currentSelectSort, id) => {
     let queryContent;
     let category =

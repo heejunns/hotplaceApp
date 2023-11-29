@@ -1,7 +1,7 @@
 import * as HomeSlideStyle from "../styles/componenet/HomeSlideStyle";
 import { collection, getDocs, limit, orderBy, query } from "firebase/firestore";
 import { dbService } from "../reactfbase";
-import { useEffect, useRef, useState } from "react";
+import { memo, useEffect, useRef, useState } from "react";
 import { useQuery } from "react-query";
 
 const HomeSlide = () => {
@@ -72,8 +72,8 @@ const HomeSlide = () => {
         width={width}
       >
         {imgArr &&
-          imgArr.map((item) => (
-            <HomeSlideStyle.HomeSlideItem>
+          imgArr.map((item, index) => (
+            <HomeSlideStyle.HomeSlideItem key={index}>
               <img src={item.uploadImgUrl} alt="homeslide" />
               <HomeSlideStyle.HomeSlideText>
                 모두에게 자신의 핫플레이스가 있습니다.
@@ -88,4 +88,4 @@ const HomeSlide = () => {
   );
 };
 
-export default HomeSlide;
+export default memo(HomeSlide);

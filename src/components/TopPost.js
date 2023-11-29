@@ -1,7 +1,7 @@
 import * as TopPostStyle from "../styles/componenet/TopPostStyle";
 import { collection, getDocs, orderBy, query } from "firebase/firestore";
 import { dbService } from "../reactfbase";
-import { useState } from "react";
+import { memo, useState } from "react";
 import TopPostItem from "./TopPostItem";
 import { useQuery } from "react-query";
 const TopPost = () => {
@@ -65,4 +65,4 @@ const TopPost = () => {
   );
 };
 
-export default TopPost;
+export default memo(TopPost);
