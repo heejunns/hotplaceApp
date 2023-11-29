@@ -83,8 +83,8 @@ const Home = () => {
   const { data: postData } = useQuery(
     ["postData", currentSelectSort],
     () => getPostData(currentSelectSort),
-    { staleTime: 500, cacheTime: 1000 }
-  );
+    { cacheTime: 500 }
+  ); // stale 타임 0.5 초, cache 타임 1 초
 
   // ===========================
 

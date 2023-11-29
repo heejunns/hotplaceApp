@@ -35,9 +35,10 @@ const AppRouter = () => {
         <Header />
         <Suspense
           fallback={
-            <Loading>
-              <PulseLoader color="black" size={20} />
-            </Loading>
+            // <Loading>
+            //   <PulseLoader color="black" size={20} />
+            // </Loading>
+            <div></div>
           }
         >
           <Routes>

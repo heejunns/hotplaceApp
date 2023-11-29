@@ -13,6 +13,7 @@ import { Loading } from "../styles/componenet/LoadingStyle";
 import { PulseLoader } from "react-spinners";
 import axios from "axios";
 import { useMutation } from "react-query";
+import PostUploadFailModal from "../components/PostUploadFailModal";
 
 const PostUpload = () => {
   const location = useRecoilValue(userLocation);
@@ -24,6 +25,8 @@ const PostUpload = () => {
   const [userSelectCategory, setUserSelectCategory] = useState("cafe"); // 사용자가 글을 게시할때 사용자의 주소
   const [userMarkerLocation, setUserMarkerLocation] = useState([]); // 사용자가 맵에 마커한 매장의 주소
   const [inputPostTitle, setInputPostTitle] = useState("");
+  const [isPostUploadFailModal, setIsPostUploadFailModal] = useState(false);
+  const [failText, setFailText] = useState("");
   // 매장 이름 작성하는 input 태그에 걸어 둔 onchange 함수
   const onchangeInputPostTitle = ({ target: { value } }) => {
     if (value.length > 20) {
@@ -48,6 +51,30 @@ const PostUpload = () => {
   const onSubmitBtn = async (e) => {
     e.preventDefault();
     try {
+      if (inputPostTitle === "") {
+        setFailText("매장 이름을 입력해 주세요");
+        setIsPostUploadFailModal((prev) => !prev);
+        document.body.style.overflow = "hidden";
+        return;
+      }
+      if (uploadImageFileURL === "" || uploadImageFileURL.length === 0) {
+        setFailText("사진을 등록 해주세요");
+        setIsPostUploadFailModal((prev) => !prev);
+        document.body.style.overflow = "hidden";
+        return;
+      }
+      if (userMarkerLocation.length === 0) {
+        setFailText("장소를 등록 해주세요");
+        setIsPostUploadFailModal((prev) => !prev);
+        document.body.style.overflow = "hidden";
+        return;
+      }
+      if (inputText.length === 0) {
+        setFailText("자세한 설명을 작성 해주세요");
+        setIsPostUploadFailModal((prev) => !prev);
+        document.body.style.overflow = "hidden";
+        return;
+      }
       let getUploadFileURL = [];
       if (uploadImageFileURL.length > 0) {
         // 이미지 url 이 있다면 이미지가 있다는 뜻이니까
@@ -96,14 +123,8 @@ const PostUpload = () => {
       console.error("Error adding document: ", error);
     }
   };
-  const { isLoading: submitIsLoading, mutate: submitBtnClick } = useMutation(
-    onSubmitBtn
-    // {
-    //   onSuccess: () => {
-    //     queryClient.invalidateQueries(["postData"]);
-    //   },
-    // }
-  );
+  const { isLoading: submitIsLoading, mutate: submitBtnClick } =
+    useMutation(onSubmitBtn);
   const onchangeImageUpload = useCallback(({ target: { files } }) => {
     // 사진 파일을 선택했을때 선택한 사진을 화면에 보여주는 코드
     if (files.length === 1) {
@@ -139,6 +160,7 @@ const PostUpload = () => {
       prev.filter((item) => item !== imageFileUrl)
     );
   }, []);
+
   // 맵을 화면에 보여주기 위한 버튼을 클릭하였을 때 호출
   const onclickMapButton = useCallback(() => {
     setMapStatus((prev) => !prev);
@@ -309,6 +331,12 @@ const PostUpload = () => {
         <Loading>
           <PulseLoader color="black" size={20} />
         </Loading>
+      )}
+      {isPostUploadFailModal && (
+        <PostUploadFailModal
+          failText={failText}
+          setIsPostUploadFailModal={setIsPostUploadFailModal}
+        />
       )}
     </>
   );
