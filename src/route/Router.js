@@ -18,6 +18,7 @@ const PostUpload = lazy(() => import("../pages/PostUpload"));
 const Detail = lazy(() => import("../pages/Detail"));
 const Certification = lazy(() => import("../pages/Certification"));
 const Page = lazy(() => import("../pages/Page"));
+const Preview = lazy(() => import("../pages/Preview"));
 
 const PageTopScroll = () => {
   const { pathname } = useLocation();
@@ -50,6 +51,7 @@ const AppRouter = () => {
             <Route path="/certification" Component={Certification} />
             <Route path="/login" Component={LoginForm} />
             <Route path="/signup" Component={Signup} />
+            <Route path="/preview" Component={Preview} />
           </Routes>
         </Suspense>
       </Router>

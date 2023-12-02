@@ -74,14 +74,14 @@ const Header = () => {
             </HeaderStyle.HeaderBoxItem>
           </Link>
         )}
-        {/* {user && user.displayName && (
+        {user && user.displayName && (
           <Link to="/certification" style={{ textDecoration: "none" }}>
             <HeaderStyle.HeaderBoxItem>
               사장님 인증하기
               <span className="material-symbols-outlined">verified_user</span>
             </HeaderStyle.HeaderBoxItem>
           </Link>
-        )} */}
+        )}
         {user && user.displayName && (
           <Link
             to="/cafe"

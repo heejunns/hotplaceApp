@@ -1,7 +1,13 @@
 import { useState } from "react";
 import * as CertificationStyle from "../styles/pages/CertificationStyle";
 import { useCallback } from "react";
+import { useNavigate } from "react-router-dom";
+import { useRecoilState } from "recoil";
+import { PreviewData } from "../recoils/UserAtom";
 const Certification = () => {
+  const [userCertificationData, setUserCertificationData] =
+    useRecoilState(PreviewData);
+  const navigate = useNavigate();
   const [currentSelectCategory, setCurrentSelectCategory] = useState("cafe");
   const [inputCompanyName, setInputCompanyName] = useState("");
   const [inputName, setInputName] = useState("");
@@ -69,6 +75,17 @@ const Certification = () => {
       prev.filter((item) => item !== imageFileUrl)
     );
   }, []);
+  const onclickCompleteBtn = () => {
+    navigate("/preview");
+    setUserCertificationData({
+      companyName: inputCompanyName,
+      name: inputName,
+      email: inputEmail,
+      phoneNumber: inputPhoneNumber,
+      introduce: inputIntroduce,
+      companyImage: certificationImageUrl,
+    });
+  };
   return (
     <CertificationStyle.CertificationBack>
       <CertificationStyle.CertificationFormBox>
@@ -221,8 +238,10 @@ const Certification = () => {
           />
         </CertificationStyle.IntroduceBox>
         <CertificationStyle.CertificationBtnBox>
-          <CertificationStyle.CertificationSubmitBtn>
-            제출하기
+          <CertificationStyle.CertificationSubmitBtn
+            onClick={onclickCompleteBtn}
+          >
+            완료
           </CertificationStyle.CertificationSubmitBtn>
         </CertificationStyle.CertificationBtnBox>
       </CertificationStyle.CertificationFormBox>

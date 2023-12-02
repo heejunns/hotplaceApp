@@ -6,8 +6,8 @@ import { v4 as uuidv4 } from "uuid";
 import { addDoc, collection } from "firebase/firestore";
 import Map from "../components/Map";
 import { useNavigate } from "react-router-dom";
-import { userAtom, userLocation } from "../recoils/UserAtom";
-import { useRecoilValue } from "recoil";
+import { currentPageAtom, userAtom, userLocation } from "../recoils/UserAtom";
+import { useRecoilState, useRecoilValue } from "recoil";
 import * as PostUploadStyle from "../styles/pages/PostUploadStyle";
 import { Loading } from "../styles/componenet/LoadingStyle";
 import { PulseLoader } from "react-spinners";
@@ -16,6 +16,7 @@ import { useMutation } from "react-query";
 import PostUploadFailModal from "../components/PostUploadFailModal";
 
 const PostUpload = () => {
+  const [currentPage, setCurrentPage] = useRecoilState(currentPageAtom);
   const location = useRecoilValue(userLocation);
   const user = useRecoilValue(userAtom);
   const navigate = useNavigate(); // useNavigate 훅스를 사용해서 게시글을 올리면 "/" 주소로 강제 이동
@@ -119,6 +120,8 @@ const PostUpload = () => {
       setInputText("");
       setUploadImageFileURL("");
       navigate("/");
+      setCurrentPage(1);
+      setCurrentPage(0);
     } catch (error) {
       console.error("Error adding document: ", error);
     }
