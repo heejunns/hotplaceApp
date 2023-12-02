@@ -74,7 +74,7 @@ export const UploadImg = styled.img`
 // 선택한 이미지를 보여주는 박스
 export const SelectImgBox = styled.div`
   height: 120px;
-  overflow-y: scroll;
+  /* overflow-y: scroll; */
   display: flex;
 `;
 // 업로드 한 이미지 삭제 버튼

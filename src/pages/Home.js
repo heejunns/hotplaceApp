@@ -80,12 +80,10 @@ const Home = () => {
       console.log(e);
     }
   };
-  const { data: postData } = useQuery(
-    ["postData", currentSelectSort],
-    () => getPostData(currentSelectSort),
-    { cacheTime: 500 }
+  const { data: postData } = useQuery(["postData", currentSelectSort], () =>
+    getPostData(currentSelectSort)
   ); // stale 타임 0.5 초, cache 타임 1 초
-
+  console.log("전체 데이터", postData);
   // ===========================
 
   //  ====================== 페이지네이션 아이콘 (화살표, 숫자) 클릭하면 호출되는 로직 ==================
@@ -147,6 +145,7 @@ const Home = () => {
       keepPreviousData: true,
     }
   );
+  console.log("현재 데이터", currentData);
   // =======================
   return (
     <>

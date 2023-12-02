@@ -40,3 +40,8 @@ export const firebaseInitialize = atom({
   key: "firebaseInitialize",
   default: null,
 });
+
+export const PreviewData = atom({
+  key: "previewData",
+  default: {},
+});

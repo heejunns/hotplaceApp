@@ -7,8 +7,11 @@ import { useNavigate } from "react-router-dom";
 import { useMutation } from "react-query";
 import { Loading } from "../styles/componenet/LoadingStyle";
 import { PulseLoader } from "react-spinners";
+import { useRecoilState } from "recoil";
+import { currentPageAtom } from "../recoils/UserAtom";
 
 const PostDeleteModal = ({ setIsPostDeleteModal, postDeleteData }) => {
+  const [currentPage, setCurrentPage] = useRecoilState(currentPageAtom);
   const navigate = useNavigate();
   const cancelBtnClick = () => {
     setIsPostDeleteModal((prev) => !prev);
@@ -20,6 +23,7 @@ const PostDeleteModal = ({ setIsPostDeleteModal, postDeleteData }) => {
       document.body.style.overflow = "";
       await deleteDoc(doc(dbService, "test", postDeleteData.id));
       navigate("/");
+      setCurrentPage(0);
       if (postDeleteData.getUploadFileURL !== "") {
         await deleteObject(
           ref(storageService, postDeleteData.getUploadFileURL)

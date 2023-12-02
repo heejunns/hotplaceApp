@@ -18,7 +18,7 @@ const NoUserClickModal = ({ setIsNoUserClickModal }) => {
       <NoUserClickModalStyle.NoUserClickModalBox>
         <NoUserClickModalStyle.NoUserClickModalTextBox>
           <NoUserClickModalStyle.NoUserClickModalText>
-            로그인을 해야 볼 수 있는 페이지 입니다.
+            로그인이 필요한 페이지 입니다
           </NoUserClickModalStyle.NoUserClickModalText>
         </NoUserClickModalStyle.NoUserClickModalTextBox>
         <NoUserClickModalStyle.NoUserClickModalBtnBox>
@@ -26,7 +26,7 @@ const NoUserClickModal = ({ setIsNoUserClickModal }) => {
             확인
           </NoUserClickModalStyle.ConfirmBtn>
           <NoUserClickModalStyle.LoginPageBtn onClick={onclickLoginPage}>
-            로그인하러 가기
+            로그인
           </NoUserClickModalStyle.LoginPageBtn>
         </NoUserClickModalStyle.NoUserClickModalBtnBox>
       </NoUserClickModalStyle.NoUserClickModalBox>
