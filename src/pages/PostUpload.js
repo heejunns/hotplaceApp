@@ -14,6 +14,7 @@ import { PulseLoader } from "react-spinners";
 import axios from "axios";
 import { useMutation } from "react-query";
 import PostUploadFailModal from "../components/PostUploadFailModal";
+import FindAddress from "../components/FindAddress";
 
 const PostUpload = () => {
   const [currentPage, setCurrentPage] = useRecoilState(currentPageAtom);
@@ -324,7 +325,7 @@ const PostUpload = () => {
               )}
             </PostUploadStyle.MapBox>
           </PostUploadStyle.PostUploadMapBox>
-
+          {/* <FindAddress /> */}
           <PostUploadStyle.PostUploadSubmitBox>
             <PostUploadStyle.SubmitBtn type="submit" value="게시글 올리기" />
           </PostUploadStyle.PostUploadSubmitBox>

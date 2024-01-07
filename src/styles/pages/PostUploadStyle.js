@@ -6,6 +6,7 @@ export const PostUploadBack = styled.div`
   width: 100%;
   display: flex;
   justify-content: center;
+  position: relative;
   @media screen and (max-width: 768px) {
     padding: 20px;
   }
