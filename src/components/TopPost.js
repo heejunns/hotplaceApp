@@ -30,7 +30,9 @@ const TopPost = () => {
       console.log(e);
     }
   };
+
   const { data: topPostData } = useQuery("topData", getTopPost);
+  console.log("hello", topPostData);
   return (
     <>
       <TopPostStyle.TopPostTitleBox>
