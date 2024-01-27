@@ -5,7 +5,6 @@ export const HomeSlideBack = styled.div`
   height: 500px;
   overflow: hidden;
   width: 100%;
-  padding-bottom: 10px;
   @media screen and (max-width: 768px) {
     height: 300px;
   }

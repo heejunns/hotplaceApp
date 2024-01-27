@@ -9,11 +9,11 @@ import {
   where,
 } from "firebase/firestore";
 import * as HomeStyle from "../styles/pages/HomeStyle";
-import PostItem from "../components/PostItem";
-import TopPost from "../components/TopPost";
+import PostItem from "../components/Home/PostItem";
+import TopPost from "../components/Home/TopPost";
 import SelectSortDropBox from "../components/SelectSortDropBox";
-import PageNation from "../components/PageNation";
-import HomeSlide from "../components/HomeSlide";
+import PageNation from "../components/Home/PageNation";
+import HomeSlide from "../components/Home/HomeSlide";
 import { useQuery } from "react-query";
 import { useRecoilState, useRecoilValue } from "recoil";
 import {
@@ -150,7 +150,7 @@ const Home = () => {
   return (
     <>
       <HomeSlide />
-      <HomeStyle.HomeBack>
+      <HomeStyle.HomeContainer>
         <TopPost />
         <SelectSortDropBox />
         {firebaseInitial && currentDataIsLoading ? (
@@ -161,18 +161,18 @@ const Home = () => {
           <HomeStyle.EmptyPost>현재 게시물이 없습니다.</HomeStyle.EmptyPost>
         ) : (
           <>
-            <HomeStyle.PostLayout>
+            <HomeStyle.AllPostBox>
               {currentData &&
                 currentData.map((data, index) => {
                   return <PostItem key={index} data={data} />;
                 })}
-            </HomeStyle.PostLayout>
+            </HomeStyle.AllPostBox>
             {postData && currentData && (
               <PageNation currentData={currentData} postData={postData} />
             )}
           </>
         )}
-      </HomeStyle.HomeBack>
+      </HomeStyle.HomeContainer>
     </>
   );
 };

@@ -1,9 +1,10 @@
 import styled from "styled-components";
 
-export const HomeBack = styled.div`
+// 홈 화면 전체 컨테이너
+export const HomeContainer = styled.div`
   font-family: "Tilt Neon", sans-serif;
   width: 100%;
-  background-color: white;
+  background-color: #e9e9e9;
   display: flex;
   justify-content: center;
   align-items: center;
@@ -11,7 +12,8 @@ export const HomeBack = styled.div`
   padding: 0px 20px 30px 20px;
 `;
 
-export const PostLayout = styled.div`
+// 모든 게시글을 보여주는 박스
+export const AllPostBox = styled.div`
   margin-top: 30px;
   width: 100%;
   max-width: 1200px;

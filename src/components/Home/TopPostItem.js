@@ -1,21 +1,23 @@
-import React, { useState } from "react";
 import { useRecoilState, useRecoilValue } from "recoil";
-import { clickPostItemData, userAtom } from "../recoils/UserAtom";
-import * as PostItemStyle from "../styles/componenet/PostItemStyle";
+import { clickPostItemData, userAtom } from "../../recoils/UserAtom";
 import { useNavigate } from "react-router-dom";
-import NoUserClickModal from "./NoUserClickModal";
-
-// word-break: break-all;
-const PostItem = ({ data }) => {
+import {
+  PostItemContainer,
+  PostItemImg,
+  PostItemInfoBox,
+  PostItemLike,
+  PostItemName,
+  PostItemTime,
+} from "../../styles/componenet/Home/PostItemStyle";
+import { TopPostItemContainer } from "../../styles/componenet/Home/TopPostItemStyle";
+const TopPostItem = ({ data, ranking }) => {
   const user = useRecoilValue(userAtom);
   const [clickPostItem, setClickPostItem] = useRecoilState(clickPostItemData);
-  const [isNoUserClickModal, setIsNoUserClickModal] = useState(false);
   const navigator = useNavigate();
   // 게시글을 클릭하면 해당 게시글의 디테일 페이지로 이동
-  const onClickPostItem = (data) => {
+  const onClickTopPostItem = (data) => {
     if (user === null) {
-      document.body.style.overflow = "hidden";
-      setIsNoUserClickModal((prev) => !prev);
+      navigator("/login");
       return;
     }
     setClickPostItem(data);
@@ -39,38 +41,29 @@ const PostItem = ({ data }) => {
   };
   return (
     <>
-      <PostItemStyle.PostItemBack
+      <TopPostItemContainer
         image={data.getUploadFileURL}
-        onClick={() => onClickPostItem(data)}
+        onClick={() => onClickTopPostItem(data)}
       >
+        <h1>{ranking}위</h1>
         {data.uploadImgUrl && (
-          <PostItemStyle.PostItemImgBox>
+          <PostItemImg>
             <img src={data.uploadImgUrl} alt="사진 업로드" />
-          </PostItemStyle.PostItemImgBox>
+          </PostItemImg>
         )}
-        <PostItemStyle.TopPostItemPostName>
-          {data.postName}
-        </PostItemStyle.TopPostItemPostName>
-        <PostItemStyle.PostItemTitleBox>
-          <PostItemStyle.PostItemLike>
+        <PostItemName>{data.postName}</PostItemName>
+        <PostItemInfoBox>
+          <PostItemLike>
             <span className="material-symbols-outlined">favorite</span>
             <span>{data.likeMember.length}</span>
-          </PostItemStyle.PostItemLike>
+          </PostItemLike>
           <div>
-            <PostItemStyle.PostItemTime>
-              {calculateTime(data)}/
-            </PostItemStyle.PostItemTime>
-            <PostItemStyle.PostItemCategory>
-              {data.category}
-            </PostItemStyle.PostItemCategory>
+            <PostItemTime>{calculateTime(data)}</PostItemTime>
           </div>
-        </PostItemStyle.PostItemTitleBox>
-      </PostItemStyle.PostItemBack>
-      {isNoUserClickModal && (
-        <NoUserClickModal setIsNoUserClickModal={setIsNoUserClickModal} />
-      )}
+        </PostItemInfoBox>
+      </TopPostItemContainer>
     </>
   );
 };
 
-export default PostItem;
+export default TopPostItem;

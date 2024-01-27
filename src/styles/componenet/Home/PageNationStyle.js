@@ -33,5 +33,5 @@ export const PageNumberBtn = styled.button`
   border: none;
   background-color: transparent;
   font-size: 20px;
-  color: ${(props) => (props.currentPage ? "#6edcdc" : "black")};
+  color: ${(props) => (props.currentPage ? "black" : "#aaaaaa")};
 `;

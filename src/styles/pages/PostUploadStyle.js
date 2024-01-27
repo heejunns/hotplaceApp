@@ -36,7 +36,7 @@ export const PostUploadPostNameTitle = styled.h1`
   margin-right: 20px;
 `;
 export const PostUploadPostNameInput = styled.input`
-  border: 1px solid #a0a0a0;
+  border: 2px solid #b4b4b4;
   border-radius: 10px;
   height: 50px;
   padding: 10px;
@@ -148,7 +148,7 @@ export const InputPostText = styled.textarea`
   margin-top: 20px;
   background: transparent;
   border-style: none;
-  border: 1px solid #a0a0a0;
+  border: 2px solid #b4b4b4;
   border-radius: 10px;
   padding: 10px;
   resize: none;
@@ -261,7 +261,7 @@ export const PostUploadSubmitBox = styled.div`
 export const MapBox = styled.div`
   width: 100%;
   height: 500px;
-  border: 3px solid #a0a0a0;
+  border: 2px solid #b4b4b4;
   margin-top: 10px;
   display: flex;
   flex-direction: column;
@@ -271,10 +271,10 @@ export const MapBox = styled.div`
   & > span {
     cursor: pointer;
     color: white;
-    font-size: 100px;
-    color: black;
+    font-size: 80px;
+    color: #b4b4b4;
     &:hover {
-      color: #a0a0a0;
+      color: #828282;
     }
   }
 `;

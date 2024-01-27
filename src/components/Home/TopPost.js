@@ -1,6 +1,6 @@
-import * as TopPostStyle from "../styles/componenet/TopPostStyle";
+import * as TopPostStyle from "../../styles/componenet/Home/TopPostStyle";
 import { collection, getDocs, orderBy, query } from "firebase/firestore";
-import { dbService } from "../reactfbase";
+import { dbService } from "../../reactfbase";
 import { memo, useState } from "react";
 import TopPostItem from "./TopPostItem";
 import { useQuery } from "react-query";
