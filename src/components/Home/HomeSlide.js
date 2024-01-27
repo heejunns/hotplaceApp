@@ -1,6 +1,6 @@
-import * as HomeSlideStyle from "../styles/componenet/HomeSlideStyle";
+import * as HomeSlideStyle from "../../styles/componenet/Home/HomeSlideStyle";
 import { collection, getDocs, limit, orderBy, query } from "firebase/firestore";
-import { dbService } from "../reactfbase";
+import { dbService } from "../../reactfbase";
 import { memo, useEffect, useRef, useState } from "react";
 import { useQuery } from "react-query";
 

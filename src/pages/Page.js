@@ -11,8 +11,8 @@ import {
   startAt,
   where,
 } from "firebase/firestore";
-import PostItem from "../components/PostItem";
-import PageNation from "../components/PageNation";
+import PostItem from "../components/Home/PostItem";
+import PageNation from "../components/Home/PageNation";
 import SelectSortDropBox from "../components/SelectSortDropBox";
 import { useQuery } from "react-query";
 import {
