@@ -2,9 +2,9 @@ import { doc, updateDoc } from "firebase/firestore";
 import { useState } from "react";
 import styled from "styled-components";
 import { dbService } from "../reactfbase";
-import { useMutation, useQueryClient } from "react-query";
-import { Loading } from "../styles/componenet/LoadingStyle";
+import { Loading } from "../styles/components/LoadingStyle";
 import { PulseLoader } from "react-spinners";
+import { useMutation, useQueryClient } from "@tanstack/react-query";
 
 const EditModalBack = styled.div`
   width: 100%;
@@ -98,9 +98,12 @@ const EditModal = ({ setIsEditModal, editData }) => {
   };
 
   const { mutate: clickEditConfirm, isLoading: editConfirmIsLoading } =
-    useMutation(onclickEditConfirmBtn, {
-      onSuccess: () => {
-        queryClient.invalidateQueries(["detailData"]);
+    useMutation({
+      onclickEditConfirmBtn,
+      ...{
+        onSuccess: () => {
+          queryClient.invalidateQueries(["detailData"]);
+        },
       },
     });
   return (

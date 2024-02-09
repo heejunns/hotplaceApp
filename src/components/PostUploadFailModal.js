@@ -1,4 +1,4 @@
-import * as PostUploadFailModalStyle from "../styles/componenet/PostUploadFailModalStyle";
+import * as PostUploadFailModalStyle from "../styles/components/PostUploadFailModalStyle";
 const PostUploadFailModal = ({ failText, setIsPostUploadFailModal }) => {
   const onclickConfirmBtn = () => {
     setIsPostUploadFailModal((prev) => !prev);

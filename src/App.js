@@ -1,11 +1,9 @@
-import React, { useEffect, useState } from "react";
+import React, { useEffect } from "react";
 import AppRouter from "./route/Router";
 import { onAuthStateChanged } from "firebase/auth";
 import { authService } from "./reactfbase";
-import { useRecoilState, useRecoilValue, useSetRecoilState } from "recoil";
+import { useRecoilState, useSetRecoilState } from "recoil";
 import { firebaseInitialize, userAtom, userLocation } from "./recoils/UserAtom";
-import { PulseLoader } from "react-spinners";
-import { Loading } from "./styles/componenet/LoadingStyle";
 
 // 어플리케이션이 로드 될때 너무 빨라서 파이어 베이스는 사용자가 로그인 되었는지 확인할 시간이 없음.
 // 그럼 항상 애플리케이션은 항상 로그아웃 되어 있어서 로그인 폼이 브라우저 화면에 보일 것이다.

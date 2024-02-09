@@ -4,7 +4,7 @@ export const ProfileBack = styled.div`
   font-family: "Tilt Neon", sans-serif;
   width: 100%;
   height: 100%;
-  background-color: white;
+  background-color: #e9e9e9;
   display: flex;
   flex-direction: column;
   align-items: center;

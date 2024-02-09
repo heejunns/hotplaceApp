@@ -1,4 +1,4 @@
-import * as SelectSortDropBoxStyle from "../styles/componenet/SelectSortDropBoxStyle";
+import * as SelectSortDropBoxStyle from "../styles/components/SelectSortDropBoxStyle";
 import { useRecoilState } from "recoil";
 import { currentPageAtom, currentSelectSortAtom } from "../recoils/UserAtom";
 

@@ -1,4 +1,4 @@
-import * as NoUserClickModalStyle from "../styles/componenet/NoUserClickModalStyle";
+import * as NoUserClickModalStyle from "../styles/components/NoUserClickModalStyle";
 import { useNavigate } from "react-router-dom";
 const NoUserClickModal = ({ setIsNoUserClickModal }) => {
   const navigate = useNavigate();

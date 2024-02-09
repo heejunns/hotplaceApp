@@ -15,10 +15,10 @@ import { currentPageAtom, userAtom } from "../recoils/UserAtom";
 import * as ProfileStyle from "../styles/pages/ProfileStyle";
 import ProfileImgUploadModal from "../components/ProfileImgUploadModal";
 import ProfileNameEditModal from "../components/ProfileNameEditModal";
-import { useQuery } from "react-query";
-import { Loading } from "../styles/componenet/LoadingStyle";
+import { Loading } from "../styles/components/LoadingStyle";
 import { PulseLoader } from "react-spinners";
 import PageNation from "../components/Home/PageNation";
+import { useQuery } from "@tanstack/react-query";
 
 // 현재 우리가 다양한 컴포넌트에 prop 로 전달해주고 있는 user 객체를 authService.currentUser 로 업데이트 해야한다. 하지만 set 함수로 업데이트 해도 리 랜더링이 되지 않는다. 왜일까?
 // react 는 복잡하고 큰 객체를 전에 상태와 바뀌었는지 판단하는것을 어려워한다.
@@ -63,10 +63,10 @@ const Profile = () => {
     return profileData;
   };
 
-  const { data: profileData, isLoading: getProfileDataIsLoading } = useQuery(
-    ["uploadData", selectMenu],
-    () => getUserData(selectMenu)
-  );
+  const { data: profileData, isLoading: getProfileDataIsLoading } = useQuery({
+    queryKey: ["uploadData", selectMenu],
+    queryFn: () => getUserData(selectMenu),
+  });
   // 쿼리 함수
   const getCurrentData = async (selectMenu, currentPage) => {
     try {
@@ -99,14 +99,14 @@ const Profile = () => {
     }
   };
   // 쿼리 코드
-  const { data: currentData, isLoading: currentDataIsLoading } = useQuery(
-    ["pageHandle", currentPage, selectMenu],
-    () => getCurrentData(selectMenu, currentPage),
-    {
+  const { data: currentData, isLoading: currentDataIsLoading } = useQuery({
+    queryKey: ["pageHandle", currentPage, selectMenu],
+    queryFn: () => getCurrentData(selectMenu, currentPage),
+    options: {
       enabled: !!profileData,
       keepPreviousData: true,
-    }
-  );
+    },
+  });
 
   const onclickSelectMenu = ({ target: { id } }) => {
     setSelectMenu(id);

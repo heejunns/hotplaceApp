@@ -1,9 +1,9 @@
-import * as TopPostStyle from "../../styles/componenet/Home/TopPostStyle";
+import * as TopPostStyle from "../../styles/components/Home/TopPostStyle";
 import { collection, getDocs, orderBy, query } from "firebase/firestore";
 import { dbService } from "../../reactfbase";
 import { memo, useState } from "react";
 import TopPostItem from "./TopPostItem";
-import { useQuery } from "react-query";
+import { useQuery } from "@tanstack/react-query";
 const TopPost = () => {
   const [topBoxPx, setTopBoxPx] = useState(0);
   const onclickLeftBtn = () => {
@@ -31,7 +31,7 @@ const TopPost = () => {
     }
   };
 
-  const { data: topPostData } = useQuery("topData", getTopPost);
+  const { data: topPostData } = useQuery({ queryKey: ["topData"], getTopPost });
   console.log("hello", topPostData);
   return (
     <>

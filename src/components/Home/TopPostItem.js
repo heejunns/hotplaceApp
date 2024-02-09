@@ -8,8 +8,8 @@ import {
   PostItemLike,
   PostItemName,
   PostItemTime,
-} from "../../styles/componenet/Home/PostItemStyle";
-import { TopPostItemContainer } from "../../styles/componenet/Home/TopPostItemStyle";
+} from "../../styles/components/Home/PostItemStyle";
+import { TopPostItemContainer } from "../../styles/components/Home/TopPostItemStyle";
 const TopPostItem = ({ data, ranking }) => {
   const user = useRecoilValue(userAtom);
   const [clickPostItem, setClickPostItem] = useRecoilState(clickPostItemData);

@@ -1,4 +1,4 @@
-import * as RejectSignupModalStyle from "../styles/componenet/RejectSignupModalStyle";
+import * as RejectSignupModalStyle from "../styles/components/RejectSignupModalStyle";
 const RejectSignupModal = ({ setIsRejectSignupModal }) => {
   const onclickConfirmBtn = () => {
     setIsRejectSignupModal((prev) => !prev);

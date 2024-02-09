@@ -5,10 +5,10 @@ import { dbService } from "../reactfbase";
 import { v4 as uuidv4 } from "uuid";
 import { useRecoilValue } from "recoil";
 import { userAtom } from "../recoils/UserAtom";
-import * as CommentStyle from "../styles/componenet/CommentStyle";
-import { useMutation, useQueryClient } from "react-query";
-import { Loading } from "../styles/componenet/LoadingStyle";
+import * as CommentStyle from "../styles/components/CommentStyle";
+import { Loading } from "../styles/components/LoadingStyle";
 import { PulseLoader } from "react-spinners";
+import { useMutation, useQueryClient } from "@tanstack/react-query";
 
 const Comment = ({ data, dataId, getDetailData }) => {
   const queryClient = useQueryClient();
@@ -43,9 +43,12 @@ const Comment = ({ data, dataId, getDetailData }) => {
   };
 
   const { mutate: clickCommentSubmit, isLoading: commentSubmitIsLoading } =
-    useMutation(onclickCommentSubmit, {
-      onSuccess: () => {
-        queryClient.invalidateQueries(["detailData"]);
+    useMutation({
+      onclickCommentSubmit,
+      ...{
+        onSuccess: () => {
+          queryClient.invalidateQueries(["detailData"]);
+        },
       },
     });
 

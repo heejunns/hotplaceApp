@@ -4,9 +4,9 @@ import { Link, useNavigate } from "react-router-dom";
 import { signInWithPopup, GoogleAuthProvider } from "firebase/auth";
 import Login from "../components/Login";
 import * as LoginFormStyle from "../styles/pages/LoginFormStyle";
-import { useMutation } from "react-query";
-import { Loading } from "../styles/componenet/LoadingStyle";
+import { Loading } from "../styles/components/LoadingStyle";
 import { PulseLoader } from "react-spinners";
+import { useMutation } from "@tanstack/react-query";
 
 const LoginForm = () => {
   const provider = useMemo(() => new GoogleAuthProvider(), []); // 구글로 로그인하기 위해서 구글 인증 프로바이더 가져오기
@@ -23,7 +23,7 @@ const LoginForm = () => {
   }, [provider, navigator]);
 
   const { mutate: clickGoogleLogin, isLoading: googleLoginIsLoading } =
-    useMutation(onclickGoogleLogin);
+    useMutation({ onclickGoogleLogin });
 
   return (
     <>

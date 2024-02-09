@@ -1,8 +1,8 @@
-import * as HomeSlideStyle from "../../styles/componenet/Home/HomeSlideStyle";
+import * as HomeSlideStyle from "../../styles/components/Home/HomeSlideStyle";
 import { collection, getDocs, limit, orderBy, query } from "firebase/firestore";
 import { dbService } from "../../reactfbase";
 import { memo, useEffect, useRef, useState } from "react";
-import { useQuery } from "react-query";
+import { useQuery } from "@tanstack/react-query";
 
 const HomeSlide = () => {
   const [currentNum, setCurrentNum] = useState(1);
@@ -25,7 +25,10 @@ const HomeSlide = () => {
       return data;
     } catch (e) {}
   };
-  const { data: homeSlideData } = useQuery(["homeSlideData"], getHomeSlideData);
+  const { data: homeSlideData } = useQuery({
+    queryKey: ["homeSlideData"],
+    getHomeSlideData,
+  });
 
   let imgArr = homeSlideData && [
     homeSlideData[homeSlideData.length - 1],
