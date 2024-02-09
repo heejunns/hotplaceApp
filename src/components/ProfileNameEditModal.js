@@ -1,4 +1,4 @@
-import * as ProfileNameEditModalStyle from "../styles/componenet/ProfileNameEditModalStyle";
+import * as ProfileNameEditModalStyle from "../styles/components/ProfileNameEditModalStyle";
 import { useState } from "react";
 import { authService, dbService } from "../reactfbase";
 import { updateProfile } from "firebase/auth";
@@ -15,9 +15,9 @@ import {
   where,
 } from "firebase/firestore";
 import axios from "axios";
-import { useMutation } from "react-query";
-import { Loading } from "../styles/componenet/LoadingStyle";
+import { Loading } from "../styles/components/LoadingStyle";
 import { PulseLoader } from "react-spinners";
+import { useMutation } from "@tanstack/react-query";
 const ProfileNameEditModal = ({ setIsProfileNameEditModal }) => {
   const [user, setUser] = useRecoilState(userAtom);
   const [inputNewNickname, setInputNewNickname] = useState("");
@@ -101,10 +101,10 @@ const ProfileNameEditModal = ({ setIsProfileNameEditModal }) => {
   };
 
   const { mutate: submitNewName, isLoading: submitNewNameIsLoading } =
-    useMutation(onsubmitNewName);
-  const { mutate: nicknameOverlapCheck } = useMutation(
-    onclickNicknameOverlapcheck
-  );
+    useMutation({ onsubmitNewName });
+  const { mutate: nicknameOverlapCheck } = useMutation({
+    onclickNicknameOverlapcheck,
+  });
 
   return (
     <>

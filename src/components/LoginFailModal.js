@@ -1,4 +1,4 @@
-import * as LoginFailModalStyle from "../styles/componenet/LoginFailModalStyle";
+import * as LoginFailModalStyle from "../styles/components/LoginFailModalStyle";
 const LoginFailModal = ({ setIsLoginFailModal }) => {
   const onclickCheckBtn = () => {
     setIsLoginFailModal(false);

@@ -1,5 +1,5 @@
 import { useRecoilState } from "recoil";
-import * as PageNationStyle from "../../styles/componenet/Home/PageNationStyle";
+import * as PageNationStyle from "../../styles/components/Home/PageNationStyle";
 import { currentPageAtom } from "../../recoils/UserAtom";
 
 const PageNation = ({ currentData, postData }) => {

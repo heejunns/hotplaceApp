@@ -1,5 +1,5 @@
 import { useState } from "react";
-import * as ProfileImgUploadModalStyle from "../styles/componenet/ProfileImgUploadStyle";
+import * as ProfileImgUploadModalStyle from "../styles/components/ProfileImgUploadStyle";
 import { updateProfile } from "firebase/auth";
 import { authService, dbService, storageService } from "../reactfbase";
 import { useRecoilState } from "recoil";
@@ -7,7 +7,7 @@ import { userAtom } from "../recoils/UserAtom";
 import { v4 as uuidv4 } from "uuid";
 import { getDownloadURL, ref, uploadString } from "firebase/storage";
 import { PulseLoader } from "react-spinners";
-import { Loading } from "../styles/componenet/LoadingStyle";
+import { Loading } from "../styles/components/LoadingStyle";
 import {
   collection,
   doc,
@@ -17,7 +17,7 @@ import {
   where,
 } from "firebase/firestore";
 import axios from "axios";
-import { useMutation } from "react-query";
+import { useMutation } from "@tanstack/react-query";
 const ProfileImgUploadModal = ({ setIsProfileImgUploadModal }) => {
   const [user, setUser] = useRecoilState(userAtom);
   const [profileImgUploadUrl, setProfileImgUploadUrl] = useState("");
@@ -79,7 +79,7 @@ const ProfileImgUploadModal = ({ setIsProfileImgUploadModal }) => {
   };
 
   const { mutate: profileImgUpload, isLoading: profileImgUploadIsLoading } =
-    useMutation(onclickProfileImgUpload);
+    useMutation({ onclickProfileImgUpload });
 
   return (
     <>

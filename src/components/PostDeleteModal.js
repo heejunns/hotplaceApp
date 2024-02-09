@@ -2,13 +2,13 @@ import { deleteDoc, doc } from "firebase/firestore";
 import React from "react";
 import { dbService, storageService } from "../reactfbase";
 import { deleteObject, ref } from "firebase/storage";
-import * as DeleteModalStyle from "../styles/componenet/DeleteModalStyle";
+import * as DeleteModalStyle from "../styles/components/DeleteModalStyle";
 import { useNavigate } from "react-router-dom";
-import { useMutation } from "react-query";
-import { Loading } from "../styles/componenet/LoadingStyle";
+import { Loading } from "../styles/components/LoadingStyle";
 import { PulseLoader } from "react-spinners";
 import { useRecoilState } from "recoil";
 import { currentPageAtom } from "../recoils/UserAtom";
+import { useMutation } from "@tanstack/react-query";
 
 const PostDeleteModal = ({ setIsPostDeleteModal, postDeleteData }) => {
   const [currentPage, setCurrentPage] = useRecoilState(currentPageAtom);
@@ -35,7 +35,7 @@ const PostDeleteModal = ({ setIsPostDeleteModal, postDeleteData }) => {
   };
 
   const { mutate: clickConfirmBtn, isLoading: deletePostIsLoading } =
-    useMutation(onclickConfirmBtn);
+    useMutation({ onclickConfirmBtn });
 
   return (
     <>

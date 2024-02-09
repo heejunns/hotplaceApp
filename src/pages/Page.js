@@ -14,7 +14,6 @@ import {
 import PostItem from "../components/Home/PostItem";
 import PageNation from "../components/Home/PageNation";
 import SelectSortDropBox from "../components/SelectSortDropBox";
-import { useQuery } from "react-query";
 import {
   currentPageAtom,
   currentSelectSortAtom,
@@ -22,8 +21,9 @@ import {
   userLocation,
 } from "../recoils/UserAtom";
 import { useRecoilState, useRecoilValue } from "recoil";
-import { Loading } from "../styles/componenet/LoadingStyle";
+import { Loading } from "../styles/components/LoadingStyle";
 import { PulseLoader } from "react-spinners";
+import { useQuery } from "@tanstack/react-query";
 const Page = () => {
   const firebaseInitial = useRecoilValue(firebaseInitialize);
   const location = useRecoilValue(userLocation);
@@ -160,14 +160,14 @@ const Page = () => {
   };
 
   const { data: pageCurrentData, isLoading: pageCurrentDataIsLoading } =
-    useQuery(
-      ["pageHandle", currentSelectSort, currentPage, id],
-      () => getPageCurrentData(currentSelectSort, currentPage, id),
-      {
+    useQuery({
+      queryKey: ["pageHandle", currentSelectSort, currentPage, id],
+      queryFn: () => getPageCurrentData(currentSelectSort, currentPage, id),
+      options: {
         enabled: !!pagePostData,
         keepPreviousData: true,
-      }
-    );
+      },
+    });
   return (
     <PageStyle.PageBack>
       <SelectSortDropBox />

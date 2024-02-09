@@ -14,7 +14,6 @@ import TopPost from "../components/Home/TopPost";
 import SelectSortDropBox from "../components/SelectSortDropBox";
 import PageNation from "../components/Home/PageNation";
 import HomeSlide from "../components/Home/HomeSlide";
-import { useQuery } from "react-query";
 import { useRecoilState, useRecoilValue } from "recoil";
 import {
   currentPageAtom,
@@ -22,8 +21,9 @@ import {
   firebaseInitialize,
   userLocation,
 } from "../recoils/UserAtom";
-import { Loading } from "../styles/componenet/LoadingStyle";
+import { Loading } from "../styles/components/LoadingStyle";
 import { PulseLoader } from "react-spinners";
+import { useQuery } from "@tanstack/react-query";
 
 // ============================================ Home(메인) 페이지 ===================================
 // 사용자들이 게시한 게시물들을 한번에 볼 수 있고 사용자들이 좋아요를 눌러 좋아요를 가장 많이 받은 순서대로 1~10위까지 한번에 볼 수 있는 페이지 입니다.
@@ -137,14 +137,14 @@ const Home = () => {
     }
   };
   // 쿼리 코드
-  const { data: currentData, isLoading: currentDataIsLoading } = useQuery(
-    ["pageHandle", currentSelectSort, currentPage],
-    () => getCurrentData(currentSelectSort, currentPage),
-    {
+  const { data: currentData, isLoading: currentDataIsLoading } = useQuery({
+    queryKey: ["pageHandle", currentSelectSort, currentPage],
+    queryFn: () => getCurrentData(currentSelectSort, currentPage),
+    options: {
       enabled: !!postData,
       keepPreviousData: true,
-    }
-  );
+    },
+  });
   console.log("현재 데이터", currentData);
   // =======================
   return (

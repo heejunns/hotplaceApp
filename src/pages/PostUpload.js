@@ -9,12 +9,12 @@ import { useNavigate } from "react-router-dom";
 import { currentPageAtom, userAtom, userLocation } from "../recoils/UserAtom";
 import { useRecoilState, useRecoilValue } from "recoil";
 import * as PostUploadStyle from "../styles/pages/PostUploadStyle";
-import { Loading } from "../styles/componenet/LoadingStyle";
+import { Loading } from "../styles/components/LoadingStyle";
 import { PulseLoader } from "react-spinners";
 import axios from "axios";
-import { useMutation } from "react-query";
 import PostUploadFailModal from "../components/PostUploadFailModal";
 import FindAddress from "../components/FindAddress";
+import { useMutation } from "@tanstack/react-query";
 
 const PostUpload = () => {
   const [currentPage, setCurrentPage] = useRecoilState(currentPageAtom);
@@ -127,8 +127,9 @@ const PostUpload = () => {
       console.error("Error adding document: ", error);
     }
   };
-  const { isLoading: submitIsLoading, mutate: submitBtnClick } =
-    useMutation(onSubmitBtn);
+  const { isLoading: submitIsLoading, mutate: submitBtnClick } = useMutation({
+    onSubmitBtn,
+  });
   const onchangeImageUpload = useCallback(({ target: { files } }) => {
     // 사진 파일을 선택했을때 선택한 사진을 화면에 보여주는 코드
     if (files.length === 1) {

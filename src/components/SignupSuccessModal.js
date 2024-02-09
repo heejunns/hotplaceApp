@@ -1,4 +1,4 @@
-import * as SignupSuccessModalStyle from "../styles/componenet/SignupSuccessModalStyle";
+import * as SignupSuccessModalStyle from "../styles/components/SignupSuccessModalStyle";
 
 const SignupSuccessModal = () => {
   return (

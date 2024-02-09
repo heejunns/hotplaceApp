@@ -1,9 +1,9 @@
-import * as DeleteModalStyle from "../styles/componenet/DeleteModalStyle";
+import * as DeleteModalStyle from "../styles/components/DeleteModalStyle";
 import { doc, updateDoc } from "firebase/firestore";
 import { dbService } from "../reactfbase";
-import { useMutation, useQueryClient } from "react-query";
-import { Loading } from "../styles/componenet/LoadingStyle";
+import { Loading } from "../styles/components/LoadingStyle";
 import { PulseLoader } from "react-spinners";
+import { useMutation, useQueryClient } from "@tanstack/react-query";
 const CommentDeleteModal = ({
   setIsCommentDeleteModal,
   data,
@@ -32,14 +32,14 @@ const CommentDeleteModal = ({
     }
   };
 
-  const { mutate: clickConfirmBtn, isLoading: deleteIsLoading } = useMutation(
+  const { mutate: clickConfirmBtn, isLoading: deleteIsLoading } = useMutation({
     onclickConfirmBtn,
-    {
+    ...{
       onSuccess: () => {
         queryClient.invalidateQueries(["detailData"]);
       },
-    }
-  );
+    },
+  });
   return (
     <>
       <DeleteModalStyle.DeleteModalBack>

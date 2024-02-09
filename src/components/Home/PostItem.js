@@ -1,6 +1,6 @@
 import React, { useState } from "react";
 import { useRecoilState, useRecoilValue } from "recoil";
-import * as PostItemStyle from "../../styles/componenet/Home/PostItemStyle";
+import * as PostItemStyle from "../../styles/components/Home/PostItemStyle";
 import { useNavigate } from "react-router-dom";
 import NoUserClickModal from "../NoUserClickModal";
 import { clickPostItemData, userAtom } from "../../recoils/UserAtom";

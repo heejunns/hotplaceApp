@@ -1,12 +1,12 @@
 import { useState } from "react";
-import * as ReportModalStyle from "../styles/componenet/ReportModalStyle";
+import * as ReportModalStyle from "../styles/components/ReportModalStyle";
 import { dbService } from "../reactfbase";
 import { doc, getDoc, setDoc } from "firebase/firestore";
 import { useRecoilValue } from "recoil";
 import { userAtom } from "../recoils/UserAtom";
-import { useMutation } from "react-query";
-import { Loading } from "../styles/componenet/LoadingStyle";
+import { Loading } from "../styles/components/LoadingStyle";
 import { PulseLoader } from "react-spinners";
+import { useMutation } from "@tanstack/react-query";
 const ReportModal = ({ setIsReportModal, postWriter, postName }) => {
   const user = useRecoilValue(userAtom);
   const [inputReportText, setInputReportText] = useState("");
@@ -37,8 +37,9 @@ const ReportModal = ({ setIsReportModal, postWriter, postName }) => {
     }
   };
 
-  const { mutate: reportBtnClick, isLoading: reportIsLoading } =
-    useMutation(onclickReportBtn);
+  const { mutate: reportBtnClick, isLoading: reportIsLoading } = useMutation({
+    onclickReportBtn,
+  });
   const onclickCloseBtn = () => {
     document.body.style.overflow = "";
     setIsReportModal((prev) => !prev);

@@ -1,6 +1,6 @@
 import React, { memo, useCallback, useEffect } from "react";
-import * as MapStyle from "../styles/componenet/MapStyle";
-import { Loading } from "../styles/componenet/LoadingStyle";
+import * as MapStyle from "../styles/components/MapStyle";
+import { Loading } from "../styles/components/LoadingStyle";
 import { PulseLoader } from "react-spinners";
 const Map = ({ setUserMarkerLocation }) => {
   const getLocation = useCallback(

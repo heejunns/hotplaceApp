@@ -1,12 +1,12 @@
 import { useCallback, useState } from "react";
 import { authService } from "../reactfbase";
 import { signInWithEmailAndPassword } from "firebase/auth";
-import * as LoginStyle from "../styles/componenet/LoginStyle";
+import * as LoginStyle from "../styles/components/LoginStyle";
 import { useNavigate } from "react-router-dom";
-import { useMutation } from "react-query";
 import LoginFailModal from "./LoginFailModal";
-import { Loading } from "../styles/componenet/LoadingStyle";
+import { Loading } from "../styles/components/LoadingStyle";
 import { PulseLoader } from "react-spinners";
+import { useMutation } from "@tanstack/react-query";
 const Login = () => {
   const [inputEmail, setInputEmail] = useState(""); // 입력하는 이메일을 저장하는 state
   const [inputPassword, setInputPassword] = useState(""); // 입력하는 비밀번호를 저장하는 state
@@ -42,8 +42,9 @@ const Login = () => {
     [inputEmail, inputPassword, navigator]
   );
 
-  const { mutate: submitLogin, isLoading: submitLoginIsLoading } =
-    useMutation(onsubmitLoginBtn);
+  const { mutate: submitLogin, isLoading: submitLoginIsLoading } = useMutation({
+    onsubmitLoginBtn,
+  });
   return (
     <>
       <LoginStyle.LoginForm onSubmit={submitLogin}>

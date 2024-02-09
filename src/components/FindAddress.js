@@ -1,6 +1,6 @@
 import { useState } from "react";
 import DaumPostcodeEmbed from "react-daum-postcode";
-import * as FindAddressStyle from "../styles/componenet/FindAddressStyle";
+import * as FindAddressStyle from "../styles/components/FindAddressStyle";
 const FindAddress = () => {
   const [addressData, setAddressData] = useState({
     postcode: "",

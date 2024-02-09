@@ -4,8 +4,8 @@ import { dbService } from "../reactfbase";
 import { userAtom } from "../recoils/UserAtom";
 import { useRecoilValue } from "recoil";
 import CommentDeleteModal from "./CommentDeleteModal";
-import * as CommentPostStyle from "../styles/componenet/CommentPostStyle";
-import { useMutation, useQueryClient } from "react-query";
+import * as CommentPostStyle from "../styles/components/CommentPostStyle";
+import { useMutation, useQueryClient } from "@tanstack/react-query";
 const CommentPost = ({ commentInfo, data, dataId, getDetailData }) => {
   const queryClient = useQueryClient();
   const user = useRecoilValue(userAtom);
@@ -50,9 +50,12 @@ const CommentPost = ({ commentInfo, data, dataId, getDetailData }) => {
     });
   };
 
-  const { mutate: likeBtnClick } = useMutation(onclickLikeButton, {
-    onSuccess: () => {
-      queryClient.invalidateQueries(["detailData"]);
+  const { mutate: likeBtnClick } = useMutation({
+    onclickLikeButton,
+    ...{
+      onSuccess: () => {
+        queryClient.invalidateQueries(["detailData"]);
+      },
     },
   });
   const onclickDeleteCommentButton = async () => {
