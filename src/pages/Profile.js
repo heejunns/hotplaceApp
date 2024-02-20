@@ -12,10 +12,10 @@ import {
 import PostItem from "../components/Home/PostItem";
 import { useRecoilState, useRecoilValue } from "recoil";
 import { currentPageAtom, userAtom } from "../recoils/UserAtom";
-import * as ProfileStyle from "../styles/pages/ProfileStyle";
+import * as S from "../styles/pages/Profile.style";
 import ProfileImgUploadModal from "../components/ProfileImgUploadModal";
 import ProfileNameEditModal from "../components/ProfileNameEditModal";
-import { Loading } from "../styles/components/LoadingStyle";
+import { Loading } from "../styles/components/Loading.style";
 import { PulseLoader } from "react-spinners";
 import PageNation from "../components/Home/PageNation";
 import { useQuery } from "@tanstack/react-query";
@@ -102,10 +102,9 @@ const Profile = () => {
   const { data: currentData, isLoading: currentDataIsLoading } = useQuery({
     queryKey: ["pageHandle", currentPage, selectMenu],
     queryFn: () => getCurrentData(selectMenu, currentPage),
-    options: {
-      enabled: !!profileData,
-      keepPreviousData: true,
-    },
+
+    enabled: !!profileData,
+    keepPreviousData: true,
   });
 
   const onclickSelectMenu = ({ target: { id } }) => {
@@ -115,29 +114,27 @@ const Profile = () => {
 
   return (
     <>
-      <ProfileStyle.ProfileBack>
-        <ProfileStyle.ProfileUserInfoBox>
-          <ProfileStyle.ProfileUserImgBox>
-            <ProfileStyle.ProfileUserInfoImg>
+      <S.ProfileBack>
+        <S.ProfileUserInfoBox>
+          <S.ProfileUserImgBox>
+            <S.ProfileUserInfoImg>
               {profileImg === undefined ? (
                 <span className="material-symbols-outlined">person</span>
               ) : (
                 <img src={profileImg} alt="profileImg" />
               )}
-            </ProfileStyle.ProfileUserInfoImg>
-            <ProfileStyle.ProfileUserImgUploadIcon
-              onClick={onclickProfileImgUploadIcon}
-            >
+            </S.ProfileUserInfoImg>
+            <S.ProfileUserImgUploadIcon onClick={onclickProfileImgUploadIcon}>
               <span className="material-symbols-outlined">add_circle</span>
-            </ProfileStyle.ProfileUserImgUploadIcon>
-            {/* <ProfileStyle.ProfileUserImgUploadInput
+            </S.ProfileUserImgUploadIcon>
+            {/* <S.ProfileUserImgUploadInput
               type="file"
               accept="image/*"
               id="imgUploadInput"
               onChange={onchangeImageUpload}
             /> */}
-          </ProfileStyle.ProfileUserImgBox>
-          <ProfileStyle.ProfileUserInfoName>
+          </S.ProfileUserImgBox>
+          <S.ProfileUserInfoName>
             {user ? user.displayName : "닉네임을 만들어주세요."}
             <span
               className="material-symbols-outlined"
@@ -147,40 +144,40 @@ const Profile = () => {
             >
               edit
             </span>
-          </ProfileStyle.ProfileUserInfoName>
-        </ProfileStyle.ProfileUserInfoBox>
-        <ProfileStyle.ProfileBox>
-          <ProfileStyle.ProfileSelectMenu>
-            <ProfileStyle.ProfileMenuItem
+          </S.ProfileUserInfoName>
+        </S.ProfileUserInfoBox>
+        <S.ProfileBox>
+          <S.ProfileSelectMenu>
+            <S.ProfileMenuItem
               id="userProfile"
               selectMenu={selectMenu}
               onClick={onclickSelectMenu}
             >
               내가 작성한 게시물
-            </ProfileStyle.ProfileMenuItem>
-            <ProfileStyle.ProfileMenuItem
+            </S.ProfileMenuItem>
+            <S.ProfileMenuItem
               id="userLike"
               selectMenu={selectMenu}
               onClick={onclickSelectMenu}
             >
               좋아요한 게시물
-            </ProfileStyle.ProfileMenuItem>
-          </ProfileStyle.ProfileSelectMenu>
+            </S.ProfileMenuItem>
+          </S.ProfileSelectMenu>
           {profileData && currentData && currentData.length === 0 ? (
-            <ProfileStyle.NoPost>현재 게시물이 없습니다.</ProfileStyle.NoPost>
+            <S.NoPost>현재 게시물이 없습니다.</S.NoPost>
           ) : (
-            <ProfileStyle.ProfilePostBox>
+            <S.ProfilePostBox>
               {currentData &&
                 currentData.map((data, index) => {
                   return <PostItem key={index} data={data} />;
                 })}
-            </ProfileStyle.ProfilePostBox>
+            </S.ProfilePostBox>
           )}
-        </ProfileStyle.ProfileBox>
+        </S.ProfileBox>
         {currentData && profileData && (
           <PageNation currentData={currentData} postData={profileData} />
         )}
-      </ProfileStyle.ProfileBack>
+      </S.ProfileBack>
       {isProfileImgUploadModal && (
         <ProfileImgUploadModal
           setIsProfileImgUploadModal={setIsProfileImgUploadModal}

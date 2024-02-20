@@ -1,4 +1,4 @@
-import * as NoUserClickModalStyle from "../styles/components/NoUserClickModalStyle";
+import * as S from "../styles/components/NoUserClickModal.style";
 import { useNavigate } from "react-router-dom";
 const NoUserClickModal = ({ setIsNoUserClickModal }) => {
   const navigate = useNavigate();
@@ -14,23 +14,19 @@ const NoUserClickModal = ({ setIsNoUserClickModal }) => {
   };
 
   return (
-    <NoUserClickModalStyle.NoUserClickModalBack>
-      <NoUserClickModalStyle.NoUserClickModalBox>
-        <NoUserClickModalStyle.NoUserClickModalTextBox>
-          <NoUserClickModalStyle.NoUserClickModalText>
+    <S.NoUserClickModalBack>
+      <S.NoUserClickModalBox>
+        <S.NoUserClickModalTextBox>
+          <S.NoUserClickModalText>
             로그인이 필요한 페이지 입니다
-          </NoUserClickModalStyle.NoUserClickModalText>
-        </NoUserClickModalStyle.NoUserClickModalTextBox>
-        <NoUserClickModalStyle.NoUserClickModalBtnBox>
-          <NoUserClickModalStyle.ConfirmBtn onClick={onclickConfirm}>
-            확인
-          </NoUserClickModalStyle.ConfirmBtn>
-          <NoUserClickModalStyle.LoginPageBtn onClick={onclickLoginPage}>
-            로그인
-          </NoUserClickModalStyle.LoginPageBtn>
-        </NoUserClickModalStyle.NoUserClickModalBtnBox>
-      </NoUserClickModalStyle.NoUserClickModalBox>
-    </NoUserClickModalStyle.NoUserClickModalBack>
+          </S.NoUserClickModalText>
+        </S.NoUserClickModalTextBox>
+        <S.NoUserClickModalBtnBox>
+          <S.ConfirmBtn onClick={onclickConfirm}>확인</S.ConfirmBtn>
+          <S.LoginPageBtn onClick={onclickLoginPage}>로그인</S.LoginPageBtn>
+        </S.NoUserClickModalBtnBox>
+      </S.NoUserClickModalBox>
+    </S.NoUserClickModalBack>
   );
 };
 

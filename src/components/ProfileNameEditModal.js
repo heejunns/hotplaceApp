@@ -1,4 +1,4 @@
-import * as ProfileNameEditModalStyle from "../styles/components/ProfileNameEditModalStyle";
+import * as S from "../styles/components/ProfileNameEditModal.style";
 import { useState } from "react";
 import { authService, dbService } from "../reactfbase";
 import { updateProfile } from "firebase/auth";
@@ -15,7 +15,7 @@ import {
   where,
 } from "firebase/firestore";
 import axios from "axios";
-import { Loading } from "../styles/components/LoadingStyle";
+import { Loading } from "../styles/components/Loading.style";
 import { PulseLoader } from "react-spinners";
 import { useMutation } from "@tanstack/react-query";
 const ProfileNameEditModal = ({ setIsProfileNameEditModal }) => {
@@ -108,16 +108,16 @@ const ProfileNameEditModal = ({ setIsProfileNameEditModal }) => {
 
   return (
     <>
-      <ProfileNameEditModalStyle.ProfileNameEditBack>
-        <ProfileNameEditModalStyle.ProfileNameEditBox>
-          <ProfileNameEditModalStyle.ProfileNameEditInput
+      <S.ProfileNameEditBack>
+        <S.ProfileNameEditBox>
+          <S.ProfileNameEditInput
             type="text"
             value={inputNewNickname}
             onChange={onchangeNewName}
             maxLength="10"
             placeholder="변경할 닉네임을 입력해주세요. 최대 10글자"
           />
-          <ProfileNameEditModalStyle.NicknameOverlapCheckText>
+          <S.NicknameOverlapCheckText>
             {isNicknameOverlapCheck === ""
               ? ""
               : isNicknameOverlapCheck === null
@@ -127,22 +127,18 @@ const ProfileNameEditModal = ({ setIsProfileNameEditModal }) => {
               : isNicknameOverlapCheck === false
               ? "입력하신 닉네임은 사용 중입니다."
               : null}
-          </ProfileNameEditModalStyle.NicknameOverlapCheckText>
-          <ProfileNameEditModalStyle.ProfileNameEditBtnBox>
-            <ProfileNameEditModalStyle.CancelBtn onClick={onclickCancelModal}>
+          </S.NicknameOverlapCheckText>
+          <S.ProfileNameEditBtnBox>
+            <S.CancelBtn onClick={onclickCancelModal}>
               <span className="material-symbols-outlined">close</span>
-            </ProfileNameEditModalStyle.CancelBtn>
-            <ProfileNameEditModalStyle.NicknameoverlapCheckBtn
-              onClick={nicknameOverlapCheck}
-            >
+            </S.CancelBtn>
+            <S.NicknameoverlapCheckBtn onClick={nicknameOverlapCheck}>
               닉네임 중복 검사
-            </ProfileNameEditModalStyle.NicknameoverlapCheckBtn>
-            <ProfileNameEditModalStyle.EditBtn onClick={submitNewName}>
-              닉네임 변경
-            </ProfileNameEditModalStyle.EditBtn>
-          </ProfileNameEditModalStyle.ProfileNameEditBtnBox>
-        </ProfileNameEditModalStyle.ProfileNameEditBox>
-      </ProfileNameEditModalStyle.ProfileNameEditBack>
+            </S.NicknameoverlapCheckBtn>
+            <S.EditBtn onClick={submitNewName}>닉네임 변경</S.EditBtn>
+          </S.ProfileNameEditBtnBox>
+        </S.ProfileNameEditBox>
+      </S.ProfileNameEditBack>
       {submitNewName && (
         <Loading>
           <PulseLoader color="black" size={20} />

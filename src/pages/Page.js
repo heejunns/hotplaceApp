@@ -1,6 +1,5 @@
 import { useParams } from "react-router-dom";
-import * as PageStyle from "../styles/pages/PageStyle";
-import { useState } from "react";
+import * as S from "../styles/pages/Page.style";
 import { dbService } from "../reactfbase";
 import {
   collection,
@@ -21,7 +20,7 @@ import {
   userLocation,
 } from "../recoils/UserAtom";
 import { useRecoilState, useRecoilValue } from "recoil";
-import { Loading } from "../styles/components/LoadingStyle";
+import { Loading } from "../styles/components/Loading.style";
 import { PulseLoader } from "react-spinners";
 import { useQuery } from "@tanstack/react-query";
 const Page = () => {
@@ -163,13 +162,12 @@ const Page = () => {
     useQuery({
       queryKey: ["pageHandle", currentSelectSort, currentPage, id],
       queryFn: () => getPageCurrentData(currentSelectSort, currentPage, id),
-      options: {
-        enabled: !!pagePostData,
-        keepPreviousData: true,
-      },
+
+      enabled: !!pagePostData,
+      keepPreviousData: true,
     });
   return (
-    <PageStyle.PageBack>
+    <S.PageBack>
       <SelectSortDropBox />
 
       {firebaseInitial && pageCurrentDataIsLoading ? (
@@ -177,21 +175,21 @@ const Page = () => {
           <PulseLoader color="black" size={20} />
         </Loading>
       ) : pageCurrentData && pageCurrentData.length === 0 ? (
-        <PageStyle.EmptyPost>현재 게시물이 없습니다.</PageStyle.EmptyPost>
+        <S.EmptyPost>현재 게시물이 없습니다.</S.EmptyPost>
       ) : (
         <>
-          <PageStyle.PostBox>
+          <S.PostBox>
             {pageCurrentData &&
               pageCurrentData.map((data, index) => {
                 return <PostItem key={index} data={data} />;
               })}
-          </PageStyle.PostBox>
+          </S.PostBox>
           {pagePostData && pageCurrentData && (
             <PageNation currentData={pageCurrentData} postData={pagePostData} />
           )}
         </>
       )}
-    </PageStyle.PageBack>
+    </S.PageBack>
   );
 };
 

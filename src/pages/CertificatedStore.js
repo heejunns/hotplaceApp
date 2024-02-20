@@ -1,12 +1,10 @@
-import * as CertificatedStoreStyle from "../styles/pages/CertificatedStoreStyle";
+import * as S from "../styles/pages/S";
 const CertificatedStore = () => {
   return (
-    <CertificatedStoreStyle.CertificatedStoreBack>
-      <CertificatedStoreStyle.CertificatedStoreTitle>
-        사장님이 인증한 매장
-      </CertificatedStoreStyle.CertificatedStoreTitle>
-      <CertificatedStoreStyle.CertificatedStoreBox></CertificatedStoreStyle.CertificatedStoreBox>
-    </CertificatedStoreStyle.CertificatedStoreBack>
+    <S.CertificatedStoreBack>
+      <S.CertificatedStoreTitle>사장님이 인증한 매장</S.CertificatedStoreTitle>
+      <S.CertificatedStoreBox></S.CertificatedStoreBox>
+    </S.CertificatedStoreBack>
   );
 };
 

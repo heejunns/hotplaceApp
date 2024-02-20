@@ -1,6 +1,6 @@
 import { useState } from "react";
 import DaumPostcodeEmbed from "react-daum-postcode";
-import * as FindAddressStyle from "../styles/components/FindAddressStyle";
+import * as S from "../styles/components/FindAddress.style";
 const FindAddress = () => {
   const [addressData, setAddressData] = useState({
     postcode: "",
@@ -31,8 +31,8 @@ const FindAddress = () => {
 
   return (
     <>
-      <FindAddressStyle.FindeAddressLayout>
-        <FindAddressStyle.FindAddressTopBox>
+      <S.FindeAddressLayout>
+        <S.FindAddressTopBox>
           <input disabled="true" value={addressData.postcode} />
           <button
             type="button"
@@ -43,21 +43,21 @@ const FindAddress = () => {
           >
             주소 찾기
           </button>
-        </FindAddressStyle.FindAddressTopBox>
-        <FindAddressStyle.FindAddressBottomBox>
+        </S.FindAddressTopBox>
+        <S.FindAddressBottomBox>
           <input disabled="true" value={addressData.address} />
           <input
             placeholder="자세한 주소를 작성해주세요."
             value={addressData.extraAddress}
             onChange={onchageInputExtraAddress}
           />
-        </FindAddressStyle.FindAddressBottomBox>
+        </S.FindAddressBottomBox>
         {isDaumPostcode && (
-          <FindAddressStyle.DaumPostcodeBox>
+          <S.DaumPostcodeBox>
             <DaumPostcodeEmbed onComplete={onComplete} />
-          </FindAddressStyle.DaumPostcodeBox>
+          </S.DaumPostcodeBox>
         )}
-      </FindAddressStyle.FindeAddressLayout>
+      </S.FindeAddressLayout>
     </>
   );
 };

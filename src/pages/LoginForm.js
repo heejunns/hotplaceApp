@@ -3,8 +3,8 @@ import { authService } from "../reactfbase";
 import { Link, useNavigate } from "react-router-dom";
 import { signInWithPopup, GoogleAuthProvider } from "firebase/auth";
 import Login from "../components/Login";
-import * as LoginFormStyle from "../styles/pages/LoginFormStyle";
-import { Loading } from "../styles/components/LoadingStyle";
+import * as S from "../styles/pages/LoginForm.style";
+import { Loading } from "../styles/components/Loading.style";
 import { PulseLoader } from "react-spinners";
 import { useMutation } from "@tanstack/react-query";
 
@@ -27,28 +27,24 @@ const LoginForm = () => {
 
   return (
     <>
-      <LoginFormStyle.LoginFormBack>
+      <S.LoginFormBack>
         <Link to="/">
-          <LoginFormStyle.LoginFormTitle>
-            우리동네핫플
-          </LoginFormStyle.LoginFormTitle>
+          <S.LoginFormTitle>우리동네핫플</S.LoginFormTitle>
         </Link>
 
-        <LoginFormStyle.LoginFormBox>
+        <S.LoginFormBox>
           <Login />
-          <LoginFormStyle.LoginBtnBox>
-            <LoginFormStyle.LoginFormGoogleLoginBtn onClick={clickGoogleLogin}>
+          <S.LoginBtnBox>
+            <S.LoginFormGoogleLoginBtn onClick={clickGoogleLogin}>
               구글로 로그인하기
-            </LoginFormStyle.LoginFormGoogleLoginBtn>
+            </S.LoginFormGoogleLoginBtn>
 
             <Link to="/signup" style={{ textDecoration: "none" }}>
-              <LoginFormStyle.LoginFormSignUpBtn>
-                회원가입하기
-              </LoginFormStyle.LoginFormSignUpBtn>
+              <S.LoginFormSignUpBtn>회원가입하기</S.LoginFormSignUpBtn>
             </Link>
-          </LoginFormStyle.LoginBtnBox>
-        </LoginFormStyle.LoginFormBox>
-      </LoginFormStyle.LoginFormBack>
+          </S.LoginBtnBox>
+        </S.LoginFormBox>
+      </S.LoginFormBack>
       {googleLoginIsLoading && (
         <Loading>
           <PulseLoader color="black" size={20} />

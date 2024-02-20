@@ -1,4 +1,4 @@
-import * as TopPostStyle from "../../styles/components/Home/TopPostStyle";
+import * as TopPostStyle from "../../styles/components/Home/TopPost.style";
 import { collection, getDocs, orderBy, query } from "firebase/firestore";
 import { dbService } from "../../reactfbase";
 import { memo, useState } from "react";
@@ -31,7 +31,10 @@ const TopPost = () => {
     }
   };
 
-  const { data: topPostData } = useQuery({ queryKey: ["topData"], getTopPost });
+  const { data: topPostData } = useQuery({
+    queryKey: ["topData"],
+    queryFn: getTopPost,
+  });
   console.log("hello", topPostData);
   return (
     <>

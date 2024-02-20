@@ -2,9 +2,9 @@ import { deleteDoc, doc } from "firebase/firestore";
 import React from "react";
 import { dbService, storageService } from "../reactfbase";
 import { deleteObject, ref } from "firebase/storage";
-import * as DeleteModalStyle from "../styles/components/DeleteModalStyle";
+import * as S from "../styles/components/DeleteModal.style";
 import { useNavigate } from "react-router-dom";
-import { Loading } from "../styles/components/LoadingStyle";
+import { Loading } from "../styles/components/Loading.style";
 import { PulseLoader } from "react-spinners";
 import { useRecoilState } from "recoil";
 import { currentPageAtom } from "../recoils/UserAtom";
@@ -39,21 +39,19 @@ const PostDeleteModal = ({ setIsPostDeleteModal, postDeleteData }) => {
 
   return (
     <>
-      <DeleteModalStyle.DeleteModalBack>
-        <DeleteModalStyle.DeleteModalBox>
-          <DeleteModalStyle.DeleteModalText>
-            게시글을 삭제 하시겠습니까?
-          </DeleteModalStyle.DeleteModalText>
-          <DeleteModalStyle.DeleteModalBtnBox>
-            <DeleteModalStyle.DeleteModalCancelBtn onClick={cancelBtnClick}>
+      <S.DeleteModalBack>
+        <S.DeleteModalBox>
+          <S.DeleteModalText>게시글을 삭제 하시겠습니까?</S.DeleteModalText>
+          <S.DeleteModalBtnBox>
+            <S.DeleteModalCancelBtn onClick={cancelBtnClick}>
               취소
-            </DeleteModalStyle.DeleteModalCancelBtn>
-            <DeleteModalStyle.DeleteModalConfirmBtn onClick={clickConfirmBtn}>
+            </S.DeleteModalCancelBtn>
+            <S.DeleteModalConfirmBtn onClick={clickConfirmBtn}>
               삭제
-            </DeleteModalStyle.DeleteModalConfirmBtn>
-          </DeleteModalStyle.DeleteModalBtnBox>
-        </DeleteModalStyle.DeleteModalBox>
-      </DeleteModalStyle.DeleteModalBack>
+            </S.DeleteModalConfirmBtn>
+          </S.DeleteModalBtnBox>
+        </S.DeleteModalBox>
+      </S.DeleteModalBack>
       {deletePostIsLoading && (
         <Loading>
           <PulseLoader color="black" size={20} />

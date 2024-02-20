@@ -1,5 +1,5 @@
 import { useState } from "react";
-import * as ProfileImgUploadModalStyle from "../styles/components/ProfileImgUploadStyle";
+import * as S from "../styles/components/ProfileImgUpload.style";
 import { updateProfile } from "firebase/auth";
 import { authService, dbService, storageService } from "../reactfbase";
 import { useRecoilState } from "recoil";
@@ -7,7 +7,7 @@ import { userAtom } from "../recoils/UserAtom";
 import { v4 as uuidv4 } from "uuid";
 import { getDownloadURL, ref, uploadString } from "firebase/storage";
 import { PulseLoader } from "react-spinners";
-import { Loading } from "../styles/components/LoadingStyle";
+import { Loading } from "../styles/components/Loading.style";
 import {
   collection,
   doc,
@@ -83,28 +83,26 @@ const ProfileImgUploadModal = ({ setIsProfileImgUploadModal }) => {
 
   return (
     <>
-      <ProfileImgUploadModalStyle.ProfileImgUploadModalBack>
-        <ProfileImgUploadModalStyle.ProfileImgUploadModalBox>
-          <ProfileImgUploadModalStyle.UploadImgBox>
-            <ProfileImgUploadModalStyle.UploadImg>
+      <S.ProfileImgUploadModalBack>
+        <S.ProfileImgUploadModalBox>
+          <S.UploadImgBox>
+            <S.UploadImg>
               {profileImgUploadUrl ? (
                 <>
                   <img src={profileImgUploadUrl} alt="uploadProfileImg" />
-                  <ProfileImgUploadModalStyle.UploadImgCancelBtn
-                    onClick={onclickUploadImgCancel}
-                  >
+                  <S.UploadImgCancelBtn onClick={onclickUploadImgCancel}>
                     <span className="material-symbols-outlined">close</span>
-                  </ProfileImgUploadModalStyle.UploadImgCancelBtn>
+                  </S.UploadImgCancelBtn>
                 </>
               ) : (
                 <>
                   <span className="material-symbols-outlined">person</span>
-                  <ProfileImgUploadModalStyle.SelectImgBtn htmlFor="imgUploadInput">
+                  <S.SelectImgBtn htmlFor="imgUploadInput">
                     <span className="material-symbols-outlined">
                       photo_camera
                     </span>
-                  </ProfileImgUploadModalStyle.SelectImgBtn>
-                  <ProfileImgUploadModalStyle.ProfileImgUploadInput
+                  </S.SelectImgBtn>
+                  <S.ProfileImgUploadInput
                     type="file"
                     accept="image/*"
                     id="imgUploadInput"
@@ -112,26 +110,22 @@ const ProfileImgUploadModal = ({ setIsProfileImgUploadModal }) => {
                   />
                 </>
               )}
-            </ProfileImgUploadModalStyle.UploadImg>
-          </ProfileImgUploadModalStyle.UploadImgBox>
-          <ProfileImgUploadModalStyle.ProfileImgUploadModalBtnBox>
-            <ProfileImgUploadModalStyle.CancelBtn
-              onClick={onclickCancelUploadModal}
-            >
+            </S.UploadImg>
+          </S.UploadImgBox>
+          <S.ProfileImgUploadModalBtnBox>
+            <S.CancelBtn onClick={onclickCancelUploadModal}>
               <span className="material-symbols-outlined">close</span>
-            </ProfileImgUploadModalStyle.CancelBtn>
+            </S.CancelBtn>
 
-            <ProfileImgUploadModalStyle.UploadImgBtn onClick={profileImgUpload}>
-              변경
-            </ProfileImgUploadModalStyle.UploadImgBtn>
-          </ProfileImgUploadModalStyle.ProfileImgUploadModalBtnBox>
+            <S.UploadImgBtn onClick={profileImgUpload}>변경</S.UploadImgBtn>
+          </S.ProfileImgUploadModalBtnBox>
           {profileImgUploadIsLoading && (
             <Loading>
               <PulseLoader color="black" size={20} />
             </Loading>
           )}
-        </ProfileImgUploadModalStyle.ProfileImgUploadModalBox>
-      </ProfileImgUploadModalStyle.ProfileImgUploadModalBack>
+        </S.ProfileImgUploadModalBox>
+      </S.ProfileImgUploadModalBack>
     </>
   );
 };

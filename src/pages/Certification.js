@@ -1,5 +1,5 @@
 import { useState } from "react";
-import * as CertificationStyle from "../styles/pages/CertificationStyle";
+import * as S from "../styles/pages/Certification.style";
 import { useCallback } from "react";
 import { useNavigate } from "react-router-dom";
 import { useRecoilState } from "recoil";
@@ -87,165 +87,151 @@ const Certification = () => {
     });
   };
   return (
-    <CertificationStyle.CertificationBack>
-      <CertificationStyle.CertificationFormBox>
-        <CertificationStyle.CertificationItemBox>
-          <CertificationStyle.CompanyNameLabel htmlFor="companyname">
-            회사명
-          </CertificationStyle.CompanyNameLabel>
-          <CertificationStyle.CompanyNameInput
+    <S.CertificationBack>
+      <S.CertificationFormBox>
+        <S.CertificationItemBox>
+          <S.CompanyNameLabel htmlFor="companyname">회사명</S.CompanyNameLabel>
+          <S.CompanyNameInput
             id="companyname"
             value={inputCompanyName}
             type="text"
             placeholder="회사명을 입력해주세요."
             onChange={onchangeInputText}
           />
-        </CertificationStyle.CertificationItemBox>
-        <CertificationStyle.CertificationItemBox>
-          <CertificationStyle.CeoNameLabel htmlFor="name">
-            이름
-          </CertificationStyle.CeoNameLabel>
-          <CertificationStyle.CeoNameInput
+        </S.CertificationItemBox>
+        <S.CertificationItemBox>
+          <S.CeoNameLabel htmlFor="name">이름</S.CeoNameLabel>
+          <S.CeoNameInput
             id="name"
             value={inputName}
             type="text"
             placeholder="대표님 이름을 적어주세요."
             onChange={onchangeInputText}
           />
-        </CertificationStyle.CertificationItemBox>
-        <CertificationStyle.CertificationItemBox>
-          <CertificationStyle.CeoEmailInputTitleBox>
-            <CertificationStyle.CeoEmailLabel htmlFor="email">
-              이메일
-            </CertificationStyle.CeoEmailLabel>
-          </CertificationStyle.CeoEmailInputTitleBox>
-          <CertificationStyle.CeoEmailInput
+        </S.CertificationItemBox>
+        <S.CertificationItemBox>
+          <S.CeoEmailInputTitleBox>
+            <S.CeoEmailLabel htmlFor="email">이메일</S.CeoEmailLabel>
+          </S.CeoEmailInputTitleBox>
+          <S.CeoEmailInput
             id="email"
             value={inputEmail}
             type="text"
             placeholder="회사 이메일 또는 대표님 이메일을 적어주세요."
             onChange={onchangeInputText}
           />
-        </CertificationStyle.CertificationItemBox>
-        <CertificationStyle.CertificationItemBox>
-          <CertificationStyle.CeoPhoneNumberInputTitleBox>
-            <CertificationStyle.CeoPhoneNumberLabel htmlFor="phonenumber">
+        </S.CertificationItemBox>
+        <S.CertificationItemBox>
+          <S.CeoPhoneNumberInputTitleBox>
+            <S.CeoPhoneNumberLabel htmlFor="phonenumber">
               휴대폰 번호
-            </CertificationStyle.CeoPhoneNumberLabel>
-          </CertificationStyle.CeoPhoneNumberInputTitleBox>
+            </S.CeoPhoneNumberLabel>
+          </S.CeoPhoneNumberInputTitleBox>
 
-          <CertificationStyle.CeoPhoneNumberInput
+          <S.CeoPhoneNumberInput
             id="phonenumber"
             value={inputPhoneNumber}
             type="number"
             placeholder="대표님 휴대폰 전화번호를 적어주세요. - 빼고 입력 해주세요."
             onChange={onchangeInputText}
           />
-        </CertificationStyle.CertificationItemBox>
+        </S.CertificationItemBox>
 
-        <CertificationStyle.BusinessCategoryBox>
-          <CertificationStyle.BusinessCategoryTitle>
-            업종 선택
-          </CertificationStyle.BusinessCategoryTitle>
-          <CertificationStyle.BusinessCategoryItemBox>
-            <CertificationStyle.BusinessCategoryLabel
+        <S.BusinessCategoryBox>
+          <S.BusinessCategoryTitle>업종 선택</S.BusinessCategoryTitle>
+          <S.BusinessCategoryItemBox>
+            <S.BusinessCategoryLabel
               htmlFor="cafe"
               currentSelectCategory={
                 currentSelectCategory === "cafe" ? "black" : ""
               }
             >
               카페 <span className="material-symbols-outlined">local_cafe</span>
-              <CertificationStyle.BusinessCategoryInput
+              <S.BusinessCategoryInput
                 id="cafe"
                 name="category"
                 type="radio"
                 onChange={onchangeSelectCategory}
               />
-            </CertificationStyle.BusinessCategoryLabel>
-            <CertificationStyle.BusinessCategoryLabel
+            </S.BusinessCategoryLabel>
+            <S.BusinessCategoryLabel
               htmlFor="food"
               currentSelectCategory={
                 currentSelectCategory === "food" ? "black" : ""
               }
             >
               음식 <span className="material-symbols-outlined">restaurant</span>
-              <CertificationStyle.BusinessCategoryInput
+              <S.BusinessCategoryInput
                 id="food"
                 name="category"
                 type="radio"
                 onChange={onchangeSelectCategory}
               />
-            </CertificationStyle.BusinessCategoryLabel>
-            <CertificationStyle.BusinessCategoryLabel
+            </S.BusinessCategoryLabel>
+            <S.BusinessCategoryLabel
               htmlFor="mart"
               currentSelectCategory={
                 currentSelectCategory === "mart" ? "black" : ""
               }
             >
               마트 <span className="material-symbols-outlined">storefront</span>
-              <CertificationStyle.BusinessCategoryInput
+              <S.BusinessCategoryInput
                 id="mart"
                 name="category"
                 type="radio"
                 onChange={onchangeSelectCategory}
               />
-            </CertificationStyle.BusinessCategoryLabel>
-          </CertificationStyle.BusinessCategoryItemBox>
-        </CertificationStyle.BusinessCategoryBox>
-        <CertificationStyle.PostUploadImageBox>
-          <CertificationStyle.ImgFileSelectTitle>
-            이미지 추가하기
-          </CertificationStyle.ImgFileSelectTitle>
+            </S.BusinessCategoryLabel>
+          </S.BusinessCategoryItemBox>
+        </S.BusinessCategoryBox>
+        <S.PostUploadImageBox>
+          <S.ImgFileSelectTitle>이미지 추가하기</S.ImgFileSelectTitle>
 
-          <CertificationStyle.ImgFileSelectInput
+          <S.ImgFileSelectInput
             id="imageUploadInput"
             type="file"
             accept="image/*"
             onChange={onchangeCertificationImageUpload}
           />
-          <CertificationStyle.SelectImgBox>
-            <CertificationStyle.UploadEmptyImg htmlFor="imageUploadInput">
+          <S.SelectImgBox>
+            <S.UploadEmptyImg htmlFor="imageUploadInput">
               <span className="material-symbols-outlined">
                 create_new_folder
               </span>
-            </CertificationStyle.UploadEmptyImg>
+            </S.UploadEmptyImg>
             {certificationImageUrl &&
               certificationImageUrl.map((item) => {
                 return (
-                  <CertificationStyle.ImgItem>
-                    <CertificationStyle.UploadImg src={item} alt="uploadImg" />
-                    <CertificationStyle.UploadImgDeleteBtn
+                  <S.ImgItem>
+                    <S.UploadImg src={item} alt="uploadImg" />
+                    <S.UploadImgDeleteBtn
                       type="button"
                       onClick={() => onclickImageDeleteBtn(item)}
                     >
                       <span className="material-symbols-outlined">close</span>
-                    </CertificationStyle.UploadImgDeleteBtn>
-                  </CertificationStyle.ImgItem>
+                    </S.UploadImgDeleteBtn>
+                  </S.ImgItem>
                 );
               })}
-          </CertificationStyle.SelectImgBox>
-        </CertificationStyle.PostUploadImageBox>
-        <CertificationStyle.IntroduceBox>
-          <CertificationStyle.IntroduceTitle htmlFor="introduce">
-            매장 소개 글
-          </CertificationStyle.IntroduceTitle>
-          <CertificationStyle.IntroduceTextInput
+          </S.SelectImgBox>
+        </S.PostUploadImageBox>
+        <S.IntroduceBox>
+          <S.IntroduceTitle htmlFor="introduce">매장 소개 글</S.IntroduceTitle>
+          <S.IntroduceTextInput
             id="introduce"
             placeholder="매장 소개글을 작성해주세요."
             type="text"
             value={inputIntroduce}
             onChange={onchangeInputText}
           />
-        </CertificationStyle.IntroduceBox>
-        <CertificationStyle.CertificationBtnBox>
-          <CertificationStyle.CertificationSubmitBtn
-            onClick={onclickCompleteBtn}
-          >
+        </S.IntroduceBox>
+        <S.CertificationBtnBox>
+          <S.CertificationSubmitBtn onClick={onclickCompleteBtn}>
             완료
-          </CertificationStyle.CertificationSubmitBtn>
-        </CertificationStyle.CertificationBtnBox>
-      </CertificationStyle.CertificationFormBox>
-    </CertificationStyle.CertificationBack>
+          </S.CertificationSubmitBtn>
+        </S.CertificationBtnBox>
+      </S.CertificationFormBox>
+    </S.CertificationBack>
   );
 };
 
