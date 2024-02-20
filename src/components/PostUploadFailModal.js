@@ -1,26 +1,24 @@
-import * as PostUploadFailModalStyle from "../styles/components/PostUploadFailModalStyle";
+import * as S from "../styles/components/PostUploadFailModal.style";
 const PostUploadFailModal = ({ failText, setIsPostUploadFailModal }) => {
   const onclickConfirmBtn = () => {
     setIsPostUploadFailModal((prev) => !prev);
     document.body.style.overflow = "";
   };
   return (
-    <PostUploadFailModalStyle.PostUploadFailModalBack>
-      <PostUploadFailModalStyle.PostUploadFailModalBox>
-        <PostUploadFailModalStyle.PostUploadFailModalTextBox>
-          <PostUploadFailModalStyle.PostUploadFailModalFailText>
+    <S.PostUploadFailModalBack>
+      <S.PostUploadFailModalBox>
+        <S.PostUploadFailModalTextBox>
+          <S.PostUploadFailModalFailText>
             {failText}
-          </PostUploadFailModalStyle.PostUploadFailModalFailText>
-        </PostUploadFailModalStyle.PostUploadFailModalTextBox>
-        <PostUploadFailModalStyle.PostUploadFailModalBtnBox>
-          <PostUploadFailModalStyle.PostUploadFailModalConfirmBtn
-            onClick={onclickConfirmBtn}
-          >
+          </S.PostUploadFailModalFailText>
+        </S.PostUploadFailModalTextBox>
+        <S.PostUploadFailModalBtnBox>
+          <S.PostUploadFailModalConfirmBtn onClick={onclickConfirmBtn}>
             확인
-          </PostUploadFailModalStyle.PostUploadFailModalConfirmBtn>
-        </PostUploadFailModalStyle.PostUploadFailModalBtnBox>
-      </PostUploadFailModalStyle.PostUploadFailModalBox>
-    </PostUploadFailModalStyle.PostUploadFailModalBack>
+          </S.PostUploadFailModalConfirmBtn>
+        </S.PostUploadFailModalBtnBox>
+      </S.PostUploadFailModalBox>
+    </S.PostUploadFailModalBack>
   );
 };
 

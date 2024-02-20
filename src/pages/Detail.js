@@ -1,4 +1,4 @@
-import * as DetailStyle from "../styles/pages/DetailStyle";
+import * as S from "../styles/pages/Detail.style";
 import { useRecoilValue } from "recoil";
 import { clickPostItemData, userAtom } from "../recoils/UserAtom";
 import PostMap from "../components/PostMap";
@@ -10,7 +10,7 @@ import { doc, getDoc, updateDoc } from "firebase/firestore";
 import { dbService } from "../reactfbase";
 import PostDeleteModal from "../components/PostDeleteModal";
 import ReportModal from "../components/ReportModal";
-import { Loading } from "../styles/components/LoadingStyle";
+import { Loading } from "../styles/components/Loading.style";
 import { PulseLoader } from "react-spinners";
 import { useMutation, useQuery, useQueryClient } from "@tanstack/react-query";
 // =============================================== 디테일 페이지 ================================================
@@ -46,7 +46,7 @@ const Detail = () => {
   // 서버에 데이터를 요청하는 쿼리
   const { data: detailData, isLoading: getDetailDataIsLoading } = useQuery({
     queryKey: ["detailData"],
-    getDetailData,
+    queryFn: getDetailData,
   });
 
   // 사용자가 올린 게시글의 사진의 개수글 가지고 이미지가 보여지는 화면의 최대 width px 을 계산하여 그 값을 저장하는 변수
@@ -126,25 +126,25 @@ const Detail = () => {
     queryClient.invalidateQueries(["detailData"]);
   };
   // 좋아요 클릭하면 호출되는 쿼리
-  const { mutate: clickLike } = useMutation(onclickLike, {});
+  const { mutate: clickLike } = useMutation({ queryFn: onclickLike });
 
   return (
     <>
-      <DetailStyle.DetailBack>
-        <DetailStyle.DetailBox>
-          <DetailStyle.DetailTitleBox>
-            <DetailStyle.DetailTitleText>
-              <DetailStyle.DetailWriterImgBox>
+      <S.DetailBack>
+        <S.DetailBox>
+          <S.DetailTitleBox>
+            <S.DetailTitleText>
+              <S.DetailWriterImgBox>
                 {detailData && detailData.writerProfileImg ? (
                   <img src={detailData.writerProfileImg} alt="writerImg" />
                 ) : (
                   <span className="material-symbols-outlined">person</span>
                 )}
-              </DetailStyle.DetailWriterImgBox>
+              </S.DetailWriterImgBox>
               {detailData && detailData.nickname} 님의 게시물
-            </DetailStyle.DetailTitleText>
-            <DetailStyle.DetailTitleBoxRight>
-              <DetailStyle.DetailBtn
+            </S.DetailTitleText>
+            <S.DetailTitleBoxRight>
+              <S.DetailBtn
                 onClick={clickLike}
                 isLike={
                   detailData && user && detailData.likeMember.includes(user.uid)
@@ -152,43 +152,41 @@ const Detail = () => {
               >
                 <span className="material-symbols-outlined">favorite</span>
                 <span>{detailData && detailData.likeNumber}</span>
-              </DetailStyle.DetailBtn>
-              <DetailStyle.DetailBtnBox>
+              </S.DetailBtn>
+              <S.DetailBtnBox>
                 {detailData && user && detailData.writer === user.uid && (
                   <>
-                    <DetailStyle.DetailBtn
-                      onClick={() => onclickDeleteBtn(data)}
-                    >
+                    <S.DetailBtn onClick={() => onclickDeleteBtn(data)}>
                       <span className="material-symbols-outlined">delete</span>
-                    </DetailStyle.DetailBtn>
-                    <DetailStyle.DetailBtn onClick={() => onclickEditBtn(data)}>
+                    </S.DetailBtn>
+                    <S.DetailBtn onClick={() => onclickEditBtn(data)}>
                       <span className="material-symbols-outlined">edit</span>
-                    </DetailStyle.DetailBtn>
+                    </S.DetailBtn>
                   </>
                 )}
-                <DetailStyle.DetailBtn onClick={onclickReportBtn}>
+                <S.DetailBtn onClick={onclickReportBtn}>
                   <span className="material-symbols-outlined">problem</span>
-                </DetailStyle.DetailBtn>
-              </DetailStyle.DetailBtnBox>
-              <DetailStyle.DetailTitleText>
+                </S.DetailBtn>
+              </S.DetailBtnBox>
+              <S.DetailTitleText>
                 {detailData && calculateTime(detailData)} /
-              </DetailStyle.DetailTitleText>
-              <DetailStyle.DetailTitleText>
+              </S.DetailTitleText>
+              <S.DetailTitleText>
                 {detailData && detailData.category}
-              </DetailStyle.DetailTitleText>
-            </DetailStyle.DetailTitleBoxRight>
-          </DetailStyle.DetailTitleBox>
+              </S.DetailTitleText>
+            </S.DetailTitleBoxRight>
+          </S.DetailTitleBox>
 
-          <DetailStyle.DetailPostNameBox>
-            <DetailStyle.DetailItemTitle>매장 이름</DetailStyle.DetailItemTitle>
-            <DetailStyle.DetailPostName>
+          <S.DetailPostNameBox>
+            <S.DetailItemTitle>매장 이름</S.DetailItemTitle>
+            <S.DetailPostName>
               {detailData && detailData.postName}
-            </DetailStyle.DetailPostName>
-          </DetailStyle.DetailPostNameBox>
-          {/* <DetailStyle.DetailTitleBox>자세한 사진</DetailStyle.DetailTitleBox> */}
+            </S.DetailPostName>
+          </S.DetailPostNameBox>
+          {/* <S.DetailTitleBox>자세한 사진</S.DetailTitleBox> */}
           {detailData && Array.isArray(detailData.uploadImgUrl) ? (
-            <DetailStyle.DetailImgsBox>
-              <DetailStyle.ImgsContainer
+            <S.DetailImgsBox>
+              <S.ImgsContainer
                 detailImgBoxPx={detailImgBoxPx}
                 imgsMaxPx={imgsMaxPx}
               >
@@ -196,40 +194,38 @@ const Detail = () => {
                   detailData.uploadImgUrl.map((item, index) => {
                     return <img key={index} src={item} alt="게시글 이미지" />;
                   })}
-              </DetailStyle.ImgsContainer>
-              <DetailStyle.DetailImgPrevBtn
+              </S.ImgsContainer>
+              <S.DetailImgPrevBtn
                 onClick={onclickPrevBtn}
                 detailImgBoxPx={detailImgBoxPx}
               >
                 <span className="material-symbols-outlined">chevron_left</span>
-              </DetailStyle.DetailImgPrevBtn>
-              <DetailStyle.DetailImgNextBtn
+              </S.DetailImgPrevBtn>
+              <S.DetailImgNextBtn
                 onClick={onclickNextBtn}
                 detailImgBoxPx={detailImgBoxPx}
                 imgsMaxPx={imgsMaxPx}
               >
                 <span className="material-symbols-outlined">chevron_right</span>
-              </DetailStyle.DetailImgNextBtn>
-            </DetailStyle.DetailImgsBox>
+              </S.DetailImgNextBtn>
+            </S.DetailImgsBox>
           ) : (
-            <DetailStyle.DetailImgBox>
+            <S.DetailImgBox>
               <img
                 src={detailData && detailData.uploadImgUrl}
                 alt="게시글 이미지"
               />
-            </DetailStyle.DetailImgBox>
+            </S.DetailImgBox>
           )}
 
-          <DetailStyle.DetailMainText>
-            <DetailStyle.DetailItemTitle>
-              자세한 내용
-            </DetailStyle.DetailItemTitle>
+          <S.DetailMainText>
+            <S.DetailItemTitle>자세한 내용</S.DetailItemTitle>
             {detailData && detailData.inputText}
-          </DetailStyle.DetailMainText>
-          <DetailStyle.DetailMap>
-            <DetailStyle.DetailItemTitle>위치</DetailStyle.DetailItemTitle>
+          </S.DetailMainText>
+          <S.DetailMap>
+            <S.DetailItemTitle>위치</S.DetailItemTitle>
             {detailData && <PostMap data={detailData} />}
-          </DetailStyle.DetailMap>
+          </S.DetailMap>
           {detailData && (
             <Comments
               dataId={data.id}
@@ -237,8 +233,8 @@ const Detail = () => {
               getDetailData={getDetailData}
             />
           )}
-        </DetailStyle.DetailBox>
-      </DetailStyle.DetailBack>
+        </S.DetailBox>
+      </S.DetailBack>
       {isPostDeleteModal && (
         <PostDeleteModal
           setIsPostDeleteModal={setIsPostDeleteModal}

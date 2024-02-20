@@ -1,10 +1,10 @@
 import { useCallback, useState } from "react";
 import { authService } from "../reactfbase";
 import { signInWithEmailAndPassword } from "firebase/auth";
-import * as LoginStyle from "../styles/components/LoginStyle";
+import * as S from "../styles/components/Login.style";
 import { useNavigate } from "react-router-dom";
 import LoginFailModal from "./LoginFailModal";
-import { Loading } from "../styles/components/LoadingStyle";
+import { Loading } from "../styles/components/Loading.style";
 import { PulseLoader } from "react-spinners";
 import { useMutation } from "@tanstack/react-query";
 const Login = () => {
@@ -47,8 +47,8 @@ const Login = () => {
   });
   return (
     <>
-      <LoginStyle.LoginForm onSubmit={submitLogin}>
-        <LoginStyle.LoginFormInput
+      <S.LoginForm onSubmit={submitLogin}>
+        <S.LoginFormInput
           name="email"
           type="email"
           placeholder="아이디를 입력하세요.(이메일)"
@@ -56,7 +56,7 @@ const Login = () => {
           required
           onChange={onchangeInput}
         />
-        <LoginStyle.LoginFormInput
+        <S.LoginFormInput
           name="password"
           type="password"
           placeholder="비밀번호를 입력 하세요."
@@ -64,8 +64,8 @@ const Login = () => {
           required
           onChange={onchangeInput}
         />
-        <LoginStyle.LoginBtn type="submit">로그인</LoginStyle.LoginBtn>
-      </LoginStyle.LoginForm>
+        <S.LoginBtn type="submit">로그인</S.LoginBtn>
+      </S.LoginForm>
       {isLoginFailModal && (
         <LoginFailModal setIsLoginFailModal={setIsLoginFailModal} />
       )}

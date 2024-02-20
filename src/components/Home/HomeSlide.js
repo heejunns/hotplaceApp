@@ -1,4 +1,4 @@
-import * as HomeSlideStyle from "../../styles/components/Home/HomeSlideStyle";
+import * as S from "../../styles/components/Home/HomeSlide.style";
 import { collection, getDocs, limit, orderBy, query } from "firebase/firestore";
 import { dbService } from "../../reactfbase";
 import { memo, useEffect, useRef, useState } from "react";
@@ -27,7 +27,7 @@ const HomeSlide = () => {
   };
   const { data: homeSlideData } = useQuery({
     queryKey: ["homeSlideData"],
-    getHomeSlideData,
+    queryFn: getHomeSlideData,
   });
 
   let imgArr = homeSlideData && [
@@ -68,26 +68,26 @@ const HomeSlide = () => {
   }, []);
 
   return (
-    <HomeSlideStyle.HomeSlideBack>
-      <HomeSlideStyle.HomeSlideBox
+    <S.HomeSlideBack>
+      <S.HomeSlideBox
         ref={homeSlideBoxRef}
         currentNum={currentNum}
         width={width}
       >
         {imgArr &&
           imgArr.map((item, index) => (
-            <HomeSlideStyle.HomeSlideItem key={index}>
+            <S.HomeSlideItem key={index}>
               <img src={item.uploadImgUrl} alt="homeslide" />
-              <HomeSlideStyle.HomeSlideText>
+              <S.HomeSlideText>
                 모두에게 자신의 핫플레이스가 있습니다.
-              </HomeSlideStyle.HomeSlideText>
-              <HomeSlideStyle.HomeSlideText>
+              </S.HomeSlideText>
+              <S.HomeSlideText>
                 우리가 만들어가는 핫플레이스 우리동네핫플
-              </HomeSlideStyle.HomeSlideText>
-            </HomeSlideStyle.HomeSlideItem>
+              </S.HomeSlideText>
+            </S.HomeSlideItem>
           ))}
-      </HomeSlideStyle.HomeSlideBox>
-    </HomeSlideStyle.HomeSlideBack>
+      </S.HomeSlideBox>
+    </S.HomeSlideBack>
   );
 };
 

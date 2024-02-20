@@ -5,8 +5,8 @@ import { dbService } from "../reactfbase";
 import { v4 as uuidv4 } from "uuid";
 import { useRecoilValue } from "recoil";
 import { userAtom } from "../recoils/UserAtom";
-import * as CommentStyle from "../styles/components/CommentStyle";
-import { Loading } from "../styles/components/LoadingStyle";
+import * as S from "../styles/components/Comment.style";
+import { Loading } from "../styles/components/Loading.style";
 import { PulseLoader } from "react-spinners";
 import { useMutation, useQueryClient } from "@tanstack/react-query";
 
@@ -44,40 +44,33 @@ const Comment = ({ data, dataId, getDetailData }) => {
 
   const { mutate: clickCommentSubmit, isLoading: commentSubmitIsLoading } =
     useMutation({
-      onclickCommentSubmit,
-      ...{
-        onSuccess: () => {
-          queryClient.invalidateQueries(["detailData"]);
-        },
+      queryFn: onclickCommentSubmit,
+      onSuccess: () => {
+        queryClient.invalidateQueries(["detailData"]);
       },
     });
 
   return (
     <>
-      <CommentStyle.CommentBack>
-        <CommentStyle.CommentTitleBox>
-          <CommentStyle.CommentTitle>댓글</CommentStyle.CommentTitle>
-          <CommentStyle.CommentInputLimit>
-            <CommentStyle.CommentInputLen>
-              {commentInput.length}
-            </CommentStyle.CommentInputLen>
-            / 100
-          </CommentStyle.CommentInputLimit>
-        </CommentStyle.CommentTitleBox>
-        <CommentStyle.CommentForm onSubmit={clickCommentSubmit}>
-          <CommentStyle.CommentInput
+      <S.CommentBack>
+        <S.CommentTitleBox>
+          <S.CommentTitle>댓글</S.CommentTitle>
+          <S.CommentInputLimit>
+            <S.CommentInputLen>{commentInput.length}</S.CommentInputLen>/ 100
+          </S.CommentInputLimit>
+        </S.CommentTitleBox>
+        <S.CommentForm onSubmit={clickCommentSubmit}>
+          <S.CommentInput
             type="text"
             placeholder="댓글을 입력하세요."
             value={commentInput}
             onChange={onchangeCommentInput}
           />
-          <CommentStyle.CommentSubmitButton>
-            등록
-          </CommentStyle.CommentSubmitButton>
-        </CommentStyle.CommentForm>
-        <CommentStyle.CommentBox>
+          <S.CommentSubmitButton>등록</S.CommentSubmitButton>
+        </S.CommentForm>
+        <S.CommentBox>
           {data.comments.length === 0 ? (
-            <CommentStyle.NoComment>댓글없음</CommentStyle.NoComment>
+            <S.NoComment>댓글없음</S.NoComment>
           ) : (
             data.comments.map((commentInfo, index) => {
               return (
@@ -91,8 +84,8 @@ const Comment = ({ data, dataId, getDetailData }) => {
               );
             })
           )}
-        </CommentStyle.CommentBox>
-      </CommentStyle.CommentBack>
+        </S.CommentBox>
+      </S.CommentBack>
       {commentSubmitIsLoading && (
         <Loading>
           <PulseLoader color="black" size={20} />

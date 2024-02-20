@@ -8,7 +8,7 @@ import {
   limit,
   where,
 } from "firebase/firestore";
-import * as HomeStyle from "../styles/pages/HomeStyle";
+import * as S from "../styles/pages/Home.style";
 import PostItem from "../components/Home/PostItem";
 import TopPost from "../components/Home/TopPost";
 import SelectSortDropBox from "../components/SelectSortDropBox";
@@ -21,7 +21,7 @@ import {
   firebaseInitialize,
   userLocation,
 } from "../recoils/UserAtom";
-import { Loading } from "../styles/components/LoadingStyle";
+import { Loading } from "../styles/components/Loading.style";
 import { PulseLoader } from "react-spinners";
 import { useQuery } from "@tanstack/react-query";
 
@@ -80,9 +80,10 @@ const Home = () => {
       console.log(e);
     }
   };
-  const { data: postData } = useQuery(["postData", currentSelectSort], () =>
-    getPostData(currentSelectSort)
-  ); // stale 타임 0.5 초, cache 타임 1 초
+  const { data: postData } = useQuery({
+    queryKey: ["postData", currentSelectSort],
+    queryFn: () => getPostData(currentSelectSort),
+  }); // stale 타임 0.5 초, cache 타임 1 초
   console.log("전체 데이터", postData);
   // ===========================
 
@@ -122,7 +123,7 @@ const Home = () => {
     }
     return queryContent;
   };
-  // 쿼리 함수
+  // 쿼리 함수, 현재 사용자가 보고 있는 현재 데이터를 가져오는 함수
   const getCurrentData = async (currentSelectSort, currentPage) => {
     try {
       let q = queryMakePageHandler(currentSelectSort, currentPage);
@@ -136,21 +137,19 @@ const Home = () => {
       console.log(e);
     }
   };
-  // 쿼리 코드
+  // 현재 사용자가 보고 있는 페이지의 데이터를 서버에서 가져오는 쿼리 코드
   const { data: currentData, isLoading: currentDataIsLoading } = useQuery({
     queryKey: ["pageHandle", currentSelectSort, currentPage],
     queryFn: () => getCurrentData(currentSelectSort, currentPage),
-    options: {
-      enabled: !!postData,
-      keepPreviousData: true,
-    },
+    enabled: !!postData,
+    keepPreviousData: true,
   });
   console.log("현재 데이터", currentData);
   // =======================
   return (
     <>
       <HomeSlide />
-      <HomeStyle.HomeContainer>
+      <S.HomeContainer>
         <TopPost />
         <SelectSortDropBox />
         {firebaseInitial && currentDataIsLoading ? (
@@ -158,21 +157,21 @@ const Home = () => {
             <PulseLoader color="black" size={20} />
           </Loading>
         ) : currentData && currentData.length === 0 ? (
-          <HomeStyle.EmptyPost>현재 게시물이 없습니다.</HomeStyle.EmptyPost>
+          <S.EmptyPost>현재 게시물이 없습니다.</S.EmptyPost>
         ) : (
           <>
-            <HomeStyle.AllPostBox>
+            <S.AllPostBox>
               {currentData &&
                 currentData.map((data, index) => {
                   return <PostItem key={index} data={data} />;
                 })}
-            </HomeStyle.AllPostBox>
+            </S.AllPostBox>
             {postData && currentData && (
               <PageNation currentData={currentData} postData={postData} />
             )}
           </>
         )}
-      </HomeStyle.HomeContainer>
+      </S.HomeContainer>
     </>
   );
 };

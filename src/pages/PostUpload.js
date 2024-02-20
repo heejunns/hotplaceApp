@@ -8,8 +8,8 @@ import Map from "../components/Map";
 import { useNavigate } from "react-router-dom";
 import { currentPageAtom, userAtom, userLocation } from "../recoils/UserAtom";
 import { useRecoilState, useRecoilValue } from "recoil";
-import * as PostUploadStyle from "../styles/pages/PostUploadStyle";
-import { Loading } from "../styles/components/LoadingStyle";
+import * as S from "../styles/pages/PostUpload.style";
+import { Loading } from "../styles/components/Loading.style";
 import { PulseLoader } from "react-spinners";
 import axios from "axios";
 import PostUploadFailModal from "../components/PostUploadFailModal";
@@ -172,72 +172,66 @@ const PostUpload = () => {
   }, []);
   return (
     <>
-      <PostUploadStyle.PostUploadBack>
-        <PostUploadStyle.PostUploadFormContainer onSubmit={submitBtnClick}>
-          <PostUploadStyle.PostUploadPostNameBox>
-            <PostUploadStyle.PostUploadPostNameTitleBox>
-              <PostUploadStyle.PostUploadPostNameTitle>
-                매장 이름
-              </PostUploadStyle.PostUploadPostNameTitle>
+      <S.PostUploadBack>
+        <S.PostUploadFormContainer onSubmit={submitBtnClick}>
+          <S.PostUploadPostNameBox>
+            <S.PostUploadPostNameTitleBox>
+              <S.PostUploadPostNameTitle>매장 이름</S.PostUploadPostNameTitle>
               <span>
-                <PostUploadStyle.InputTextCurrentNumber>
+                <S.InputTextCurrentNumber>
                   {inputPostTitle.length}
-                </PostUploadStyle.InputTextCurrentNumber>{" "}
+                </S.InputTextCurrentNumber>{" "}
                 / 20
               </span>
               {inputPostTitle.length === 20 && (
-                <PostUploadStyle.InputTextLimitText>
+                <S.InputTextLimitText>
                   20 글자를 초과해서 입력 할 수 없습니다
-                </PostUploadStyle.InputTextLimitText>
+                </S.InputTextLimitText>
               )}
-            </PostUploadStyle.PostUploadPostNameTitleBox>
+            </S.PostUploadPostNameTitleBox>
 
-            <PostUploadStyle.PostUploadPostNameInput
+            <S.PostUploadPostNameInput
               type="text"
               value={inputPostTitle}
               onChange={onchangeInputPostTitle}
               placeholder="매장 이름을 작성해주세요."
             />
-          </PostUploadStyle.PostUploadPostNameBox>
-          <PostUploadStyle.PostUploadImageBox>
-            <PostUploadStyle.ImgFileSelectTitle>
-              이미지 추가하기
-            </PostUploadStyle.ImgFileSelectTitle>
+          </S.PostUploadPostNameBox>
+          <S.PostUploadImageBox>
+            <S.ImgFileSelectTitle>이미지 추가하기</S.ImgFileSelectTitle>
 
-            <PostUploadStyle.ImgFileSelectInput
+            <S.ImgFileSelectInput
               id="imageUploadInput"
               type="file"
               accept="image/*"
               onChange={onchangeImageUpload}
             />
-            <PostUploadStyle.SelectImgBox>
-              <PostUploadStyle.UploadEmptyImg htmlFor="imageUploadInput">
+            <S.SelectImgBox>
+              <S.UploadEmptyImg htmlFor="imageUploadInput">
                 <span className="material-symbols-outlined">
                   create_new_folder
                 </span>
-              </PostUploadStyle.UploadEmptyImg>
+              </S.UploadEmptyImg>
               {uploadImageFileURL &&
                 uploadImageFileURL.map((item) => {
                   return (
-                    <PostUploadStyle.ImgItem>
-                      <PostUploadStyle.UploadImg src={item} alt="uploadImg" />
-                      <PostUploadStyle.UploadImgDeleteBtn
+                    <S.ImgItem>
+                      <S.UploadImg src={item} alt="uploadImg" />
+                      <S.UploadImgDeleteBtn
                         type="button"
                         onClick={() => onclickUploadFileDelete(item)}
                       >
                         <span className="material-symbols-outlined">close</span>
-                      </PostUploadStyle.UploadImgDeleteBtn>
-                    </PostUploadStyle.ImgItem>
+                      </S.UploadImgDeleteBtn>
+                    </S.ImgItem>
                   );
                 })}
-            </PostUploadStyle.SelectImgBox>
-          </PostUploadStyle.PostUploadImageBox>
-          <PostUploadStyle.PostUploadCategoryBox>
-            <PostUploadStyle.CategoryTitle>
-              카테고리 선택
-            </PostUploadStyle.CategoryTitle>
-            <PostUploadStyle.CategoryMenuBox>
-              <PostUploadStyle.CategoryBtn
+            </S.SelectImgBox>
+          </S.PostUploadImageBox>
+          <S.PostUploadCategoryBox>
+            <S.CategoryTitle>카테고리 선택</S.CategoryTitle>
+            <S.CategoryMenuBox>
+              <S.CategoryBtn
                 htmlFor="cafe"
                 userSelectCategory={
                   userSelectCategory === "cafe" ? "black" : ""
@@ -245,14 +239,14 @@ const PostUpload = () => {
               >
                 카페{" "}
                 <span className="material-symbols-outlined">local_cafe</span>
-                <PostUploadStyle.InputCategory
+                <S.InputCategory
                   id="cafe"
                   type="radio"
                   name="category"
                   onChange={onchangeUserSelectCategory}
                 />
-              </PostUploadStyle.CategoryBtn>
-              <PostUploadStyle.CategoryBtn
+              </S.CategoryBtn>
+              <S.CategoryBtn
                 htmlFor="food"
                 userSelectCategory={
                   userSelectCategory === "food" ? "black" : ""
@@ -260,14 +254,14 @@ const PostUpload = () => {
               >
                 음식{" "}
                 <span className="material-symbols-outlined">restaurant</span>
-                <PostUploadStyle.InputCategory
+                <S.InputCategory
                   id="food"
                   type="radio"
                   name="category"
                   onChange={onchangeUserSelectCategory}
                 />
-              </PostUploadStyle.CategoryBtn>
-              <PostUploadStyle.CategoryBtn
+              </S.CategoryBtn>
+              <S.CategoryBtn
                 htmlFor="mart"
                 userSelectCategory={
                   userSelectCategory === "mart" ? "black" : ""
@@ -275,45 +269,41 @@ const PostUpload = () => {
               >
                 마트{" "}
                 <span className="material-symbols-outlined">storefront</span>
-                <PostUploadStyle.InputCategory
+                <S.InputCategory
                   id="mart"
                   type="radio"
                   name="category"
                   onChange={onchangeUserSelectCategory}
                 />
-              </PostUploadStyle.CategoryBtn>
-            </PostUploadStyle.CategoryMenuBox>
-          </PostUploadStyle.PostUploadCategoryBox>
-          <PostUploadStyle.PostUploadInputTextBox>
-            <PostUploadStyle.PostUploadInputTextBoxTitleBox>
-              <PostUploadStyle.InputTextBoxTitle>
-                자세한 설명
-              </PostUploadStyle.InputTextBoxTitle>
+              </S.CategoryBtn>
+            </S.CategoryMenuBox>
+          </S.PostUploadCategoryBox>
+          <S.PostUploadInputTextBox>
+            <S.PostUploadInputTextBoxTitleBox>
+              <S.InputTextBoxTitle>자세한 설명</S.InputTextBoxTitle>
               <span>
-                <PostUploadStyle.InputTextCurrentNumber>
+                <S.InputTextCurrentNumber>
                   {inputText.length}
-                </PostUploadStyle.InputTextCurrentNumber>{" "}
+                </S.InputTextCurrentNumber>{" "}
                 / 100
               </span>
               {inputText.length === 100 && (
-                <PostUploadStyle.InputTextLimitText>
+                <S.InputTextLimitText>
                   100 글자를 초과해서 입력 할 수 없습니다
-                </PostUploadStyle.InputTextLimitText>
+                </S.InputTextLimitText>
               )}
-            </PostUploadStyle.PostUploadInputTextBoxTitleBox>
+            </S.PostUploadInputTextBoxTitleBox>
 
-            <PostUploadStyle.InputPostText
+            <S.InputPostText
               type="text"
               value={inputText}
               onChange={onchangeInputText}
               placeholder="업로드 하고 싶은 글을 작성 해주세요."
             />
-          </PostUploadStyle.PostUploadInputTextBox>
-          <PostUploadStyle.PostUploadMapBox>
-            <PostUploadStyle.MapBoxTitle>
-              장소 등록하기
-            </PostUploadStyle.MapBoxTitle>
-            <PostUploadStyle.MapBox>
+          </S.PostUploadInputTextBox>
+          <S.PostUploadMapBox>
+            <S.MapBoxTitle>장소 등록하기</S.MapBoxTitle>
+            <S.MapBox>
               {mapStatus ? (
                 <Map setUserMarkerLocation={setUserMarkerLocation} />
               ) : (
@@ -324,14 +314,14 @@ const PostUpload = () => {
                   add_location_alt
                 </span>
               )}
-            </PostUploadStyle.MapBox>
-          </PostUploadStyle.PostUploadMapBox>
+            </S.MapBox>
+          </S.PostUploadMapBox>
           {/* <FindAddress /> */}
-          <PostUploadStyle.PostUploadSubmitBox>
-            <PostUploadStyle.SubmitBtn type="submit" value="게시글 올리기" />
-          </PostUploadStyle.PostUploadSubmitBox>
-        </PostUploadStyle.PostUploadFormContainer>
-      </PostUploadStyle.PostUploadBack>
+          <S.PostUploadSubmitBox>
+            <S.SubmitBtn type="submit" value="게시글 올리기" />
+          </S.PostUploadSubmitBox>
+        </S.PostUploadFormContainer>
+      </S.PostUploadBack>
       {submitIsLoading && (
         <Loading>
           <PulseLoader color="black" size={20} />

@@ -2,7 +2,7 @@ import React, { useCallback, useState } from "react";
 import { Link, useNavigate } from "react-router-dom";
 import { signOut, updateProfile } from "firebase/auth";
 import { authService, dbService } from "../reactfbase";
-import * as SignupStyle from "../styles/pages/SignupStyle";
+import * as S from "../styles/pages/Signup.style";
 import SignupSuccessModal from "../components/SignupSuccessModal";
 import { doc, getDoc, setDoc } from "firebase/firestore";
 import RejectSignupModal from "../components/RejectSignupModal";
@@ -130,24 +130,22 @@ const Signup = () => {
   );
   return (
     <>
-      <SignupStyle.SignupBack>
+      <S.SignupBack>
         <Link to="/">
           {" "}
-          <SignupStyle.SignupTitle>우리동네핫플</SignupStyle.SignupTitle>
+          <S.SignupTitle>우리동네핫플</S.SignupTitle>
         </Link>
-        <SignupStyle.SignupForm onSubmit={submitSignUpBtnClick}>
-          <SignupStyle.InputBox>
-            <SignupStyle.NicknameInputTitleBox>
-              <SignupStyle.InputText htmlFor="newNickname">
-                닉네임
-              </SignupStyle.InputText>
-              <SignupStyle.OverlapNicknameCheckBtn
+        <S.SignupForm onSubmit={submitSignUpBtnClick}>
+          <S.InputBox>
+            <S.NicknameInputTitleBox>
+              <S.InputText htmlFor="newNickname">닉네임</S.InputText>
+              <S.OverlapNicknameCheckBtn
                 onClick={nicknameOverlapCheckClick}
                 type="button"
               >
                 닉네임 중복확인
-              </SignupStyle.OverlapNicknameCheckBtn>
-              <SignupStyle.NicknameOverlapCheckText>
+              </S.OverlapNicknameCheckBtn>
+              <S.NicknameOverlapCheckText>
                 {isNicknameOverlap === ""
                   ? ""
                   : isNicknameOverlap === null
@@ -157,9 +155,9 @@ const Signup = () => {
                   : isNicknameOverlap === false
                   ? "입력하신 닉네임은 사용 중입니다."
                   : null}
-              </SignupStyle.NicknameOverlapCheckText>
-            </SignupStyle.NicknameInputTitleBox>
-            <SignupStyle.SignupInput
+              </S.NicknameOverlapCheckText>
+            </S.NicknameInputTitleBox>
+            <S.SignupInput
               id="newNickname"
               name="newNickname"
               type="text"
@@ -167,12 +165,10 @@ const Signup = () => {
               onChange={onchangeInput}
               placeholder="닉네임을 입력해주세요."
             />
-          </SignupStyle.InputBox>
-          <SignupStyle.InputBox>
-            <SignupStyle.InputText htmlFor="newEmail">
-              이메일
-            </SignupStyle.InputText>
-            <SignupStyle.SignupInput
+          </S.InputBox>
+          <S.InputBox>
+            <S.InputText htmlFor="newEmail">이메일</S.InputText>
+            <S.SignupInput
               id="newEmail"
               name="newEmail"
               type="email"
@@ -180,12 +176,10 @@ const Signup = () => {
               onChange={onchangeInput}
               placeholder="이메일을 입력해주세요."
             />
-          </SignupStyle.InputBox>
-          <SignupStyle.InputBox>
-            <SignupStyle.InputText htmlFor="newPassword">
-              비밀번호
-            </SignupStyle.InputText>
-            <SignupStyle.SignupInput
+          </S.InputBox>
+          <S.InputBox>
+            <S.InputText htmlFor="newPassword">비밀번호</S.InputText>
+            <S.SignupInput
               id="newPassword"
               name="newPassword"
               type="password"
@@ -193,12 +187,10 @@ const Signup = () => {
               onChange={onchangeInput}
               placeholder="비밀번호를 입력 해주세요."
             />
-          </SignupStyle.InputBox>
-          <SignupStyle.InputBox>
-            <SignupStyle.InputText htmlFor="namePasswordCheck">
-              비밀번호확인
-            </SignupStyle.InputText>
-            <SignupStyle.SignupInput
+          </S.InputBox>
+          <S.InputBox>
+            <S.InputText htmlFor="namePasswordCheck">비밀번호확인</S.InputText>
+            <S.SignupInput
               id="newPasswordCheck"
               name="newPasswordCheck"
               type="password"
@@ -207,28 +199,20 @@ const Signup = () => {
               placeholder="비밀번호 확인을 위해 다시 입력 해주세요."
             />
             {checkPasswordApproval === null ? (
-              <SignupStyle.InputText></SignupStyle.InputText>
+              <S.InputText></S.InputText>
             ) : checkPasswordApproval === false ? (
-              <SignupStyle.ErrorText>
-                비밀번호가 일치하지 않습니다.
-              </SignupStyle.ErrorText>
+              <S.ErrorText>비밀번호가 일치하지 않습니다.</S.ErrorText>
             ) : (
-              <SignupStyle.SuccessText>
-                비밀번호가 일치합니다.
-              </SignupStyle.SuccessText>
+              <S.SuccessText>비밀번호가 일치합니다.</S.SuccessText>
             )}
-          </SignupStyle.InputBox>
+          </S.InputBox>
           {/* <button onClick={navigate("/")}>로그인으로 돌아가기</button> */}
-          <SignupStyle.SignupBtnBox>
-            <SignupStyle.SignupBtn type="submit">
-              회원가입
-            </SignupStyle.SignupBtn>
-          </SignupStyle.SignupBtnBox>
-          {error ? (
-            <SignupStyle.ErrorText>{error}</SignupStyle.ErrorText>
-          ) : null}
-        </SignupStyle.SignupForm>
-      </SignupStyle.SignupBack>
+          <S.SignupBtnBox>
+            <S.SignupBtn type="submit">회원가입</S.SignupBtn>
+          </S.SignupBtnBox>
+          {error ? <S.ErrorText>{error}</S.ErrorText> : null}
+        </S.SignupForm>
+      </S.SignupBack>
       {isSignupSuccessModal && <SignupSuccessModal />}
       {isRejectSignupModal && (
         <RejectSignupModal setIsRejectSignupModal={setIsRejectSignupModal} />

@@ -9,7 +9,7 @@ import {
   userAtom,
   userLocation,
 } from "../recoils/UserAtom";
-import * as HeaderStyle from "../styles/components/HeaderStyle";
+import * as HeaderStyle from "../styles/components/Header.style";
 
 const Header = () => {
   const [currentSelectSort, setCurrentSelectSort] = useRecoilState(

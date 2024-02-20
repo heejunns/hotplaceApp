@@ -1,6 +1,6 @@
 import React, { memo, useCallback, useEffect } from "react";
-import * as MapStyle from "../styles/components/MapStyle";
-import { Loading } from "../styles/components/LoadingStyle";
+import * as S from "../styles/components/Map.style";
+import { Loading } from "../styles/components/Loading.style";
 import { PulseLoader } from "react-spinners";
 const Map = ({ setUserMarkerLocation }) => {
   const getLocation = useCallback(
@@ -84,7 +84,7 @@ const Map = ({ setUserMarkerLocation }) => {
 
   return (
     <>
-      <MapStyle.MapImage id="map">맵 불러오는 중</MapStyle.MapImage>
+      <S.MapImage id="map">맵 불러오는 중</S.MapImage>
     </>
   );
 };

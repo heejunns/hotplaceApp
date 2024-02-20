@@ -4,7 +4,8 @@ import { dbService } from "../reactfbase";
 import { userAtom } from "../recoils/UserAtom";
 import { useRecoilValue } from "recoil";
 import CommentDeleteModal from "./CommentDeleteModal";
-import * as CommentPostStyle from "../styles/components/CommentPostStyle";
+import * as S from "../styles/components/CommentPost.style";
+
 import { useMutation, useQueryClient } from "@tanstack/react-query";
 const CommentPost = ({ commentInfo, data, dataId, getDetailData }) => {
   const queryClient = useQueryClient();
@@ -51,11 +52,9 @@ const CommentPost = ({ commentInfo, data, dataId, getDetailData }) => {
   };
 
   const { mutate: likeBtnClick } = useMutation({
-    onclickLikeButton,
-    ...{
-      onSuccess: () => {
-        queryClient.invalidateQueries(["detailData"]);
-      },
+    queryFn: onclickLikeButton,
+    onSuccess: () => {
+      queryClient.invalidateQueries(["detailData"]);
     },
   });
   const onclickDeleteCommentButton = async () => {
@@ -82,26 +81,24 @@ const CommentPost = ({ commentInfo, data, dataId, getDetailData }) => {
   };
   return (
     <>
-      <CommentPostStyle.CommentItemBox>
-        <CommentPostStyle.CommentDelete onClick={onclickDeleteCommentButton}>
+      <S.CommentItemBox>
+        <S.CommentDelete onClick={onclickDeleteCommentButton}>
           {user && user.displayName === commentInfo.commentWriter && (
             <span className="material-symbols-outlined">delete</span>
           )}
-        </CommentPostStyle.CommentDelete>
-        <CommentPostStyle.CommentWriter>
+        </S.CommentDelete>
+        <S.CommentWriter>
           {commentInfo.commentWriter} / {calculateTime(commentInfo)}
-        </CommentPostStyle.CommentWriter>
-        <CommentPostStyle.CommentValue>
-          {commentInfo.commentValue}
-        </CommentPostStyle.CommentValue>
-        <CommentPostStyle.CommentLike
+        </S.CommentWriter>
+        <S.CommentValue>{commentInfo.commentValue}</S.CommentValue>
+        <S.CommentLike
           onClick={likeBtnClick}
           isLike={user && commentInfo.commentLikeMember.includes(user.uid)}
         >
           <span className="material-symbols-outlined">favorite</span>
           {commentInfo.commentLikeMember.length}
-        </CommentPostStyle.CommentLike>
-      </CommentPostStyle.CommentItemBox>
+        </S.CommentLike>
+      </S.CommentItemBox>
       {isCommentDeleteModal && (
         <CommentDeleteModal
           setIsCommentDeleteModal={setIsCommentDeleteModal}

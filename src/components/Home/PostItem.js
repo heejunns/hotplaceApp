@@ -1,6 +1,6 @@
 import React, { useState } from "react";
 import { useRecoilState, useRecoilValue } from "recoil";
-import * as PostItemStyle from "../../styles/components/Home/PostItemStyle";
+import * as S from "../../styles/components/Home/PostItem.style";
 import { useNavigate } from "react-router-dom";
 import NoUserClickModal from "../NoUserClickModal";
 import { clickPostItemData, userAtom } from "../../recoils/UserAtom";
@@ -54,28 +54,26 @@ const PostItem = ({ data }) => {
   };
   return (
     <>
-      <PostItemStyle.PostItemContainer
+      <S.PostItemContainer
         image={data.getUploadFileURL}
         onClick={() => onClickPostItem(data)}
       >
         {data.uploadImgUrl && (
-          <PostItemStyle.PostItemImg>
+          <S.PostItemImg>
             <img src={data.uploadImgUrl} alt="사진 업로드" />
-          </PostItemStyle.PostItemImg>
+          </S.PostItemImg>
         )}
-        <PostItemStyle.PostItemName>{data.postName}</PostItemStyle.PostItemName>
-        <PostItemStyle.PostItemInfoBox>
-          <PostItemStyle.PostItemLike>
+        <S.PostItemName>{data.postName}</S.PostItemName>
+        <S.PostItemInfoBox>
+          <S.PostItemLike>
             <span className="material-symbols-outlined">favorite</span>
             <span>{data.likeMember.length}</span>
-          </PostItemStyle.PostItemLike>
+          </S.PostItemLike>
           <div>
-            <PostItemStyle.PostItemTime>
-              {calculateTime(data)}
-            </PostItemStyle.PostItemTime>
+            <S.PostItemTime>{calculateTime(data)}</S.PostItemTime>
           </div>
-        </PostItemStyle.PostItemInfoBox>
-      </PostItemStyle.PostItemContainer>
+        </S.PostItemInfoBox>
+      </S.PostItemContainer>
       {isNoUserClickModal && (
         <NoUserClickModal setIsNoUserClickModal={setIsNoUserClickModal} />
       )}

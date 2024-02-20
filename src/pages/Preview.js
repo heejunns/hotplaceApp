@@ -1,68 +1,46 @@
 import { useRecoilValue } from "recoil";
-import * as PreviewStyle from "../styles/pages/PreviewStyle";
+import * as S from "../styles/pages/Preview.style";
 import { PreviewData } from "../recoils/UserAtom";
 
 const Preview = () => {
   const data = useRecoilValue(PreviewData);
   console.log("data", data);
   return (
-    <PreviewStyle.PreviewBack>
-      <PreviewStyle.PreviewBox>
-        <PreviewStyle.PreviewListItem>
-          <PreviewStyle.PreviewListItemTitle>
-            회사 이름
-          </PreviewStyle.PreviewListItemTitle>
-          <PreviewStyle.PreviewListItemBody>
-            {data.companyName}
-          </PreviewStyle.PreviewListItemBody>
-        </PreviewStyle.PreviewListItem>
-        <PreviewStyle.PreviewListItem>
-          <PreviewStyle.PreviewListItemTitle>
-            대표 이름
-          </PreviewStyle.PreviewListItemTitle>
-          <PreviewStyle.PreviewListItemBody>
-            {data.name}
-          </PreviewStyle.PreviewListItemBody>
-        </PreviewStyle.PreviewListItem>
-        <PreviewStyle.PreviewListItem>
-          <PreviewStyle.PreviewListItemTitle>
-            회사 이메일
-          </PreviewStyle.PreviewListItemTitle>
-          <PreviewStyle.PreviewListItemBody>
-            {data.email}
-          </PreviewStyle.PreviewListItemBody>
-        </PreviewStyle.PreviewListItem>
-        <PreviewStyle.PreviewListItem>
-          <PreviewStyle.PreviewListItemTitle>
-            대표 휴대폰번호
-          </PreviewStyle.PreviewListItemTitle>
-          <PreviewStyle.PreviewListItemBody>
-            {data.phoneNumber}
-          </PreviewStyle.PreviewListItemBody>
-        </PreviewStyle.PreviewListItem>
-        <PreviewStyle.PreviewListItem>
-          <PreviewStyle.PreviewListItemTitle>
-            회사 설명
-          </PreviewStyle.PreviewListItemTitle>
-          <PreviewStyle.PreviewListItemBody>
-            {data.introduce}
-          </PreviewStyle.PreviewListItemBody>
-        </PreviewStyle.PreviewListItem>
-        <PreviewStyle.PreviewListItem>
-          <PreviewStyle.PreviewListItemTitle>
-            회사 사진
-          </PreviewStyle.PreviewListItemTitle>
-          <PreviewStyle.PreviewImageBox>
+    <S.PreviewBack>
+      <S.PreviewBox>
+        <S.PreviewListItem>
+          <S.PreviewListItemTitle>회사 이름</S.PreviewListItemTitle>
+          <S.PreviewListItemBody>{data.companyName}</S.PreviewListItemBody>
+        </S.PreviewListItem>
+        <S.PreviewListItem>
+          <S.PreviewListItemTitle>대표 이름</S.PreviewListItemTitle>
+          <S.PreviewListItemBody>{data.name}</S.PreviewListItemBody>
+        </S.PreviewListItem>
+        <S.PreviewListItem>
+          <S.PreviewListItemTitle>회사 이메일</S.PreviewListItemTitle>
+          <S.PreviewListItemBody>{data.email}</S.PreviewListItemBody>
+        </S.PreviewListItem>
+        <S.PreviewListItem>
+          <S.PreviewListItemTitle>대표 휴대폰번호</S.PreviewListItemTitle>
+          <S.PreviewListItemBody>{data.phoneNumber}</S.PreviewListItemBody>
+        </S.PreviewListItem>
+        <S.PreviewListItem>
+          <S.PreviewListItemTitle>회사 설명</S.PreviewListItemTitle>
+          <S.PreviewListItemBody>{data.introduce}</S.PreviewListItemBody>
+        </S.PreviewListItem>
+        <S.PreviewListItem>
+          <S.PreviewListItemTitle>회사 사진</S.PreviewListItemTitle>
+          <S.PreviewImageBox>
             {data.companyImage.map((item) => {
-              return <PreviewStyle.PreviewImageItem src={item} />;
+              return <S.PreviewImageItem src={item} />;
             })}
-          </PreviewStyle.PreviewImageBox>
-        </PreviewStyle.PreviewListItem>
-        <PreviewStyle.PreviewSubmitBtnBox>
-          <PreviewStyle.PreviewSubmitBtn>등록</PreviewStyle.PreviewSubmitBtn>
-        </PreviewStyle.PreviewSubmitBtnBox>
-      </PreviewStyle.PreviewBox>
-    </PreviewStyle.PreviewBack>
+          </S.PreviewImageBox>
+        </S.PreviewListItem>
+        <S.PreviewSubmitBtnBox>
+          <S.PreviewSubmitBtn>등록</S.PreviewSubmitBtn>
+        </S.PreviewSubmitBtnBox>
+      </S.PreviewBox>
+    </S.PreviewBack>
   );
 };
 
