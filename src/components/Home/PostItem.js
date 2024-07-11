@@ -64,7 +64,6 @@ const PostItem = React.forwardRef(({ data }, ref) => {
             <img src={data.uploadImgUrl} alt="사진 업로드" />
           </S.PostItemImg>
         )}
-        <S.PostItemName>{data.postName}</S.PostItemName>
         <S.PostItemInfoBox>
           <S.PostItemLike>
             <span className="material-symbols-outlined">favorite</span>

@@ -2,7 +2,10 @@ import { useRecoilState, useRecoilValue } from "recoil";
 import { clickPostItemData, userAtom } from "../../recoils/UserAtom";
 import { useNavigate } from "react-router-dom";
 import * as S from "../../styles/components/Home/PostItem.style";
-import { TopPostItemContainer } from "../../styles/components/Home/TopPostItem.style";
+import {
+  Ranking,
+  TopPostItemContainer,
+} from "../../styles/components/Home/TopPostItem.style";
 const TopPostItem = ({ data, ranking }) => {
   const user = useRecoilValue(userAtom);
   const [clickPostItem, setClickPostItem] = useRecoilState(clickPostItemData);
@@ -38,14 +41,14 @@ const TopPostItem = ({ data, ranking }) => {
         image={data.getUploadFileURL}
         onClick={() => onClickTopPostItem(data)}
       >
-        <h1>{ranking}위</h1>
+        <Ranking>{ranking}위</Ranking>
         {data.uploadImgUrl && (
           <S.PostItemImg>
             <img src={data.uploadImgUrl} alt="사진 업로드" />
           </S.PostItemImg>
         )}
-        <S.PostItemName>{data.postName}</S.PostItemName>
-        <S.PostItemInfoBox>
+        {/* <S.PostItemName>{data.postName}</S.PostItemName> */}
+        {/* <S.PostItemInfoBox>
           <S.PostItemLike>
             <span className="material-symbols-outlined">favorite</span>
             <span>{data.likeMember.length}</span>
@@ -53,7 +56,7 @@ const TopPostItem = ({ data, ranking }) => {
           <div>
             <S.PostItemTime>{calculateTime(data)}</S.PostItemTime>
           </div>
-        </S.PostItemInfoBox>
+        </S.PostItemInfoBox> */}
       </TopPostItemContainer>
     </>
   );

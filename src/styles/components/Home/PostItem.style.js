@@ -2,8 +2,8 @@ import styled from "styled-components";
 
 // 게시글 컨테이너
 export const PostItemContainer = styled.div`
+  position: relative;
   width: 100%;
-  height: 100%;
   max-height: 250px;
   box-shadow: rgba(0, 0, 0, 0.1) 1px 1px 10px 0;
   display: flex;
@@ -12,7 +12,6 @@ export const PostItemContainer = styled.div`
   .scroll::-webkit-scrollbar {
     display: none;
   }
-  padding: 10px;
   font-size: 18px;
   border-radius: 10px;
   background-color: white;
@@ -20,6 +19,9 @@ export const PostItemContainer = styled.div`
 
 // 게시글의 좋아요, 시간 들의 정보가 담긴 박스
 export const PostItemInfoBox = styled.div`
+  padding: 0 10px;
+  position: absolute;
+  bottom: 10px;
   width: 100%;
   display: flex;
   justify-content: space-between;
@@ -31,7 +33,6 @@ export const PostItemInfoBox = styled.div`
 
 // 게시글 이미지
 export const PostItemImg = styled.div`
-  margin-top: 10px;
   width: 100%;
   height: 150px;
   & > img {
@@ -43,24 +44,14 @@ export const PostItemImg = styled.div`
 `;
 // 게시글을 게시한 시간
 export const PostItemTime = styled.span`
+  color: white;
   white-space: nowrap;
 `;
 
-// 게시글의 가게 이름
-export const PostItemName = styled.div`
-  margin-top: 10px;
-  width: 100%;
-  word-break: break-all;
-  overflow: hidden;
-  text-overflow: ellipsis;
-  -webkit-box-orient: vertical;
-  line-height: 120%;
-  margin-bottom: 10px;
-`;
 // 게시글 좋아요
 export const PostItemLike = styled.div`
+  color: white;
   width: 20px;
-  color: black;
   cursor: pointer;
   font-size: 18px;
   display: flex;

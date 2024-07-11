@@ -14,6 +14,7 @@ export const HeaderBackground = styled.div`
   align-items: center;
   transition: all 0.5s linear;
   background-color: ${(props) => (props.backColor ? "white" : "transparent")};
+  border-bottom: ${(props) => props.backColor && "1px solid black"};
   @media screen and (max-width: 768px) {
     justify-content: space-between;
   }
@@ -78,12 +79,10 @@ export const LogOutButton = styled.button`
   border-style: none;
   background: transparent;
   margin-left: 20px;
-  color: white;
   display: flex;
   align-items: center;
   & > span {
     font-size: 20px;
-    color: white;
   }
 `;
 

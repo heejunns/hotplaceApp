@@ -65,7 +65,9 @@ const Header = () => {
     document.body.addEventListener("wheel", wheelFunc);
   }, []);
   return (
-    <HeaderStyle.HeaderBackground backColor={wheelPosition}>
+    <HeaderStyle.HeaderBackground
+      backColor={pathname === "/" ? wheelPosition : "none"}
+    >
       <HeaderStyle.HeaderMenuBox>
         <Link
           to="/"
