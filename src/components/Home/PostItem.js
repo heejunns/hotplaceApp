@@ -7,7 +7,7 @@ import { clickPostItemData, userAtom } from "../../recoils/UserAtom";
 
 // 각각의 게시글
 
-const PostItem = ({ data }) => {
+const PostItem = React.forwardRef(({ data }, ref) => {
   const user = useRecoilValue(userAtom);
   const [clickPostItem, setClickPostItem] = useRecoilState(clickPostItemData);
   const [isNoUserClickModal, setIsNoUserClickModal] = useState(false);
@@ -57,6 +57,7 @@ const PostItem = ({ data }) => {
       <S.PostItemContainer
         image={data.getUploadFileURL}
         onClick={() => onClickPostItem(data)}
+        ref={ref}
       >
         {data.uploadImgUrl && (
           <S.PostItemImg>
@@ -79,6 +80,6 @@ const PostItem = ({ data }) => {
       )}
     </>
   );
-};
+});
 
 export default PostItem;

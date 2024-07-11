@@ -1,6 +1,7 @@
 import styled from "styled-components";
 // 게시글 올리는 페이지의 배경 스타일 태그
 export const PostUploadBack = styled.div`
+  /* background-color: #e9e9e9; */
   padding: 60px 20px 40px 20px;
   font-family: "Tilt Neon", sans-serif;
   width: 100%;
@@ -13,7 +14,7 @@ export const PostUploadBack = styled.div`
 `;
 
 // 게시글 올리기 폼 컨테이너
-export const PostUploadFormContainer = styled.form`
+export const PostUploadForm = styled.form`
   width: 100%;
   max-width: 1000px;
   border-radius: 10px;
@@ -24,18 +25,18 @@ export const PostUploadFormContainer = styled.form`
   }
 `;
 // ============================================ 매장 이름 =======================================
-export const PostUploadPostNameBox = styled.div`
+export const InputPostNameBox = styled.div`
   width: 100%;
   height: 140px;
   padding-top: 20px;
   display: flex;
   flex-direction: column;
 `;
-export const PostUploadPostNameTitle = styled.h1`
+export const InputTitle = styled.h1`
   font-size: 20px;
-  margin-right: 20px;
+  margin-bottom: 15px;
 `;
-export const PostUploadPostNameInput = styled.input`
+export const NameInput = styled.input`
   border: 2px solid #b4b4b4;
   border-radius: 10px;
   height: 50px;
@@ -51,20 +52,17 @@ export const PostUploadPostNameTitleBox = styled.div`
 `;
 // ============================================ 이미지 업로드 ======================================
 // 이미지 업로드 부분 박스
-export const PostUploadImageBox = styled.div`
+export const InputPostImageBox = styled.div`
   display: flex;
   flex-direction: column;
   height: 160px;
   padding: 10px 0;
 `;
 // 이미지 업로드 버튼 인풋 태그
-export const ImgFileSelectInput = styled.input`
+export const UploadImageInput = styled.input`
   display: none;
 `;
-// 이미지 업로드 제목
-export const ImgFileSelectTitle = styled.h1`
-  font-size: 20px;
-`;
+
 // 업로드 이미지
 export const UploadImg = styled.img`
   width: 90px;
@@ -73,7 +71,7 @@ export const UploadImg = styled.img`
   object-fit: cover;
 `;
 // 선택한 이미지를 보여주는 박스
-export const SelectImgBox = styled.div`
+export const UploadImgBox = styled.div`
   height: 120px;
   /* overflow-y: scroll; */
   display: flex;
@@ -96,7 +94,7 @@ export const UploadImgDeleteBtn = styled.button`
   background-color: black;
 `;
 // 업로드 한 이미지의 박스
-export const ImgItem = styled.div`
+export const UploadImgItem = styled.div`
   margin-top: 10px;
   display: flex;
   justify-content: center;
@@ -129,7 +127,7 @@ export const UploadEmptyImg = styled.label`
 
 // ============================================ 자세한 설명 =====================================
 // 텍스트 입력 박스
-export const PostUploadInputTextBox = styled.div`
+export const InputPostDescriptionBox = styled.div`
   display: flex;
   flex-direction: column;
   height: 160px;
@@ -142,7 +140,7 @@ export const PostUploadInputTextBoxTitleBox = styled.div`
 `;
 
 // 텍스트 입력 textarea
-export const InputPostText = styled.textarea`
+export const PostDesctiptionInput = styled.textarea`
   width: 100%;
   height: 100px;
   margin-top: 20px;
@@ -156,37 +154,19 @@ export const InputPostText = styled.textarea`
     border: 2px solid #6edcdc;
   }
 `;
-//
-export const InputTextBoxTitle = styled.h1`
-  font-size: 20px;
-  margin-right: 20px;
-`;
-// 현재 입력한 글자 수
-export const InputTextCurrentNumber = styled.span`
-  color: #a0a0a0;
-`;
-// 현재 입력한 글자의 수가 제한된 글자 수를 모두 채웠다는 멘트
-export const InputTextLimitText = styled.span`
-  margin-left: 10px;
-  color: red;
-  font-size: 15px;
-`;
 
 // ==================================== 자세한 설명 부분 끝 ==============================
 
 // ===================================== 카테고리 선택 =======================================
 // 카테고리 선택 박스
-export const PostUploadCategoryBox = styled.div`
+export const InputPostCategoryBox = styled.div`
   height: 110px;
   padding-bottom: 20px;
   padding: 10px 0;
 `;
-// 카테고리 선택 제목
-export const CategoryTitle = styled.h1`
-  font-size: 20px;
-`;
+
 // 카테고리 선택 input
-export const InputCategory = styled.input`
+export const CategoryInput = styled.input`
   display: none;
 `;
 // 카테고리 선택 메뉴 박스

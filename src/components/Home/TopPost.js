@@ -53,7 +53,7 @@ const TopPost = () => {
               );
             })}
         </TopPostStyle.TopPostBox>
-        <TopPostStyle.TopPostPrevBtn
+        {/* <TopPostStyle.TopPostPrevBtn
           onClick={onclickLeftBtn}
           topBoxPx={topBoxPx}
         >
@@ -64,7 +64,7 @@ const TopPost = () => {
           topBoxPx={topBoxPx}
         >
           <span className="material-symbols-outlined">chevron_right</span>
-        </TopPostStyle.TopPostNextBtn>
+        </TopPostStyle.TopPostNextBtn> */}
       </TopPostStyle.TopPostBack>
     </>
   );

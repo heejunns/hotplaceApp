@@ -12,17 +12,13 @@ export const HomeSlideBack = styled.div`
 
 export const HomeSlideBox = styled.div`
   height: 100%;
-  transform: ${(props) =>
-    props.currentNum && `translateX(-${props.currentNum * 20}%)`};
   display: flex;
   width: 100%;
   min-width: ${(props) => props.width && `${props.width * 5}px`};
 `;
 
-export const HomeSlideItem = styled.div`
-  position: relative;
+export const Img = styled.div`
   width: 100%;
-  height: 100%;
   & > img {
     width: 100%;
     height: 100%;
@@ -32,7 +28,7 @@ export const HomeSlideItem = styled.div`
 
 export const HomeSlideBtn = styled.button``;
 
-export const HomeSlideText = styled.h1`
+export const ImgText = styled.h1`
   font-weight: 600;
   line-height: 120%;
   color: white;

@@ -15,8 +15,19 @@ import axios from "axios";
 import PostUploadFailModal from "../components/PostUploadFailModal";
 import FindAddress from "../components/FindAddress";
 import { useMutation } from "@tanstack/react-query";
+import { useForm } from "react-hook-form";
+import InputPostName from "../components/PostUpload/InputPostName";
+import InputPostImage from "../components/PostUpload/InputPostImage";
+import InputPostDescription from "../components/PostUpload/InputPostDescription";
+import InputPostCategory from "../components/PostUpload/InputPostCategory";
+import InputPostLocation from "../components/PostUpload/InputPostLocation";
 
 const PostUpload = () => {
+  const {
+    register,
+    handleSubmit,
+    formState: {},
+  } = useForm();
   const [currentPage, setCurrentPage] = useRecoilState(currentPageAtom);
   const location = useRecoilValue(userLocation);
   const user = useRecoilValue(userAtom);
@@ -51,6 +62,7 @@ const PostUpload = () => {
   }, []);
   // 작성한 글을 등록하기 위해 버튼을 클릭했을때 호출되는 콜백함수
   const onSubmitBtn = async (e) => {
+    console.log("hello");
     e.preventDefault();
     try {
       if (inputPostTitle === "") {
@@ -127,37 +139,9 @@ const PostUpload = () => {
       console.error("Error adding document: ", error);
     }
   };
-  const { isLoading: submitIsLoading, mutate: submitBtnClick } = useMutation({
-    onSubmitBtn,
-  });
-  const onchangeImageUpload = useCallback(({ target: { files } }) => {
-    // 사진 파일을 선택했을때 선택한 사진을 화면에 보여주는 코드
-    if (files.length === 1) {
-      const uploadFile = files[0];
-      // 파일을 읽어오기 위해서 fileReader API 를 사용하기
-      const reader = new FileReader(); // 파일리더 생성
-      reader.readAsDataURL(uploadFile); //  파일 url 생성
-      reader.onloadend = (fileLoadEndEvent) => {
-        setUploadImageFileURL((prev) => [
-          ...prev,
-          fileLoadEndEvent.target.result,
-        ]);
-      };
-    } else {
-      for (let i = 0; i < files.length; ++i) {
-        const uploadFile = files[i];
-        // 파일을 읽어오기 위해서 fileReader API 를 사용하기
-        const reader = new FileReader(); // 파일리더 생성
-        reader.readAsDataURL(uploadFile); //  파일 url 생성
-        reader.onloadend = (fileLoadEndEvent) => {
-          setUploadImageFileURL((prev) => [
-            ...prev,
-            fileLoadEndEvent.target.result,
-          ]);
-        };
-      }
-    }
-  }, []);
+  // const { isLoading: submitIsLoading, mutate: submitBtnClick } = useMutation({
+  //   onSubmitBtn,
+  // });
 
   // 선택한 이미지를 삭제 버튼을 클릭하면 호출
   const onclickUploadFileDelete = useCallback((imageFileUrl) => {
@@ -173,160 +157,30 @@ const PostUpload = () => {
   return (
     <>
       <S.PostUploadBack>
-        <S.PostUploadFormContainer onSubmit={submitBtnClick}>
-          <S.PostUploadPostNameBox>
-            <S.PostUploadPostNameTitleBox>
-              <S.PostUploadPostNameTitle>매장 이름</S.PostUploadPostNameTitle>
-              <span>
-                <S.InputTextCurrentNumber>
-                  {inputPostTitle.length}
-                </S.InputTextCurrentNumber>{" "}
-                / 20
-              </span>
-              {inputPostTitle.length === 20 && (
-                <S.InputTextLimitText>
-                  20 글자를 초과해서 입력 할 수 없습니다
-                </S.InputTextLimitText>
-              )}
-            </S.PostUploadPostNameTitleBox>
+        <S.PostUploadForm onSubmit={handleSubmit(onSubmitBtn)}>
+          <InputPostName />
+          <InputPostImage
+            uploadImageFileURL={uploadImageFileURL}
+            setUploadImageFileURL={setUploadImageFileURL}
+          />
+          <InputPostDescription />
+          <InputPostCategory
+            userSelectCategory={userSelectCategory}
+            onchangeUserSelectCategory={onchangeUserSelectCategory}
+          />
+          <InputPostLocation />
 
-            <S.PostUploadPostNameInput
-              type="text"
-              value={inputPostTitle}
-              onChange={onchangeInputPostTitle}
-              placeholder="매장 이름을 작성해주세요."
-            />
-          </S.PostUploadPostNameBox>
-          <S.PostUploadImageBox>
-            <S.ImgFileSelectTitle>이미지 추가하기</S.ImgFileSelectTitle>
-
-            <S.ImgFileSelectInput
-              id="imageUploadInput"
-              type="file"
-              accept="image/*"
-              onChange={onchangeImageUpload}
-            />
-            <S.SelectImgBox>
-              <S.UploadEmptyImg htmlFor="imageUploadInput">
-                <span className="material-symbols-outlined">
-                  create_new_folder
-                </span>
-              </S.UploadEmptyImg>
-              {uploadImageFileURL &&
-                uploadImageFileURL.map((item) => {
-                  return (
-                    <S.ImgItem>
-                      <S.UploadImg src={item} alt="uploadImg" />
-                      <S.UploadImgDeleteBtn
-                        type="button"
-                        onClick={() => onclickUploadFileDelete(item)}
-                      >
-                        <span className="material-symbols-outlined">close</span>
-                      </S.UploadImgDeleteBtn>
-                    </S.ImgItem>
-                  );
-                })}
-            </S.SelectImgBox>
-          </S.PostUploadImageBox>
-          <S.PostUploadCategoryBox>
-            <S.CategoryTitle>카테고리 선택</S.CategoryTitle>
-            <S.CategoryMenuBox>
-              <S.CategoryBtn
-                htmlFor="cafe"
-                userSelectCategory={
-                  userSelectCategory === "cafe" ? "black" : ""
-                }
-              >
-                카페{" "}
-                <span className="material-symbols-outlined">local_cafe</span>
-                <S.InputCategory
-                  id="cafe"
-                  type="radio"
-                  name="category"
-                  onChange={onchangeUserSelectCategory}
-                />
-              </S.CategoryBtn>
-              <S.CategoryBtn
-                htmlFor="food"
-                userSelectCategory={
-                  userSelectCategory === "food" ? "black" : ""
-                }
-              >
-                음식{" "}
-                <span className="material-symbols-outlined">restaurant</span>
-                <S.InputCategory
-                  id="food"
-                  type="radio"
-                  name="category"
-                  onChange={onchangeUserSelectCategory}
-                />
-              </S.CategoryBtn>
-              <S.CategoryBtn
-                htmlFor="mart"
-                userSelectCategory={
-                  userSelectCategory === "mart" ? "black" : ""
-                }
-              >
-                마트{" "}
-                <span className="material-symbols-outlined">storefront</span>
-                <S.InputCategory
-                  id="mart"
-                  type="radio"
-                  name="category"
-                  onChange={onchangeUserSelectCategory}
-                />
-              </S.CategoryBtn>
-            </S.CategoryMenuBox>
-          </S.PostUploadCategoryBox>
-          <S.PostUploadInputTextBox>
-            <S.PostUploadInputTextBoxTitleBox>
-              <S.InputTextBoxTitle>자세한 설명</S.InputTextBoxTitle>
-              <span>
-                <S.InputTextCurrentNumber>
-                  {inputText.length}
-                </S.InputTextCurrentNumber>{" "}
-                / 100
-              </span>
-              {inputText.length === 100 && (
-                <S.InputTextLimitText>
-                  100 글자를 초과해서 입력 할 수 없습니다
-                </S.InputTextLimitText>
-              )}
-            </S.PostUploadInputTextBoxTitleBox>
-
-            <S.InputPostText
-              type="text"
-              value={inputText}
-              onChange={onchangeInputText}
-              placeholder="업로드 하고 싶은 글을 작성 해주세요."
-            />
-          </S.PostUploadInputTextBox>
-          <S.PostUploadMapBox>
-            <S.MapBoxTitle>장소 등록하기</S.MapBoxTitle>
-            <S.MapBox>
-              {mapStatus ? (
-                <Map setUserMarkerLocation={setUserMarkerLocation} />
-              ) : (
-                <span
-                  className="material-symbols-outlined"
-                  onClick={onclickMapButton}
-                >
-                  add_location_alt
-                </span>
-              )}
-            </S.MapBox>
-          </S.PostUploadMapBox>
           {/* <FindAddress /> */}
           <S.PostUploadSubmitBox>
-            <S.SubmitBtn type="submit" value="게시글 올리기" />
+            <S.SubmitBtn type="submit" value="작성 완료" />
           </S.PostUploadSubmitBox>
-        </S.PostUploadFormContainer>
+        </S.PostUploadForm>
       </S.PostUploadBack>
-      {submitIsLoading && (
+      {/* {submitIsLoading && (
         <Loading>
           <PulseLoader color="black" size={20} />
         </Loading>
-      )}
+      )} */}
       {isPostUploadFailModal && (
         <PostUploadFailModal
           failText={failText}
