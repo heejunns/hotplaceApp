@@ -12,7 +12,8 @@ export const HeaderBackground = styled.div`
   display: flex;
   justify-content: space-between;
   align-items: center;
-  background-color: black;
+  transition: all 0.5s linear;
+  background-color: ${(props) => (props.backColor ? "white" : "transparent")};
   @media screen and (max-width: 768px) {
     justify-content: space-between;
   }
@@ -23,7 +24,7 @@ export const AppTitleName = styled.div`
   cursor: pointer;
   font-size: 25px;
   font-weight: 600;
-  color: white;
+  color: black;
   display: flex;
   align-items: center;
   margin-right: 20px;
@@ -57,7 +58,7 @@ export const HeaderUserInfoBox = styled.ul`
 `;
 // 네비게이션 요소들의 스타일 태그
 export const HeaderBoxItem = styled.div`
-  color: white;
+  color: black;
   font-size: 20px;
   padding-bottom: 3px;
   display: flex;
@@ -87,16 +88,16 @@ export const LogOutButton = styled.button`
 `;
 
 export const HamburgerSideBar = styled.div`
-  width: 210px;
-  opacity: 0.8;
-  background: black;
-  height: 100%;
+  padding: 0 20px;
+  width: 100%;
+  background: white;
+  height: ${(props) => (props.toggle ? "300px" : "0")};
   z-index: 100;
   top: 48px;
+  left: 0;
   position: fixed;
   transition: all ease 0.5s;
   transition: ${(props) => (props.toggle ? "all ease 0.5s" : "")};
-  right: ${(props) => (props.toggle ? "0" : "-210px")};
   display: none;
   @media screen and (max-width: 768px) {
     display: block;
@@ -114,10 +115,10 @@ export const HamburgerButtonIcon = styled.div`
   }
 `;
 export const HamburgerIconItem = styled.div`
-  width: 33px;
-  height: 6px;
+  width: 25px;
+  height: 3px;
   border-radius: 10px;
-  background-color: white;
+  background-color: black;
   z-index: 101;
   transition: all ease 0.3s;
   position: relative;
@@ -127,7 +128,7 @@ export const HamburgerIconItem = styled.div`
     margin-bottom: 3px;
   }
   &:nth-child(1) {
-    top: ${(props) => (props.toggle ? "9px" : "0")};
+    top: ${(props) => (props.toggle ? "6px" : "0")};
     transform: ${(props) => (props.toggle ? "rotate(45deg)" : "")};
   }
   &:nth-child(2) {
@@ -138,7 +139,7 @@ export const HamburgerIconItem = styled.div`
   }
 `;
 
-export const HamburgerSideBarBox = styled.ul`
+export const HamburgerSideBarList = styled.ul`
   width: 100%;
   padding: 10px;
   display: flex;
@@ -157,22 +158,21 @@ export const SideBarLogOutButton = styled.button`
   margin-top: 10px;
   border-style: none;
   background-color: transparent;
-  display: flex;
+  display: ${(props) => (props.toggle ? "flex" : "none")};
   justify-content: flex-start;
   align-items: center;
   font-size: 20px;
-  color: white;
+
   & > span {
     font-size: 20px;
     color: white;
   }
 `;
 
-export const HamburgerSideBarList = styled.li`
+export const HamburgerSideBarItem = styled.li`
   font-weight: 600;
   margin-top: 10px;
-  display: flex;
+  display: ${(props) => (props.toggle ? "flex" : "none")};
   align-items: center;
   font-size: 20px;
-  color: white;
 `;

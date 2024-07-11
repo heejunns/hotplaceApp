@@ -14,6 +14,7 @@ const LoginForm = () => {
   // 구글로 로그인하기 버튼 클릭 하였을 때 호출되는 콜백 함수, 팝업 창을 띄어서 사용자가 구글 계정으로 로그인 하도록 한다.
   const onclickGoogleLogin = useCallback(async () => {
     try {
+      console.log("click");
       const dataGoogle = await signInWithPopup(authService, provider);
       GoogleAuthProvider.credentialFromResult(dataGoogle);
       navigator("/");
@@ -22,8 +23,8 @@ const LoginForm = () => {
     }
   }, [provider, navigator]);
 
-  const { mutate: clickGoogleLogin, isLoading: googleLoginIsLoading } =
-    useMutation({ onclickGoogleLogin });
+  // const { mutate: clickGoogleLogin, isLoading: googleLoginIsLoading } =
+  //   useMutation({ onclickGoogleLogin });
 
   return (
     <>
@@ -35,21 +36,20 @@ const LoginForm = () => {
         <S.LoginFormBox>
           <Login />
           <S.LoginBtnBox>
-            <S.LoginFormGoogleLoginBtn onClick={clickGoogleLogin}>
+            <S.LoginFormGoogleLoginBtn onClick={onclickGoogleLogin}>
               구글로 로그인하기
             </S.LoginFormGoogleLoginBtn>
-
             <Link to="/signup" style={{ textDecoration: "none" }}>
               <S.LoginFormSignUpBtn>회원가입하기</S.LoginFormSignUpBtn>
             </Link>
           </S.LoginBtnBox>
         </S.LoginFormBox>
       </S.LoginFormBack>
-      {googleLoginIsLoading && (
+      {/* {googleLoginIsLoading && (
         <Loading>
           <PulseLoader color="black" size={20} />
         </Loading>
-      )}
+      )} */}
     </>
   );
 };

@@ -4,7 +4,7 @@ export const TopPostBack = styled.div`
   width: 100%;
   padding: 20px 0 10px 0;
   max-width: 1200px;
-  overflow: hidden;
+  overflow: scroll;
   display: flex;
   align-items: center;
   position: relative;

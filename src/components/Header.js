@@ -12,6 +12,7 @@ import {
 import * as HeaderStyle from "../styles/components/Header.style";
 
 const Header = () => {
+  const [wheelPosition, setWheelPosition] = useState(window.scrollY > 0);
   const [currentSelectSort, setCurrentSelectSort] = useRecoilState(
     currentSelectSortAtom
   );
@@ -52,8 +53,19 @@ const Header = () => {
     setCurrentSelectSort("최신글 순으로 보기");
     setCurrentPage(0);
   };
+  useEffect(() => {
+    const wheelFunc = () => {
+      // console.log(window.scrollY);
+      if (window.scrollY > 0) {
+        setWheelPosition(true);
+      } else if (window.scrollY === 0) {
+        setWheelPosition(false);
+      }
+    };
+    document.body.addEventListener("wheel", wheelFunc);
+  }, []);
   return (
-    <HeaderStyle.HeaderBackground>
+    <HeaderStyle.HeaderBackground backColor={wheelPosition}>
       <HeaderStyle.HeaderMenuBox>
         <Link
           to="/"
@@ -129,7 +141,7 @@ const Header = () => {
               <HeaderStyle.HeaderBoxItem currentPath={pathname === "/profile"}>
                 {user.displayName === undefined
                   ? "닉네임을 만들어주세요."
-                  : `${user.displayName} 님 프로필`}
+                  : `${user.displayName} 님`}
               </HeaderStyle.HeaderBoxItem>
             </Link>
           ) : (
@@ -168,7 +180,7 @@ const Header = () => {
         ></HeaderStyle.HamburgerIconItem>
       </HeaderStyle.HamburgerButtonIcon>
       <HeaderStyle.HamburgerSideBar toggle={clickHamburgerBtn} ref={sideBarRef}>
-        <HeaderStyle.HamburgerSideBarBox>
+        <HeaderStyle.HamburgerSideBarList>
           {user ? (
             <Link
               to="/profile"
@@ -177,38 +189,41 @@ const Header = () => {
                 setCurrentPage(0);
               }}
             >
-              <HeaderStyle.HamburgerSideBarList>
+              <HeaderStyle.HamburgerSideBarItem toggle={clickHamburgerBtn}>
                 {user.displayName === undefined
                   ? "닉네임을 만들어주세요."
                   : `${user.displayName} 님 프로필`}
-              </HeaderStyle.HamburgerSideBarList>
+              </HeaderStyle.HamburgerSideBarItem>
             </Link>
           ) : (
             <Link to="/login" onClick={() => setClickHamburgerBtn(false)}>
-              <HeaderStyle.HamburgerSideBarList>
+              <HeaderStyle.HamburgerSideBarItem toggle={clickHamburgerBtn}>
                 로그인<span className="material-symbols-outlined">login</span>
-              </HeaderStyle.HamburgerSideBarList>
+              </HeaderStyle.HamburgerSideBarItem>
             </Link>
           )}
 
           {user ? (
-            <HeaderStyle.SideBarLogOutButton onClick={onclickLogoutButton}>
+            <HeaderStyle.SideBarLogOutButton
+              toggle={clickHamburgerBtn}
+              onClick={onclickLogoutButton}
+            >
               로그아웃
               <span className="material-symbols-outlined">logout</span>
             </HeaderStyle.SideBarLogOutButton>
           ) : (
             <Link to="/signup" onClick={() => setClickHamburgerBtn(false)}>
-              <HeaderStyle.HamburgerSideBarList>
+              <HeaderStyle.HamburgerSideBarItem toggle={clickHamburgerBtn}>
                 회원가입
-              </HeaderStyle.HamburgerSideBarList>
+              </HeaderStyle.HamburgerSideBarItem>
             </Link>
           )}
           {user && (
             <Link to="/postupload" onClick={() => setClickHamburgerBtn(false)}>
-              <HeaderStyle.HamburgerSideBarList>
+              <HeaderStyle.HamburgerSideBarItem toggle={clickHamburgerBtn}>
                 게시글 올리기{" "}
                 <span className="material-symbols-outlined">upload_file</span>
-              </HeaderStyle.HamburgerSideBarList>
+              </HeaderStyle.HamburgerSideBarItem>
             </Link>
           )}
           {/* {user && (
@@ -231,9 +246,9 @@ const Header = () => {
                 setCurrentPage(0);
               }}
             >
-              <HeaderStyle.HamburgerSideBarList>
+              <HeaderStyle.HamburgerSideBarItem toggle={clickHamburgerBtn}>
                 카페
-              </HeaderStyle.HamburgerSideBarList>
+              </HeaderStyle.HamburgerSideBarItem>
             </Link>
           )}
           {user && user.displayName && (
@@ -245,9 +260,9 @@ const Header = () => {
                 setCurrentPage(0);
               }}
             >
-              <HeaderStyle.HamburgerSideBarList>
+              <HeaderStyle.HamburgerSideBarItem toggle={clickHamburgerBtn}>
                 음식
-              </HeaderStyle.HamburgerSideBarList>
+              </HeaderStyle.HamburgerSideBarItem>
             </Link>
           )}
           {user && user.displayName && (
@@ -259,12 +274,12 @@ const Header = () => {
                 setCurrentPage(0);
               }}
             >
-              <HeaderStyle.HamburgerSideBarList>
+              <HeaderStyle.HamburgerSideBarItem toggle={clickHamburgerBtn}>
                 마트
-              </HeaderStyle.HamburgerSideBarList>
+              </HeaderStyle.HamburgerSideBarItem>
             </Link>
           )}
-        </HeaderStyle.HamburgerSideBarBox>
+        </HeaderStyle.HamburgerSideBarList>
       </HeaderStyle.HamburgerSideBar>
     </HeaderStyle.HeaderBackground>
   );
