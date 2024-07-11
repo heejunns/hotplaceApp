@@ -10,7 +10,12 @@ import {
   UploadImgItem,
 } from "../../styles/pages/PostUpload.style";
 
-const InputPostImage = ({ uploadImageFileURL, setUploadImageFileURL }) => {
+const InputPostImage = ({
+  uploadImageFileURL,
+  setUploadImageFileURL,
+  register,
+  setValue,
+}) => {
   const onchangeImageUpload = useCallback(({ target: { files } }) => {
     // 사진 파일을 선택했을때 선택한 사진을 화면에 보여주는 코드
     if (files.length === 1) {
@@ -19,10 +24,9 @@ const InputPostImage = ({ uploadImageFileURL, setUploadImageFileURL }) => {
       const reader = new FileReader(); // 파일리더 생성
       reader.readAsDataURL(uploadFile); //  파일 url 생성
       reader.onloadend = (fileLoadEndEvent) => {
-        setUploadImageFileURL((prev) => [
-          ...prev,
-          fileLoadEndEvent.target.result,
-        ]);
+        console.log(fileLoadEndEvent.target.result);
+        setUploadImageFileURL([fileLoadEndEvent.target.result]);
+        setValue("uploadImgurl", fileLoadEndEvent.target.result);
       };
     } else {
       for (let i = 0; i < files.length; ++i) {
@@ -31,10 +35,8 @@ const InputPostImage = ({ uploadImageFileURL, setUploadImageFileURL }) => {
         const reader = new FileReader(); // 파일리더 생성
         reader.readAsDataURL(uploadFile); //  파일 url 생성
         reader.onloadend = (fileLoadEndEvent) => {
-          setUploadImageFileURL((prev) => [
-            ...prev,
-            fileLoadEndEvent.target.result,
-          ]);
+          setUploadImageFileURL([fileLoadEndEvent.target.result]);
+          setValue("uploadImgUrl", fileLoadEndEvent.target.result);
         };
       }
     }

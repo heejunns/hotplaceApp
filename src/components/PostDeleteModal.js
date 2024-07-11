@@ -18,6 +18,7 @@ const PostDeleteModal = ({ setIsPostDeleteModal, postDeleteData }) => {
     document.body.style.overflow = "";
   };
   const onclickConfirmBtn = async () => {
+    console.log("hello");
     try {
       setIsPostDeleteModal((prev) => !prev);
       document.body.style.overflow = "";

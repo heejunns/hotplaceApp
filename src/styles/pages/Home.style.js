@@ -4,7 +4,7 @@ import styled from "styled-components";
 export const HomeContainer = styled.div`
   font-family: "Tilt Neon", sans-serif;
   width: 100%;
-  background-color: #e9e9e9;
+  /* background-color: #e9e9e9; */
   display: flex;
   justify-content: center;
   align-items: center;
