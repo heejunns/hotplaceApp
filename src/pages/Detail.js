@@ -17,7 +17,7 @@ import { useMutation, useQuery, useQueryClient } from "@tanstack/react-query";
 // 사용자가 게시글을 클릭하면 게시글에대한 자세한 내용을 확인 할 수 있는 페이지 입니다.
 // ===========================================================================================================
 const Detail = () => {
-  const queryClient = useQueryClient();
+  // const queryClient = useQueryClient();
   // 현재 로그인중인 사용자의 정보를 전역 상태에서 가져오기
   const user = useRecoilValue(userAtom);
   // 현재 사용자가 보고 있는 게시글 데이터를 전역 상태에서 가져오기
@@ -123,10 +123,10 @@ const Detail = () => {
     });
 
     // 해당 게시글의 데이터를 업데이트 했으니까 다시 해당 게시글의 데이터를 받아오는 함수 호출
-    queryClient.invalidateQueries(["detailData"]);
+    // queryClient.invalidateQueries(["detailData"]);
   };
   // 좋아요 클릭하면 호출되는 쿼리
-  const { mutate: clickLike } = useMutation({ queryFn: onclickLike });
+  // const { mutate: clickLike } = useMutation({ queryFn: onclickLike });
 
   return (
     <>
@@ -145,7 +145,7 @@ const Detail = () => {
             </S.DetailTitleText>
             <S.DetailTitleBoxRight>
               <S.DetailBtn
-                onClick={clickLike}
+                // onClick={clickLike}
                 isLike={
                   detailData && user && detailData.likeMember.includes(user.uid)
                 }

@@ -21,13 +21,17 @@ import InputPostImage from "../components/PostUpload/InputPostImage";
 import InputPostDescription from "../components/PostUpload/InputPostDescription";
 import InputPostCategory from "../components/PostUpload/InputPostCategory";
 import InputPostLocation from "../components/PostUpload/InputPostLocation";
+import { DevTool } from "@hookform/devtools";
 
 const PostUpload = () => {
   const {
     register,
     handleSubmit,
-    formState: {},
+    formState: { errors, isSubmitting },
     setValue,
+    setError,
+
+    control,
   } = useForm({
     defaultValues: {
       postName: "",
@@ -147,44 +151,61 @@ const PostUpload = () => {
   const onclickMapButton = useCallback(() => {
     setMapStatus((prev) => !prev);
   }, []);
+  console.log(errors);
   return (
     <>
       <S.PostUploadBack>
-        <S.PostUploadForm onSubmit={handleSubmit(onSubmitBtn)}>
+        <S.PostUploadForm onSubmit={handleSubmit(onSubmitBtn)} noValidate>
           <InputPostName register={register} />
           <InputPostImage
+            register={register}
             setValue={setValue}
             uploadImageFileURL={uploadImageFileURL}
             setUploadImageFileURL={setUploadImageFileURL}
           />
           <InputPostDescription register={register} />
           <InputPostCategory
+            register={register}
             userSelectCategory={userSelectCategory}
             onchangeUserSelectCategory={onchangeUserSelectCategory}
           />
           <InputPostLocation
+            register={register}
             setUserMarkerLocation={setUserMarkerLocation}
             mapStatus={mapStatus}
             onclickMapButton={onclickMapButton}
           />
 
           {/* <FindAddress /> */}
+          <S.ErrorMsg>
+            {errors && errors.postName?.message
+              ? errors.postName?.message
+              : errors.inputText?.message
+              ? errors.inputText?.message
+              : errors.location?.message
+              ? errors.location?.message
+              : errors.uploadImgUrl?.message
+              ? errors.uploadImgUrl?.message
+              : null}
+          </S.ErrorMsg>
           <S.PostUploadSubmitBox>
             <S.SubmitBtn type="submit" value="작성 완료" />
           </S.PostUploadSubmitBox>
         </S.PostUploadForm>
       </S.PostUploadBack>
-      {/* {submitIsLoading && (
+      {isSubmitting && (
         <Loading>
           <PulseLoader color="black" size={20} />
         </Loading>
-      )} */}
+      )}
       {isPostUploadFailModal && (
         <PostUploadFailModal
           failText={failText}
           setIsPostUploadFailModal={setIsPostUploadFailModal}
         />
       )}
+
+      <DevTool control={control} />
     </>
   );
 };
