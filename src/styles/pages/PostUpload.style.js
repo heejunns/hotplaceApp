@@ -201,6 +201,7 @@ export const CategoryBtn = styled.label`
 // ======================================  카테고리 선택 끝 =======================================
 
 // 게시글에 올릴 정보를 모두 작성하고 클릭하는 완료 버튼
+
 export const SubmitBtn = styled.input`
   width: 100%;
   height: 50px;
@@ -218,6 +219,9 @@ export const SubmitBtn = styled.input`
   }
 `;
 
+export const MapInput = styled.input`
+  display: none;
+`;
 export const PostUploadMapBox = styled.div`
   display: flex;
   flex-direction: column;
@@ -257,4 +261,14 @@ export const MapBox = styled.div`
       color: #828282;
     }
   }
+`;
+
+export const ErrorMsg = styled.div`
+  width: 100%;
+  height: 100px;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  font-size: 20px;
+  color: #50b4ff;
 `;

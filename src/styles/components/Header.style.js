@@ -14,7 +14,7 @@ export const HeaderBackground = styled.div`
   align-items: center;
   transition: all 0.5s linear;
   background-color: ${(props) => (props.backColor ? "white" : "transparent")};
-  border-bottom: ${(props) => props.backColor && "1px solid black"};
+  border-bottom: ${(props) => props.backColor && "1px solid 	#969696"};
   @media screen and (max-width: 768px) {
     justify-content: space-between;
   }

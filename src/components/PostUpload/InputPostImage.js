@@ -41,6 +41,11 @@ const InputPostImage = ({
       }
     }
   }, []);
+  console.log(uploadImageFileURL);
+  const onclickUploadFileDelete = () => {
+    setUploadImageFileURL([]);
+    setValue("uploadImgUrl", []);
+  };
   return (
     <InputPostImageBox>
       <InputTitle>사진 추가</InputTitle>
@@ -49,6 +54,9 @@ const InputPostImage = ({
         id="imageUploadInput"
         type="file"
         accept="image/*"
+        {...register("uploadImgUrl", {
+          required: "사진을 추가해주세요.",
+        })}
         onChange={onchangeImageUpload}
       />
       <UploadImgBox>
@@ -62,7 +70,7 @@ const InputPostImage = ({
                 <UploadImg src={item} alt="uploadImg" />
                 <UploadImgDeleteBtn
                   type="button"
-                  //   onClick={() => onclickUploadFileDelete(item)}
+                  onClick={() => onclickUploadFileDelete(item)}
                 >
                   <span className="material-symbols-outlined">close</span>
                 </UploadImgDeleteBtn>
