@@ -2,7 +2,7 @@ import * as S from "../styles/pages/Detail.style";
 import { useRecoilValue } from "recoil";
 import { clickPostItemData, userAtom } from "../recoils/UserAtom";
 import PostMap from "../components/PostMap";
-import { useState } from "react";
+import { useEffect, useState } from "react";
 import { useCallback } from "react";
 import EditModal from "../components/EditModal";
 import Comments from "../components/Comment";
@@ -27,7 +27,8 @@ const Detail = () => {
   // 게시글의 내용을 수정하는 모달의 화면 존재 여부 state
   const [isEditModal, setIsEditModal] = useState(false);
   // 현재 게시글의 데이터를 저장하고 있는 state
-  // const [detailData, setDetailData] = useState(data);
+  const [detailData, setDetailData] = useState(data);
+  const [getDataLoading, setGetDataLoading] = useState(false);
   // 신고하기 모달의 화면 존재 여부
   const [isReportModal, setIsReportModal] = useState(false);
   // 사용자가 올린 게시글의 사진의 개수가 한개 이상일때 화면에 보여지는 px 을 저장하는 state
@@ -36,18 +37,24 @@ const Detail = () => {
   // 서버에게 현재 사용자가 보고 있는 게시글의 데이터를 요청해서 받아오는 함수
   const getDetailData = useCallback(async () => {
     try {
+      setGetDataLoading(true);
       const docRef = doc(dbService, "test", data.id);
       const docSnap = await getDoc(docRef);
-      return docSnap.data();
+      setDetailData(docSnap.data());
+      setGetDataLoading(false);
+      // return docSnap.data();
     } catch (e) {
       console.log(e);
     }
   }, [data.id]);
   // 서버에 데이터를 요청하는 쿼리
-  const { data: detailData, isLoading: getDetailDataIsLoading } = useQuery({
-    queryKey: ["detailData"],
-    queryFn: getDetailData,
-  });
+  useEffect(() => {
+    getDetailData();
+  }, []);
+  // const { data: detailData, isLoading: getDetailDataIsLoading } = useQuery({
+  //   queryKey: ["detailData"],
+  //   queryFn: getDetailData,
+  // });
 
   // 사용자가 올린 게시글의 사진의 개수글 가지고 이미지가 보여지는 화면의 최대 width px 을 계산하여 그 값을 저장하는 변수
   const imgsMaxPx =
@@ -101,6 +108,7 @@ const Detail = () => {
 
   // 좋아요 버튼을 클릭하면 호출하는 콜백함수, 서버에 변경 된 정보 업데이트 후 다시 디테일 게시글 데이터 받아오기
   const onclickLike = async () => {
+    console.log("hello");
     let newLikeMember;
     // 좋아요하기, 좋아요 취소하기 로직
     if (
@@ -121,6 +129,7 @@ const Detail = () => {
       likeMember: newLikeMember,
       likeNumber: newLikeMember.length,
     });
+    getDetailData();
 
     // 해당 게시글의 데이터를 업데이트 했으니까 다시 해당 게시글의 데이터를 받아오는 함수 호출
     // queryClient.invalidateQueries(["detailData"]);
@@ -145,7 +154,7 @@ const Detail = () => {
             </S.DetailTitleText>
             <S.DetailTitleBoxRight>
               <S.DetailBtn
-                // onClick={clickLike}
+                onClick={onclickLike}
                 isLike={
                   detailData && user && detailData.likeMember.includes(user.uid)
                 }
@@ -251,7 +260,7 @@ const Detail = () => {
           postName={data.postName}
         />
       )}
-      {getDetailDataIsLoading && (
+      {getDataLoading && (
         <Loading>
           <PulseLoader color="black" size={20} />
         </Loading>

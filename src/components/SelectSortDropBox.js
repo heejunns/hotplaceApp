@@ -3,14 +3,14 @@ import { useRecoilState } from "recoil";
 import { currentPageAtom, currentSelectSortAtom } from "../recoils/UserAtom";
 
 const SelectSortDropBox = () => {
-  const [pageCurrentPage, setCurrentPage] = useRecoilState(currentPageAtom);
+  // const [pageCurrentPage, setCurrentPage] = useRecoilState(currentPageAtom);ㄴ
   const [currentSelectSort, setCurrentSelectSort] = useRecoilState(
     currentSelectSortAtom
   );
   // 사용자가 드롭박스에서 게시글 분류 방법을 선택해 클릭하면 호출되는 콜백함수, 사용자가 클릭한 분류 방법에 해당하는 데이터를 서버에 요청해 데이터를 받아오는 함수
   const onclickSelectSortChange = (selectMethod) => {
     setCurrentSelectSort(selectMethod);
-    setCurrentPage(0);
+    // setCurrentPage(0);
   };
   return (
     <S.SelectSortMethodBox>

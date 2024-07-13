@@ -4,7 +4,7 @@ import styled from "styled-components";
 export const PostItemContainer = styled.div`
   position: relative;
   width: 100%;
-  max-height: 250px;
+  height: 150px;
   box-shadow: rgba(0, 0, 0, 0.1) 1px 1px 10px 0;
   display: flex;
   flex-direction: column;
@@ -34,7 +34,7 @@ export const PostItemInfoBox = styled.div`
 // 게시글 이미지
 export const PostItemImg = styled.div`
   width: 100%;
-  height: 150px;
+  height: 100%;
   & > img {
     width: 100%;
     height: 100%;

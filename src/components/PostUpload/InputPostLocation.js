@@ -1,6 +1,7 @@
 import {
   InputTitle,
   MapBox,
+  MapInnerBox,
   MapInput,
   PostUploadMapBox,
 } from "../../styles/pages/PostUpload.style";
@@ -24,12 +25,10 @@ const InputPostLocation = ({
         {mapStatus ? (
           <Map setUserMarkerLocation={setUserMarkerLocation} />
         ) : (
-          <span
-            className="material-symbols-outlined"
-            onClick={onclickMapButton}
-          >
-            add_location_alt
-          </span>
+          <MapInnerBox onClick={onclickMapButton}>
+            장소 등록하기
+            <span className="material-symbols-outlined">add_location_alt</span>
+          </MapInnerBox>
         )}
       </MapBox>
     </PostUploadMapBox>

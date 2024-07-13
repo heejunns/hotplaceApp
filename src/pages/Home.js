@@ -27,6 +27,7 @@ import { PulseLoader } from "react-spinners";
 import { useQuery } from "@tanstack/react-query";
 import { useBottomScrollListener } from "react-bottom-scroll-listener";
 import { useEffect, useRef, useState } from "react";
+import { debounce } from "lodash";
 
 // ============================================ Home(메인) 페이지 ===================================
 // 사용자들이 게시한 게시물들을 한번에 볼 수 있고 사용자들이 좋아요를 눌러 좋아요를 가장 많이 받은 순서대로 1~10위까지 한번에 볼 수 있는 페이지 입니다.
@@ -99,7 +100,7 @@ const Home = () => {
 
   useEffect(() => {
     getPostData(currentSelectSort);
-  }, []);
+  }, [currentSelectSort]);
   useEffect(() => {
     getCurrentData(currentSelectSort);
   }, [postData]);
@@ -179,34 +180,38 @@ const Home = () => {
   };
   console.log("nofunc", noFunc);
   const ref = useRef();
-  const onintersection = (ent) => {
-    console.log("hello", ent[0].isIntersecting);
-    console.log(noFunc);
-    const fir = ent[0];
-    if (noFunc) {
-      return;
-    }
-    if (fir.isIntersecting) {
-      getCurrentData(currentSelectSort);
-    }
-  };
-  useEffect(() => {
-    const obs = new IntersectionObserver(onintersection);
-    if (ref.current) {
-      obs.observe(ref.current);
-    }
-    return () => {
-      if (ref.current) {
-        obs.unobserve(ref.current);
-      }
-    };
-  }, [start]);
-  // useBottomScrollListener(() => {
-  //   console.log("hello");
-  //   if (!noFunc) {
-  //     getCurrentData(currentSelectSort, currentPage);
+  // const onintersection = (ent) => {
+  //   console.log("hello", ent[0].isIntersecting);
+  //   console.log(noFunc);
+  //   const fir = ent[0];
+  //   if (noFunc) {
+  //     return;
   //   }
-  // });
+  //   if (fir.isIntersecting) {
+  //     getCurrentData(currentSelectSort);
+  //   }
+  // };
+
+  // useEffect(() => {
+  //   const obs = new IntersectionObserver(onintersection);
+  //   if (ref.current) {
+  //     obs.observe(ref.current);
+  //   }
+  //   return () => {
+  //     if (ref.current) {
+  //       obs.unobserve(ref.current);
+  //     }
+  //   };
+  // }, [start]);
+  useBottomScrollListener(() => {
+    console.log("hello");
+    const fetchDebounce = debounce(() => {
+      if (!noFunc) {
+        getCurrentData(currentSelectSort);
+      }
+    });
+    fetchDebounce();
+  });
 
   // 현재 사용자가 보고 있는 페이지의 데이터를 서버에서 가져오는 쿼리 코드
   // const { data: currentData, isLoading: currentDataIsLoading } = useQuery({
