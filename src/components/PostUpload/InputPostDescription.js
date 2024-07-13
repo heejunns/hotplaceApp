@@ -18,7 +18,7 @@ const InputPostDescription = ({ register }) => {
               message: "자세한 설명은 최대 100글자까지 입력 가능합니다.",
             },
           })}
-          placeholder="업로드 하고 싶은 글을 작성 해주세요."
+          placeholder="등록하고 싶은 매장의 자세한 설명을 작성해주세요."
         />
       </InputPostDescriptionBox>
     </>

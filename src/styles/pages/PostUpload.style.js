@@ -243,19 +243,22 @@ export const PostUploadSubmitBox = styled.div`
 
 // 맵 레이아웃 스타일 태그
 export const MapBox = styled.div`
-  width: 100%;
-  height: 500px;
+  font-size: 20px;
   border: 2px solid #b4b4b4;
   margin-top: 10px;
-  display: flex;
-  flex-direction: column;
-  justify-content: center;
-  align-items: center;
   border-radius: 10px;
+`;
+
+export const MapInnerBox = styled.div`
+  cursor: pointer;
+  font-size: 20px;
+  width: 100%;
+  padding: 10px;
+  display: flex;
+  align-items: center;
   & > span {
-    cursor: pointer;
     color: white;
-    font-size: 80px;
+    font-size: 35px;
     color: #b4b4b4;
     &:hover {
       color: #828282;
