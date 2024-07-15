@@ -17,8 +17,8 @@ export const AllPostBox = styled.div`
   margin-top: 30px;
   width: 100%;
   max-width: 1200px;
-  height: 100%;
-  min-height: 522px;
+  /* height: 100%; */
+  /* min-height: 522px; */
   padding: 5px;
   &::-webkit-scrollbar {
     display: none;

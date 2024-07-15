@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import React, { useEffect, useState } from "react";
 import { dbService } from "../reactfbase";
 import {
   collection,
@@ -19,6 +19,8 @@ import { Loading } from "../styles/components/Loading.style";
 import { PulseLoader } from "react-spinners";
 import PageNation from "../components/Home/PageNation";
 import { useQuery } from "@tanstack/react-query";
+import { useBottomScrollListener } from "react-bottom-scroll-listener";
+import { debounce } from "lodash";
 
 // 현재 우리가 다양한 컴포넌트에 prop 로 전달해주고 있는 user 객체를 authService.currentUser 로 업데이트 해야한다. 하지만 set 함수로 업데이트 해도 리 랜더링이 되지 않는다. 왜일까?
 // react 는 복잡하고 큰 객체를 전에 상태와 바뀌었는지 판단하는것을 어려워한다.
@@ -29,44 +31,66 @@ import { useQuery } from "@tanstack/react-query";
 const Profile = () => {
   const [currentPage, setCurrentPage] = useRecoilState(currentPageAtom);
   const user = useRecoilValue(userAtom);
+  console.log(user);
   const profileImg = user && user.photoURL;
   const [selectMenu, setSelectMenu] = useState("userProfile");
   const [isProfileImgUploadModal, setIsProfileImgUploadModal] = useState(false);
   const [isProfileNameEditModal, setIsProfileNameEditModal] = useState(false);
-
+  const [profileData, setProfileData] = useState([]);
+  const [currentData, setCurrentData] = useState([]);
+  const [noFunc, setNoFunc] = useState(false);
+  const [profileDataLoading, setProfileDataLoading] = useState(false);
+  const [start, setStart] = useState();
   const onclickProfileImgUploadIcon = () => {
     setIsProfileImgUploadModal((prev) => !prev);
   };
-
+  console.log(profileData);
   // 해당 유저가 작성한 글을 실시간으로 가져오기
 
   const getUserData = async (selectMenu) => {
-    let q;
-    if (selectMenu === "userProfile") {
-      q = query(
-        collection(dbService, "test"),
-        where("writer", "==", user.uid),
-        orderBy("createTime", "desc")
-      );
-    } else if (selectMenu === "userLike") {
-      q = query(
-        collection(dbService, "test"),
-        where("likeMember", "array-contains", user.uid),
-        orderBy("createTime", "desc")
-      );
+    try {
+      let q;
+      setProfileDataLoading(true);
+      if (selectMenu === "userProfile") {
+        q = query(
+          collection(dbService, "test"),
+          where("writer", "==", user.uid),
+          orderBy("createTime", "desc")
+        );
+      } else if (selectMenu === "userLike") {
+        q = query(
+          collection(dbService, "test"),
+          where("likeMember", "array-contains", user.uid),
+          orderBy("createTime", "desc")
+        );
+      }
+      const docSnap = await getDocs(q);
+      const data = [];
+      docSnap.forEach((doc) => {
+        data.push({ id: doc.id, ...doc.data() });
+      });
+      setProfileData(data);
+      setStart(data[0]?.createTime);
+      setProfileDataLoading(false);
+    } catch (e) {
+      console.log(e);
     }
-    const docSnap = await getDocs(q);
-    const profileData = [];
-    docSnap.forEach((doc) => {
-      profileData.push({ id: doc.id, ...doc.data() });
-    });
-    return profileData;
   };
-
-  const { data: profileData, isLoading: getProfileDataIsLoading } = useQuery({
-    queryKey: ["uploadData", selectMenu],
-    queryFn: () => getUserData(selectMenu),
-  });
+  useEffect(() => {
+    if (user?.uid) {
+      getUserData(selectMenu);
+    }
+  }, [user, selectMenu]);
+  useEffect(() => {
+    if (user?.uid) {
+      getCurrentData(selectMenu);
+    }
+  }, [profileData, user, selectMenu]);
+  // const { data: profileData, isLoading: getProfileDataIsLoading } = useQuery({
+  //   queryKey: ["uploadData", selectMenu],
+  //   queryFn: () => getUserData(selectMenu),
+  // });
+  console.log("nofunc", noFunc);
   // 쿼리 함수
   const getCurrentData = async (selectMenu, currentPage) => {
     try {
@@ -76,16 +100,16 @@ const Profile = () => {
           collection(dbService, "test"),
           where("writer", "==", user.uid),
           orderBy("createTime", "desc"),
-          limit(8),
-          startAt(profileData[currentPage * 8].createTime)
+          limit(9),
+          startAt(start)
         );
       } else if (selectMenu === "userLike") {
         q = query(
           collection(dbService, "test"),
           where("likeMember", "array-contains", user.uid),
           orderBy("createTime", "desc"),
-          limit(8),
-          startAt(profileData[currentPage * 8].createTime)
+          limit(9),
+          startAt(start)
         );
       }
       const querySnapshot = await getDocs(q);
@@ -93,23 +117,44 @@ const Profile = () => {
       querySnapshot.forEach((doc) => {
         data.push({ id: doc.id, ...doc.data() });
       });
-      return data;
+
+      console.log("h", data);
+      if (data.length === 9) {
+        setStart(data[8].createTime);
+        setCurrentData((prev) => prev.concat(data.slice(0, 8)));
+      } else if (data.length < 9) {
+        setNoFunc(true);
+        setStart(null);
+        setCurrentData((prev) => prev.concat(data));
+      }
     } catch (e) {
       console.log(e);
     }
   };
-  // 쿼리 코드
-  const { data: currentData, isLoading: currentDataIsLoading } = useQuery({
-    queryKey: ["pageHandle", currentPage, selectMenu],
-    queryFn: () => getCurrentData(selectMenu, currentPage),
 
-    enabled: !!profileData,
-    keepPreviousData: true,
+  useBottomScrollListener(() => {
+    console.log("hello");
+    const fetchDebounce = debounce(() => {
+      if (!noFunc) {
+        getCurrentData(selectMenu);
+      }
+    });
+    fetchDebounce();
   });
+  // 쿼리 코드
+  // const { data: currentData, isLoading: currentDataIsLoading } = useQuery({
+  //   queryKey: ["pageHandle", currentPage, selectMenu],
+  //   queryFn: () => getCurrentData(selectMenu, currentPage),
+
+  //   enabled: !!profileData,
+  //   keepPreviousData: true,
+  // });
 
   const onclickSelectMenu = ({ target: { id } }) => {
     setSelectMenu(id);
-    setCurrentPage(0);
+    setProfileData([]);
+    setCurrentData([]);
+    setNoFunc(false);
   };
 
   return (
@@ -174,9 +219,9 @@ const Profile = () => {
             </S.ProfilePostBox>
           )}
         </S.ProfileBox>
-        {currentData && profileData && (
+        {/* {currentData && profileData && (
           <PageNation currentData={currentData} postData={profileData} />
-        )}
+        )} */}
       </S.ProfileBack>
       {isProfileImgUploadModal && (
         <ProfileImgUploadModal
@@ -188,7 +233,7 @@ const Profile = () => {
           setIsProfileNameEditModal={setIsProfileNameEditModal}
         />
       )}
-      {getProfileDataIsLoading && (
+      {profileDataLoading && (
         <Loading>
           <PulseLoader color="black" size={20} />
         </Loading>
