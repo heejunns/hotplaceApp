@@ -3,8 +3,6 @@ import styled from "styled-components";
 export const ProfileBack = styled.div`
   font-family: "Tilt Neon", sans-serif;
   width: 100%;
-  height: 100%;
-  background-color: #e9e9e9;
   display: flex;
   flex-direction: column;
   align-items: center;
@@ -69,9 +67,7 @@ export const ProfileUserInfoName = styled.div`
 
 // 현재 사용자가 올린 게시글을 보여줄 게시글 레이아웃 스타일 태그
 export const ProfileBox = styled.div`
-  border-radius: 10px;
   width: 100%;
-  overflow-y: auto;
   display: flex;
   flex-direction: column;
   padding-bottom: 30px;
@@ -94,7 +90,7 @@ export const ProfileMenuItem = styled.li`
   white-space: nowrap;
   border-bottom: ${(props) =>
     props.selectMenu === props.id ? "2px solid #6edcdc" : "2px solid #a0a0a0"};
-  width: 150px;
+  /* width: 150px; */
   height: 30px;
   font-size: 20px;
   font-weight: 600;
@@ -104,7 +100,7 @@ export const ProfileMenuItem = styled.li`
   align-items: center;
   cursor: pointer;
   &:nth-child(1) {
-    margin-right: 10px;
+    margin-right: 30px;
   }
 `;
 export const NoPost = styled.div`
@@ -122,7 +118,6 @@ export const ProfilePostBox = styled.div`
   grid-template-columns: repeat(4, 1fr);
   gap: 20px;
   height: 100%;
-  min-height: 550px;
   @media screen and (max-width: 1024px) {
     grid-template-columns: repeat(3, 1fr);
   }
