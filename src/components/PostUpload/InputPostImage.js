@@ -26,7 +26,7 @@ const InputPostImage = ({
       reader.onloadend = (fileLoadEndEvent) => {
         console.log(fileLoadEndEvent.target.result);
         setUploadImageFileURL([fileLoadEndEvent.target.result]);
-        setValue("uploadImgurl", fileLoadEndEvent.target.result);
+        setValue("uploadImgUrl", fileLoadEndEvent.target.result);
       };
     } else {
       for (let i = 0; i < files.length; ++i) {
@@ -55,7 +55,7 @@ const InputPostImage = ({
         type="file"
         accept="image/*"
         {...register("uploadImgUrl", {
-          required: "사진을 추가해주세요.",
+          // required: "사진을 추가해주세요.",
         })}
         onChange={onchangeImageUpload}
       />

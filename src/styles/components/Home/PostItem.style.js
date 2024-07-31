@@ -4,7 +4,7 @@ import styled from "styled-components";
 export const PostItemContainer = styled.div`
   position: relative;
   width: 100%;
-  height: 150px;
+  height: 180px;
   box-shadow: rgba(0, 0, 0, 0.1) 1px 1px 10px 0;
   display: flex;
   flex-direction: column;

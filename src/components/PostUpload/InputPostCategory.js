@@ -30,7 +30,7 @@ const InputPostCategory = ({
           htmlFor="food"
           userSelectCategory={userSelectCategory === "food" ? "black" : ""}
         >
-          음식 <span className="material-symbols-outlined">restaurant</span>
+          맛집 <span className="material-symbols-outlined">restaurant</span>
           <CategoryInput
             id="food"
             type="radio"
@@ -39,12 +39,37 @@ const InputPostCategory = ({
           />
         </CategoryBtn>
         <CategoryBtn
-          htmlFor="mart"
-          userSelectCategory={userSelectCategory === "mart" ? "black" : ""}
+          htmlFor="popup"
+          userSelectCategory={userSelectCategory === "popup" ? "black" : ""}
         >
-          마트 <span className="material-symbols-outlined">storefront</span>
+          팝업스토어
+          <span className="material-symbols-outlined">storefront</span>
           <CategoryInput
-            id="mart"
+            id="popup"
+            type="radio"
+            name="category"
+            onChange={onchangeUserSelectCategory}
+          />
+        </CategoryBtn>
+        <CategoryBtn
+          htmlFor="festival"
+          userSelectCategory={userSelectCategory === "festival" ? "black" : ""}
+        >
+          축제 <span className="material-symbols-outlined">storefront</span>
+          <CategoryInput
+            id="festival"
+            type="radio"
+            name="category"
+            onChange={onchangeUserSelectCategory}
+          />
+        </CategoryBtn>
+        <CategoryBtn
+          htmlFor="birth"
+          userSelectCategory={userSelectCategory === "birth" ? "black" : ""}
+        >
+          생일파티 <span className="material-symbols-outlined">storefront</span>
+          <CategoryInput
+            id="birth"
             type="radio"
             name="category"
             onChange={onchangeUserSelectCategory}

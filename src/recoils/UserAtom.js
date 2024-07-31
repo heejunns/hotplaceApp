@@ -33,7 +33,7 @@ export const currentSelectSortAtom = atom({
 
 export const userLocation = atom({
   key: "userLocation",
-  default: "",
+  default: "서울",
 });
 
 export const firebaseInitialize = atom({

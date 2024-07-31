@@ -22,15 +22,16 @@ import InputPostDescription from "../components/PostUpload/InputPostDescription"
 import InputPostCategory from "../components/PostUpload/InputPostCategory";
 import InputPostLocation from "../components/PostUpload/InputPostLocation";
 import { DevTool } from "@hookform/devtools";
+import InputPostDate from "../components/PostUpload/InputPostDate";
 
 const PostUpload = () => {
   const {
     register,
     handleSubmit,
     formState: { errors, isSubmitting },
+    watch,
     setValue,
     setError,
-
     control,
   } = useForm({
     defaultValues: {
@@ -39,6 +40,7 @@ const PostUpload = () => {
       category: "",
     },
   });
+  console.log(watch());
   const [currentPage, setCurrentPage] = useRecoilState(currentPageAtom);
   const location = useRecoilValue(userLocation);
   const user = useRecoilValue(userAtom);
@@ -61,8 +63,12 @@ const PostUpload = () => {
         ? "카페"
         : id === "food"
         ? "음식"
-        : id === "mart"
-        ? "마트"
+        : id === "popup"
+        ? "팝업스토어"
+        : id === "festival"
+        ? "축제"
+        : id === "birth"
+        ? "생일파티"
         : null // 작성자가 선택한 카테고리 종류););)
     );
   }, []);
@@ -175,6 +181,7 @@ const PostUpload = () => {
             mapStatus={mapStatus}
             onclickMapButton={onclickMapButton}
           />
+          <InputPostDate />
 
           {/* <FindAddress /> */}
           <S.ErrorMsg>
