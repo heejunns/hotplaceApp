@@ -1,6 +1,12 @@
 import styled from "styled-components";
 
 export const HomeSlideBack = styled.div`
+  display: flex;
+  justify-content: center;
+  background-image: url(${(props) => props.homeBack});
+  background-repeat: no-repeat;
+  background-size: cover;
+  position: relative;
   font-family: "Gaegu", sans-serif;
   height: 500px;
   overflow: hidden;
@@ -10,32 +16,21 @@ export const HomeSlideBack = styled.div`
   }
 `;
 
-export const HomeSlideBox = styled.div`
-  height: 100%;
+export const TextBox = styled.div`
+  padding-bottom: 20px;
   display: flex;
+  flex-direction: column;
+  justify-content: flex-end;
+  height: 100%;
   width: 100%;
-  min-width: ${(props) => props.width && `${props.width * 5}px`};
+  max-width: 1200px;
 `;
 
-export const Img = styled.div`
-  width: 100%;
-  & > img {
-    width: 100%;
-    height: 100%;
-    object-fit: fill;
-  }
-`;
-
-export const HomeSlideBtn = styled.button``;
-
-export const ImgText = styled.h1`
+export const Text = styled.h3`
   font-weight: 600;
   line-height: 120%;
   color: white;
   font-size: 30px;
-  position: relative;
-  bottom: 100px;
-  left: 10px;
   @media screen and (max-width: 768px) {
     line-height: 130%;
     bottom: 65px;

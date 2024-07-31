@@ -177,7 +177,7 @@ export const CategoryMenuBox = styled.div`
 // 카테고리 선택 버튼
 export const CategoryBtn = styled.label`
   border: none;
-  width: 100px;
+  width: 120px;
   padding: 10px;
   display: flex;
   justify-content: center;
@@ -193,7 +193,9 @@ export const CategoryBtn = styled.label`
     margin-left: 5px;
   }
   &:nth-child(1),
-  &:nth-child(2) {
+  &:nth-child(2),
+  &:nth-child(3),
+  &:nth-child(4) {
     margin-right: 10px;
   }
 `;

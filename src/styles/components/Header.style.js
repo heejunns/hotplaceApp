@@ -1,7 +1,7 @@
 import styled from "styled-components";
 
 // 네이게이선 배경 스타일 태그
-export const HeaderBackground = styled.div`
+export const HeaderContainer = styled.header`
   font-family: "Tilt Neon", sans-serif;
   position: fixed;
   top: 0;
@@ -10,30 +10,39 @@ export const HeaderBackground = styled.div`
   width: 100%;
   padding: 0 20px;
   display: flex;
-  justify-content: space-between;
+  justify-content: center;
   align-items: center;
-  transition: all 0.5s linear;
+  transition: all 0.3s linear;
   background-color: ${(props) => (props.backColor ? "white" : "transparent")};
-  border-bottom: ${(props) => props.backColor && "1px solid 	#969696"};
+  border-bottom: ${(props) => props.backColor && "1px solid #969696"};
   @media screen and (max-width: 768px) {
     justify-content: space-between;
   }
 `;
 
+export const HeaderBox = styled.div`
+  width: 100%;
+  max-width: 1200px;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+`;
 // 애플리케이션의 이름 스타일 태그
-export const AppTitleName = styled.div`
+export const AppTitleName = styled.h1`
   cursor: pointer;
   font-size: 25px;
   font-weight: 600;
-  color: black;
   display: flex;
   align-items: center;
   margin-right: 20px;
   justify-content: center;
   white-space: nowrap;
+  a {
+    color: black;
+  }
 `;
 // Header 의 왼쪽 메뉴 박스
-export const HeaderMenuBox = styled.div`
+export const HeaderMenuBox = styled.nav`
   display: flex;
   align-items: center;
   @media screen and (max-width: 768px) {
@@ -50,7 +59,7 @@ export const HeaderUserInfoBox = styled.ul`
   display: flex;
   justify-content: space-between;
   align-items: center;
-  & > li > a {
+  & > a {
     text-decoration: none;
   }
   @media screen and (max-width: 768px) {
@@ -58,18 +67,24 @@ export const HeaderUserInfoBox = styled.ul`
   }
 `;
 // 네비게이션 요소들의 스타일 태그
-export const HeaderBoxItem = styled.div`
+export const HeaderBoxItem = styled.li`
   color: black;
   font-size: 20px;
   padding-bottom: 3px;
   display: flex;
   align-items: center;
-  margin-left: 10px;
+  margin-right: 10px;
   white-space: nowrap;
   opacity: ${(props) => (props.currentPath ? 0.7 : 1)};
   border-bottom: ${(props) => (props.currentPath ? "1px solid white" : "none")};
   &:hover {
     opacity: 0.7;
+  }
+  img {
+    width: 35px;
+    height: 35px;
+    border-radius: 50%;
+    z-index: 1000;
   }
 `;
 // 로그아웃 버튼 스타일 태그
@@ -161,7 +176,6 @@ export const SideBarLogOutButton = styled.button`
   justify-content: flex-start;
   align-items: center;
   font-size: 20px;
-
   & > span {
     font-size: 20px;
     color: white;

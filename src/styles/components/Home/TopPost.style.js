@@ -4,7 +4,8 @@ export const TopPostBack = styled.div`
   width: 100%;
   padding: 20px 0 10px 0;
   max-width: 1200px;
-  overflow: scroll;
+  overflow-y: hidden;
+  overflow-x: scroll;
   display: flex;
   align-items: center;
   position: relative;
@@ -36,31 +37,36 @@ export const TopPostBox = styled.div`
 `;
 
 export const TopPostBtn = styled.button`
-  width: 40px;
-  box-shadow: rgba(0, 0, 0, 0.2) 1px 1px 10px 0;
-  height: 40px;
+  top: 50%;
+  transform: translate(0, -50%);
+  width: 50px;
+  box-shadow: rgba(0, 0, 0, 0.5) 1px 1px 10px 0;
+  height: 50px;
   background-color: white;
   display: flex;
   justify-content: center;
   align-items: center;
-  border-radius: 50%;
+  border-radius: 18px;
   border: none;
   opacity: 0.7;
   position: absolute;
-  white-space: nowrap;
   cursor: pointer;
   & > span {
-    opacity: 1;
+    opacity: 0.7;
     color: black;
-    font-size: 25px;
+    font-size: 40px;
   }
   &:hover {
     opacity: 1;
+    span {
+      opacity: 1;
+      color: black;
+      font-size: 40px;
+    }
   }
 `;
 
 export const TopPostPrevBtn = styled(TopPostBtn)`
-  top: 125px;
   left: 10px;
   display: ${(props) => (props.topBoxPx === 0 ? "none" : "block")};
   @media screen and (max-width: 768px) {
@@ -69,7 +75,6 @@ export const TopPostPrevBtn = styled(TopPostBtn)`
 `;
 
 export const TopPostNextBtn = styled(TopPostBtn)`
-  top: 125px;
   right: 15px;
   display: ${(props) => (props.topBoxPx === -2400 ? "none" : "block")};
   @media screen and (max-width: 768px) {

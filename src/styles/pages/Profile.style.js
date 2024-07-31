@@ -13,23 +13,34 @@ export const ProfileBack = styled.div`
 `;
 export const ProfileUserInfoBox = styled.div`
   width: 100%;
-  height: 150px;
+  max-width: 1200px;
   display: flex;
-  justify-content: center;
-  align-items: center;
   flex-direction: column;
+  /* justify-content: center; */
+  /* align-items: center; */
+  div {
+    display: flex;
+  }
+  .hello {
+    font-size: 25px;
+    margin-bottom: 10px;
+  }
 `;
 
-export const ProfileUserImgUploadIcon = styled.div`
-  position: absolute;
-  bottom: 0;
-  right: 5px;
-  cursor: pointer;
-  & > span {
-    border-radius: 50%;
-    color: white;
-    background-color: black;
+export const ProfileUserInfoBtnBox = styled.div`
+  margin-top: 20px;
+  display: flex;
+  button:nth-of-type(1),
+  button:nth-of-type(2) {
+    margin-right: 15px;
   }
+`;
+export const ProfileUserInfoBtn = styled.button`
+  border: none;
+  padding: 10px;
+  border-radius: 10px;
+  cursor: pointer;
+  background-color: ${(props) => props.backColor};
 `;
 
 export const ProfileUserImgBox = styled.div`
@@ -41,8 +52,8 @@ export const ProfileUserInfoImg = styled.div`
   justify-content: center;
   align-items: center;
   border-radius: 100%;
-  width: 100px;
-  height: 100px;
+  width: 50px;
+  height: 50px;
   & > img {
     width: 100%;
     height: 100%;
@@ -54,8 +65,8 @@ export const ProfileUserInfoImg = styled.div`
 `;
 
 export const ProfileUserInfoName = styled.div`
-  margin: 10px;
-  font-size: 20px;
+  margin-left: 10px;
+  font-size: 25px;
   display: flex;
   justify-content: center;
   align-items: center;
@@ -68,6 +79,7 @@ export const ProfileUserInfoName = styled.div`
 // 현재 사용자가 올린 게시글을 보여줄 게시글 레이아웃 스타일 태그
 export const ProfileBox = styled.div`
   width: 100%;
+  max-width: 1200px;
   display: flex;
   flex-direction: column;
   padding-bottom: 30px;

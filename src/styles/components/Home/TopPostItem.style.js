@@ -22,3 +22,11 @@ export const Ranking = styled.h3`
   font-weight: 600;
   color: white;
 `;
+
+export const TopPostSkeleton = styled.div`
+  position: relative;
+  height: 382px;
+  width: 285px;
+  background-color: #aaaaaa;
+  border-radius: 10px;
+`;

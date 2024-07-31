@@ -22,12 +22,15 @@ import {
 import { useRecoilState, useRecoilValue } from "recoil";
 import { Loading } from "../styles/components/Loading.style";
 import { PulseLoader } from "react-spinners";
-import { useQuery } from "@tanstack/react-query";
+import { useEffect, useState } from "react";
 const Page = () => {
   const firebaseInitial = useRecoilValue(firebaseInitialize);
   const location = useRecoilValue(userLocation);
   const { id } = useParams();
-  // const [pagePostData, setPagePostData] = useState(null);
+  const [pagePostData, setPagePostData] = useState(null);
+  const [pageCurrentData, setPageCurrentData] = useState(null);
+  const [pageCurrentDataIsLoading, setPageCurrentDataIsLoading] =
+    useState(false);
   const currentPage = useRecoilValue(currentPageAtom);
   // 게시글 분류 방법을 담고 있는 state
   const [currentSelectSort, setCurrentSelectSort] = useRecoilState(
@@ -81,19 +84,22 @@ const Page = () => {
       querySnapshot.forEach((doc) => {
         data.push({ ...doc.data(), id: doc.id });
       });
-      return data;
+      setPagePostData(data);
     } catch (e) {
       console.log(e);
     }
   };
 
-  const { data: pagePostData } = useQuery(
-    ["pagePostData", currentSelectSort, id],
-    () => getPagePostData(currentSelectSort, id)
-  );
-  // useEffect(() => {
-  //   getFirstPostData();
-  // }, [id]);
+  // const { data: pagePostData } = useQuery(
+  //   ["pagePostData", currentSelectSort, id],
+  //   () => getPagePostData(currentSelectSort, id)
+  // );
+  useEffect(() => {
+    getPagePostData(currentSelectSort, id);
+  }, [id]);
+  useEffect(() => {
+    getPageCurrentData(currentSelectSort, currentPage, id);
+  }, [pagePostData]);
   // 왼쪽, 오른쪽 화살표를 클릭하면 호출되는 콜백함수, 화살표를 클릭했을때 해당하는 데이터를 서버에 요청해 받아오는 함수
 
   // 페이지네이션에서 숫자를 클릭하면 호출되는 콜백함수, 클릭한 숫자에 해당하는 데이터를 서버에 요청해 받아오는 함수
@@ -146,26 +152,29 @@ const Page = () => {
 
   const getPageCurrentData = async (currentSelectSort, currentPage, id) => {
     try {
+      setPageCurrentDataIsLoading(true);
       let q = pageQueryMakePageHandler(currentSelectSort, currentPage, id);
       const querySnapshot = await getDocs(q);
       const data = [];
       querySnapshot.forEach((doc) => {
         data.push({ id: doc.id, ...doc.data() });
       });
-      return data;
+      setPageCurrentData(data);
+      setPageCurrentDataIsLoading(false);
     } catch (e) {
       console.log(e);
     }
   };
 
-  const { data: pageCurrentData, isLoading: pageCurrentDataIsLoading } =
-    useQuery({
-      queryKey: ["pageHandle", currentSelectSort, currentPage, id],
-      queryFn: () => getPageCurrentData(currentSelectSort, currentPage, id),
+  // const { data: pageCurrentData, isLoading: pageCurrentDataIsLoading } =
+  //   useQuery({
+  //     queryKey: ["pageHandle", currentSelectSort, currentPage, id],
+  //     queryFn: () => getPageCurrentData(currentSelectSort, currentPage, id),
 
-      enabled: !!pagePostData,
-      keepPreviousData: true,
-    });
+  //     enabled: !!pagePostData,
+  //     keepPreviousData: true,
+  //   });
+
   return (
     <S.PageBack>
       <SelectSortDropBox />
