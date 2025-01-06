@@ -13,7 +13,6 @@ import * as S from "../styles/pages/Home.style";
 import PostItem from "../components/Home/PostItem";
 import TopPost from "../components/Home/TopPost";
 import SelectSortDropBox from "../components/SelectSortDropBox";
-import PageNation from "../components/Home/PageNation";
 import HomeSlide from "../components/Home/HomeSlide";
 import { useRecoilState, useRecoilValue } from "recoil";
 import {
@@ -28,7 +27,6 @@ import { useQuery } from "@tanstack/react-query";
 import { useBottomScrollListener } from "react-bottom-scroll-listener";
 import { useEffect, useMemo, useRef, useState } from "react";
 import { debounce, throttle } from "lodash";
-import InputPostDate from "../components/PostUpload/InputPostDate";
 // ============================================ Home(메인) 페이지 ===================================
 // 사용자들이 게시한 게시물들을 한번에 볼 수 있고 사용자들이 좋아요를 눌러 좋아요를 가장 많이 받은 순서대로 1~10위까지 한번에 볼 수 있는 페이지 입니다.
 // 게시글들도 사용자가 드롭박스에서 분류 방법을 선택하여 원하는 분류 방식의 게시글들을 볼 수 있습니다.
@@ -241,9 +239,6 @@ const Home = () => {
       <S.HomeContainer>
         <TopPost title="food" />
         <TopPost title="cafe" />
-        <TopPost title="popup" />
-        <TopPost title="festival" />
-        <TopPost title="birth" />
         <SelectSortDropBox onclickSelectSortChange={onclickSelectSortChange} />
         {firebaseInitial && homeDataLoading ? (
           <Loading>

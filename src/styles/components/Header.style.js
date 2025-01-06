@@ -38,37 +38,29 @@ export const AppTitleName = styled.h1`
   justify-content: center;
   white-space: nowrap;
   a {
-    color: black;
+    color: ${(props) => (props.backColor ? "black" : "white")};
   }
 `;
 // Header 의 왼쪽 메뉴 박스
 export const HeaderMenuBox = styled.nav`
   display: flex;
   align-items: center;
-  @media screen and (max-width: 768px) {
-    & > a:nth-of-type(2),
-    a:nth-of-type(3),
-    a:nth-of-type(4),
-    a:nth-of-type(5) {
-      display: none;
-    }
-  }
-`;
-// Header 의 오른쪽 유저 정보 또는 로그인, 로그아웃, 회원가입 박스
-export const HeaderUserInfoBox = styled.ul`
-  display: flex;
-  justify-content: space-between;
-  align-items: center;
+
   & > a {
     text-decoration: none;
   }
   @media screen and (max-width: 768px) {
-    display: none;
+    & > a:nth-of-type(1),
+    a:nth-of-type(2),
+    a:nth-of-type(3),
+    a:nth-of-type(4) {
+      display: none;
+    }
   }
 `;
 // 네비게이션 요소들의 스타일 태그
 export const HeaderBoxItem = styled.li`
-  color: black;
+  color: ${(props) => (props.backColor ? "black" : "white")};
   font-size: 20px;
   padding-bottom: 3px;
   display: flex;
@@ -101,17 +93,24 @@ export const LogOutButton = styled.button`
   }
 `;
 
+export const HamburgerSideBarBackground = styled.div`
+  position: absolute;
+  top: 300px;
+  left: 0;
+  width: 100%;
+  height: ${(props) => (props.toggle ? "100vh" : "0")};
+  background-color: black;
+  opacity: 0.7;
+`;
 export const HamburgerSideBar = styled.div`
+  position: fixed;
+  top: 0;
+  left: 0;
   padding: 0 20px;
   width: 100%;
   background: white;
   height: ${(props) => (props.toggle ? "300px" : "0")};
   z-index: 100;
-  top: 48px;
-  left: 0;
-  position: fixed;
-  transition: all ease 0.5s;
-  transition: ${(props) => (props.toggle ? "all ease 0.5s" : "")};
   display: none;
   @media screen and (max-width: 768px) {
     display: block;
@@ -129,10 +128,10 @@ export const HamburgerButtonIcon = styled.div`
   }
 `;
 export const HamburgerIconItem = styled.div`
+  background-color: ${(props) => (props.backColor ? "black" : "white")};
   width: 25px;
   height: 3px;
   border-radius: 10px;
-  background-color: black;
   z-index: 101;
   transition: all ease 0.3s;
   position: relative;

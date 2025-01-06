@@ -17,6 +17,7 @@ const InputPostImage = ({
   setValue,
 }) => {
   const onchangeImageUpload = useCallback(({ target: { files } }) => {
+    console.log("hello img");
     // 사진 파일을 선택했을때 선택한 사진을 화면에 보여주는 코드
     if (files.length === 1) {
       const uploadFile = files[0];
@@ -41,7 +42,6 @@ const InputPostImage = ({
       }
     }
   }, []);
-  console.log(uploadImageFileURL);
   const onclickUploadFileDelete = () => {
     setUploadImageFileURL([]);
     setValue("uploadImgUrl", []);
@@ -54,9 +54,9 @@ const InputPostImage = ({
         id="imageUploadInput"
         type="file"
         accept="image/*"
-        {...register("uploadImgUrl", {
-          // required: "사진을 추가해주세요.",
-        })}
+        // {...register("uploadImgUrl", {
+        //   // required: "사진을 추가해주세요.",
+        // })}
         onChange={onchangeImageUpload}
       />
       <UploadImgBox>

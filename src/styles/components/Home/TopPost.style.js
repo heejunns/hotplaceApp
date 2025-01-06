@@ -1,13 +1,17 @@
 import styled from "styled-components";
 
-export const TopPostBack = styled.div`
+export const TopPostOutContainer = styled.div`
   width: 100%;
-  padding: 20px 0 10px 0;
   max-width: 1200px;
-  overflow-y: hidden;
-  overflow-x: scroll;
   display: flex;
   align-items: center;
+`;
+export const TopPostInnerContainer = styled.div`
+  width: 100%;
+  padding: 20px 0;
+  margin: 0 10px;
+  overflow: hidden;
+  display: flex;
   position: relative;
   @media screen and (max-width: 768px) {
     overflow-x: scroll;
@@ -23,11 +27,9 @@ export const TopPostBack = styled.div`
 `;
 
 export const TopPostBox = styled.div`
-  min-width: 2950px;
+  max-width: 3240px;
   padding: 5px;
   display: flex;
-  display: grid;
-  grid-template-columns: repeat(10, 1fr);
   gap: 15px;
   transition: 1s ease-in-out;
   transform: ${(props) =>
@@ -37,8 +39,6 @@ export const TopPostBox = styled.div`
 `;
 
 export const TopPostBtn = styled.button`
-  top: 50%;
-  transform: translate(0, -50%);
   width: 50px;
   box-shadow: rgba(0, 0, 0, 0.5) 1px 1px 10px 0;
   height: 50px;
@@ -46,37 +46,27 @@ export const TopPostBtn = styled.button`
   display: flex;
   justify-content: center;
   align-items: center;
-  border-radius: 18px;
+  border-radius: 15px;
   border: none;
-  opacity: 0.7;
-  position: absolute;
+  opacity: 1;
   cursor: pointer;
   & > span {
-    opacity: 0.7;
     color: black;
-    font-size: 40px;
-  }
-  &:hover {
-    opacity: 1;
-    span {
-      opacity: 1;
-      color: black;
-      font-size: 40px;
-    }
+    font-size: 45px;
   }
 `;
 
 export const TopPostPrevBtn = styled(TopPostBtn)`
-  left: 10px;
-  display: ${(props) => (props.topBoxPx === 0 ? "none" : "block")};
+  opacity: ${(props) => (props.topBoxPx === 0 ? "0" : "1")};
+  pointer-events: ${(props) => (props.topBoxPx === 0 ? "none" : "auto")};
   @media screen and (max-width: 768px) {
     display: none;
   }
 `;
 
 export const TopPostNextBtn = styled(TopPostBtn)`
-  right: 15px;
-  display: ${(props) => (props.topBoxPx === -2400 ? "none" : "block")};
+  opacity: ${(props) => (props.topBoxPx === -2160 ? "0" : "1")};
+  pointer-events: ${(props) => (props.topBoxPx === -2160 ? "none" : "auto")};
   @media screen and (max-width: 768px) {
     display: none;
   }
