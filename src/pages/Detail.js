@@ -1,7 +1,6 @@
 import * as S from "../styles/pages/Detail.style";
 import { useRecoilValue } from "recoil";
 import { clickPostItemData, userAtom } from "../recoils/UserAtom";
-import PostMap from "../components/PostMap";
 import { useEffect, useState } from "react";
 import { useCallback } from "react";
 import EditModal from "../components/EditModal";
@@ -231,10 +230,7 @@ const Detail = () => {
             <S.DetailItemTitle>자세한 내용</S.DetailItemTitle>
             {detailData && detailData.inputText}
           </S.DetailMainText>
-          <S.DetailMap>
-            <S.DetailItemTitle>위치</S.DetailItemTitle>
-            {detailData && <PostMap data={detailData} />}
-          </S.DetailMap>
+
           {detailData && (
             <Comments
               dataId={data.id}

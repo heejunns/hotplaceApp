@@ -14,7 +14,6 @@ const Profile = lazy(() => import("../pages/Profile"));
 const Signup = lazy(() => import("../pages/Signup"));
 const PostUpload = lazy(() => import("../pages/PostUpload"));
 const Detail = lazy(() => import("../pages/Detail"));
-const Certification = lazy(() => import("../pages/Certification"));
 const Page = lazy(() => import("../pages/Page"));
 const Preview = lazy(() => import("../pages/Preview"));
 
@@ -51,7 +50,6 @@ const AppRouter = () => {
             <Route path=":id" Component={Page} />
             <Route path="/profile" Component={Profile} />
             <Route path="/postupload" Component={PostUpload} />
-            <Route path="/certification" Component={Certification} />
             <Route path="/login" Component={LoginForm} />
             <Route path="/signup" Component={Signup} />
             <Route path="/preview" Component={Preview} />

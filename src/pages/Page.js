@@ -11,7 +11,6 @@ import {
   where,
 } from "firebase/firestore";
 import PostItem from "../components/Home/PostItem";
-import PageNation from "../components/Home/PageNation";
 import SelectSortDropBox from "../components/SelectSortDropBox";
 import {
   currentPageAtom,
@@ -33,47 +32,33 @@ const Page = () => {
     useState(false);
   const currentPage = useRecoilValue(currentPageAtom);
   // 게시글 분류 방법을 담고 있는 state
-  const [currentSelectSort, setCurrentSelectSort] = useRecoilState(
-    currentSelectSortAtom
-  );
+
+  const [currentSelectSort, setCurrentSelectSort] =
+    useState("최신글 순으로 보기");
   // const [pageCurrentData, setPageCurrentData] = useState(null);
   const pagePostDataQueryMake = (currentSelectSort, id) => {
     let queryContent;
-    let category =
-      id === "cafe"
-        ? "카페"
-        : id === "food"
-        ? "음식"
-        : id === "mart"
-        ? "마트"
-        : null;
+    let category = id === "cafe" ? "카페" : id === "food" ? "음식" : null;
     if (currentSelectSort === "최신글 순으로 보기") {
       queryContent = query(
         collection(dbService, "test"),
-        category === "전체" ? null : where("category", "==", category),
+        where("category", "==", category),
         orderBy("createTime", "desc")
       );
     } else if (currentSelectSort === "예전글 순으로 보기") {
       queryContent = query(
         collection(dbService, "test"),
-        category === "전체" ? null : where("category", "==", category),
+        where("category", "==", category),
         orderBy("createTime")
       );
     } else if (currentSelectSort === "좋아요 순으로 보기") {
       queryContent = query(
         collection(dbService, "test"),
-        category === "전체" ? null : where("category", "==", category),
+        where("category", "==", category),
         orderBy("likeNumber", "desc")
       );
-    } else if (currentSelectSort === "나의 지역 글만 보기") {
-      queryContent = query(
-        collection(dbService, "test"),
-        category === "전체" ? null : where("category", "==", category),
-        where("userLocation", "==", location),
-        orderBy("createTime", "desc")
-      );
     }
-
+    console.log("console", currentSelectSort, category);
     return queryContent;
   };
   const getPagePostData = async (currentSelectSort, id) => {
@@ -105,37 +90,27 @@ const Page = () => {
   // 페이지네이션에서 숫자를 클릭하면 호출되는 콜백함수, 클릭한 숫자에 해당하는 데이터를 서버에 요청해 받아오는 함수
   const pageQueryMakePageHandler = (currentSelectSort, currentPage, id) => {
     let queryContent;
-    let category =
-      id === "cafe"
-        ? "카페"
-        : id === "food"
-        ? "음식"
-        : id === "mart"
-        ? "마트"
-        : null;
+    let category = id === "cafe" ? "카페" : id === "food" ? "음식" : null;
     if (currentSelectSort === "최신글 순으로 보기") {
       queryContent = query(
         collection(dbService, "test"),
         orderBy("createTime", "desc"), // createTime 기준으로 내림차순으로 정렬
         category === "전체" ? null : where("category", "==", category),
-        limit(8),
-        startAt(pagePostData[currentPage * 8].createTime)
+        limit(8)
       );
     } else if (currentSelectSort === "예전글 순으로 보기") {
       queryContent = queryContent = query(
         collection(dbService, "test"),
         orderBy("createTime"), // createTime 기준으로 내림차순으로 정렬
         category === "전체" ? null : where("category", "==", category),
-        limit(8),
-        startAt(pagePostData[currentPage * 8].createTime)
+        limit(8)
       );
     } else if (currentSelectSort === "좋아요 순으로 보기") {
       queryContent = query(
         collection(dbService, "test"),
         orderBy("likeNumber", "desc"),
         category === "전체" ? null : where("category", "==", category),
-        limit(8),
-        startAt(pagePostData[currentPage * 8].likeNumber)
+        limit(8)
       );
     } else if (currentSelectSort === "나의 지역 게시글만 보기") {
       queryContent = query(
@@ -143,8 +118,7 @@ const Page = () => {
         category === "전체" ? null : where("category", "==", category),
         where("userLocation", "==", location),
         orderBy("createTime", "desc"), // createTime 기준으로 내림차순으로 정렬
-        limit(8),
-        startAt(pagePostData[currentPage * 8].createTime)
+        limit(8)
       );
     }
     return queryContent;
@@ -193,9 +167,6 @@ const Page = () => {
                 return <PostItem key={index} data={data} />;
               })}
           </S.PostBox>
-          {pagePostData && pageCurrentData && (
-            <PageNation currentData={pageCurrentData} postData={pagePostData} />
-          )}
         </>
       )}
     </S.PageBack>

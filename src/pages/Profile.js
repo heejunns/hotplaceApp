@@ -17,7 +17,6 @@ import ProfileImgUploadModal from "../components/ProfileImgUploadModal";
 import ProfileNameEditModal from "../components/ProfileNameEditModal";
 import { Loading } from "../styles/components/Loading.style";
 import { FadeLoader, PulseLoader } from "react-spinners";
-import PageNation from "../components/Home/PageNation";
 import { useQuery } from "@tanstack/react-query";
 import { useBottomScrollListener } from "react-bottom-scroll-listener";
 import { debounce } from "lodash";

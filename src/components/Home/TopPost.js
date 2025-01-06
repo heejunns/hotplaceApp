@@ -11,11 +11,11 @@ const TopPost = ({ title }) => {
   const [topPostDataLoading, setTopPostDataLoading] = useState(false);
   const [topBoxPx, setTopBoxPx] = useState(0);
   const onclickLeftBtn = () => {
-    if (topBoxPx < 2900) setTopBoxPx((prev) => prev + 1200);
+    if (topBoxPx < 0) setTopBoxPx((prev) => prev + 1080);
   };
 
   const onclickRightBtn = () => {
-    if (topBoxPx > -2900) setTopBoxPx((prev) => prev - 1200);
+    if (topBoxPx > -3240) setTopBoxPx((prev) => prev - 1080);
   };
 
   const getTopPost = async () => {
@@ -26,17 +26,7 @@ const TopPost = ({ title }) => {
         where(
           "category",
           "==",
-          title === "cafe"
-            ? "카페"
-            : title === "food"
-            ? "음식"
-            : title === "popup"
-            ? "팝업스토어"
-            : title === "festival"
-            ? "축제"
-            : title === "birth"
-            ? "생일파티"
-            : null
+          title === "cafe" ? "카페" : title === "food" ? "음식" : null
         ),
         orderBy("likeNumber", "desc")
       );
@@ -46,7 +36,7 @@ const TopPost = ({ title }) => {
         data.push({ id: doc.id, ...doc.data() });
       });
       setTopPostDataLoading(false);
-      setTopPostData(data.slice(0, 10));
+      setTopPostData(data.slice(0, 12));
     } catch (e) {
       console.log(e);
     }
@@ -64,44 +54,36 @@ const TopPost = ({ title }) => {
       <TopPostStyle.TopPostTitleBox>
         <TopPostStyle.TopPostTitleText>
           {`인기 ${
-            title === "cafe"
-              ? "카페"
-              : title === "food"
-              ? "맛집"
-              : title === "popup"
-              ? "팝업스토어"
-              : title === "festival"
-              ? "축제"
-              : title === "birth"
-              ? "생일파티"
-              : ""
-          } Top10`}
+            title === "cafe" ? "카페" : title === "food" ? "맛집" : ""
+          } Top12`}
         </TopPostStyle.TopPostTitleText>
       </TopPostStyle.TopPostTitleBox>
-      <TopPostStyle.TopPostBack>
-        <TopPostStyle.TopPostBox topBoxPx={topBoxPx}>
-          {topPostDataLoading
-            ? topPostDummyData.map((item) => <TopPostSkeleton />)
-            : topPostData.length > 0 &&
-              topPostData.map((item, index) => {
-                return (
-                  <TopPostItem key={index} data={item} ranking={index + 1} />
-                );
-              })}
-        </TopPostStyle.TopPostBox>
+      <TopPostStyle.TopPostOutContainer>
         <TopPostStyle.TopPostPrevBtn
           onClick={onclickLeftBtn}
           topBoxPx={topBoxPx}
         >
           <span className="material-symbols-outlined">chevron_left</span>
         </TopPostStyle.TopPostPrevBtn>
+        <TopPostStyle.TopPostInnerContainer>
+          <TopPostStyle.TopPostBox topBoxPx={topBoxPx}>
+            {topPostDataLoading
+              ? topPostDummyData.map((item) => <TopPostSkeleton />)
+              : topPostData.length > 0 &&
+                topPostData.map((item, index) => {
+                  return (
+                    <TopPostItem key={index} data={item} ranking={index + 1} />
+                  );
+                })}
+          </TopPostStyle.TopPostBox>
+        </TopPostStyle.TopPostInnerContainer>
         <TopPostStyle.TopPostNextBtn
           onClick={onclickRightBtn}
           topBoxPx={topBoxPx}
         >
           <span className="material-symbols-outlined">chevron_right</span>
         </TopPostStyle.TopPostNextBtn>
-      </TopPostStyle.TopPostBack>
+      </TopPostStyle.TopPostOutContainer>
     </>
   );
 };

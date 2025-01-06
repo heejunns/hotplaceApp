@@ -27,7 +27,7 @@ export const PostUploadForm = styled.form`
 // ============================================ 매장 이름 =======================================
 export const InputPostNameBox = styled.div`
   width: 100%;
-  height: 140px;
+  height: 120px;
   padding-top: 20px;
   display: flex;
   flex-direction: column;
@@ -270,9 +270,8 @@ export const MapInnerBox = styled.div`
 
 export const ErrorMsg = styled.div`
   width: 100%;
-  height: 100px;
+  height: 20px;
   display: flex;
-  justify-content: center;
   align-items: center;
   font-size: 20px;
   color: #50b4ff;

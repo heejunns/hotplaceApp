@@ -5,7 +5,8 @@ export const TopPostItemContainer = styled.div`
   position: relative;
   color: black;
   box-shadow: rgba(0, 0, 0, 0.1) 1px 1px 10px 0;
-  width: 285px;
+  width: 270px;
+  height: 270px;
   display: flex;
   flex-direction: column;
   cursor: pointer;

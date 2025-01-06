@@ -15,7 +15,6 @@ const App = () => {
   const setUser = useSetRecoilState(userAtom);
   // const [firebaseInitialize, setFirebaseInitialize] = useState(null); // 파이어 베이스의 초기화 여부 state
   // const [currentUser, setCurrentUser] = useState(null); // 현재 로그인하고 있는 유저의 정보
-  // const [userLocation, setUserLocation] = useState(""); // 현재 유저의 위치 정보
   const [location, setlocation] = useRecoilState(userLocation);
   useEffect(() => {
     onAuthStateChanged(authService, (user) => {
@@ -26,31 +25,6 @@ const App = () => {
       }
       setFirebaseInitial(true);
     });
-  }, []);
-
-  const userGetLocation = async (position) => {
-    const lat = await position.coords.latitude;
-    const lng = await position.coords.longitude;
-    // 현재 애플리케이션을 사용하는 사용자의 위치의 좌표를 가져오기
-
-    getAddr(lat, lng);
-    function getAddr(lat, lng) {
-      let geocoder = new window.kakao.maps.services.Geocoder();
-      let coord = new window.kakao.maps.LatLng(lat, lng);
-      let callback = function (result, status) {
-        if (status === window.kakao.maps.services.Status.OK) {
-          setlocation(result[0].address.region_1depth_name);
-        }
-      };
-      geocoder.coord2Address(coord.getLng(), coord.getLat(), callback);
-    }
-  };
-
-  useEffect(() => {
-    // 사용자의 위치가 있다면 가지고 오기
-    if (navigator.geolocation) {
-      navigator.geolocation.getCurrentPosition(userGetLocation);
-    }
   }, []);
 
   return (
