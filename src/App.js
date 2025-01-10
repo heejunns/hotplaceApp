@@ -15,7 +15,6 @@ const App = () => {
   const setUser = useSetRecoilState(userAtom);
   // const [firebaseInitialize, setFirebaseInitialize] = useState(null); // 파이어 베이스의 초기화 여부 state
   // const [currentUser, setCurrentUser] = useState(null); // 현재 로그인하고 있는 유저의 정보
-  const [location, setlocation] = useRecoilState(userLocation);
   useEffect(() => {
     onAuthStateChanged(authService, (user) => {
       if (user) {

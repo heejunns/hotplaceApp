@@ -12,7 +12,7 @@ export const SelectSortMethodBox = styled.div`
 `;
 
 export const SelectSortMethodList = styled.ul`
-  box-shadow: rgba(0, 0, 0, 0.2) 1px 1px 10px 0;
+  border: 1px solid #bebebe;
   position: absolute;
   border-radius: 5px;
   width: 190px;
@@ -26,8 +26,7 @@ export const SelectSortMethodList = styled.ul`
 `;
 export const SelectSortMethodBtn = styled.button`
   color: black;
-  border: none;
-  box-shadow: rgba(0, 0, 0, 0.2) 1px 1px 10px 0;
+  border: 1px solid #bebebe;
   font-size: 16px;
   background-color: transparent;
   border-radius: 5px;
@@ -59,7 +58,7 @@ export const SelectSortMethodItem = styled.li`
   align-items: center;
   cursor: pointer;
   &:hover {
-    background-color: #c8c8c8;
+    background-color: #dcdcdc;
   }
   &:nth-child(1) {
     border-radius: 5px 5px 0 0;

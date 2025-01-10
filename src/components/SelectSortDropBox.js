@@ -31,11 +31,6 @@ const SelectSortDropBox = ({ onclickSelectSortChange }) => {
         >
           좋아요 순으로 보기
         </S.SelectSortMethodItem>
-        <S.SelectSortMethodItem
-          onClick={() => onclickSelectSortChange("나의 지역 글만 보기")}
-        >
-          나의 지역 글만 보기
-        </S.SelectSortMethodItem>
       </S.SelectSortMethodList>
     </S.SelectSortMethodBox>
   );

@@ -2,21 +2,25 @@ import React, { useState } from "react";
 import { useRecoilState, useRecoilValue } from "recoil";
 import * as S from "../../styles/components/Home/PostItem.style";
 import { useNavigate } from "react-router-dom";
-import NoUserClickModal from "../NoUserClickModal";
-import { clickPostItemData, userAtom } from "../../recoils/UserAtom";
+import {
+  LoginModalDataAtom,
+  clickPostItemData,
+  userAtom,
+} from "../../recoils/UserAtom";
 
 // 각각의 게시글
 
 const PostItem = React.forwardRef(({ data }, ref) => {
+  const [loginModal, setLoginModal] = useRecoilState(LoginModalDataAtom);
   const user = useRecoilValue(userAtom);
   const [clickPostItem, setClickPostItem] = useRecoilState(clickPostItemData);
-  const [isNoUserClickModal, setIsNoUserClickModal] = useState(false);
   const navigator = useNavigate();
   // 게시글을 클릭하면 해당 게시글의 디테일 페이지로 이동
   const onClickPostItem = (data) => {
     if (user === null) {
+      setLoginModal((prev) => !prev);
       document.body.style.overflow = "hidden";
-      setIsNoUserClickModal((prev) => !prev);
+
       return;
     }
     setClickPostItem(data);
@@ -74,9 +78,6 @@ const PostItem = React.forwardRef(({ data }, ref) => {
           </div>
         </S.PostItemInfoBox>
       </S.PostItemContainer>
-      {isNoUserClickModal && (
-        <NoUserClickModal setIsNoUserClickModal={setIsNoUserClickModal} />
-      )}
     </>
   );
 });

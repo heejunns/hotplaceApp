@@ -4,28 +4,32 @@ import { Link, useLocation, useNavigate } from "react-router-dom";
 import { authService } from "../../reactfbase";
 import { useRecoilState, useRecoilValue } from "recoil";
 import {
+  LoginModalDataAtom,
   currentPageAtom,
   currentSelectSortAtom,
   userAtom,
-  userLocation,
 } from "../../recoils/UserAtom";
 import * as HeaderStyle from "../../styles/components/Header.style";
+import Login from "../Login/Login";
 
+// 헤더 네비게이션 데이터
 const headerData = [
-  { name: "게시글 올리기", url: "/postupload" },
+  { name: "게시글 업로드", url: "/postupload" },
   { name: "카페", url: "/cafe" },
   { name: "맛집", url: "/food" },
 ];
+
+// 헤더 컴포넌트
 const Header = () => {
-  const [wheelPosition, setWheelPosition] = useState(window.scrollY > 0);
-  const [currentSelectSort, setCurrentSelectSort] = useRecoilState(
-    currentSelectSortAtom
-  );
-  const [currentPage, setCurrentPage] = useRecoilState(currentPageAtom);
+  const navigate = useNavigate();
+
+  const [loginModal, setLoginModal] = useRecoilState(LoginModalDataAtom);
   const [clickHamburgerBtn, setClickHamburgerBtn] = useState(false);
   const { pathname } = useLocation();
+  console.log(pathname);
+  console.log(pathname === "/postupload");
   const user = useRecoilValue(userAtom);
-  console.log(user);
+  console.log("user", user);
   const sideBarRef = useRef();
   const hamburgerRef = useRef();
   useEffect(() => {
@@ -44,42 +48,25 @@ const Header = () => {
     };
     document.addEventListener("mousedown", outSideClick);
   }, []);
-  const onclickPageReset = () => {
-    setCurrentSelectSort("최신글 순으로 보기");
-    setCurrentPage(0);
-  };
-  useEffect(() => {
-    const wheelFunc = () => {
-      // console.log(window.scrollY);
-      if (window.scrollY > 0) {
-        setWheelPosition(true);
-      } else if (window.scrollY === 0) {
-        setWheelPosition(false);
-      }
-    };
-    document.body.addEventListener("wheel", wheelFunc);
-  }, []);
+
   return (
-    <HeaderStyle.HeaderContainer
-      backColor={pathname === "/" ? wheelPosition : "none"}
-    >
-      <HeaderStyle.HeaderBox>
-        <HeaderStyle.AppTitleName
-          backColor={pathname === "/" ? wheelPosition : "none"}
-        >
-          <a
-            href="/"
-            style={{ textDecoration: "none" }}
-            onClick={() => {
-              setCurrentSelectSort("최신글 순으로 보기");
-              setCurrentPage(0);
-              setClickHamburgerBtn(false);
-            }}
-          >
-            우리동네핫플
-          </a>
-        </HeaderStyle.AppTitleName>
-        {/* {user && user.displayName && (
+    <>
+      {loginModal && <Login />}
+
+      <HeaderStyle.HeaderContainer>
+        <HeaderStyle.HeaderBox>
+          <HeaderStyle.AppName>
+            <a
+              href="/"
+              style={{ textDecoration: "none" }}
+              onClick={() => {
+                setClickHamburgerBtn(false);
+              }}
+            >
+              우리동네핫플
+            </a>
+          </HeaderStyle.AppName>
+          {/* {user && user.displayName && (
           <Link to="/certification" style={{ textDecoration: "none" }}>
             <HeaderStyle.HeaderBoxItem>
               사장님 인증하기
@@ -87,132 +74,128 @@ const Header = () => {
             </HeaderStyle.HeaderBoxItem>
           </Link>
         )} */}
-        <HeaderStyle.HeaderMenuBox>
-          {headerData.map((item) => {
-            return (
-              <Link
-                to={
-                  item.name === "게시글 올리기"
-                    ? user
-                      ? item.url
-                      : "/login"
-                    : item.url
-                }
-                style={{ textDecoration: "none" }}
-                onClick={onclickPageReset}
-              >
-                <HeaderStyle.HeaderBoxItem
-                  backColor={pathname === "/" ? wheelPosition : "none"}
-                  currentPath={pathname === item.url}
+          <HeaderStyle.HeaderNav>
+            {headerData.map((item) => {
+              console.log("뭐야", pathname === item.url);
+              return item.name === "게시글 업로드" ? (
+                <HeaderStyle.HeaderNavItem
+                  onClick={() => {
+                    if (user) {
+                      navigate(item.url);
+                    } else {
+                      setLoginModal((prev) => !prev);
+                      document.body.style.overflow = "hidden";
+                    }
+                  }}
                 >
                   {item.name}
-                </HeaderStyle.HeaderBoxItem>
-              </Link>
-            );
-          })}
-          {user ? (
-            <Link
-              to="/profile"
-              onClick={() => {
-                setCurrentPage(0);
-              }}
-            >
-              <HeaderStyle.HeaderBoxItem
-                backColor={pathname === "/" ? wheelPosition : "none"}
-                currentPath={pathname === "/profile"}
-              >
+                </HeaderStyle.HeaderNavItem>
+              ) : (
+                <HeaderStyle.HeaderNavItem>
+                  <Link
+                    currentPath={pathname === item.url}
+                    to={
+                      item.name === "게시글 올리기"
+                        ? user
+                          ? item.url
+                          : "/login"
+                        : item.url
+                    }
+                  >
+                    {item.name}
+                  </Link>
+                </HeaderStyle.HeaderNavItem>
+              );
+            })}
+            {user ? (
+              <HeaderStyle.HeaderNavItem>
+                <Link to="/profile" currentPath={pathname === "/profile"}>
+                  <img src={user.photoURL} />
+                </Link>
                 {/* {user.displayName === undefined
                   ? "닉네임을 만들어주세요."
                   : `${user.displayName} 님`} */}
-                <img src={user.photoURL} />
-              </HeaderStyle.HeaderBoxItem>
-            </Link>
-          ) : (
-            <Link to="/login">
-              <HeaderStyle.HeaderBoxItem
-                backColor={pathname === "/" ? wheelPosition : "none"}
+              </HeaderStyle.HeaderNavItem>
+            ) : (
+              <HeaderStyle.HeaderNavItem
+                onClick={() => {
+                  setLoginModal((prev) => !prev);
+                  document.body.style.overflow = "hidden";
+                }}
               >
                 로그인
-              </HeaderStyle.HeaderBoxItem>
-            </Link>
-          )}
-        </HeaderStyle.HeaderMenuBox>
+              </HeaderStyle.HeaderNavItem>
+            )}
+          </HeaderStyle.HeaderNav>
 
-        <HeaderStyle.HamburgerButtonIcon
-          onClick={() =>
-            setClickHamburgerBtn((prev) => {
-              if (prev === false) {
-                document.body.style.overflow = "hidden";
-              } else if (prev === true) {
-                document.body.style.overflow = "unset";
-              }
-              return !prev;
-            })
-          }
-          ref={hamburgerRef}
-        >
-          <HeaderStyle.HamburgerIconItem
-            backColor={pathname === "/" ? wheelPosition : "none"}
-            toggle={clickHamburgerBtn}
-          ></HeaderStyle.HamburgerIconItem>
-          <HeaderStyle.HamburgerIconItem
-            backColor={pathname === "/" ? wheelPosition : "none"}
-            toggle={clickHamburgerBtn}
-          ></HeaderStyle.HamburgerIconItem>
-          <HeaderStyle.HamburgerIconItem
-            backColor={pathname === "/" ? wheelPosition : "none"}
-            toggle={clickHamburgerBtn}
-          ></HeaderStyle.HamburgerIconItem>
-        </HeaderStyle.HamburgerButtonIcon>
-      </HeaderStyle.HeaderBox>
-      <HeaderStyle.HamburgerSideBarBackground
-        toggle={clickHamburgerBtn}
-      ></HeaderStyle.HamburgerSideBarBackground>
-      <HeaderStyle.HamburgerSideBar toggle={clickHamburgerBtn} ref={sideBarRef}>
-        <HeaderStyle.HamburgerSideBarList>
-          {user ? (
-            <Link
-              to="/profile"
-              onClick={() => {
-                setClickHamburgerBtn(false);
-                setCurrentPage(0);
-              }}
-            >
-              <HeaderStyle.HamburgerSideBarItem toggle={clickHamburgerBtn}>
-                {user.displayName === undefined
-                  ? "닉네임을 만들어주세요."
-                  : `${user.displayName} 님 프로필`}
-              </HeaderStyle.HamburgerSideBarItem>
-            </Link>
-          ) : (
-            <Link to="/login" onClick={() => setClickHamburgerBtn(false)}>
-              <HeaderStyle.HamburgerSideBarItem toggle={clickHamburgerBtn}>
-                로그인<span className="material-symbols-outlined">login</span>
-              </HeaderStyle.HamburgerSideBarItem>
-            </Link>
-          )}
-
-          {user &&
-            user.displayName &&
-            headerData.map((item) => {
-              return (
+          <HeaderStyle.HamburgerButton
+            onClick={() =>
+              setClickHamburgerBtn((prev) => {
+                if (prev === false) {
+                  document.body.style.overflow = "hidden";
+                } else if (prev === true) {
+                  document.body.style.overflow = "unset";
+                }
+                return !prev;
+              })
+            }
+            ref={hamburgerRef}
+          >
+            <HeaderStyle.HamburgerItem
+              toggle={clickHamburgerBtn}
+            ></HeaderStyle.HamburgerItem>
+            <HeaderStyle.HamburgerItem
+              toggle={clickHamburgerBtn}
+            ></HeaderStyle.HamburgerItem>
+            <HeaderStyle.HamburgerItem
+              toggle={clickHamburgerBtn}
+            ></HeaderStyle.HamburgerItem>
+          </HeaderStyle.HamburgerButton>
+        </HeaderStyle.HeaderBox>
+        <HeaderStyle.SideBarBackground
+          toggle={clickHamburgerBtn}
+        ></HeaderStyle.SideBarBackground>
+        <HeaderStyle.SideBar toggle={clickHamburgerBtn} ref={sideBarRef}>
+          <HeaderStyle.SideBarList>
+            {user ? (
+              <HeaderStyle.SideBarItem toggle={clickHamburgerBtn}>
                 <Link
-                  to={item.url}
-                  style={{ textDecoration: "none" }}
+                  to="/profile"
                   onClick={() => {
                     setClickHamburgerBtn(false);
-                    setCurrentPage(0);
                   }}
                 >
-                  <HeaderStyle.HamburgerSideBarItem toggle={clickHamburgerBtn}>
-                    {item.name}
-                  </HeaderStyle.HamburgerSideBarItem>
+                  {user.displayName === undefined
+                    ? "닉네임을 만들어주세요."
+                    : `${user.displayName} 님 프로필`}
                 </Link>
+              </HeaderStyle.SideBarItem>
+            ) : (
+              <HeaderStyle.SideBarItem toggle={clickHamburgerBtn}>
+                <Link to="/login" onClick={() => setClickHamburgerBtn(false)}>
+                  로그인<span className="material-symbols-outlined">login</span>
+                </Link>
+              </HeaderStyle.SideBarItem>
+            )}
+
+            {headerData.map((item) => {
+              return (
+                <HeaderStyle.SideBarItem toggle={clickHamburgerBtn}>
+                  <Link
+                    to={item.url}
+                    onClick={() => {
+                      setClickHamburgerBtn(false);
+                    }}
+                  >
+                    {item.name}
+                  </Link>
+                </HeaderStyle.SideBarItem>
               );
             })}
-        </HeaderStyle.HamburgerSideBarList>
-      </HeaderStyle.HamburgerSideBar>
-    </HeaderStyle.HeaderContainer>
+          </HeaderStyle.SideBarList>
+        </HeaderStyle.SideBar>
+      </HeaderStyle.HeaderContainer>
+    </>
   );
 };
 

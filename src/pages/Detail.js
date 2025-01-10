@@ -8,7 +8,6 @@ import Comments from "../components/Comment";
 import { doc, getDoc, updateDoc } from "firebase/firestore";
 import { dbService } from "../reactfbase";
 import PostDeleteModal from "../components/PostDeleteModal";
-import ReportModal from "../components/ReportModal";
 import { Loading } from "../styles/components/Loading.style";
 import { PulseLoader } from "react-spinners";
 import { useMutation, useQuery, useQueryClient } from "@tanstack/react-query";
@@ -28,8 +27,6 @@ const Detail = () => {
   // 현재 게시글의 데이터를 저장하고 있는 state
   const [detailData, setDetailData] = useState(data);
   const [getDataLoading, setGetDataLoading] = useState(false);
-  // 신고하기 모달의 화면 존재 여부
-  const [isReportModal, setIsReportModal] = useState(false);
   // 사용자가 올린 게시글의 사진의 개수가 한개 이상일때 화면에 보여지는 px 을 저장하는 state
   const [detailImgBoxPx, setDetailImgBoxPx] = useState(0);
 
@@ -99,12 +96,6 @@ const Detail = () => {
     document.body.style.overflow = "hidden";
   }, []);
 
-  // 신고 버튼을 클릭하면 호출되는 콜백함수
-  const onclickReportBtn = useCallback(() => {
-    document.body.style.overflow = "hidden";
-    setIsReportModal((prev) => !prev);
-  }, []);
-
   // 좋아요 버튼을 클릭하면 호출하는 콜백함수, 서버에 변경 된 정보 업데이트 후 다시 디테일 게시글 데이터 받아오기
   const onclickLike = async () => {
     console.log("hello");
@@ -172,9 +163,6 @@ const Detail = () => {
                     </S.DetailBtn>
                   </>
                 )}
-                <S.DetailBtn onClick={onclickReportBtn}>
-                  <span className="material-symbols-outlined">problem</span>
-                </S.DetailBtn>
               </S.DetailBtnBox>
               <S.DetailTitleText>
                 {detailData && calculateTime(detailData)} /
@@ -249,13 +237,7 @@ const Detail = () => {
       {isEditModal && (
         <EditModal setIsEditModal={setIsEditModal} editData={data}></EditModal>
       )}
-      {isReportModal && (
-        <ReportModal
-          setIsReportModal={setIsReportModal}
-          postWriter={data.nickname}
-          postName={data.postName}
-        />
-      )}
+
       {getDataLoading && (
         <Loading>
           <PulseLoader color="black" size={20} />

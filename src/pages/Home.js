@@ -27,6 +27,7 @@ import { useQuery } from "@tanstack/react-query";
 import { useBottomScrollListener } from "react-bottom-scroll-listener";
 import { useEffect, useMemo, useRef, useState } from "react";
 import { debounce, throttle } from "lodash";
+import Login from "../components/Login/Login";
 // ============================================ Home(메인) 페이지 ===================================
 // 사용자들이 게시한 게시물들을 한번에 볼 수 있고 사용자들이 좋아요를 눌러 좋아요를 가장 많이 받은 순서대로 1~10위까지 한번에 볼 수 있는 페이지 입니다.
 // 게시글들도 사용자가 드롭박스에서 분류 방법을 선택하여 원하는 분류 방식의 게시글들을 볼 수 있습니다.
@@ -38,7 +39,6 @@ const Home = () => {
   const [homeDataLoading, setHomeDataLoading] = useState(false);
   const [dataAddLoading, setDataAddLoading] = useState(false);
   const firebaseInitial = useRecoilValue(firebaseInitialize);
-  const location = useRecoilValue(userLocation);
   const [currentPage, setCurrentPage] = useRecoilState(currentPageAtom);
   // 게시글 분류 방법을 담고 있는 state
   const [currentSelectSort, setCurrentSelectSort] = useRecoilState(
@@ -65,12 +65,6 @@ const Home = () => {
       queryContent = query(
         collection(dbService, "test"),
         orderBy("likeNumber", "desc")
-      );
-    } else if (currentSelectSort === "나의 지역 글만 보기") {
-      queryContent = query(
-        collection(dbService, "test"),
-        where("userLocation", "==", location),
-        orderBy("createTime", "desc")
       );
     }
 
@@ -133,14 +127,6 @@ const Home = () => {
       queryContent = query(
         collection(dbService, "test"),
         orderBy("likeNumber", "desc"),
-        limit(5),
-        startAt(start)
-      );
-    } else if (currentSelectSort === "나의 지역 글만 보기") {
-      queryContent = query(
-        collection(dbService, "test"),
-        where("userLocation", "==", location),
-        orderBy("createTime", "desc"), // createTime 기준으로 내림차순으로 정렬
         limit(5),
         startAt(start)
       );
@@ -223,8 +209,6 @@ const Home = () => {
   //   enabled: !!postData,
   //   keepPreviousData: true,
   // });
-  console.log("현재 데이터", homeData);
-  console.log("로딩", homeDataLoading);
 
   // 사용자가 드롭박스에서 게시글 분류 방법을 선택해 클릭하면 호출되는 콜백함수, 사용자가 클릭한 분류 방법에 해당하는 데이터를 서버에 요청해 데이터를 받아오는 함수
   const onclickSelectSortChange = (selectMethod) => {

@@ -31,17 +31,12 @@ export const currentSelectSortAtom = atom({
   // effects_UNSTABLE: [persistAtom],
 });
 
-export const userLocation = atom({
-  key: "userLocation",
-  default: "서울",
-});
-
 export const firebaseInitialize = atom({
   key: "firebaseInitialize",
   default: null,
 });
 
-export const PreviewData = atom({
-  key: "previewData",
-  default: {},
+export const LoginModalDataAtom = atom({
+  key: "loginModalData",
+  default: false,
 });
