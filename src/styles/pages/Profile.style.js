@@ -22,6 +22,9 @@ export const ProfileUserInfoBox = styled.div`
     display: flex;
   }
   .hello {
+    width: 100%;
+    display: flex;
+    align-items: center;
     font-size: 25px;
     margin-bottom: 10px;
   }

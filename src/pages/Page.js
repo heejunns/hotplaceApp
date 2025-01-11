@@ -22,17 +22,15 @@ import { useRecoilState, useRecoilValue } from "recoil";
 import { Loading } from "../styles/components/Loading.style";
 import { PulseLoader } from "react-spinners";
 import { useEffect, useState } from "react";
+import { useQuery } from "@tanstack/react-query";
 const Page = () => {
   const firebaseInitial = useRecoilValue(firebaseInitialize);
-  const location = useRecoilValue(userLocation);
   const { id } = useParams();
-  const [pagePostData, setPagePostData] = useState(null);
-  const [pageCurrentData, setPageCurrentData] = useState(null);
-  const [pageCurrentDataIsLoading, setPageCurrentDataIsLoading] =
-    useState(false);
-  const currentPage = useRecoilValue(currentPageAtom);
+  console.log("id", id);
+  // const [pagePostData, setPagePostData] = useState(null);
+  // const [pageCurrentDataIsLoading, setPageCurrentDataIsLoading] =
+  // useState(false);
   // 게시글 분류 방법을 담고 있는 state
-
   const [currentSelectSort, setCurrentSelectSort] =
     useState("최신글 순으로 보기");
   // const [pageCurrentData, setPageCurrentData] = useState(null);
@@ -69,7 +67,8 @@ const Page = () => {
       querySnapshot.forEach((doc) => {
         data.push({ ...doc.data(), id: doc.id });
       });
-      setPagePostData(data);
+      // setPagePostData(data);
+      return data;
     } catch (e) {
       console.log(e);
     }
@@ -79,91 +78,37 @@ const Page = () => {
   //   ["pagePostData", currentSelectSort, id],
   //   () => getPagePostData(currentSelectSort, id)
   // );
-  useEffect(() => {
-    getPagePostData(currentSelectSort, id);
-  }, [id]);
-  useEffect(() => {
-    getPageCurrentData(currentSelectSort, currentPage, id);
-  }, [pagePostData]);
+  // useEffect(() => {
+  //   getPagePostData(currentSelectSort, id);
+  // }, [id, currentSelectSort]);
+
   // 왼쪽, 오른쪽 화살표를 클릭하면 호출되는 콜백함수, 화살표를 클릭했을때 해당하는 데이터를 서버에 요청해 받아오는 함수
 
-  // 페이지네이션에서 숫자를 클릭하면 호출되는 콜백함수, 클릭한 숫자에 해당하는 데이터를 서버에 요청해 받아오는 함수
-  const pageQueryMakePageHandler = (currentSelectSort, currentPage, id) => {
-    let queryContent;
-    let category = id === "cafe" ? "카페" : id === "food" ? "음식" : null;
-    if (currentSelectSort === "최신글 순으로 보기") {
-      queryContent = query(
-        collection(dbService, "test"),
-        orderBy("createTime", "desc"), // createTime 기준으로 내림차순으로 정렬
-        category === "전체" ? null : where("category", "==", category),
-        limit(8)
-      );
-    } else if (currentSelectSort === "예전글 순으로 보기") {
-      queryContent = queryContent = query(
-        collection(dbService, "test"),
-        orderBy("createTime"), // createTime 기준으로 내림차순으로 정렬
-        category === "전체" ? null : where("category", "==", category),
-        limit(8)
-      );
-    } else if (currentSelectSort === "좋아요 순으로 보기") {
-      queryContent = query(
-        collection(dbService, "test"),
-        orderBy("likeNumber", "desc"),
-        category === "전체" ? null : where("category", "==", category),
-        limit(8)
-      );
-    } else if (currentSelectSort === "나의 지역 게시글만 보기") {
-      queryContent = query(
-        collection(dbService, "test"),
-        category === "전체" ? null : where("category", "==", category),
-        where("userLocation", "==", location),
-        orderBy("createTime", "desc"), // createTime 기준으로 내림차순으로 정렬
-        limit(8)
-      );
-    }
-    return queryContent;
+  const { data: pagePostData, isLoading: pageCurrentDataIsLoading } = useQuery({
+    queryKey: ["pageHandle", currentSelectSort, id],
+    queryFn: () => getPagePostData(currentSelectSort, id),
+  });
+
+  const onclickSelectSortChange = (selectMethod) => {
+    setCurrentSelectSort(selectMethod);
+    // setPagePostData([]);
   };
-
-  const getPageCurrentData = async (currentSelectSort, currentPage, id) => {
-    try {
-      setPageCurrentDataIsLoading(true);
-      let q = pageQueryMakePageHandler(currentSelectSort, currentPage, id);
-      const querySnapshot = await getDocs(q);
-      const data = [];
-      querySnapshot.forEach((doc) => {
-        data.push({ id: doc.id, ...doc.data() });
-      });
-      setPageCurrentData(data);
-      setPageCurrentDataIsLoading(false);
-    } catch (e) {
-      console.log(e);
-    }
-  };
-
-  // const { data: pageCurrentData, isLoading: pageCurrentDataIsLoading } =
-  //   useQuery({
-  //     queryKey: ["pageHandle", currentSelectSort, currentPage, id],
-  //     queryFn: () => getPageCurrentData(currentSelectSort, currentPage, id),
-
-  //     enabled: !!pagePostData,
-  //     keepPreviousData: true,
-  //   });
 
   return (
     <S.PageBack>
-      <SelectSortDropBox />
+      <SelectSortDropBox onclickSelectSortChange={onclickSelectSortChange} />
 
       {firebaseInitial && pageCurrentDataIsLoading ? (
         <Loading>
           <PulseLoader color="black" size={20} />
         </Loading>
-      ) : pageCurrentData && pageCurrentData.length === 0 ? (
+      ) : pagePostData && pagePostData.length === 0 ? (
         <S.EmptyPost>현재 게시물이 없습니다.</S.EmptyPost>
       ) : (
         <>
           <S.PostBox>
-            {pageCurrentData &&
-              pageCurrentData.map((data, index) => {
+            {pagePostData &&
+              pagePostData.map((data, index) => {
                 return <PostItem key={index} data={data} />;
               })}
           </S.PostBox>

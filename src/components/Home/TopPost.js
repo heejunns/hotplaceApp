@@ -7,8 +7,8 @@ import { useQuery } from "@tanstack/react-query";
 import { TopPostSkeleton } from "../../styles/components/Home/TopPostItem.style";
 const topPostDummyData = [1, 2, 3, 4, 5, 6, 7, 8, 9, 10];
 const TopPost = ({ title }) => {
-  const [topPostData, setTopPostData] = useState([]);
-  const [topPostDataLoading, setTopPostDataLoading] = useState(false);
+  // const [topPostData, setTopPostData] = useState([]);
+  // const [topPostDataLoading, setTopPostDataLoading] = useState(false);
   const [topBoxPx, setTopBoxPx] = useState(0);
   const onclickLeftBtn = () => {
     if (topBoxPx < 0) setTopBoxPx((prev) => prev + 1080);
@@ -20,7 +20,7 @@ const TopPost = ({ title }) => {
 
   const getTopPost = async () => {
     try {
-      setTopPostDataLoading(true);
+      // setTopPostDataLoading(true);
       const q = query(
         collection(dbService, "test"),
         where(
@@ -35,20 +35,21 @@ const TopPost = ({ title }) => {
       querySnapshot.forEach((doc) => {
         data.push({ id: doc.id, ...doc.data() });
       });
-      setTopPostDataLoading(false);
-      setTopPostData(data.slice(0, 12));
+      // setTopPostDataLoading(false);
+      // setTopPostData(data.slice(0, 12));
+      return data.slice(0, 12);
     } catch (e) {
       console.log(e);
     }
   };
-  useEffect(() => {
-    getTopPost();
-  }, []);
-  // const { data: topPostData } = useQuery({
-  //   queryKey: ["topData"],
-  //   queryFn: getTopPost,
-  // });
-  console.log("hello", topPostData);
+  // useEffect(() => {
+  //   getTopPost();
+  // }, []);
+  const { data: topPostData, isLoading: topPostDataLoading } = useQuery({
+    queryKey: ["topData", title],
+    queryFn: () => getTopPost(title),
+  });
+  console.log("topPostData", topPostData);
   return (
     <>
       <TopPostStyle.TopPostTitleBox>

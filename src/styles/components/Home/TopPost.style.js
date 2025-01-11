@@ -40,14 +40,13 @@ export const TopPostBox = styled.div`
 
 export const TopPostBtn = styled.button`
   width: 50px;
-  box-shadow: rgba(0, 0, 0, 0.5) 1px 1px 10px 0;
   height: 50px;
   background-color: white;
   display: flex;
   justify-content: center;
   align-items: center;
   border-radius: 15px;
-  border: none;
+  border: 1px solid #c8c8c8;
   opacity: 1;
   cursor: pointer;
   & > span {

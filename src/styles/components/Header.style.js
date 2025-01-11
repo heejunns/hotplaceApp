@@ -1,6 +1,5 @@
 import styled from "styled-components";
-
-// 네이게이선 배경 스타일 태그
+// 헤더 전체 컨테이너
 export const HeaderContainer = styled.header`
   font-family: "Tilt Neon", sans-serif;
   position: fixed;
@@ -13,13 +12,14 @@ export const HeaderContainer = styled.header`
   justify-content: center;
   align-items: center;
   transition: all 0.3s linear;
-  background-color: ${(props) => (props.backColor ? "white" : "transparent")};
+  background-color: white;
   border-bottom: ${(props) => props.backColor && "1px solid #969696"};
   @media screen and (max-width: 768px) {
     justify-content: space-between;
   }
 `;
 
+// 헤더 내부 박스
 export const HeaderBox = styled.div`
   width: 100%;
   max-width: 1200px;
@@ -28,7 +28,7 @@ export const HeaderBox = styled.div`
   align-items: center;
 `;
 // 애플리케이션의 이름 스타일 태그
-export const AppTitleName = styled.h1`
+export const AppName = styled.h1`
   cursor: pointer;
   font-size: 25px;
   font-weight: 600;
@@ -38,45 +38,44 @@ export const AppTitleName = styled.h1`
   justify-content: center;
   white-space: nowrap;
   a {
-    color: ${(props) => (props.backColor ? "black" : "white")};
+    color: black;
   }
 `;
-// Header 의 왼쪽 메뉴 박스
-export const HeaderMenuBox = styled.nav`
+// 헤더 내부의 네비게이션
+export const HeaderNav = styled.nav`
   display: flex;
   align-items: center;
-
-  & > a {
-    text-decoration: none;
-  }
-  @media screen and (max-width: 768px) {
-    & > a:nth-of-type(1),
-    a:nth-of-type(2),
-    a:nth-of-type(3),
-    a:nth-of-type(4) {
-      display: none;
-    }
+  // 로그인 스타일
+  & > li:nth-last-of-type(1) {
+    margin-left: 50px;
   }
 `;
 // 네비게이션 요소들의 스타일 태그
-export const HeaderBoxItem = styled.li`
-  color: ${(props) => (props.backColor ? "black" : "white")};
-  font-size: 20px;
-  padding-bottom: 3px;
+export const HeaderNavItem = styled.li`
+  cursor: pointer;
   display: flex;
   align-items: center;
+  font-size: 20px;
+  list-style: none;
   margin-right: 10px;
-  white-space: nowrap;
-  opacity: ${(props) => (props.currentPath ? 0.7 : 1)};
-  border-bottom: ${(props) => (props.currentPath ? "1px solid white" : "none")};
-  &:hover {
-    opacity: 0.7;
+  opacity: 1;
+  @media screen and (max-width: 768px) {
+    display: none;
   }
-  img {
-    width: 35px;
-    height: 35px;
+  & > a {
+    text-decoration: none;
+    color: ${(props) => (props.currentPath ? "aqua" : "black")};
+  }
+
+  &:hover {
+    opacity: 1;
+  }
+  & > img {
+    width: 30px;
+    height: 30px;
     border-radius: 50%;
     z-index: 1000;
+    margin-right: 10px;
   }
 `;
 // 로그아웃 버튼 스타일 태그
@@ -85,15 +84,15 @@ export const LogOutButton = styled.button`
   font-size: 20px;
   border-style: none;
   background: transparent;
-  margin-left: 20px;
+  margin-left: 10px;
   display: flex;
   align-items: center;
   & > span {
     font-size: 20px;
   }
 `;
-
-export const HamburgerSideBarBackground = styled.div`
+// 햄버거 사이드바가 열렸을때 배경화면
+export const SideBarBackground = styled.div`
   position: absolute;
   top: 300px;
   left: 0;
@@ -102,7 +101,8 @@ export const HamburgerSideBarBackground = styled.div`
   background-color: black;
   opacity: 0.7;
 `;
-export const HamburgerSideBar = styled.div`
+// 사이드 바
+export const SideBar = styled.div`
   position: fixed;
   top: 0;
   left: 0;
@@ -116,7 +116,7 @@ export const HamburgerSideBar = styled.div`
     display: block;
   }
 `;
-export const HamburgerButtonIcon = styled.div`
+export const HamburgerButton = styled.div`
   width: 70px;
   background: transparent;
   display: none;
@@ -127,8 +127,8 @@ export const HamburgerButtonIcon = styled.div`
     display: flex;
   }
 `;
-export const HamburgerIconItem = styled.div`
-  background-color: ${(props) => (props.backColor ? "black" : "white")};
+export const HamburgerItem = styled.div`
+  background-color: black;
   width: 25px;
   height: 3px;
   border-radius: 10px;
@@ -152,7 +152,7 @@ export const HamburgerIconItem = styled.div`
   }
 `;
 
-export const HamburgerSideBarList = styled.ul`
+export const SideBarList = styled.ul`
   width: 100%;
   padding: 10px;
   display: flex;
@@ -181,10 +181,16 @@ export const SideBarLogOutButton = styled.button`
   }
 `;
 
-export const HamburgerSideBarItem = styled.li`
+export const SideBarItem = styled.li`
   font-weight: 600;
   margin-top: 10px;
   display: ${(props) => (props.toggle ? "flex" : "none")};
-  align-items: center;
   font-size: 20px;
+  & > a {
+    color: black;
+    text-decoration: none;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+  }
 `;
