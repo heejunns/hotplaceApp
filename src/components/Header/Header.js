@@ -11,7 +11,6 @@ import {
 } from "../../recoils/UserAtom";
 import * as HeaderStyle from "../../styles/components/Header.style";
 import Login from "../Login/Login";
-
 // 헤더 네비게이션 데이터
 const headerData = [
   { name: "게시글 업로드", url: "/postupload" },
@@ -48,7 +47,15 @@ const Header = () => {
     };
     document.addEventListener("mousedown", outSideClick);
   }, []);
-
+  const onclickLogoutButton = async () => {
+    // 로그아웃하기
+    try {
+      await signOut(authService);
+      navigate("/");
+    } catch (e) {
+      console.log(e);
+    }
+  };
   return (
     <>
       {loginModal && <Login />}
@@ -108,14 +115,19 @@ const Header = () => {
               );
             })}
             {user ? (
-              <HeaderStyle.HeaderNavItem>
-                <Link to="/profile" currentPath={pathname === "/profile"}>
+              <>
+                <HeaderStyle.HeaderNavItem
+                  onClick={() => {
+                    navigate("/profile");
+                  }}
+                >
                   <img src={user.photoURL} />
-                </Link>
-                {/* {user.displayName === undefined
-                  ? "닉네임을 만들어주세요."
-                  : `${user.displayName} 님`} */}
-              </HeaderStyle.HeaderNavItem>
+                  프로필
+                </HeaderStyle.HeaderNavItem>
+                <HeaderStyle.LogOutButton onClick={onclickLogoutButton}>
+                  로그아웃
+                </HeaderStyle.LogOutButton>
+              </>
             ) : (
               <HeaderStyle.HeaderNavItem
                 onClick={() => {

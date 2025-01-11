@@ -4,12 +4,14 @@ import { onAuthStateChanged } from "firebase/auth";
 import { authService } from "./reactfbase";
 import { useRecoilState, useSetRecoilState } from "recoil";
 import { firebaseInitialize, userAtom, userLocation } from "./recoils/UserAtom";
+import { QueryClient, QueryClientProvider } from "@tanstack/react-query";
 
 // 어플리케이션이 로드 될때 너무 빨라서 파이어 베이스는 사용자가 로그인 되었는지 확인할 시간이 없음.
 // 그럼 항상 애플리케이션은 항상 로그아웃 되어 있어서 로그인 폼이 브라우저 화면에 보일 것이다.
 // 파이어 베이스가 초기화되고 모든 걸 로드할때까지 기다려 줘야 한다.
 
 const App = () => {
+  const queryClient = new QueryClient();
   const [firebaseInitial, setFirebaseInitial] =
     useRecoilState(firebaseInitialize);
   const setUser = useSetRecoilState(userAtom);
@@ -33,7 +35,9 @@ const App = () => {
           <PulseLoader color="black" size={20} />
         </Loading>
       )} */}
-      <AppRouter />
+      <QueryClientProvider client={queryClient}>
+        <AppRouter />
+      </QueryClientProvider>
     </>
   );
 };

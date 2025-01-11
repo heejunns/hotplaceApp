@@ -22,13 +22,14 @@ import { useRecoilState, useRecoilValue } from "recoil";
 import { Loading } from "../styles/components/Loading.style";
 import { PulseLoader } from "react-spinners";
 import { useEffect, useState } from "react";
+import { useQuery } from "@tanstack/react-query";
 const Page = () => {
   const firebaseInitial = useRecoilValue(firebaseInitialize);
   const { id } = useParams();
   console.log("id", id);
-  const [pagePostData, setPagePostData] = useState(null);
-  const [pageCurrentDataIsLoading, setPageCurrentDataIsLoading] =
-    useState(false);
+  // const [pagePostData, setPagePostData] = useState(null);
+  // const [pageCurrentDataIsLoading, setPageCurrentDataIsLoading] =
+  // useState(false);
   // 게시글 분류 방법을 담고 있는 state
   const [currentSelectSort, setCurrentSelectSort] =
     useState("최신글 순으로 보기");
@@ -66,7 +67,8 @@ const Page = () => {
       querySnapshot.forEach((doc) => {
         data.push({ ...doc.data(), id: doc.id });
       });
-      setPagePostData(data);
+      // setPagePostData(data);
+      return data;
     } catch (e) {
       console.log(e);
     }
@@ -76,24 +78,20 @@ const Page = () => {
   //   ["pagePostData", currentSelectSort, id],
   //   () => getPagePostData(currentSelectSort, id)
   // );
-  useEffect(() => {
-    getPagePostData(currentSelectSort, id);
-  }, [id, currentSelectSort]);
+  // useEffect(() => {
+  //   getPagePostData(currentSelectSort, id);
+  // }, [id, currentSelectSort]);
 
   // 왼쪽, 오른쪽 화살표를 클릭하면 호출되는 콜백함수, 화살표를 클릭했을때 해당하는 데이터를 서버에 요청해 받아오는 함수
 
-  // const { data: pageCurrentData, isLoading: pageCurrentDataIsLoading } =
-  //   useQuery({
-  //     queryKey: ["pageHandle", currentSelectSort, currentPage, id],
-  //     queryFn: () => getPageCurrentData(currentSelectSort, currentPage, id),
-
-  //     enabled: !!pagePostData,
-  //     keepPreviousData: true,
-  //   });
+  const { data: pagePostData, isLoading: pageCurrentDataIsLoading } = useQuery({
+    queryKey: ["pageHandle", currentSelectSort, id],
+    queryFn: () => getPagePostData(currentSelectSort, id),
+  });
 
   const onclickSelectSortChange = (selectMethod) => {
     setCurrentSelectSort(selectMethod);
-    setPagePostData([]);
+    // setPagePostData([]);
   };
 
   return (

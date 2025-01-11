@@ -158,15 +158,6 @@ const Profile = () => {
   //   enabled: !!profileData,
   //   keepPreviousData: true,
   // });
-  const onclickLogoutButton = async () => {
-    // 로그아웃하기
-    try {
-      await signOut(authService);
-      navigate("/");
-    } catch (e) {
-      console.log(e);
-    }
-  };
 
   const onclickSelectMenu = ({ target: { id } }) => {
     setSelectMenu(id);
@@ -178,7 +169,7 @@ const Profile = () => {
     <>
       <S.ProfileBack>
         <S.ProfileUserInfoBox>
-          <div className="hello">안녕하세요.</div>
+          <div className="hello">안녕하세요. </div>
           <div>
             <S.ProfileUserImgBox>
               <S.ProfileUserInfoImg>
@@ -200,28 +191,7 @@ const Profile = () => {
               {user ? `${user.displayName} 님` : "닉네임을 만들어주세요."}
             </S.ProfileUserInfoName>
           </div>
-          <S.ProfileUserInfoBtnBox>
-            <S.ProfileUserInfoBtn
-              backColor="#46FFFF"
-              onClick={onclickProfileImgUploadIcon}
-            >
-              프로필 사진 변경
-            </S.ProfileUserInfoBtn>
-            <S.ProfileUserInfoBtn
-              backColor="#79FFCE"
-              onClick={() => {
-                setIsProfileNameEditModal((prev) => !prev);
-              }}
-            >
-              닉네임 변경
-            </S.ProfileUserInfoBtn>
-            <S.ProfileUserInfoBtn
-              backColor="#79FFCE"
-              onClick={onclickLogoutButton}
-            >
-              로그아웃
-            </S.ProfileUserInfoBtn>
-          </S.ProfileUserInfoBtnBox>
+          <S.ProfileUserInfoBtnBox></S.ProfileUserInfoBtnBox>
         </S.ProfileUserInfoBox>
         <S.ProfileBox>
           <S.ProfileSelectMenu>

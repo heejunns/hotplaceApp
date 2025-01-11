@@ -52,6 +52,9 @@ export const HeaderNav = styled.nav`
 `;
 // 네비게이션 요소들의 스타일 태그
 export const HeaderNavItem = styled.li`
+  cursor: pointer;
+  display: flex;
+  align-items: center;
   font-size: 20px;
   list-style: none;
   margin-right: 10px;
@@ -67,11 +70,12 @@ export const HeaderNavItem = styled.li`
   &:hover {
     opacity: 1;
   }
-  & > a > img {
-    width: 35px;
-    height: 35px;
+  & > img {
+    width: 30px;
+    height: 30px;
     border-radius: 50%;
     z-index: 1000;
+    margin-right: 10px;
   }
 `;
 // 로그아웃 버튼 스타일 태그
@@ -80,7 +84,7 @@ export const LogOutButton = styled.button`
   font-size: 20px;
   border-style: none;
   background: transparent;
-  margin-left: 20px;
+  margin-left: 10px;
   display: flex;
   align-items: center;
   & > span {
