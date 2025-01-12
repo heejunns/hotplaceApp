@@ -3,7 +3,6 @@ import { useRecoilValue } from "recoil";
 import { clickPostItemData, userAtom } from "../recoils/UserAtom";
 import { useEffect, useState } from "react";
 import { useCallback } from "react";
-import EditModal from "../components/EditModal";
 import Comments from "../components/Comment";
 import { doc, getDoc, updateDoc } from "firebase/firestore";
 import { dbService } from "../reactfbase";
@@ -90,12 +89,6 @@ const Detail = () => {
     setIsPostDeleteModal((prev) => !prev);
   }, []);
 
-  // 게시글 수정 버튼을 클릭하면 호출되는 콜백함수
-  const onclickEditBtn = useCallback(() => {
-    setIsEditModal((prev) => !prev);
-    document.body.style.overflow = "hidden";
-  }, []);
-
   // 좋아요 버튼을 클릭하면 호출하는 콜백함수, 서버에 변경 된 정보 업데이트 후 다시 디테일 게시글 데이터 받아오기
   const onclickLike = async () => {
     console.log("hello");
@@ -157,9 +150,6 @@ const Detail = () => {
                   <>
                     <S.DetailBtn onClick={() => onclickDeleteBtn(data)}>
                       <span className="material-symbols-outlined">delete</span>
-                    </S.DetailBtn>
-                    <S.DetailBtn onClick={() => onclickEditBtn(data)}>
-                      <span className="material-symbols-outlined">edit</span>
                     </S.DetailBtn>
                   </>
                 )}
@@ -233,9 +223,6 @@ const Detail = () => {
           setIsPostDeleteModal={setIsPostDeleteModal}
           postDeleteData={data}
         />
-      )}
-      {isEditModal && (
-        <EditModal setIsEditModal={setIsEditModal} editData={data}></EditModal>
       )}
 
       {getDataLoading && (

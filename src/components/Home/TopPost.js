@@ -23,11 +23,7 @@ const TopPost = ({ title }) => {
       // setTopPostDataLoading(true);
       const q = query(
         collection(dbService, "test"),
-        where(
-          "category",
-          "==",
-          title === "cafe" ? "카페" : title === "food" ? "음식" : null
-        ),
+        where("category", "==", title === "cafe" ? "카페" : "음식"),
         orderBy("likeNumber", "desc")
       );
       const querySnapshot = await getDocs(q);

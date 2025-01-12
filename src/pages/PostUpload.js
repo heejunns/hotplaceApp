@@ -41,14 +41,12 @@ const PostUpload = () => {
   const navigate = useNavigate(); // useNavigate 훅스를 사용해서 게시글을 올리면 "/" 주소로 강제 이동
   const [uploadImageFileURL, setUploadImageFileURL] = useState(""); // 업로드 하려는 이미지의 주소를 저장
   const [userSelectCategory, setUserSelectCategory] = useState("cafe"); // 사용자가 글을 게시할때 사용자의 주소
-  const [isPostUploadFailModal, setIsPostUploadFailModal] = useState(false);
-  // console.log(userMarkerLocation);
   // 게시글에 올리는 가게의 종류를 고르면 호출되는(라디오) onchange 콜백 함수
   const onchangeUserSelectCategory = useCallback(({ target: { id } }) => {
     setUserSelectCategory(id);
     setValue(
       "category",
-      id === "cafe" ? "카페" : id === "food" ? "음식" : null // 작성자가 선택한 카테고리 종류););)
+      id === "cafe" ? "카페" : "음식" // 작성자가 선택한 카테고리 종류););)
     );
   }, []);
   // 작성한 글을 등록하기 위해 버튼을 클릭했을때 호출되는 콜백함수
@@ -63,12 +61,16 @@ const PostUpload = () => {
       let getUploadFileURL = [];
       if (uploadImageFileURL.length > 0) {
         // 이미지 url 이 있다면 이미지가 있다는 뜻이니까
+
+        // storage ref 만들기
         const storageRefArr = uploadImageFileURL.map((item) => {
-          return ref(storageService, `${user.uid}/${uuidv4()}`); // 이미지 storage 에 저장
+          return ref(storageService, `${user.uid}/${uuidv4()}`);
         });
+        // 이미지 storage 에 저장하는 함수 배열로 만들기
         const uploadFunc = storageRefArr.map((item, index) => {
           return uploadString(item, uploadImageFileURL[index], "data_url");
         });
+        // axios all 로 한번에 저장하기
         await axios.all(uploadFunc);
         const downloadFunc = storageRefArr.map((item) => {
           return getDownloadURL(item);
