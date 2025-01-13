@@ -142,7 +142,7 @@ const Profile = () => {
       if (!noFunc) {
         getCurrentData(selectMenu);
       }
-    }, 1000);
+    }, 100);
     fetchDebounce();
   });
   // 쿼리 코드
