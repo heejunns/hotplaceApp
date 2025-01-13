@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import React from "react";
 import { useRecoilState, useRecoilValue } from "recoil";
 import * as S from "../../styles/components/Home/PostItem.style";
 import { useNavigate } from "react-router-dom";
@@ -10,20 +10,23 @@ import {
 
 // 각각의 게시글
 
-const PostItem = React.forwardRef(({ data }, ref) => {
+const PostItem = ({ data }) => {
   const [loginModal, setLoginModal] = useRecoilState(LoginModalDataAtom);
   const user = useRecoilValue(userAtom);
   const [clickPostItem, setClickPostItem] = useRecoilState(clickPostItemData);
   const navigator = useNavigate();
   // 게시글을 클릭하면 해당 게시글의 디테일 페이지로 이동
   const onClickPostItem = (data) => {
+    // 로그인 되어 있지 않으면 로그인 모달 열고 함수 종료
     if (user === null) {
       setLoginModal((prev) => !prev);
       document.body.style.overflow = "hidden";
 
       return;
     }
+    // 클릭한 데이터 전역 state 로 저장
     setClickPostItem(data);
+    // 디테일 페이지로 이동
     navigator("/detail");
   };
   const calculateTime = (data) => {
@@ -61,7 +64,6 @@ const PostItem = React.forwardRef(({ data }, ref) => {
       <S.PostItemContainer
         image={data.getUploadFileURL}
         onClick={() => onClickPostItem(data)}
-        ref={ref}
       >
         {data.uploadImgUrl && (
           <S.PostItemImg>
@@ -80,6 +82,6 @@ const PostItem = React.forwardRef(({ data }, ref) => {
       </S.PostItemContainer>
     </>
   );
-});
+};
 
 export default PostItem;

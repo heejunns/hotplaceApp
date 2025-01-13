@@ -83,7 +83,6 @@ const Header = () => {
         )} */}
           <HeaderStyle.HeaderNav>
             {headerData.map((item) => {
-              console.log("뭐야", pathname === item.url);
               return item.name === "게시글 업로드" ? (
                 <HeaderStyle.HeaderNavItem
                   onClick={() => {

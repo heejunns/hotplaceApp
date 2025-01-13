@@ -13,8 +13,7 @@ import PostItem from "../components/Home/PostItem";
 import { useRecoilState, useRecoilValue } from "recoil";
 import { currentPageAtom, userAtom } from "../recoils/UserAtom";
 import * as S from "../styles/pages/Profile.style";
-import ProfileImgUploadModal from "../components/ProfileImgUploadModal";
-import ProfileNameEditModal from "../components/ProfileNameEditModal";
+
 import { Loading } from "../styles/components/Loading.style";
 import { FadeLoader, PulseLoader } from "react-spinners";
 import { useQuery } from "@tanstack/react-query";
@@ -36,16 +35,12 @@ const Profile = () => {
   console.log(user);
   const profileImg = user && user.photoURL;
   const [selectMenu, setSelectMenu] = useState("userProfile");
-  const [isProfileImgUploadModal, setIsProfileImgUploadModal] = useState(false);
-  const [isProfileNameEditModal, setIsProfileNameEditModal] = useState(false);
   const [profileData, setProfileData] = useState([]);
   const [currentData, setCurrentData] = useState([]);
   const [noFunc, setNoFunc] = useState(false);
   const [profileDataLoading, setProfileDataLoading] = useState(false);
   const [start, setStart] = useState();
-  const onclickProfileImgUploadIcon = () => {
-    setIsProfileImgUploadModal((prev) => !prev);
-  };
+
   console.log(profileData);
   // 해당 유저가 작성한 글을 실시간으로 가져오기
 
@@ -105,7 +100,7 @@ const Profile = () => {
           collection(dbService, "test"),
           where("writer", "==", user.uid),
           orderBy("createTime", "desc"),
-          limit(9),
+          limit(12),
           startAt(start)
         );
       } else if (selectMenu === "userLike") {
@@ -113,7 +108,7 @@ const Profile = () => {
           collection(dbService, "test"),
           where("likeMember", "array-contains", user.uid),
           orderBy("createTime", "desc"),
-          limit(9),
+          limit(12),
           startAt(start)
         );
       }
@@ -127,10 +122,10 @@ const Profile = () => {
       if (data.length === 0) {
         setNoFunc(true);
       }
-      if (data.length === 9) {
-        setStart(data[8].createTime);
-        setCurrentData((prev) => prev.concat(data.slice(0, 8)));
-      } else if (data.length < 9) {
+      if (data.length === 12) {
+        setStart(data[11].createTime);
+        setCurrentData((prev) => prev.concat(data.slice(0, 11)));
+      } else if (data.length < 12) {
         // setNoFunc(true);
         setStart(null);
         setCurrentData((prev) => prev.concat(data));
@@ -140,10 +135,10 @@ const Profile = () => {
     }
   };
 
+  // 스크롤이 바닥에 닿으면 콜백함수 호출
   useBottomScrollListener(() => {
     console.log("hello");
     const fetchDebounce = debounce(() => {
-      console.log("호출해");
       if (!noFunc) {
         getCurrentData(selectMenu);
       }
@@ -225,16 +220,7 @@ const Profile = () => {
           <PageNation currentData={currentData} postData={profileData} />
         )} */}
       </S.ProfileBack>
-      {isProfileImgUploadModal && (
-        <ProfileImgUploadModal
-          setIsProfileImgUploadModal={setIsProfileImgUploadModal}
-        />
-      )}
-      {isProfileNameEditModal && (
-        <ProfileNameEditModal
-          setIsProfileNameEditModal={setIsProfileNameEditModal}
-        />
-      )}
+
       {profileDataLoading && (
         <Loading>
           <FadeLoader color="black" size={20} />

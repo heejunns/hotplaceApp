@@ -1,8 +1,5 @@
 import * as S from "../../styles/components/Home/HomeSlide.style";
-import { collection, getDocs, limit, orderBy, query } from "firebase/firestore";
-import { dbService } from "../../reactfbase";
-import { memo, useEffect, useRef, useState } from "react";
-import { useQuery } from "@tanstack/react-query";
+import { memo } from "react";
 import homeBack from "../../img/homeBack.png";
 
 const HomeSlide = () => {

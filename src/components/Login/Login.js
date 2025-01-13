@@ -62,6 +62,8 @@ export default function Login() {
       console.log("click");
       const dataGoogle = await signInWithPopup(authService, provider);
       GoogleAuthProvider.credentialFromResult(dataGoogle);
+
+      // login 모달 그기
       setLoginModal((prev) => !prev);
       document.body.style.overflow = "unset";
     } catch (e) {

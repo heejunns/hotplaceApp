@@ -25,22 +25,7 @@ const TopPostItem = ({ data, ranking }) => {
     setClickPostItem(data);
     navigator("/detail");
   };
-  const calculateTime = (data) => {
-    // 게시글을 올린지 얼마나 지났는지 시간을 계산하는 함수
-    const minute = (Date.now() - data.createTime) / 1000 / 60;
-    if (Math.round(minute) < 60) {
-      return Math.round(minute) === 0 ? "지금" : `${Math.round(minute)} 분 전`;
-    } else if (Math.round(minute) > 59 && Math.round(minute / 60) < 24) {
-      return `${Math.round(minute / 60)} 시간 전`;
-    } else if (
-      Math.round(minute / 60) > 23 &&
-      Math.round(minute / 60 / 24) < 31
-    ) {
-      return `${Math.round(minute / 60 / 24)} 일 전`;
-    } else if (Math.round(minute / 60 / 24) > 30) {
-      return "한달 전";
-    }
-  };
+
   return (
     <>
       <TopPostItemContainer
