@@ -33,6 +33,8 @@ const Header = () => {
   const hamburgerRef = useRef();
   useEffect(() => {
     const outSideClick = ({ target }) => {
+      console.log(target);
+      // 클릭한 돔 (태그) 가 ref 태그에 포함되지 않으면 사이드바 닫기
       if (
         sideBarRef &&
         hamburgerRef &&
@@ -42,7 +44,7 @@ const Header = () => {
         !hamburgerRef.current.contains(target)
       ) {
         setClickHamburgerBtn(false);
-        document.body.style.overflow = "unset";
+        document.body.style.overflow = "";
       }
     };
     document.addEventListener("mousedown", outSideClick);
@@ -99,7 +101,6 @@ const Header = () => {
               ) : (
                 <HeaderStyle.HeaderNavItem>
                   <Link
-                    currentPath={pathname === item.url}
                     to={
                       item.name === "게시글 올리기"
                         ? user

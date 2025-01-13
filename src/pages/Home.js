@@ -127,7 +127,7 @@ const Home = () => {
       queryContent = query(
         collection(dbService, "test"),
         orderBy("likeNumber", "desc"),
-        limit(5),
+
         startAfter(start)
       );
     }
@@ -143,6 +143,11 @@ const Home = () => {
       querySnapshot.forEach((doc) => {
         data.push({ id: doc.id, ...doc.data() });
       });
+      if (currentSelectSort === "좋아요 순으로 보기") {
+        setHomeData((prev) => prev.concat(data));
+        setNoFunc(true);
+        setStart(null);
+      }
       if (data.length === 5) {
         // 데이터가 5개면
         // 마지막 데이터의 생성시간 저장
@@ -219,6 +224,9 @@ const Home = () => {
 
   // 사용자가 드롭박스에서 게시글 분류 방법을 선택해 클릭하면 호출되는 콜백함수, 사용자가 클릭한 분류 방법에 해당하는 데이터를 서버에 요청해 데이터를 받아오는 함수
   const onclickSelectSortChange = (selectMethod) => {
+    if (currentSelectSort === selectMethod) {
+      return;
+    }
     setCurrentSelectSort(selectMethod);
     setHomeData([]);
     setNoFunc(false);
